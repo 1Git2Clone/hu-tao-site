@@ -7,20 +7,35 @@
 	import { GITHUB_PROFILE_NAME, TWITTER_PROFILE_HANDLE } from '$lib/utils/consts';
 </script>
 
-<header class="border-b">
-	<div class="mx-auto flex max-w-4xl items-center justify-between p-4">
-		<a href="/" class="text-lg font-bold">1k2s</a>
+<header class="h-16 border-b bg-primary">
+	<div class="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
+		<a href="/" class="text-lg font-bold">
+			<span class="sm:hidden">1G2C</span>
+			<span class="hidden sm:inline">1Git2Clone</span>
+		</a>
 
-		<Nav />
+		<div class="absolute left-1/2 -translate-x-1/2 transform">
+			<Nav />
+		</div>
 
 		<div class="flex items-center gap-4">
-			<a href={`https://github.com/${GITHUB_PROFILE_NAME}`} aria-label="GitHub">
+			<a
+				href={`https://github.com/${GITHUB_PROFILE_NAME}`}
+				aria-label="GitHub"
+				class="hidden sm:inline-flex"
+			>
 				<GitHub />
 			</a>
 
-			<a href={`https://twitter.com/${TWITTER_PROFILE_HANDLE}`} aria-label="Twitter">
+			<a
+				href={`https://twitter.com/${TWITTER_PROFILE_HANDLE}`}
+				aria-label="Twitter"
+				class="hidden sm:inline-flex"
+			>
 				<Twitter />
 			</a>
+
+			<div></div>
 
 			<ThemeToggle />
 		</div>

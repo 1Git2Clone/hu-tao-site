@@ -8,7 +8,7 @@
 	{#each data.posts as post}
 		<li>
 			<a class="text-xl underline" href={`/blog/${post.slug}`}>
-				{post.title}
+				{post.metadata.title}
 			</a>
 		</li>
 	{/each}
