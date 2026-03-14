@@ -1,0 +1,44 @@
+@font-face {
+  font-family: "JetBrainsMonoNerd";
+  src: url("/fonts/JetBrainsMonoNerdFont-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrainsMonoNerd";
+  src: url("/fonts/JetBrainsMonoNerdFont-LightItalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrainsMonoNerd";
+  src: url("/fonts/JetBrainsMonoNerdFont-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrainsMonoNerd";
+  src: url("/fonts/JetBrainsMonoNerdFont-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrainsMonoNerd";
+  src: url("/fonts/JetBrainsMonoNerdFont-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+body, button, input, select, textarea {
+  font-family: "JetBrainsMonoNerd", monospace;
+  line-height: 1.6;
+}
