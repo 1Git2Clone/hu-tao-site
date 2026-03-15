@@ -5,6 +5,9 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import '$lib/styles/font.css';
 
+	import { fade } from 'svelte/transition';
+	import { page } from '$app/state';
+
 	let { children } = $props();
 </script>
 
@@ -12,10 +15,25 @@
 <Header />
 
 <main
-	class="mx-auto w-screen max-w-4xl bg-primary p-6"
-	style="min-height: calc(100vh - 6rem - 4rem); /* screen - footer - header */"
+	class="relative mx-auto w-screen max-w-4xl bg-primary p-6"
+	style="min-height: calc(100vh - 6rem - 4rem);"
 >
-	{@render children()}
+	{#key page.url.pathname}
+		<div class="grid-stack" in:fade={{ duration: 150, delay: 150 }} out:fade={{ duration: 150 }}>
+			{@render children()}
+		</div>
+	{/key}
 </main>
 
 <Footer />
+
+<style>
+	.grid-stack {
+		display: grid;
+		grid-template-areas: 'stack';
+	}
+
+	.grid-stack > :global(*) {
+		grid-area: stack;
+	}
+</style>

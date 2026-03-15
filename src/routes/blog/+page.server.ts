@@ -1,14 +1,5 @@
 import type { Load } from '@sveltejs/kit';
-
-export interface PostMetadata {
-  title: string;
-  date: Date;
-}
-
-export interface Post {
-  slug: string;
-  metadata: PostMetadata;
-}
+import { type Post, type PostMetadata } from '$lib/data/posts'
 
 export const load: Load = async () => {
   const modules = import.meta.glob('$lib/content/posts/*.svx', { eager: true });
