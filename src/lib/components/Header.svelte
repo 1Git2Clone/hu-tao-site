@@ -8,7 +8,7 @@
 </script>
 
 <header class="h-16 border-b bg-primary">
-	<div class="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
+	<div class="mx-auto flex max-w-4xl items-center justify-between px-6 py-3">
 		<a href="/" class="text-lg font-bold">
 			<span class="sm:hidden">1G2C</span>
 			<span class="hidden sm:inline">1Git2Clone</span>
