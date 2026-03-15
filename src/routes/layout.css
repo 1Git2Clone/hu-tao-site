@@ -8,6 +8,7 @@
 
   --color-accent: var(--color-red-500);
   --color-accent-hover: var(--color-red-700);
+  --color-highlight: var(--color-rose-700);
 }
 
 .dark {
@@ -17,6 +18,7 @@
 
   --color-accent: var(--color-red-300);
   --color-accent-hover: var(--color-red-500);
+  --color-highlight: var(--color-rose-500);
 }
 
 * {

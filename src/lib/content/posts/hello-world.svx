@@ -1,5 +1,6 @@
 ---
 title: Hello World
+summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 date: January 01 2026
 ---
 
