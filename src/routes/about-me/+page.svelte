@@ -13,7 +13,7 @@
 		| 'Ruby'
 		| 'Java'
 		| 'Kotlin';
-	type Tag = 'web' | 'ai' | 'systems' | 'tooling' | 'personal';
+	type Tag = 'web' | 'ai' | 'systems' | 'tooling' | 'personal' | 'backend';
 
 	interface Project {
 		title: string;
@@ -73,6 +73,21 @@ Cupiditate numquam molestias cumque placeat a iste, eveniet eius modi nihil
 voluptatum doloribus sed ut aliquid dicta. Voluptatibus culpa possimus
 reiciendis odio.`,
 			tags: ['personal', 'web']
+		},
+		{
+			title: 'Project Zetta',
+			image: '/images/project-zetta.png',
+			techStack: {
+				devops: [],
+				libraries: ['Actix'],
+				languages: ['Rust']
+			},
+			summary: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+			description: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
+Cupiditate numquam molestias cumque placeat a iste, eveniet eius modi nihil
+voluptatum doloribus sed ut aliquid dicta. Voluptatibus culpa possimus
+reiciendis odio.`,
+			tags: ['backend', 'web']
 		}
 	];
 </script>
@@ -90,7 +105,7 @@ reiciendis odio.`,
 		</p>
 	</section>
 
-	<section class="grid gap-6 md:grid-cols-3">
+	<section class="grid gap-6 md:grid-cols-2">
 		{#each projects as project}
 			<div class="border-border rounded-lg border p-6">
 				{#if project.image}
