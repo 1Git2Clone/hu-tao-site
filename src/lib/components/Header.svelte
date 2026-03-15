@@ -4,14 +4,19 @@
 	import Twitter from '$lib/components/icons/Twitter.svelte';
 	import ThemeToggle from './ThemeToggle.svelte';
 
-	import { GITHUB_PROFILE_NAME, TWITTER_PROFILE_HANDLE } from '$lib/utils/consts';
+	import {
+		GITHUB_PROFILE_NAME,
+		SITE_TITLE,
+		SITE_TITLE_SHORT,
+		TWITTER_PROFILE_HANDLE
+	} from '$lib/utils/consts';
 </script>
 
 <header class="h-16 border-b bg-primary">
 	<div class="mx-auto flex max-w-4xl items-center justify-between px-6 py-3">
 		<a href="/" class="text-lg font-bold">
-			<span class="sm:hidden">1G2C</span>
-			<span class="hidden sm:inline">1Git2Clone</span>
+			<span class="sm:hidden">{SITE_TITLE_SHORT}</span>
+			<span class="hidden sm:inline">{SITE_TITLE}</span>
 		</a>
 
 		<div class="absolute left-1/2 -translate-x-1/2 transform">
