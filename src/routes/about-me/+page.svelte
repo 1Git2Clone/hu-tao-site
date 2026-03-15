@@ -18,6 +18,7 @@
 	interface Project {
 		title: string;
 		image?: string;
+		source_url?: string;
 		techStack: {
 			devops: DevOps[];
 			libraries: Libraries[];
@@ -32,6 +33,7 @@
 		{
 			title: 'Project Alpha',
 			image: '/images/project-alpha.png',
+			source_url: 'https://example.com',
 			techStack: {
 				devops: ['Docker', 'GitHub Actions'],
 				libraries: ['Svelte', 'TailwindCSS'],
@@ -46,6 +48,7 @@ reiciendis odio.`,
 		},
 		{
 			title: 'Project Beta',
+			source_url: 'https://example.com',
 			image: '/images/project-beta.png',
 			techStack: {
 				devops: ['Kubernetes'],
@@ -61,6 +64,7 @@ reiciendis odio.`,
 		},
 		{
 			title: 'Project Gamma',
+			source_url: 'https://example.com',
 			image: '/images/project-gamma.png',
 			techStack: {
 				devops: [],
@@ -112,7 +116,19 @@ reiciendis odio.`,
 					<img src={project.image} alt={`${project.title} Cover Image`} class="mb-4 rounded" />
 				{/if}
 
-				<h2 class="text-xl font-semibold">{project.title}</h2>
+				<h2 class="text-xl font-semibold">
+					{#if project.source_url}
+						<a
+							href={project.source_url}
+							target="_blank"
+							aria-label={`View ${project.title}' source code`}
+						>
+							{project.title}
+						</a>
+					{:else}
+						{project.title}
+					{/if}
+				</h2>
 				<p class="text-muted-foreground mt-2">{project.summary}</p>
 
 				<div class="text-muted-foreground mt-2 text-sm">
