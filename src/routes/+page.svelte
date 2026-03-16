@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { SITE_TITLE } from '$lib/utils/consts';
+	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	let { data } = $props();
 </script>
 
-<div class="space-y-8">
+<div class="min-w-0 space-y-8">
 	<section class="border-border rounded-lg border bg-muted/40 p-8">
 		<h1 class="text-4xl font-bold tracking-tight">Welcome to {SITE_TITLE}!</h1>
 		<p class="text-muted-foreground mt-4 text-lg">My personal portfolio and blog page.</p>
@@ -16,6 +18,11 @@
 			isn't it?
 		</p>
 	</section>
+	<div class="flex w-full min-w-0 flex-col overflow-hidden">
+		<section class="w-full min-w-0 overflow-hidden">
+			<CodeBlock lang={data.language}>{data.snippet}</CodeBlock>
+		</section>
+	</div>
 
 	<section class="grid gap-6 text-center md:grid-cols-3">
 		{#each [1, 2, 3] as i}

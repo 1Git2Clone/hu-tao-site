@@ -1,11 +1,43 @@
 ---
 title: Hello World
 summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-date: January 01 2026
+snippets:
+  - file: example.py
+    lang: python
+    label: "Python Code"
+  - file: example.rs
+    lang: rust
+    label: "Rust Code"
+  - file: foo/bar.js
+    lang: javascript
+    label: "JS Code"
 ---
 
-# Hello World
+<script lang="ts">
+  import CodeBlock from '$lib/components/CodeBlock.svelte';
+  import YouTube from '$lib/components/YouTube.svelte';
 
-This is a markdown page powered by mdsvex.
+  export let fetchedSnippets = {};
+</script>
 
-<button>Interactive button</button>
+# {title}
+
+<YouTube id="fwxjMKBMR7s" title="Dijkstra's Hidden Prime Finding Algorithm" />
+
+<h2>{fetchedSnippets['example.py'].label}</h2>
+
+<CodeBlock lang={fetchedSnippets['example.py'].lang}>
+  {fetchedSnippets['example.py'].content}
+</CodeBlock>
+
+<h2>{fetchedSnippets['example.rs'].label}</h2>
+
+<CodeBlock lang={fetchedSnippets['example.rs'].lang}>
+  {fetchedSnippets['example.rs'].content}
+</CodeBlock>
+
+<h2>{fetchedSnippets['foo/bar.js'].label}</h2>
+
+<CodeBlock lang={fetchedSnippets['foo/bar.js'].lang}>
+  {fetchedSnippets['foo/bar.js'].content}
+</CodeBlock>
