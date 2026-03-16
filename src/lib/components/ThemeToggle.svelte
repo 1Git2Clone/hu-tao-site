@@ -12,8 +12,8 @@
 	<span
 		class="flex items-center justify-center text-2xl leading-none"
 		style={mode.current === 'dark' /* align font in the center */
-			? `transform: translateX(-2.2px);`
-			: `transform: translateX(-3.5px);`}
+			? `transform: translateX(-2.6px);`
+			: `transform: translateX(-4.0px);`}
 	>
 		{#if mode.current === 'dark'}
 			
