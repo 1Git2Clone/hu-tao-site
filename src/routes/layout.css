@@ -1,4 +1,10 @@
 @import 'tailwindcss';
+@plugin '@tailwindcss/forms'{
+  strategy: "class";
+}
+@plugin '@tailwindcss/typography' {
+  strategy: "class";
+}
 @variant dark (&:where(.dark, .dark *));
 @theme {
 	--color-primary: #eeeeee;
