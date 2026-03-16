@@ -15,7 +15,7 @@
 <Header />
 
 <main
-	class="relative mx-auto w-screen max-w-4xl bg-primary p-6"
+	class="relative mx-auto w-screen bg-primary p-6"
 	style="min-height: calc(100vh - 6rem - 4rem);"
 >
 	{#key page.url.pathname}
