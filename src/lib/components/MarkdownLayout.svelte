@@ -11,7 +11,7 @@
 	<div class="grid grid-cols-1 xl:grid-cols-[16rem_minmax(0,52rem)_16rem] xl:gap-12">
 		<div class="hidden xl:block"></div>
 
-		<article class="max-w-none min-w-0 py-12 wrap-break-word">
+		<article class="prose dark:prose-invert max-w-none min-w-0 py-12 wrap-break-word">
 			{#if title}
 				<h1 id={slugify(title)}>{title}</h1>
 			{/if}
@@ -20,7 +20,7 @@
 				<span>{date}</span> • <span>{readingTime}</span>
 			</div>
 
-			<div class="mb-8 xl:hidden">
+			<div class="not-prose mb-8 xl:hidden">
 				<details class="dark:border-accent-bg-hover rounded-lg border border-primary bg-muted/40">
 					<summary
 						class="text-primary-900 flex cursor-pointer list-none items-center justify-between p-4 font-bold dark:text-white"
