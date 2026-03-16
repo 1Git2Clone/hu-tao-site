@@ -4,8 +4,6 @@ summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
 date: January 01 2026
 ---
 
-# Hello World 2
-
 This is a markdown page powered by mdsvex.
 
 <button>Interactive button</button>

@@ -9,6 +9,7 @@
 
   --color-accent: var(--color-red-500);
   --color-accent-hover: var(--color-red-700);
+  --color-accent-bg: var(--color-red-900);
   --color-highlight: var(--color-rose-700);
 }
 
@@ -20,6 +21,7 @@
 
   --color-accent: var(--color-red-300);
   --color-accent-hover: var(--color-red-500);
+  --color-accent-bg: var(--color-red-900);
   --color-highlight: var(--color-rose-500);
 }
 
@@ -81,4 +83,18 @@ p {
     width: 100% !important;
     min-width: 0 !important;
     max-width: 100% !important;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    width: 4px;
+}
+
+.scrollbar-hide::-webkit-scrollbar-thumb {
+    background: #e2e8f0; /* slate-200 */
+    border-radius: 10px;
+}
+
+.scrollbar-hide {
+    scrollbar-width: thin;
+    scrollbar-color: #e2e8f0 transparent;
 }

@@ -1,0 +1,152 @@
+---
+title: Understanding Big O Notation
+summary: A deep dive into Time and Space complexity, common algorithms, and the nuances of mathematical notations in programming.
+date: April 24 2024
+snippets:
+  - file: big-o/examples.py
+    lang: python
+    label: "Common Complexity Examples"
+---
+
+<script lang="ts">
+  import CodeBlock from '$lib/components/CodeBlock.svelte';
+  import YouTube from '$lib/components/YouTube.svelte';
+  import Math from '$lib/components/Math.svelte';
+
+  export let fetchedSnippets = {};
+
+  // Define math strings here to avoid Svelte/MDX parsing curly braces as variables
+  const n = "n";
+  const o1 = "O(1)";
+  const logN = "O(\\log n)";
+  const oN = "O(n)";
+  const nLogN = "O(n \\log n)";
+  const nSquared = "O(n^2)";
+  const sqrtN = "O(\\sqrt{n})";
+  const sieveTime = "O(n \\log \\log n)";
+  const omega = "\\Omega";
+  const theta = "\\Theta";
+
+  // Definitions
+  const bigODef = "0 \\le f(n) \\le C g(n) \\text{ for all } n \\ge n_0";
+  const bigOmegaDef = "0 \\le C g(n) \\le f(n) \\text{ for all } n \\ge n_0";
+  const bigThetaDef = "0 \\le C_2 g(n) \\le f(n) \\le C_1 g(n) \\text{ for all } n \\ge n_0";
+
+  const leq = "\\le";
+  const geq = "\\ge";
+</script>
+
+> **IMPORTANT**: this is not the original blog, just a placeholder for testing.
+> I'll get to rewriting the original one in the future. In the meantime, it can
+> be found in:
+> [`1k2s.netlify.app`](https://1k2s.netlify.app/blog/understanding-big-o-notation).
+
+Big O Notation is a mathematical notation that describes the behavior of a
+value (most commonly denoted as <Math math={n} />) as it reaches infinity. While the
+mathematical explanation is standard, there's a nuance in programming: it
+applies to both **Time Complexity** and **Space Complexity**.
+
+## Dictionary
+
+* **Time Complexity**: Resources needed by the CPU to finish evaluating the algorithm at runtime.
+* **Space Complexity**: Memory resources needed to complete the algorithm.
+* **Compile Time**: Not measured with Big O. This is the time your compiler or interpreter takes to translate code.
+* **Runtime**: When the program is actually executed. This is what LeetCode measures.
+
+---
+
+## Analysis
+
+
+
+### <Math math={o1} /> - Constant Complexity
+
+Common for:
+* Pushing an item to the front of a vector.
+* Looking up an item in a Hash Map/Set.
+* Getting the first element of a linked list.
+
+### <Math math={logN} /> - Logarithmic Complexity
+
+Primary use is **Binary Search**. It is the gold standard for searching sorted data sets.
+
+### <Math math={oN} /> - Linear Complexity
+
+Doing at least one full iteration on your data.  
+> **Note:** Removing the last item of a vector is <Math math={o1} />, but removing the
+> first item is <Math math={oN} /> because you must rearrange all subsequent items.
+
+### <Math math={nLogN} /> - Linearithmic Complexity
+
+Usually where efficient sorting algorithms fall: **Quicksort**, **Heapsort**, and **Merge sort**.
+
+### <Math math={nSquared} /> - Quadratic Complexity
+
+Commonly seen in nested loops or matrix traversals (`arr[i][j]`). Bubble Sort also falls here.
+
+### Code Implementation Examples
+
+<CodeBlock lang={fetchedSnippets[0]?.lang}>
+  {fetchedSnippets[0]?.content}
+</CodeBlock>
+
+---
+
+## Optimizing for Memory vs. Space
+
+Finding prime numbers is a great way to visualize this trade-off.
+
+<YouTube id="fwxjMKBMR7s" title="Finding Primes - b001" />
+
+### 1. Trial Division
+
+The most memory-efficient but slowest method. It relies on the fact
+that divisors are mirrored around the square root of <Math math={n} />.
+
+* **Space**: <Math math={o1} />
+* **Time**: <Math math={sqrtN} />
+
+### 2. Sieve of Eratosthenes
+
+The quickest for bulk evaluation.
+
+* **Time**: <Math math={sieveTime} />
+* **Space**: <Math math={oN} /> (requires a boolean array up to `n`)
+
+### 3. Dijkstra's Approach
+
+A balanced approach using a "pool" of tuples to track multiples, avoiding the
+massive memory hit of the Sieve while staying faster than Trial Division.
+
+---
+
+## Not only Big O
+
+Big O describes the **worst-case scenario**. Mathematically:
+
+<Math math={bigODef} />
+
+### Big Omega (<Math math={omega} />)
+
+Describes the **best-case scenario** (lower bound):
+
+<Math math={bigOmegaDef} />
+
+### Big Theta (<Math math={theta} />)
+
+Describes the **tightest bound** (average case):
+
+<Math math={bigThetaDef} />
+
+---
+
+## Summary
+
+* **Big O** is like <Math math={leq} /> (Worst case / Upper bound)
+* **Big {omega}** is like <Math math={geq} /> (Best case / Lower bound)
+* **Big {theta}** is like `==` (Tightly bounded / Average case)
+
+Determining what to optimize depends on your specific use case. In game dev,
+memory efficiency is often a speed improvement. In web apps, raw CPU runtime
+might be your bottleneck.
+
