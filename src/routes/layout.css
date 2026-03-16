@@ -27,6 +27,22 @@
 	box-sizing: border-box;
 }
 
+.background {
+  background: linear-gradient(
+      rgba(200, 200, 200, 0.8),
+      rgba(175, 175, 175, 0.95)
+    );
+  background-repeat: repeat;
+}
+
+.dark .background {
+  background: linear-gradient(
+      rgba(30, 30, 30, 0.5),
+      rgba(10, 10, 10, 0.85)
+    );
+  background-repeat: repeat;
+}
+
 a,
 button {
   color: var(--color-accent);
@@ -57,4 +73,12 @@ h5,
 h6,
 p {
   color: var(--color-textcol);
+}
+
+.group.border-border {
+    display: flex;
+    flex-direction: column;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
 }

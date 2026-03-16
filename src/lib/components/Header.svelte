@@ -12,7 +12,7 @@
 	} from '$lib/utils/consts';
 </script>
 
-<header class="h-16 border-b bg-primary">
+<header class="background h-16 border-b">
 	<div class="mx-auto flex items-center justify-between px-6 py-3">
 		<a href="/" class="text-lg font-bold">
 			<span class="sm:hidden">{SITE_TITLE_SHORT}</span>
