@@ -16,28 +16,74 @@ snippets:
 <script lang="ts">
   import CodeBlock from '$lib/components/CodeBlock.svelte';
   import YouTube from '$lib/components/YouTube.svelte';
+  import Math from '$lib/components/Math.svelte';
 
   export let fetchedSnippets = {};
+
+  const nSquared = "O(n^2)";
 </script>
 
-# {title}
+<YouTube id="fwxjMKBMR7s" title="Finding Primes - b001" />
 
-<YouTube id="fwxjMKBMR7s" title="Dijkstra's Hidden Prime Finding Algorithm" />
+## {fetchedSnippets[0].label}
 
-<h2>{fetchedSnippets['example.py'].label}</h2>
-
-<CodeBlock lang={fetchedSnippets['example.py'].lang}>
-  {fetchedSnippets['example.py'].content}
+<CodeBlock lang={fetchedSnippets[0].lang}>
+  {fetchedSnippets[0].content}
 </CodeBlock>
 
-<h2>{fetchedSnippets['example.rs'].label}</h2>
+## {fetchedSnippets[1].label}
 
-<CodeBlock lang={fetchedSnippets['example.rs'].lang}>
-  {fetchedSnippets['example.rs'].content}
+<CodeBlock lang={fetchedSnippets[1].lang}>
+  {fetchedSnippets[1].content}
 </CodeBlock>
 
-<h2>{fetchedSnippets['foo/bar.js'].label}</h2>
+## {fetchedSnippets[2].label}
 
-<CodeBlock lang={fetchedSnippets['foo/bar.js'].lang}>
-  {fetchedSnippets['foo/bar.js'].content}
+<CodeBlock lang={fetchedSnippets[2].lang}>
+  {fetchedSnippets[2].content}
 </CodeBlock>
+
+### <Math math={nSquared} /> - Quadratic Complexity
+
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
+## Test heading
