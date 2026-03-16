@@ -57,7 +57,7 @@
 			{@const post = result.item}
 			<div class="border-border rounded-lg border p-6 transition-all">
 				<h2 class="text-xl font-semibold">
-					<a class="text-xl underline hover:text-primary" href={`/blog/${post.slug}`}>
+					<a class="text-xl underline hover:text-textcol" href={`/blog/${post.slug}`}>
 						<Highlight
 							text={post.metadata.title}
 							matches={result.matches}

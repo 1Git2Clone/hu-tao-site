@@ -3,6 +3,7 @@
 @plugin '@tailwindcss/typography';
 @theme {
 	--color-primary: #eeeeee;
+	--color-textcol: #333333;
 	--color-muted: #eaeaea;
 	--color-tertiary: #9e9e9e;
 
@@ -13,6 +14,7 @@
 
 .dark {
 	--color-primary: #333333;
+	--color-textcol: #eeeeee;
 	--color-muted: #242424;
 	--color-tertiary: #6a6a6a;
 
