@@ -5,6 +5,7 @@
 
 	let { data } = $props();
 	let searchQuery = $state('');
+	let searchInput: HTMLInputElement | undefined = $state();
 
 	const fuse = $derived(
 		new Fuse(data.posts, {
@@ -23,32 +24,45 @@
 			? fuse.search(searchQuery)
 			: data.posts.map((p) => ({ item: p, matches: [] }))
 	);
+
+	function handleKeydown(e: KeyboardEvent) {
+		if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+			e.preventDefault();
+			searchInput?.focus();
+		}
+		if (e.code === 'Escape') {
+			e.preventDefault();
+			searchInput?.blur();
+		}
+	}
 </script>
+
+<svelte:window onkeydown={handleKeydown} />
 
 <div class="space-y-8">
 	<section class="border-border flex flex-col items-center rounded-lg border bg-muted/40 p-8">
 		<h1 class="text-center text-4xl font-bold tracking-tight">Blog</h1>
-		<div class="mt-2 text-center">
-			<sub class="text-muted-foreground contents">
-				A collection of blogs ranging from all sorts of topics.
-			</sub>
-		</div>
-
 		<div
-			class="border-border bg-background mt-6 flex w-full max-w-md items-center gap-2 rounded-full border px-2 py-1"
+			class="border-border bg-background mt-6 flex w-full max-w-md items-center gap-2 rounded border px-2 py-1 transition-shadow focus-within:ring-2 focus-within:ring-primary"
 		>
 			<span
-				class="flex size-10 items-center justify-center text-xl leading-none"
+				class="text-muted-foreground flex size-10 items-center justify-center text-xl leading-none"
 				style="transform: translateX(-2px);"
 			>
 				
 			</span>
 			<input
+				bind:this={searchInput}
 				type="text"
 				bind:value={searchQuery}
 				placeholder="Search posts..."
 				class="placeholder:text-muted-foreground w-full border-0 bg-transparent ring-0 outline-none focus:border-0 focus:ring-0 focus:outline-none"
 			/>
+			<kbd
+				class="hidden h-8 w-16 items-center justify-around gap-2 rounded bg-muted px-2 text-lg opacity-100 md:inline-flex"
+			>
+				<span class=""> ⌘ </span> K
+			</kbd>
 		</div>
 	</section>
 
