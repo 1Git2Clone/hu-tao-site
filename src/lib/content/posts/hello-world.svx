@@ -45,7 +45,11 @@ snippets:
 
 ### <Math math={nSquared} /> - Quadratic Complexity
 
-## Test heading
+## Test heading 2
+### Test heading 3
+#### Test heading 4
+##### Test heading 5
+###### Test heading 6
 ## Test heading
 ## Test heading
 ## Test heading

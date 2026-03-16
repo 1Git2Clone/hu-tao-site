@@ -5,13 +5,46 @@
 	export let title: string;
 	export let date: string;
 	export let readingTime: string;
+
+	function headingCopy(node: HTMLElement) {
+		const handleGlobalClick = (event: MouseEvent) => {
+			const target = event.target as HTMLElement;
+			const heading = target.closest('h1, h2, h3, h4, h5, h6') as HTMLElement | null;
+
+			if (heading && node.contains(heading)) {
+				const id = heading.id;
+				if (!id) {
+					console.warn(`No heading ID for ${heading}`);
+					return;
+				}
+
+				const url = new URL(window.location.href);
+				url.hash = id;
+				const fullLink = url.toString();
+
+				navigator.clipboard.writeText(fullLink).then(() => {
+					heading.classList.add('copied');
+					setTimeout(() => heading.classList.remove('copied'), 1250);
+				});
+			}
+		};
+
+		node.addEventListener('click', handleGlobalClick);
+		return {
+			destroy: () => node.removeEventListener('click', handleGlobalClick)
+		};
+	}
 </script>
 
 <div class="mx-auto w-full max-w-400">
 	<div class="grid grid-cols-1 xl:grid-cols-[16rem_minmax(0,52rem)_16rem] xl:gap-12">
 		<div class="hidden xl:block"></div>
 
-		<article class="prose dark:prose-invert max-w-none min-w-0 py-12 wrap-break-word">
+		<article
+			id="markdown-article"
+			use:headingCopy
+			class="prose max-w-none min-w-0 py-12 wrap-break-word dark:prose-invert"
+		>
 			{#if title}
 				<h1 id={slugify(title)}>{title}</h1>
 			{/if}
@@ -52,8 +85,45 @@
 		padding: 0.5rem 0;
 	}
 
-	article {
-		min-width: 0; /* The magic fix for grid/flex children overflow */
-		word-wrap: break-word;
+	#markdown-article :global(:is(h1, h2, h3, h4, h5, h6)) {
+		position: relative;
+		cursor: pointer;
+	}
+
+	#markdown-article :global(:is(h1)) {
+		padding-left: 2.75rem;
+	}
+
+	#markdown-article :global(:is(h2)) {
+		padding-left: 2rem;
+	}
+
+	#markdown-article :global(:is(h3, h4, h5, h6)) {
+		padding-left: 1.75rem;
+	}
+
+	#markdown-article :global(:is(h1, h2, h3, h4, h5, h6)::before) {
+		content: '';
+		position: absolute;
+		left: 0;
+		color: var(--color-accent);
+		opacity: 0.5;
+		transition: all 0.2s ease;
+		user-select: none;
+	}
+
+	#markdown-article :global(:is(h1, h2, h3, h4, h5, h6):hover::before) {
+		opacity: 1;
+		/* transform: scale(1.1); */
+	}
+
+	#markdown-article :global(:is(h1, h2, h3, h4, h5, h6).copied::before) {
+		content: '';
+		color: var(--color-highlight);
+		opacity: 1;
+	}
+
+	#markdown-article :global(:is(h1, h2, h3, h4, h5, h6).copied) {
+		color: var(--color-accent);
 	}
 </style>
