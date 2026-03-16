@@ -15,7 +15,7 @@
 <Header />
 
 <main
-	class="relative mx-auto w-screen p-6 dark:bg-black/70"
+	class="relative mx-auto w-screen bg-gray-200 p-6 dark:bg-black/70"
 	style="min-height: calc(100vh - 6rem - 4rem);"
 >
 	{#key page.url.pathname}
