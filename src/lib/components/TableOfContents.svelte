@@ -12,7 +12,6 @@
 		headings = elements.map((el) => {
 			const clone = el.cloneNode(true) as HTMLElement;
 
-			// Strip the invisible accessibility layers so they don't double up
 			clone.querySelectorAll('.katex-mathml, .katex-accessible-sr').forEach((n) => n.remove());
 
 			return {
