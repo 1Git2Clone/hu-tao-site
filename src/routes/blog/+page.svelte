@@ -12,6 +12,7 @@
 			keys: [
 				{ name: postKey('metadata.title'), weight: 1 },
 				{ name: postKey('metadata.summary'), weight: 0.5 },
+				{ name: postKey('metadata.tags'), weight: 0.4 },
 				{ name: postKey('slug'), weight: 0.3 }
 			],
 			threshold: 0.4,
@@ -79,6 +80,9 @@
 						/>
 					</a>
 				</h2>
+				{#if post.metadata.date}
+					<sub>{post.metadata.date}</sub>
+				{/if}
 				<p class="text-muted-foreground mt-2">
 					<Highlight
 						text={post.metadata.summary}
@@ -86,6 +90,17 @@
 						path={postKey('metadata.summary')}
 					/>
 				</p>
+				{#if post.metadata.tags}
+					<sub>
+						<b>Tags</b>:
+
+						<Highlight
+							text={post.metadata.tags.join(', ')}
+							matches={result.matches}
+							path={postKey('metadata.tags')}
+						/>
+					</sub>
+				{/if}
 			</div>
 		{:else}
 			<div class="col-span-full py-10 text-center text-muted-foreground">
