@@ -39,6 +39,7 @@ tags: ["dsa", "cs"]
 
   const leq = "\\le";
   const geq = "\\ge";
+  const eq = "==";
 </script>
 
 > **Note:** A more detailed dive on the topic can be found in my old
@@ -214,7 +215,7 @@ Describes the **tightest bound** (average case):
 
 * **Big O** is like <Math math={leq} /> (Worst case / Upper bound)
 * **Big <Math math={omega} />** is like <Math math={geq} /> (Best case / Lower bound)
-* **Big <Math math={theta} />** is like `==` (Tightly bounded / Average case)
+* **Big <Math math={theta} />** is like <Math math={eq} /> (Tightly bounded / Average case)
 
 Determining what to optimize depends on your specific use case. A big factor to
 these algorithms is also input size, sometimes algorithms like bubble sort
