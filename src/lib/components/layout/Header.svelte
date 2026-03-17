@@ -1,5 +1,5 @@
 <script>
-	import Nav from '$lib/components/Nav.svelte';
+	import Nav from '$lib/components/layout/Nav.svelte';
 	import GitHub from '$lib/components/icons/GitHub.svelte';
 	import Twitter from '$lib/components/icons/Twitter.svelte';
 	import ThemeToggle from './ThemeToggle.svelte';

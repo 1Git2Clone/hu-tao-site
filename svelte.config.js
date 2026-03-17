@@ -77,7 +77,7 @@ export default {
     mdsvex({
       extensions: ['.svx'],
       layout: {
-        _: path.resolve('src/lib/components/MarkdownLayout.svelte')
+        _: path.resolve('src/lib/components/blog/MarkdownLayout.svelte')
       },
       remarkPlugins: [remarkReadingTime, remarkHeadings],
       rehypePlugins: [rehypeHeadingIds]
