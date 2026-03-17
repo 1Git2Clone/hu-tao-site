@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { toggleMode, mode } from 'mode-watcher';
-	import '$lib/styles/font.css';
 </script>
 
 <button
