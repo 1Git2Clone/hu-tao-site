@@ -10,17 +10,14 @@ import { visit } from 'unist-util-visit';
 function slugify(text) {
   return text
     .toString()
-    // Remove Svelte components like <Math math={nSquared} />
     .replace(/<[^>]*\/>/g, '')
-    // Remove Svelte expressions like {variable}
     .replace(/{[^}]*}/g, '')
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, '-')      // Replace spaces with -
-    .replace(/[^\w-]+/g, '')   // Remove all non-word chars except -
-    .replace(/--+/g, '-')      // Replace multiple - with single -
-    .replace(/^-+/, '')        // Trim - from start
-    .replace(/-+$/, '');       // Trim - from end
+    .replace(/\s+/g, '-')
+    .replace(/[^\w-]+/g, '')
+    .replace(/--+/g, '-')
+    .replace(/^-+|-+$/g, '')
 }
 
 function remarkHeadings() {
@@ -51,7 +48,6 @@ function rehypeHeadingIds() {
   return (tree) => {
     visit(tree, 'element', (node) => {
       if (['h2', 'h3'].includes(node.tagName)) {
-        // Generate the same clean ID as the TOC
         node.properties.id = slugify(toString(node));
       }
     });
@@ -83,8 +79,8 @@ export default {
       layout: {
         _: path.resolve('src/lib/components/MarkdownLayout.svelte')
       },
-      remarkPlugins: [rehypeHeadingIds, remarkReadingTime, remarkHeadings],
-      rehypePlugins: [rehypeSlug]
+      remarkPlugins: [remarkReadingTime, remarkHeadings],
+      rehypePlugins: [rehypeHeadingIds]
     })
   ],
   kit: {
