@@ -38,7 +38,9 @@
 			</span>
 		</button>
 	</div>
-	<pre class="m-0 w-full overflow-x-auto p-4 whitespace-pre"><code
+	<pre
+		class="w-full overflow-x-auto p-4 whitespace-pre"
+		style="margin: 0; /* for some reason it didn't work with tailwind's `m-0`*/"><code
 			bind:this={codeElement}
 			class="language-{detectedLang}">{@render children?.()}</code
 		></pre>
