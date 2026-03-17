@@ -37,7 +37,7 @@
 </script>
 
 <div class="mx-auto w-full max-w-400">
-	<div class="grid grid-cols-1 xl:grid-cols-[16rem_minmax(0,52rem)_16rem] xl:gap-12">
+	<div class="grid grid-cols-1 xl:grid-cols-[16rem_minmax(0,52rem)_16rem] xl:gap-8">
 		<div class="hidden xl:block"></div>
 
 		<article
