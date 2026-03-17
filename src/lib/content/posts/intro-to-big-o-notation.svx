@@ -6,6 +6,7 @@ snippets:
   - file: big-o/examples.py
     lang: python
     label: "Common Complexity Examples"
+tags: ["dsa", "cs"]
 ---
 
 <script lang="ts">

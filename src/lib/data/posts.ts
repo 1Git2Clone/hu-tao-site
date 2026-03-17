@@ -1,7 +1,10 @@
+export type PostTags = "dsa" | "cs";
+
 export interface PostMetadata {
   title: string;
   summary: string;
   date: Date;
+  tags: Array<PostTags>,
 }
 
 export interface Post {
