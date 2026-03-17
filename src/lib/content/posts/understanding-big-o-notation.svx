@@ -1,6 +1,6 @@
 ---
 title: Understanding Big O Notation
-summary: A deep dive into Time and Space complexity, common algorithms, and the nuances of mathematical notations in programming.
+summary: An overview of Time and Space complexity, common algorithms, and the nuances of mathematical notations in programming.
 date: April 24 2024
 snippets:
   - file: big-o/examples.py
@@ -12,6 +12,10 @@ snippets:
   import CodeBlock from '$lib/components/CodeBlock.svelte';
   import YouTube from '$lib/components/YouTube.svelte';
   import Math from '$lib/components/Math.svelte';
+  import bigOChart from '$lib/assets/blog/big-o/big-o-complexities-chart.png';
+  import bigOExample from '$lib/assets/blog/big-o/big-o-example.png';
+  import bigOmegaExample from '$lib/assets/blog/big-o/big-omega-example.png';
+  import bigThetaExample from '$lib/assets/blog/big-o/big-theta-example.png';
 
   export let fetchedSnippets = {};
 
@@ -36,53 +40,83 @@ snippets:
   const geq = "\\ge";
 </script>
 
-> **IMPORTANT**: this is not the original blog, just a placeholder for testing.
-> I'll get to rewriting the original one in the future. In the meantime, it can
-> be found in:
+> **Note:** A more detailed dive on the topic can be found in my old
+> site's blog
 > [`1k2s.netlify.app`](https://1k2s.netlify.app/blog/understanding-big-o-notation).
+> This page goes over the same topic but in a more succinct matter.
 
 Big O Notation is a mathematical notation that describes the behavior of a
-value (most commonly denoted as <Math math={n} />) as it reaches infinity. While the
-mathematical explanation is standard, there's a nuance in programming: it
-applies to both **Time Complexity** and **Space Complexity**.
+value (most commonly denoted as <Math math={n} />) as it reaches infinity.
+Although well defined as such in math, applied in programming it comes in 2 forms **Time
+Complexity** and **Space Complexity**.
+
 
 ## Dictionary
 
-* **Time Complexity**: Resources needed by the CPU to finish evaluating the algorithm at runtime.
-* **Space Complexity**: Memory resources needed to complete the algorithm.
-* **Compile Time**: Not measured with Big O. This is the time your compiler or interpreter takes to translate code.
-* **Runtime**: When the program is actually executed. This is what LeetCode measures.
+1. **Time Complexity**: Used to determine how much time it takes for the CPU to run the code.
+2. **Space Complexity**: Memory resources needed to complete the algorithm.
+3. **Compile Time**: This is **not** measured with Big O, instead we care about
+   runtime, and even though some algorithms can be optimized from
+   <Math math={oN} /> to <Math math={o1} />
+   (like <a href="https://en.wikipedia.org/wiki/Gauss_sum">Gauss Sum</a>) for example, this
+   blog doesn't go over these kinds of optimizations.
+4. **Runtime**: When the program is actually executed. This is what LeetCode
+   and other platforms alike measure.
 
 ---
 
 ## Analysis
 
+Below are the most common algorithm complexities listed, in general it's
+important to know that when assessing an algorithm's complexity, we omit
+**all** constants and instead focus on how the algorithm works as the input
+increases in size.
 
+<img src={bigOChart} alt="Big O Complexities Chart" />
 
 ### <Math math={o1} /> - Constant Complexity
 
-Common for:
-* Pushing an item to the front of a vector.
+Seen in:
+* Pushing an item to the **front** of a Vector.
 * Looking up an item in a Hash Map/Set.
-* Getting the first element of a linked list.
+* Getting the first element of a Linked List.
 
 ### <Math math={logN} /> - Logarithmic Complexity
 
-Primary use is **Binary Search**. It is the gold standard for searching sorted data sets.
+The concept is as follows: if you divide the amount of steps required by <Math math="k" />
+(most of the time <Math math="k=2" />) on every iteration, then your algorithm's time
+complexity is <Math math={logN} />.
+
+Primary use is
+[**Binary Search**](https://www.geeksforgeeks.org/dsa/binary-search/). It is
+the gold standard for searching sorted data sets.
 
 ### <Math math={oN} /> - Linear Complexity
 
-Doing at least one full iteration on your data.  
-> **Note:** Removing the last item of a vector is <Math math={o1} />, but removing the
-> first item is <Math math={oN} /> because you must rearrange all subsequent items.
+Described as doing _at least_ one full iteration on your data.
+
+> <p>
+> **Note:** A common trick question is removing the first item of a Vector is
+> <Math math={oN} />, unlike removing the last one which is <Math math={o1} />.
+> This is due to how Vectors are structured in memory and how every subsequent
+> item needs to be moved forward whenever you remove at the first place.
+> </p>
 
 ### <Math math={nLogN} /> - Linearithmic Complexity
 
-Usually where efficient sorting algorithms fall: **Quicksort**, **Heapsort**, and **Merge sort**.
+Usually where efficient sorting algorithms fall: **Quicksort**, **Heapsort**,
+and **Merge sort**, all in regards to time complexity.
 
 ### <Math math={nSquared} /> - Quadratic Complexity
 
 Commonly seen in nested loops or matrix traversals (`arr[i][j]`). Bubble Sort also falls here.
+
+> <p>
+> <b>Note:</b> Often <Math math={nSquared} /> solutions are referred to as 
+> <a href="https://www.geeksforgeeks.org/dsa/brute-force-approach-and-its-pros-and-cons/">
+> Brute Force</a>. A common approach to optimizing such problems is called
+> <a href="https://en.wikipedia.org/wiki/Dynamic_programming">Dynamic Programming</a>
+> </p>
 
 ### Code Implementation Examples
 
@@ -94,7 +128,10 @@ Commonly seen in nested loops or matrix traversals (`arr[i][j]`). Bubble Sort al
 
 ## Optimizing for Memory vs. Space
 
-Finding prime numbers is a great way to visualize this trade-off.
+Below is a video with a very comprehensive showcase of all three approaces:
+[Trial Division](#1-trial-division),
+[Sieve of Eratosthenes](#2-sieve-of-eratosthenes), and
+[Dijkstra's Approach](#3-dijkstras-approach).
 
 <YouTube id="fwxjMKBMR7s" title="Finding Primes - b001" />
 
@@ -103,20 +140,29 @@ Finding prime numbers is a great way to visualize this trade-off.
 The most memory-efficient but slowest method. It relies on the fact
 that divisors are mirrored around the square root of <Math math={n} />.
 
+* **Time**: <Math math={sqrtN} /> \<\<= on theory, good, in reality the slowness is
+  due to <a href="https://en.wikipedia.org/wiki/Integer_factorization">Integer
+  Factorization</a>.
 * **Space**: <Math math={o1} />
-* **Time**: <Math math={sqrtN} />
 
 ### 2. Sieve of Eratosthenes
 
 The quickest for bulk evaluation.
 
 * **Time**: <Math math={sieveTime} />
-* **Space**: <Math math={oN} /> (requires a boolean array up to `n`)
+* **Space**: <Math math={oN} /> (requires a boolean array up to <Math math={n} />)
 
 ### 3. Dijkstra's Approach
 
 A balanced approach using a "pool" of tuples to track multiples, avoiding the
 massive memory hit of the Sieve while staying faster than Trial Division.
+
+* **Time**: <Math math={sieveTime} /> \<\<= whilst sharing the same time
+  complexity as [Sieve of Eratosthenes](#2-sieve-of-eratosthenes), it usually
+  performs slower due to
+  <a href="https://www.geeksforgeeks.org/computer-organization-architecture/locality-of-reference-and-cache-operation-in-cache-memory/">
+  Cache Locality</a>.
+* **Space**: <Math math={oN} /> (requires a boolean array up to <Math math={n} />)
 
 ---
 
@@ -124,29 +170,42 @@ massive memory hit of the Sieve while staying faster than Trial Division.
 
 Big O describes the **worst-case scenario**. Mathematically:
 
-<Math math={bigODef} />
+<img src={bigOExample} alt="Big O Chart" />
+
+<p class="text-center">
+  <Math math={bigODef} />
+</p>
 
 ### Big Omega (<Math math={omega} />)
 
 Describes the **best-case scenario** (lower bound):
 
-<Math math={bigOmegaDef} />
+<img src={bigOmegaExample} alt="Big Omega Chart" />
+
+<p class="text-center">
+  <Math math={bigOmegaDef} />
+</p>
 
 ### Big Theta (<Math math={theta} />)
 
 Describes the **tightest bound** (average case):
 
-<Math math={bigThetaDef} />
+<img src={bigThetaExample} alt="Big Theta Chart" />
+
+<p class="text-center">
+  <Math math={bigThetaDef} />
+</p>
 
 ---
 
 ## Summary
 
 * **Big O** is like <Math math={leq} /> (Worst case / Upper bound)
-* **Big {omega}** is like <Math math={geq} /> (Best case / Lower bound)
-* **Big {theta}** is like `==` (Tightly bounded / Average case)
+* **Big <Math math={omega} />** is like <Math math={geq} /> (Best case / Lower bound)
+* **Big <Math math={theta} />** is like `==` (Tightly bounded / Average case)
 
-Determining what to optimize depends on your specific use case. In game dev,
-memory efficiency is often a speed improvement. In web apps, raw CPU runtime
-might be your bottleneck.
-
+Determining what to optimize depends on your specific use case. A big factor to
+these algorithms is also input size, sometimes algorithms like bubble sort
+outperform ones like quicksort due to better cache locality (and aggressive
+compiler optimization because it's a more predictable pattern) on small input
+sizes.
