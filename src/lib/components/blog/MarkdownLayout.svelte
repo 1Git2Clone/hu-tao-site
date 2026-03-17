@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { slugify } from '$lib/components/blog/slugify';
+	import { slugify } from '$lib/blog/slugify';
 	import TableOfContents from './TableOfContents.svelte';
 
 	let { title, date, readingTime, children } = $props<{
