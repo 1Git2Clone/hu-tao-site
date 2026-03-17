@@ -65,6 +65,14 @@
 				<span class=""> ⌘ </span> K
 			</kbd>
 		</div>
+		<p id="search-results" class="mt-4">
+			{#if searchQuery.trim() && searchDisplay.length > 0}
+				{@const n = searchDisplay.length}
+				{@const N = data.posts.length}
+
+				{n}/{N} results for search: "<b>{searchQuery.trim()}</b>".
+			{/if}
+		</p>
 	</section>
 
 	<section class="grid gap-6 md:grid-cols-2">
@@ -109,3 +117,11 @@
 		{/each}
 	</section>
 </div>
+
+<style>
+	/* Ensure no weird layout shift when searching. */
+	#search-results::after {
+		content: '\200b';
+		visibility: hidden;
+	}
+</style>
