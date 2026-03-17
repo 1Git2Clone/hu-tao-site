@@ -119,6 +119,17 @@ Commonly seen in nested loops or matrix traversals (`arr[i][j]`). Bubble Sort al
 > <a href="https://en.wikipedia.org/wiki/Dynamic_programming">Dynamic Programming</a>
 > </p>
 
+### Complexity Table
+
+In for easy reference you could refer to it:
+
+| Complexity               | Example       | Intuition        |
+| ------------------------ | ------------- | ---------------- |
+| <Math math={o1} />       | array access  | constant         |
+| <Math math={logN} />     | binary search | halves each step |
+| <Math math={oN} />       | linear scan   | proportional     |
+| <Math math={nSquared} /> | nested loops  | pair comparisons |
+
 ### Code Implementation Examples
 
 <CodeBlock lang={fetchedSnippets[0]?.lang}>
