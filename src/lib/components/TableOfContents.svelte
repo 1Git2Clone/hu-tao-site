@@ -35,7 +35,7 @@
 	});
 </script>
 
-<nav class={isMobile ? 'w-full' : 'w-64 shrink-0'}>
+<nav class={`${isMobile ? 'w-full' : 'w-64 shrink-0'} contrast-70`}>
 	<div>
 		{#if !isMobile}
 			<b class="mb-4 block text-sm font-bold tracking-widest text-textcol uppercase">
