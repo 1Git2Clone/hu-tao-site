@@ -21,8 +21,8 @@
 	);
 
 	let searchDisplay = $derived(
-		searchQuery.length > 0
-			? fuse.search(searchQuery)
+		searchQuery.trim().length > 0
+			? fuse.search(searchQuery.trim())
 			: data.posts.map((p) => ({ item: p, matches: [] }))
 	);
 
