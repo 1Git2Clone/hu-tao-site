@@ -5,7 +5,7 @@ import rehypeSlug from 'rehype-slug';
 import path from 'path';
 import readingTime from 'reading-time';
 import { toString } from 'mdast-util-to-string';
-import { slugify } from './src/lib/utils/slugify.ts';
+import { slugify } from './src/lib/utils/slugify';
 import { visit } from 'unist-util-visit';
 
 
