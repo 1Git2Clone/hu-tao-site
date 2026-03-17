@@ -1,10 +1,15 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	export let isMobile = false;
+	type Heading = { id: string; html: string; level: number };
 
-	let headings: { id: string; html: string; level: number }[] = [];
-	let activeId = '';
+	let { staticHeadings = [], isMobile = false } = $props<{
+		staticHeadings: Heading[];
+		isMobile?: boolean;
+	}>();
+
+	let headings: Heading[] = $state([]);
+	let activeId = $state('');
 
 	onMount(() => {
 		const elements = Array.from(document.querySelectorAll('article h2, article h3'));
@@ -44,21 +49,39 @@
 		{/if}
 
 		<ul class="space-y-3 {isMobile ? '' : 'border-l border-slate-200'}">
-			{#each headings as { id, html, level }}
-				<li>
-					<a
-						href="#{id}"
-						class="block text-sm transition-colors duration-200
-                        {isMobile ? '' : '-ml-px border-l pl-4'} 
-                        {level === 3 ? (isMobile ? 'pl-4 italic' : 'ml-4') : ''} 
-                        {activeId === id
-							? 'border-accent-hover font-medium text-accent'
-							: 'border-transparent text-accent-bg hover:text-accent-hover'}"
-					>
-						{@html html}
-					</a>
-				</li>
-			{/each}
+			{#if headings.length > 0}
+				{#each headings as { id, html, level }}
+					<li>
+						<a
+							href="#{id}"
+							class="block text-sm transition-colors duration-200
+                          {isMobile ? '' : '-ml-px border-l pl-4'} 
+                          {level === 3 ? (isMobile ? 'pl-4 italic' : 'ml-4') : ''} 
+                          {activeId === id
+								? 'border-accent-hover font-medium text-accent'
+								: 'border-transparent text-accent-bg hover:text-accent-hover'}"
+						>
+							{@html html}
+						</a>
+					</li>
+				{/each}
+			{:else}
+				{#each staticHeadings as { id, html, level }}
+					<li>
+						<a
+							href="#{id}"
+							class="block text-sm transition-colors duration-200
+                          {isMobile ? '' : '-ml-px border-l pl-4'} 
+                          {level === 3 ? (isMobile ? 'pl-4 italic' : 'ml-4') : ''} 
+                          {activeId === id
+								? 'border-accent-hover font-medium text-accent'
+								: 'border-transparent text-accent-bg hover:text-accent-hover'}"
+						>
+							{@html html}
+						</a>
+					</li>
+				{/each}
+			{/if}
 		</ul>
 	</div>
 </nav>

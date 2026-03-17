@@ -1,16 +1,29 @@
 <script lang="ts">
 	let { id, title = 'YouTube video' } = $props();
+	let isLoaded = $state(false);
+
+	const thumb = (() => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`)();
 </script>
 
 <div class="video-container">
-	<iframe
-		src="https://www.youtube.com/embed/{id}"
-		{title}
-		frameborder="0"
-		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-		referrerpolicy="strict-origin-when-cross-origin"
-		allowfullscreen
-	></iframe>
+	{#if isLoaded}
+		<iframe
+			src="https://www.youtube.com/embed/{id}?autoplay=1"
+			{title}
+			frameborder="0"
+			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			allowfullscreen
+		></iframe>
+	{:else}
+		<button
+			class="placeholder"
+			onclick={() => (isLoaded = true)}
+			aria-label="Play {title}"
+			style="background-image: url({thumb});"
+		>
+			<div class="play-button"></div>
+		</button>
+	{/if}
 </div>
 
 <style>
@@ -18,10 +31,51 @@
 		width: 100%;
 		aspect-ratio: 16 / 9;
 		margin: 2rem 0;
+		background: #000;
+		border-radius: 0.75rem;
+		overflow: hidden;
 	}
+
+	.placeholder {
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+		background-position: center;
+		border: none;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+	}
+
+	.play-button {
+		width: calc(16rem / 2);
+		height: calc(9rem / 2);
+		background-color: rgba(33, 33, 33, 0.8);
+		border-radius: 12%;
+		position: relative;
+		transition: background-color 0.2s;
+	}
+
+	.placeholder:hover .play-button {
+		background-color: #ff0000;
+	}
+
+	/* The triangle */
+	.play-button::before {
+		content: '';
+		border-style: solid;
+		border-width: 12px 0 12px 20px;
+		border-color: transparent transparent transparent #fff;
+		position: absolute;
+		top: 50%;
+		left: 51%;
+		transform: translate(-50%, -50%);
+	}
+
 	iframe {
 		width: 100%;
 		height: 100%;
-		border-radius: 0.75rem;
 	}
 </style>
