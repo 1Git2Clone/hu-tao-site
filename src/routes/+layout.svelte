@@ -7,6 +7,12 @@
 
 	import { fade } from 'svelte/transition';
 	import { page } from '$app/state';
+	import { SITE_TITLE } from '$lib/utils/consts';
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		document.title = SITE_TITLE;
+	});
 
 	let { children } = $props();
 </script>
