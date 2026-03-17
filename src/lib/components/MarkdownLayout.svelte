@@ -103,7 +103,7 @@
 	}
 
 	#markdown-article :global(:is(h1, h2, h3, h4, h5, h6)::before) {
-		content: '';
+		content: '';
 		position: absolute;
 		left: 0;
 		color: var(--color-accent);
