@@ -9,9 +9,12 @@ export const load: PageLoad = async ({ data, params }) => {
 
   if (!post) throw new Error(`Post not found: ${params.slug}`);
 
+  // TODO: Get SSR rendered headings and extract all their relevant data for the table of contents on the server.
+
   return {
     ...data,
     component: post.default,
-    metadata: post.metadata
+    metadata: post.metadata,
+    headings: post.metadata.headings || []
   };
 };

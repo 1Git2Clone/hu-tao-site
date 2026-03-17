@@ -1,11 +1,16 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import { slugify } from '$lib/utils/slugify';
 	import TableOfContents from './TableOfContents.svelte';
 
-	export let title: string;
-	export let date: string;
-	export let readingTime: string;
+	let { title, date, readingTime, children } = $props<{
+		title: string;
+		date: string;
+		readingTime: string;
+		children: import('svelte').Snippet;
+	}>();
 
+	const headings = $derived(page.data.headings || []);
 	function headingCopy(node: HTMLElement) {
 		const handleGlobalClick = (event: MouseEvent) => {
 			const target = event.target as HTMLElement;
@@ -62,17 +67,17 @@
 						<span class="text-xs font-normal opacity-50">View Sections</span>
 					</summary>
 					<div class="border-t p-4">
-						<TableOfContents isMobile={true} />
+						<TableOfContents isMobile={true} staticHeadings={headings} />
 					</div>
 				</details>
 			</div>
 
-			<slot />
+			{@render children()}
 		</article>
 
 		<aside class="hidden xl:block">
 			<div class="scrollbar-hide sticky top-20 max-h-[calc(100vh-10rem)] overflow-y-auto py-12">
-				<TableOfContents />
+				<TableOfContents staticHeadings={headings} />
 			</div>
 		</aside>
 	</div>
