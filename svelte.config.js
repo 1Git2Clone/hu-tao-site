@@ -85,10 +85,10 @@ export default {
         _: path.resolve('src/lib/components/blog/MarkdownLayout.svelte')
       },
       remarkPlugins: [remarkMath, remarkReadingTime, remarkHeadings],
-      rehypePlugins: [[rehypeKatex, {
+      rehypePlugins: [rehypeHeadingIds, [rehypeKatex, {
         output: 'html',
         strict: false
-      }], rehypeHeadingIds]
+      }]]
     })
   ],
   kit: {
