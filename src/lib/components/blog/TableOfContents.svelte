@@ -12,20 +12,45 @@
 
 	let activeId = $state('');
 
+	let headingPositions: { id: string; top: number }[] = [];
+	let cachedInnerHeight: number = 0;
+
+	const computeHeadingPositions = () => {
+		const headings = Array.from(
+			document.querySelectorAll('article h2, article h3')
+		) as HTMLElement[];
+		headingPositions = headings.map((el) => ({ id: el.id, top: el.offsetTop }));
+		cachedInnerHeight = window.innerHeight;
+	};
+
 	onMount(() => {
-		const elements = Array.from(document.querySelectorAll('article h2, article h3'));
+		computeHeadingPositions();
 
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) activeId = entry.target.id;
+		let ticking = false;
+		const onScroll = () => {
+			if (!ticking) {
+				ticking = true;
+				requestAnimationFrame(() => {
+					const scroll = window.scrollY + cachedInnerHeight * 0.2;
+					for (let i = headingPositions.length - 1; i >= 0; i--) {
+						if (scroll >= headingPositions[i].top) {
+							if (activeId !== headingPositions[i].id) activeId = headingPositions[i].id;
+							break;
+						}
+					}
+					ticking = false;
 				});
-			},
-			{ rootMargin: '-20% 0% -35% 0%' }
-		);
+			}
+		};
 
-		elements.forEach((el) => observer.observe(el));
-		return () => observer.disconnect();
+		window.addEventListener('scroll', onScroll, { passive: true });
+		window.addEventListener('resize', computeHeadingPositions);
+		onScroll();
+
+		return () => {
+			window.removeEventListener('scroll', onScroll);
+			window.removeEventListener('resize', computeHeadingPositions);
+		};
 	});
 </script>
 
