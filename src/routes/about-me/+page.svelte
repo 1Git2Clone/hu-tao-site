@@ -1,16 +1,18 @@
 <script lang="ts">
 	// Reason: Supposed to be external urls
 	/* eslint-disable svelte/no-navigation-without-resolve */
-	import { PROJECTS } from '$lib/data/projects';
+	import { PROJECTS } from '$lib/content/about-me/projects';
 </script>
 
 <div class="space-y-8">
-	<section class="border-border rounded-lg border bg-muted/40 p-8">
-		<h1 class="text-center text-4xl font-bold tracking-tight">1Git2Clone</h1>
+	<section
+		class="border-border prose min-w-full rounded-lg border bg-muted/40 p-8 dark:prose-invert"
+	>
+		<h1 class="mb-2 text-center">1Git2Clone</h1>
 		<div class="text-center">
 			<sub>Student | Junior AI Developer | Aspiring Systems Engineer</sub>
 		</div>
-		<p class="text-muted-foreground mt-4 text-center text-lg">
+		<p>
 			Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate numquam molestias cumque
 			placeat a iste, eveniet eius modi nihil voluptatum doloribus sed ut aliquid dicta.
 			Voluptatibus culpa possimus reiciendis odio.
@@ -19,12 +21,12 @@
 
 	<section class="grid gap-6 md:grid-cols-2">
 		{#each PROJECTS as project (project.title)}
-			<div class="border-border rounded-lg border p-6">
+			<div class="border-border prose min-w-full rounded-lg border p-6 dark:prose-invert">
 				{#if project.image}
 					<img src={project.image} alt={`${project.title} Cover Image`} class="mb-4 rounded" />
 				{/if}
 
-				<h2 class="text-xl font-semibold">
+				<h2 class="mt-4 text-xl font-semibold">
 					{#if project.source_url}
 						<a
 							href={project.source_url}
