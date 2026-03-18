@@ -1,6 +1,11 @@
 <script>
+	// Reason: KaTeX already renders LaTeX.
+	/* eslint-disable svelte/no-at-html-tags */
+
 	import katex from 'katex';
+
 	export let math = ``;
+
 	export let display = false;
 </script>
 

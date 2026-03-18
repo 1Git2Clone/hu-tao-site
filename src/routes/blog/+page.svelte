@@ -2,6 +2,7 @@
 	import Highlight from '$lib/components/Highlight.svelte';
 	import Fuse from 'fuse.js';
 	import { POST_SEARCH_FZF, postKey } from '$lib/data/posts';
+	import { resolve } from '$app/paths';
 
 	let { data } = $props();
 	let searchQuery = $state('');
@@ -80,7 +81,7 @@
 			{@const post = result.item}
 			<div class="border-border rounded-lg border p-6 transition-all">
 				<h2 class="text-xl font-semibold">
-					<a class="text-xl underline hover:text-textcol" href={`/blog/${post.slug}`}>
+					<a class="text-xl underline hover:text-textcol" href={resolve(`/blog/${post.slug}`)}>
 						<Highlight
 							text={post.metadata.title}
 							matches={result.matches}

@@ -20,12 +20,14 @@
 	</section>
 	<div class="flex w-full min-w-0 flex-col overflow-hidden">
 		<section class="w-full min-w-0 overflow-hidden">
-			<CodeBlock lang={data.language}>{data.snippet}</CodeBlock>
+			<CodeBlock lang={data.snippets['main.rs'].language}
+				>{data.snippets['main.rs'].content}</CodeBlock
+			>
 		</section>
 	</div>
 
 	<section class="grid gap-6 text-center md:grid-cols-3">
-		{#each [1, 2, 3] as i}
+		{#each [1, 2, 3] as i (i)}
 			<div class="border-border rounded-lg border p-6">
 				<h2 class="text-xl font-semibold">Feature {i}</h2>
 				<p class="text-muted-foreground mt-2">

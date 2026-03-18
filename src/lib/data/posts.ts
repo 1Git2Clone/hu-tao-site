@@ -1,14 +1,33 @@
+import type { Component } from 'svelte';
+import type { Snippet } from "$lib/types/snippets";
+import type { Paths } from "$lib/utils/type_helpers";
+
 export type PostTags = "dsa" | "cs";
+
+export interface Heading {
+  id: string;
+  html: string;
+  level: number;
+}
 
 export interface PostMetadata {
   title: string;
   summary: string;
   date: Date;
   tags: Array<PostTags>,
+  snippets: Snippet[]
+  // remarks:
+  headings: Heading[];
+  readingTime: string;
 }
 
 export interface Post {
   slug: string;
+  metadata: PostMetadata;
+}
+
+export interface PostModule {
+  default: Component;
   metadata: PostMetadata;
 }
 
