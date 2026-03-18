@@ -7,7 +7,7 @@
 	// let { data } = $props();
 </script>
 
-<div class="prose w-screen min-w-full space-y-8 dark:prose-invert">
+<div class="prose w-full max-w-none space-y-8 dark:prose-invert">
 	<section class="border-border rounded-lg border bg-muted/40 p-8">
 		<h1 id="title" class="text-4xl font-bold tracking-tight">Welcome to {SITE_TITLE}!</h1>
 		<p>
