@@ -25,7 +25,7 @@ tags: ["dsa", "cs"]
 > [`1k2s.netlify.app`](https://1k2s.netlify.app/blog/understanding-big-o-notation).
 > This page goes over the same topic but in a more succinct matter.
 
-Big O Notation is a mathematical notation that describes the behavior of a
+Big $O$ Notation is a mathematical notation that describes the behavior of a
 value (most commonly denoted as $n$ as it reaches infinity.
 Although well defined as such in math, applied in programming it comes in 2 forms **Time
 Complexity** and **Space Complexity**.
@@ -75,12 +75,10 @@ the gold standard for searching sorted data sets.
 
 Described as doing _at least_ one full iteration on your data.
 
-> <p>
 > **Note:** A common trick question is removing the first item of a Vector is
 > $O(n)$, unlike removing the last one which is $O(1)$.
 > This is due to how Vectors are structured in memory and how every subsequent
 > item needs to be moved forward whenever you remove at the first place.
-> </p>
 
 ### $O(n \log n)$ - Linearithmic Complexity
 
@@ -91,12 +89,10 @@ and **Merge sort**, all in regards to time complexity.
 
 Commonly seen in nested loops or matrix traversals (`arr[i][j]`). Bubble Sort also falls here.
 
-> <p>
-> <b>Note:</b> Often $O(n^2)$ solutions are referred to as 
-> <a href="https://www.geeksforgeeks.org/dsa/brute-force-approach-and-its-pros-and-cons/">
-> Brute Force</a>. A common approach to optimizing such problems is called
-> <a href="https://en.wikipedia.org/wiki/Dynamic_programming">Dynamic Programming</a>
-> </p>
+> **Note**: Often $O(n^2)$ solutions are referred to as
+> [Brute Force](https://www.geeksforgeeks.org/dsa/brute-force-approach-and-its-pros-and-cons/).
+> A common approach to optimizing such problems is called
+> [Dynamic Programming](https://en.wikipedia.org/wiki/Dynamic_programming).
 
 ### Complexity Table
 
@@ -105,7 +101,7 @@ In for easy reference you could refer to it:
 | Complexity               | Example       | Intuition        |
 | ------------------------ | ------------- | ---------------- |
 | $O(1)$                   | array access  | constant         |
-| $O(\log n)$           | binary search | halves each step |
+| $O(\log n)$              | binary search | halves each step |
 | $O(n)$                   | linear scan   | proportional     |
 | $O(n^2)$                 | nested loops  | pair comparisons |
 
@@ -157,9 +153,9 @@ massive memory hit of the Sieve while staying faster than Trial Division.
 
 ---
 
-## Not only Big O
+## Not only Big $O$
 
-Big O describes the **worst-case scenario**. Mathematically:
+Big $O$ describes the **worst-case scenario**. Mathematically:
 
 <img src={bigOExample} alt="Big O Chart" />
 
@@ -191,7 +187,7 @@ $$
 
 ## Summary
 
-* **Big O** is like $\le$ (Worst case / Upper bound)
+* **Big $O$** is like $\le$ (Worst case / Upper bound)
 * **Big $\Omega$** is like $\ge$ (Best case / Lower bound)
 * **Big $\Theta$** is like $==$ (Tightly bounded / Average case)
 
