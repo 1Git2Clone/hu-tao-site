@@ -81,7 +81,7 @@ glad I didn't._
 
 [0348305](https://github.com/1Git2Clone/dotfiles/commit/0348305743a7cf4d5b3be59ecb42cd487d422b33)
 -> Also moved the Neovim config into a
-[separate repo](https://github.com/1Git2Clone/nvim-config)
+[separate repo](https://github.com/1Git2Clone/nvim-config).
 `.trim()
         ]
       },
