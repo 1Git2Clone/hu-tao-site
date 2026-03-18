@@ -1,14 +1,20 @@
 <script lang="ts">
 	// Reason: Supposed to be external urls
 	/* eslint-disable svelte/no-navigation-without-resolve */
+
+	// Reason: Content is written by me.
+	/* eslint-disable svelte/no-at-html-tags */
+
+	import { slugify } from '$lib/utils/slugify';
 	import { PROJECTS } from '$lib/content/about-me/projects';
+	import { marked } from 'marked';
 </script>
 
 <div class="space-y-8">
 	<section
 		class="border-border prose min-w-full rounded-lg border bg-muted/40 p-8 dark:prose-invert"
 	>
-		<h1 class="mb-2 text-center">1Git2Clone</h1>
+		<h1 id="title" class="mb-2 text-center">1Git2Clone</h1>
 		<div class="text-center">
 			<sub>Student | Junior AI Developer | Aspiring Systems Engineer</sub>
 		</div>
@@ -19,20 +25,46 @@
 		</p>
 	</section>
 
-	<section class="grid gap-6 md:grid-cols-2">
+	<section class="grid grid-cols-1 gap-6 md:grid-cols-2">
 		{#each PROJECTS as project (project.title)}
-			<div class="border-border prose min-w-full rounded-lg border p-6 dark:prose-invert">
+			{@const slug = slugify(project.title)}
+			<div
+				class="border-border prose min-w-full rounded-lg border p-6 md:last:col-span-2 dark:prose-invert"
+			>
 				{#if project.image}
-					<img src={project.image} alt={`${project.title} Cover Image`} class="mb-4 rounded" />
+					<div class="relative mb-4 overflow-hidden rounded">
+						<img
+							src={project.image.source}
+							alt={`${project.title} Cover Image`}
+							class="h-36 w-full"
+							style="
+                object-fit: {project.image.css.cssObjectFit};
+                object-position: {project.image.css.cssObjectPosition}
+              "
+						/>
+
+						{#if project.sourceUrl}
+							<a
+								href={project.image.artistLink.href}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="absolute right-2 bottom-2 rounded bg-primary/50 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm transition-colors"
+							>
+								Credit: {project.image.artistName} on
+								{project.image.artistLink.hostname.split('.')[0]}
+							</a>
+						{/if}
+					</div>
 				{/if}
 
-				<h2 class="mt-4 text-xl font-semibold">
-					{#if project.source_url}
+				<h2 id={slug} class="{project.image ? 'mt-4' : ''} text-xl font-semibold">
+					{#if project.sourceUrl}
 						<a
-							href={project.source_url}
+							href={project.sourceUrl.href}
 							target="_blank"
 							rel="noopener noreferrer"
-							aria-label={`View ${project.title}' source code`}
+							aria-label={`View ${project.title} source code`}
+							title={`View source code on ${project.sourceUrl.hostname}.`}
 						>
 							{project.title}
 						</a>
@@ -43,15 +75,44 @@
 				<p class="text-muted-foreground mt-2">{project.summary}</p>
 
 				<div class="text-muted-foreground mt-2 text-sm">
-					<strong>Tech Stack:</strong>
+					<h3 id="{slug}-tech-stack" class="mt-0">Tech Stack:</h3>
 					<ul class="ml-4 list-disc">
-						<li>DevOps: {project.techStack.devops.join(', ') || 'None'}</li>
-						<li>Libraries: {project.techStack.libraries.join(', ') || 'None'}</li>
+						{#if project.techStack.devops?.length}
+							<li>DevOps: {project.techStack.devops.join(', ')}</li>
+						{/if}
+						{#if project.techStack.observability?.length}
+							<li>Observability: {project.techStack.observability.join(', ')}</li>
+						{/if}
+						{#if project.techStack.frontendLibraries?.length}
+							<li>Frontend Libraries: {project.techStack.frontendLibraries.join(', ')}</li>
+						{/if}
+						{#if project.techStack.backendLibraries?.length}
+							<li>Backend Libraries: {project.techStack.backendLibraries.join(', ')}</li>
+						{/if}
+						{#if project.techStack.databases?.length}
+							<li>Databases: {project.techStack.databases.join(', ')}</li>
+						{/if}
+						{#if project.techStack.aiIntegrations?.length}
+							<li>AI Integrations: {project.techStack.aiIntegrations.join(', ')}</li>
+						{/if}
 						<li>Languages: {project.techStack.languages.join(', ') || 'None'}</li>
 					</ul>
 				</div>
 
-				<p class="text-muted-foreground mt-2">{project.description}</p>
+				<div id="{slug}-description">
+					{@html marked(project.description)}
+				</div>
+
+				<div class="mt-4 text-sm">
+					<strong>
+						{#if project.licenses.length > 1}
+							Licenses
+						{:else}
+							License
+						{/if}
+					</strong>:
+					{project.licenses.join(', ')}
+				</div>
 
 				<div class="mt-4 text-sm">
 					<strong>Tags:</strong>

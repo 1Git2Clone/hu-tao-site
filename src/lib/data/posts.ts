@@ -1,6 +1,6 @@
 import type { Component } from 'svelte';
 import type { Snippet } from "$lib/types/snippets";
-import type { Paths } from "$lib/utils/type_helpers";
+import type { Paths } from "$lib/utils/type-helpers";
 
 export type PostTags = "dsa" | "cs";
 

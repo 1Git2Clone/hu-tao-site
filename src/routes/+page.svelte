@@ -2,7 +2,7 @@
 	import { SITE_TITLE } from '$lib/utils/consts';
 	// import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import HistoryTree from '$lib/components/root/HistoryTree.svelte';
-	import { linux_and_dotfiles_history_tree } from '$lib/content/root/linux_and_dotfiles_history_tree';
+	import { LINUX_AND_DOTFILES_HISTORY_TREE } from '$lib/content/root/linux-and-dotfiles-history-tree';
 	import { resolve } from '$app/paths';
 	// let { data } = $props();
 </script>
@@ -28,7 +28,7 @@
 
 		<h2 class="mt-2">Linux Journey</h2>
 
-		<HistoryTree history={linux_and_dotfiles_history_tree} baseHeadingLevel={3} />
+		<HistoryTree history={LINUX_AND_DOTFILES_HISTORY_TREE} baseHeadingLevel={3} />
 	</section>
 	<!--
 	<div class="flex w-full min-w-0 flex-col overflow-hidden">
