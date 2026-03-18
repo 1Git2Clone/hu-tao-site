@@ -8,6 +8,11 @@
 	import { slugify } from '$lib/utils/slugify';
 	import { PROJECTS } from '$lib/content/about-me/projects';
 	import { marked } from 'marked';
+	import { hostToSocial, type SocialMedia } from '$lib/types/social-media';
+
+	function getSocialMedia(hostname: string): SocialMedia {
+		return hostToSocial[hostname];
+	}
 </script>
 
 <div class="space-y-8">
@@ -43,6 +48,8 @@
               "
 						/>
 
+						<div class="project-image-border"></div>
+
 						{#if project.sourceUrl}
 							<a
 								href={project.image.artistLink.href}
@@ -51,7 +58,7 @@
 								class="absolute right-2 bottom-2 rounded bg-primary/50 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm transition-colors"
 							>
 								Credit: {project.image.artistName} on
-								{project.image.artistLink.hostname.split('.')[0]}
+								{getSocialMedia(project.image.artistLink.hostname)}
 							</a>
 						{/if}
 					</div>
@@ -122,3 +129,18 @@
 		{/each}
 	</section>
 </div>
+
+<style>
+	.project-image-border {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		border-radius: inherit;
+
+		background:
+			linear-gradient(to top, var(--color-img-inner-border), transparent 20%),
+			linear-gradient(to bottom, var(--color-img-inner-border), transparent 20%),
+			linear-gradient(to left, var(--color-img-inner-border), transparent 40%),
+			linear-gradient(to right, var(--color-img-inner-border), transparent 40%);
+	}
+</style>

@@ -16,6 +16,8 @@
   --color-accent-hover: var(--color-red-700);
   --color-accent-bg: var(--color-red-900);
   --color-highlight: var(--color-rose-700);
+
+  --color-img-inner-border: rgba(255, 255, 255, 0.4);
 }
 
 .dark {
@@ -28,6 +30,8 @@
   --color-accent-hover: var(--color-red-500);
   --color-accent-bg: var(--color-red-900);
   --color-highlight: var(--color-rose-500);
+
+  --color-img-inner-border: rgba(0, 0, 0, 0.4);
 }
 @layer utilities {
   .prose {
