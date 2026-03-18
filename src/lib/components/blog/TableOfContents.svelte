@@ -1,7 +1,6 @@
 <script lang="ts">
 	// Reason: Re-rendering already rendered content.
 	/* eslint-disable svelte/no-at-html-tags */
-
 	import { onMount } from 'svelte';
 
 	type Heading = { id: string; html: string; level: number };
@@ -11,23 +10,10 @@
 		isMobile?: boolean;
 	}>();
 
-	let headings: Heading[] = $state([]);
 	let activeId = $state('');
 
 	onMount(() => {
 		const elements = Array.from(document.querySelectorAll('article h2, article h3'));
-
-		headings = elements.map((el) => {
-			const clone = el.cloneNode(true) as HTMLElement;
-
-			clone.querySelectorAll('.katex-mathml, .katex-accessible-sr').forEach((n) => n.remove());
-
-			return {
-				id: el.id,
-				html: clone.innerHTML.trim(),
-				level: parseInt(el.nodeName[1])
-			};
-		});
 
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -52,39 +38,21 @@
 		{/if}
 
 		<ul class="space-y-3 {isMobile ? '' : 'border-l border-slate-200'}">
-			{#if headings.length > 0}
-				{#each headings as { id, html, level } (id)}
-					<li>
-						<a
-							href="#{id}"
-							class="block text-sm transition-colors duration-200
-                          {isMobile ? '' : '-ml-px border-l pl-4'} 
-                          {level === 3 ? (isMobile ? 'pl-4 italic' : 'ml-4') : ''} 
-                          {activeId === id
-								? 'border-accent-hover font-medium text-accent'
-								: 'border-transparent text-accent-bg hover:text-accent-hover'}"
-						>
-							{@html html}
-						</a>
-					</li>
-				{/each}
-			{:else}
-				{#each staticHeadings as { id, html, level } (id)}
-					<li>
-						<a
-							href="#{id}"
-							class="block text-sm transition-colors duration-200
-                          {isMobile ? '' : '-ml-px border-l pl-4'} 
-                          {level === 3 ? (isMobile ? 'pl-4 italic' : 'ml-4') : ''} 
-                          {activeId === id
-								? 'border-accent-hover font-medium text-accent'
-								: 'border-transparent text-accent-bg hover:text-accent-hover'}"
-						>
-							{@html html}
-						</a>
-					</li>
-				{/each}
-			{/if}
+			{#each staticHeadings as { id, html, level } (id)}
+				<li>
+					<a
+						href="#{id}"
+						class="block text-sm transition-colors duration-200
+                        {isMobile ? '' : '-ml-px border-l pl-4'} 
+                        {level === 3 ? (isMobile ? 'pl-4 italic' : 'ml-4') : ''} 
+                        {activeId === id
+							? 'border-accent-hover font-medium text-accent'
+							: 'border-transparent text-accent-bg hover:text-accent-hover'}"
+					>
+						{@html html}
+					</a>
+				</li>
+			{/each}
 		</ul>
 	</div>
 </nav>

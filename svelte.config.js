@@ -5,6 +5,9 @@ import path from 'path';
 import readingTime from 'reading-time';
 import { toString } from 'mdast-util-to-string';
 import { visit } from 'unist-util-visit';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import katex from 'katex';
 
 function slugify(text) {
   return text
@@ -16,29 +19,38 @@ function slugify(text) {
     .replace(/\s+/g, '-')
     .replace(/[^\w-]+/g, '')
     .replace(/--+/g, '-')
-    .replace(/^-+|-+$/g, '')
+    .replace(/^-+|-+$/g, '');
 }
 
 function remarkHeadings() {
   return (tree, { data }) => {
     const headings = [];
-    tree.children.forEach((node) => {
-      if (node.type === 'heading' && [2, 3].includes(node.depth)) {
-        const text = toString(node);
 
-        const id = slugify(text);
-        const cleanHtml = text
-          .replace(/<Math math={[^}]*} \/>/g, '')
-          .replace(/-/g, '')
-          .trim();
+    visit(tree, 'heading', (node) => {
+      if ([2, 3].includes(node.depth)) {
+        const htmlContent = node.children
+          .map((child) => {
+            if (child.type === 'inlineMath') {
+              return katex.renderToString(child.value, {
+                throwOnError: false,
+                output: 'html'
+              });
+            }
+            return toString(child);
+          })
+          .join('');
+
+        const id = slugify(toString(node));
 
         headings.push({
           id: id,
-          html: cleanHtml,
+          html: htmlContent,
           level: node.depth
         });
       }
     });
+
+    if (!data.fm) data.fm = {};
     data.fm.headings = headings;
   };
 }
@@ -53,17 +65,11 @@ function rehypeHeadingIds() {
   };
 }
 
-/**
- * Custom plugin to inject reading time into frontmatter
- */
 function remarkReadingTime() {
   return (tree, { data }) => {
     const textOnPage = toString(tree);
     const stats = readingTime(textOnPage);
-
-    // Ensure data and fm exist
     if (!data.fm) data.fm = {};
-
     data.fm.readingTime = stats.text;
   };
 }
@@ -78,8 +84,11 @@ export default {
       layout: {
         _: path.resolve('src/lib/components/blog/MarkdownLayout.svelte')
       },
-      remarkPlugins: [remarkReadingTime, remarkHeadings],
-      rehypePlugins: [rehypeHeadingIds]
+      remarkPlugins: [remarkMath, remarkReadingTime, remarkHeadings],
+      rehypePlugins: [[rehypeKatex, {
+        output: 'html',
+        strict: false
+      }], rehypeHeadingIds]
     })
   ],
   kit: {
