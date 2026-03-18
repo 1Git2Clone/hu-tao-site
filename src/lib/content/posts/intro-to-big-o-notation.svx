@@ -12,34 +12,12 @@ tags: ["dsa", "cs"]
 <script lang="ts">
   import CodeBlock from '$lib/components/CodeBlock.svelte';
   import YouTube from '$lib/components/YouTube.svelte';
-  import Math from '$lib/components/Math.svelte';
   import bigOChart from '$lib/assets/blog/big-o/big-o-complexities-chart.png';
   import bigOExample from '$lib/assets/blog/big-o/big-o-example.png';
   import bigOmegaExample from '$lib/assets/blog/big-o/big-omega-example.png';
   import bigThetaExample from '$lib/assets/blog/big-o/big-theta-example.png';
 
   export let fetchedSnippets = {};
-
-  // Define math strings here to avoid Svelte/MDX parsing curly braces as variables
-  const n = "n";
-  const o1 = "O(1)";
-  const logN = "O(\\log n)";
-  const oN = "O(n)";
-  const nLogN = "O(n \\log n)";
-  const nSquared = "O(n^2)";
-  const sqrtN = "O(\\sqrt{n})";
-  const sieveTime = "O(n \\log \\log n)";
-  const omega = "\\Omega";
-  const theta = "\\Theta";
-
-  // Definitions
-  const bigODef = "0 \\le f(n) \\le C g(n) \\text{ for all } n \\ge n_0";
-  const bigOmegaDef = "0 \\le C g(n) \\le f(n) \\text{ for all } n \\ge n_0";
-  const bigThetaDef = "0 \\le C_2 g(n) \\le f(n) \\le C_1 g(n) \\text{ for all } n \\ge n_0";
-
-  const leq = "\\le";
-  const geq = "\\ge";
-  const eq = "==";
 </script>
 
 > **Note:** A more detailed dive on the topic can be found in my old
@@ -48,7 +26,7 @@ tags: ["dsa", "cs"]
 > This page goes over the same topic but in a more succinct matter.
 
 Big O Notation is a mathematical notation that describes the behavior of a
-value (most commonly denoted as <Math math={n} />) as it reaches infinity.
+value (most commonly denoted as $n$ as it reaches infinity.
 Although well defined as such in math, applied in programming it comes in 2 forms **Time
 Complexity** and **Space Complexity**.
 
@@ -59,7 +37,7 @@ Complexity** and **Space Complexity**.
 2. **Space Complexity**: Memory resources needed to complete the algorithm.
 3. **Compile Time**: This is **not** measured with Big O, instead we care about
    runtime, and even though some algorithms can be optimized from
-   <Math math={oN} /> to <Math math={o1} />
+   $O(n)$ to $O(1)$
    (like <a href="https://en.wikipedia.org/wiki/Gauss_sum">Gauss Sum</a>) for example, this
    blog doesn't go over these kinds of optimizations.
 4. **Runtime**: When the program is actually executed. This is what LeetCode
@@ -76,45 +54,45 @@ increases in size.
 
 <img src={bigOChart} alt="Big O Complexities Chart" />
 
-### <Math math={o1} /> - Constant Complexity
+### $O(1)$ - Constant Complexity
 
 Seen in:
 * Pushing an item to the **front** of a Vector.
 * Looking up an item in a Hash Map/Set.
 * Getting the first element of a Linked List.
 
-### <Math math={logN} /> - Logarithmic Complexity
+### $O(\log n)$ - Logarithmic Complexity
 
-The concept is as follows: if you divide the amount of steps required by <Math math="k" />
-(most of the time <Math math="k=2" />) on every iteration, then your algorithm's time
-complexity is <Math math={logN} />.
+The concept is as follows: if you divide the amount of steps required by $k$
+(most of the time $k=2$) on every iteration, then your algorithm's time
+complexity is $O(\log n)$.
 
 Primary use is
 [**Binary Search**](https://www.geeksforgeeks.org/dsa/binary-search/). It is
 the gold standard for searching sorted data sets.
 
-### <Math math={oN} /> - Linear Complexity
+### $O(n)$ - Linear Complexity
 
 Described as doing _at least_ one full iteration on your data.
 
 > <p>
 > **Note:** A common trick question is removing the first item of a Vector is
-> <Math math={oN} />, unlike removing the last one which is <Math math={o1} />.
+> $O(n)$, unlike removing the last one which is $O(1)$.
 > This is due to how Vectors are structured in memory and how every subsequent
 > item needs to be moved forward whenever you remove at the first place.
 > </p>
 
-### <Math math={nLogN} /> - Linearithmic Complexity
+### $O(n \log n)$ - Linearithmic Complexity
 
 Usually where efficient sorting algorithms fall: **Quicksort**, **Heapsort**,
 and **Merge sort**, all in regards to time complexity.
 
-### <Math math={nSquared} /> - Quadratic Complexity
+### $O(n^2)$ - Quadratic Complexity
 
 Commonly seen in nested loops or matrix traversals (`arr[i][j]`). Bubble Sort also falls here.
 
 > <p>
-> <b>Note:</b> Often <Math math={nSquared} /> solutions are referred to as 
+> <b>Note:</b> Often $O(n^2)$ solutions are referred to as 
 > <a href="https://www.geeksforgeeks.org/dsa/brute-force-approach-and-its-pros-and-cons/">
 > Brute Force</a>. A common approach to optimizing such problems is called
 > <a href="https://en.wikipedia.org/wiki/Dynamic_programming">Dynamic Programming</a>
@@ -126,10 +104,10 @@ In for easy reference you could refer to it:
 
 | Complexity               | Example       | Intuition        |
 | ------------------------ | ------------- | ---------------- |
-| <Math math={o1} />       | array access  | constant         |
-| <Math math={logN} />     | binary search | halves each step |
-| <Math math={oN} />       | linear scan   | proportional     |
-| <Math math={nSquared} /> | nested loops  | pair comparisons |
+| $O(1)$                   | array access  | constant         |
+| $O(\log n)$           | binary search | halves each step |
+| $O(n)$                   | linear scan   | proportional     |
+| $O(n^2)$                 | nested loops  | pair comparisons |
 
 ### Code Implementation Examples
 
@@ -151,31 +129,31 @@ Below is a video with a very comprehensive showcase of all three approaces:
 ### 1. Trial Division
 
 The most memory-efficient but slowest method. It relies on the fact
-that divisors are mirrored around the square root of <Math math={n} />.
+that divisors are mirrored around the square root of $n$.
 
-* **Time**: <Math math={sqrtN} /> \<\<= on theory, good, in reality the slowness is
+* **Time**: $O(\sqrt n)$ \<\<= on theory, good, in reality the slowness is
   due to <a href="https://en.wikipedia.org/wiki/Integer_factorization">Integer
   Factorization</a>.
-* **Space**: <Math math={o1} />
+* **Space**: $O(1)$
 
 ### 2. Sieve of Eratosthenes
 
 The quickest for bulk evaluation.
 
-* **Time**: <Math math={sieveTime} />
-* **Space**: <Math math={oN} /> (requires a boolean array up to <Math math={n} />)
+* **Time**: $O(n \log \log n)$
+* **Space**: $O(n)$ (requires a boolean array up to $n$)
 
 ### 3. Dijkstra's Approach
 
 A balanced approach using a "pool" of tuples to track multiples, avoiding the
 massive memory hit of the Sieve while staying faster than Trial Division.
 
-* **Time**: <Math math={sieveTime} /> \<\<= whilst sharing the same time
+* **Time**: $O(n \log \log n)$ \<\<= whilst sharing the same time
   complexity as [Sieve of Eratosthenes](#2-sieve-of-eratosthenes), it usually
   performs slower due to
   <a href="https://www.geeksforgeeks.org/computer-organization-architecture/locality-of-reference-and-cache-operation-in-cache-memory/">
   Cache Locality</a>.
-* **Space**: <Math math={oN} /> (requires a boolean array up to <Math math={n} />)
+* **Space**: $O(n)$ (requires a boolean array up to $n$)
 
 ---
 
@@ -185,37 +163,37 @@ Big O describes the **worst-case scenario**. Mathematically:
 
 <img src={bigOExample} alt="Big O Chart" />
 
-<p class="text-center">
-  <Math math={bigODef} />
-</p>
+$$
+0 \le f(n) \le C g(n) \text{ for all } n \ge n_0
+$$
 
-### Big Omega (<Math math={omega} />)
+### Big Omega ($\Omega$)
 
 Describes the **best-case scenario** (lower bound):
 
 <img src={bigOmegaExample} alt="Big Omega Chart" />
 
-<p class="text-center">
-  <Math math={bigOmegaDef} />
-</p>
+$$
+0 \le C g(n) \le f(n) \text{ for all } n \ge n_0
+$$
 
-### Big Theta (<Math math={theta} />)
+### Big Theta ($\Theta$)
 
 Describes the **tightest bound** (average case):
 
 <img src={bigThetaExample} alt="Big Theta Chart" />
 
-<p class="text-center">
-  <Math math={bigThetaDef} />
-</p>
+$$
+0 \le C_2 g(n) \le f(n) \le C_1 g(n) \text{ for all } n \ge n_0
+$$
 
 ---
 
 ## Summary
 
-* **Big O** is like <Math math={leq} /> (Worst case / Upper bound)
-* **Big <Math math={omega} />** is like <Math math={geq} /> (Best case / Lower bound)
-* **Big <Math math={theta} />** is like <Math math={eq} /> (Tightly bounded / Average case)
+* **Big O** is like $\le$ (Worst case / Upper bound)
+* **Big $\Omega$** is like $\ge$ (Best case / Lower bound)
+* **Big $\Theta$** is like $==$ (Tightly bounded / Average case)
 
 Determining what to optimize depends on your specific use case. A big factor to
 these algorithms is also input size, sometimes algorithms like bubble sort
