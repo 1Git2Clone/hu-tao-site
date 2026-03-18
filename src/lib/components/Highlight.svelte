@@ -35,7 +35,7 @@
 	});
 </script>
 
-{#each parts as part}
+{#each parts as part, i (part.text + i)}
 	{#if part.highlight}
 		<span class="font-bold text-highlight">{part.text}</span>
 	{:else}

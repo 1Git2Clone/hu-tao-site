@@ -1,4 +1,6 @@
 <script lang="ts">
+	// Reason: Supposed to be external urls
+	/* eslint-disable svelte/no-navigation-without-resolve */
 	import { PROJECTS } from '$lib/data/projects';
 </script>
 
@@ -16,7 +18,7 @@
 	</section>
 
 	<section class="grid gap-6 md:grid-cols-2">
-		{#each PROJECTS as project}
+		{#each PROJECTS as project (project.title)}
 			<div class="border-border rounded-lg border p-6">
 				{#if project.image}
 					<img src={project.image} alt={`${project.title} Cover Image`} class="mb-4 rounded" />
@@ -27,6 +29,7 @@
 						<a
 							href={project.source_url}
 							target="_blank"
+							rel="noopener noreferrer"
 							aria-label={`View ${project.title}' source code`}
 						>
 							{project.title}

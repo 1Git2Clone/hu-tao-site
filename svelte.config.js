@@ -1,7 +1,6 @@
 import adapter from '@sveltejs/adapter-netlify';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { mdsvex } from 'mdsvex';
-import rehypeSlug from 'rehype-slug';
 import path from 'path';
 import readingTime from 'reading-time';
 import { toString } from 'mdast-util-to-string';

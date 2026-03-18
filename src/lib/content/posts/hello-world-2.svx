@@ -1,9 +1,0 @@
----
-title: Hello World 2
-summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-date: January 01 2026
----
-
-This is a markdown page powered by mdsvex.
-
-<button>Interactive button</button>

@@ -1,4 +1,7 @@
 <script lang="ts">
+	// Reason: Re-rendering already rendered content.
+	/* eslint-disable svelte/no-at-html-tags */
+
 	import { onMount } from 'svelte';
 
 	type Heading = { id: string; html: string; level: number };
@@ -50,7 +53,7 @@
 
 		<ul class="space-y-3 {isMobile ? '' : 'border-l border-slate-200'}">
 			{#if headings.length > 0}
-				{#each headings as { id, html, level }}
+				{#each headings as { id, html, level } (id)}
 					<li>
 						<a
 							href="#{id}"
@@ -66,7 +69,7 @@
 					</li>
 				{/each}
 			{:else}
-				{#each staticHeadings as { id, html, level }}
+				{#each staticHeadings as { id, html, level } (id)}
 					<li>
 						<a
 							href="#{id}"

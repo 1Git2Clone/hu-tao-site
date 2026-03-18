@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { slugify } from '$lib/blog/slugify';
+	import { SvelteURL } from 'svelte/reactivity';
 	import TableOfContents from './TableOfContents.svelte';
 
 	let { title, date, readingTime, children } = $props<{
@@ -23,7 +24,7 @@
 					return;
 				}
 
-				const url = new URL(window.location.href);
+				const url = new SvelteURL(window.location.href);
 				url.hash = id;
 				const fullLink = url.toString();
 
