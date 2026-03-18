@@ -5,15 +5,58 @@
 	import Footer from '$lib/components/layout/Footer.svelte';
 
 	import { fade } from 'svelte/transition';
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
+	import { goto } from '$app/navigation';
 	import { SITE_TITLE } from '$lib/utils/consts';
 	import { onMount } from 'svelte';
+	import type { RouteId } from './$types';
+
+	let { children } = $props();
 
 	onMount(() => {
 		document.title = SITE_TITLE;
-	});
 
-	let { children } = $props();
+		async function handleClick(e: MouseEvent) {
+			const link = (e.target as HTMLElement)?.closest('a') as HTMLAnchorElement | null;
+
+			if (
+				!link ||
+				link.origin !== location.origin ||
+				link.target ||
+				link.hash ||
+				link.hasAttribute('download') ||
+				e.metaKey ||
+				e.ctrlKey ||
+				e.shiftKey ||
+				e.altKey
+			)
+				return;
+
+			e.preventDefault();
+			e.stopImmediatePropagation();
+
+			const url = (link.pathname + link.search) as RouteId;
+
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+
+			await new Promise<void>((res) => {
+				function check() {
+					if (window.scrollY === 0) res();
+					else requestAnimationFrame(check);
+				}
+				check();
+			});
+
+			goto(resolve(url));
+		}
+
+		window.addEventListener('click', handleClick, { capture: true });
+
+		return () => {
+			window.removeEventListener('click', handleClick, { capture: true });
+		};
+	});
 </script>
 
 <ModeWatcher />
