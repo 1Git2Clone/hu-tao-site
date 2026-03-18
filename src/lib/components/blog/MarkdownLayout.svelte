@@ -77,7 +77,7 @@
 		</article>
 
 		<aside class="hidden xl:block">
-			<div class="scrollbar-hide sticky top-20 max-h-[calc(100vh-10rem)] overflow-y-auto py-12">
+			<div class="scrollbar-hide fixed top-20 max-h-[calc(100vh-10rem)] overflow-y-auto py-12">
 				<TableOfContents staticHeadings={headings} />
 			</div>
 		</aside>

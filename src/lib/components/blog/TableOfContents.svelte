@@ -43,9 +43,9 @@
 					<a
 						href="#{id}"
 						class="block text-sm transition-colors duration-200
-                        {isMobile ? '' : '-ml-px border-l pl-4'} 
-                        {level === 3 ? (isMobile ? 'pl-4 italic' : 'ml-4') : ''} 
-                        {activeId === id
+                          {isMobile ? '' : '-ml-px border-l pl-4'}
+                          {level === 3 ? (isMobile ? 'pl-4 italic' : 'ml-4') : ''}
+                          {activeId === id
 							? 'border-accent-hover font-medium text-accent'
 							: 'border-transparent text-accent-bg hover:text-accent-hover'}"
 					>
