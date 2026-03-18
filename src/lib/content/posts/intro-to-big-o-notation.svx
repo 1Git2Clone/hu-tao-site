@@ -131,7 +131,7 @@ Below is a video with a very comprehensive showcase of all three approaces:
 The most memory-efficient but slowest method. It relies on the fact
 that divisors are mirrored around the square root of $n$.
 
-* **Time**: $O(\sqrt n)$ \<\<= on theory, good, in reality the slowness is
+* **Time**: $O(\sqrt{n})$ \<\<= on theory, good, in reality the slowness is
   due to <a href="https://en.wikipedia.org/wiki/Integer_factorization">Integer
   Factorization</a>.
 * **Space**: $O(1)$
