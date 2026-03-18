@@ -1,15 +1,19 @@
 <script lang="ts">
 	import { SITE_TITLE } from '$lib/utils/consts';
-	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	// import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import HistoryTree from '$lib/components/root/HistoryTree.svelte';
 	import { linux_and_dotfiles_history_tree } from '$lib/content/root/linux_and_dotfiles_history_tree';
-	let { data } = $props();
+	import { resolve } from '$app/paths';
+	// let { data } = $props();
 </script>
 
 <div class="prose w-screen min-w-full space-y-8 dark:prose-invert">
 	<section class="border-border rounded-lg border bg-muted/40 p-8">
-		<h1 class="text-4xl font-bold tracking-tight">Welcome to {SITE_TITLE}!</h1>
-		<p>My personal portfolio and blog page.</p>
+		<h1 id="title" class="text-4xl font-bold tracking-tight">Welcome to {SITE_TITLE}!</h1>
+		<p>
+			My personal <a href={resolve('/about-me')}>portfolio</a> and
+			<a href={resolve('/blog')}>blog</a> page.
+		</p>
 
 		<p>
 			I've been programming since 9<sup>th</sup> grade in high-school. The main thing that brought
@@ -17,13 +21,16 @@
 			games wouldn't disappear when I become older and instead I'd be
 			<span class="text-accent">"making video games"</span>. Fast forward to {new Date().getFullYear()}
 			and I'm a programmer who does most types of programming… but not game development. Quite ironic,
-			isn't it? Anyway, here's Linux journey!
+			isn't it?
 		</p>
+
+		<p>Anyway, here's my Linux journey!</p>
 
 		<h2 class="mt-2">Linux Journey</h2>
 
 		<HistoryTree history={linux_and_dotfiles_history_tree} baseHeadingLevel={3} />
 	</section>
+	<!--
 	<div class="flex w-full min-w-0 flex-col overflow-hidden">
 		<section class="w-full min-w-0 overflow-hidden">
 			<CodeBlock lang={data.snippets['main.rs'].language}
@@ -42,4 +49,5 @@
 			</div>
 		{/each}
 	</section>
+  -->
 </div>
