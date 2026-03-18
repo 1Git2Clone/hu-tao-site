@@ -1,15 +1,17 @@
 <script lang="ts">
 	import { SITE_TITLE } from '$lib/utils/consts';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	import HistoryTree from '$lib/components/root/HistoryTree.svelte';
+	import { linux_and_dotfiles_history_tree } from '$lib/content/root/linux_and_dotfiles_history_tree';
 	let { data } = $props();
 </script>
 
-<div class="min-w-0 space-y-8">
+<div class="prose w-screen min-w-full space-y-8 dark:prose-invert">
 	<section class="border-border rounded-lg border bg-muted/40 p-8">
 		<h1 class="text-4xl font-bold tracking-tight">Welcome to {SITE_TITLE}!</h1>
-		<p class="text-muted-foreground mt-4 text-lg">My personal portfolio and blog page.</p>
+		<p>My personal portfolio and blog page.</p>
 
-		<p class="text-muted-foreground mt-4 text-lg">
+		<p>
 			I've been programming since 9<sup>th</sup> grade in high-school. The main thing that brought
 			me into the field was my child self saying how I'd show my parents that my love for video
 			games wouldn't disappear when I become older and instead I'd be
@@ -17,6 +19,10 @@
 			and I'm a programmer who does most types of programming… but not game development. Quite ironic,
 			isn't it?
 		</p>
+
+		<h2>Linux Journey</h2>
+
+		<HistoryTree history={linux_and_dotfiles_history_tree} baseHeadingLevel={3} />
 	</section>
 	<div class="flex w-full min-w-0 flex-col overflow-hidden">
 		<section class="w-full min-w-0 overflow-hidden">
