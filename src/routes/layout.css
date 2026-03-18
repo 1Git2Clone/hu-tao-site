@@ -29,6 +29,11 @@
   --color-accent-bg: var(--color-red-900);
   --color-highlight: var(--color-rose-500);
 }
+@layer utilities {
+  .prose {
+    --tw-prose-quote-borders: color-mix(in oklab, var(--color-accent) 60%, transparent);
+  }
+}
 
 * {
 	box-sizing: border-box;
