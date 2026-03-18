@@ -17,10 +17,10 @@
 			games wouldn't disappear when I become older and instead I'd be
 			<span class="text-accent">"making video games"</span>. Fast forward to {new Date().getFullYear()}
 			and I'm a programmer who does most types of programming… but not game development. Quite ironic,
-			isn't it?
+			isn't it? Anyway, here's Linux journey!
 		</p>
 
-		<h2>Linux Journey</h2>
+		<h2 class="mt-2">Linux Journey</h2>
 
 		<HistoryTree history={linux_and_dotfiles_history_tree} baseHeadingLevel={3} />
 	</section>
