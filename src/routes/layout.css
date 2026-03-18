@@ -108,3 +108,7 @@ img {
   margin: auto;
   padding: 1.5rem;
 }
+
+:target, h1, h2, h3, h4, h5, h6 {
+  @apply scroll-mt-22
+}
