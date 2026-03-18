@@ -40,6 +40,7 @@
     "reading-time": "^1.5.0",
     "rehype-katex": "3.0.0",
     "remark-math": "3.0.1",
+    "snarkdown": "^2.0.0",
     "svelte": "^5.51.0",
     "svelte-check": "^4.4.2",
     "tailwindcss": "^4.1.18",
