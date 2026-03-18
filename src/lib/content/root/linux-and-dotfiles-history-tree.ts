@@ -1,6 +1,6 @@
-import { type History } from '$lib/types/history_tree';
+import { type History } from '$lib/types/history-tree';
 
-export const linux_and_dotfiles_history_tree: History[] = [
+export const LINUX_AND_DOTFILES_HISTORY_TREE: History[] = [
   {
     year: 2023,
     months: [

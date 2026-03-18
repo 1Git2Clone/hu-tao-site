@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { slugify } from '$lib/blog/slugify';
+	import { slugify } from '$lib/utils/slugify';
 	import { SvelteURL } from 'svelte/reactivity';
 	import TableOfContents from './TableOfContents.svelte';
 

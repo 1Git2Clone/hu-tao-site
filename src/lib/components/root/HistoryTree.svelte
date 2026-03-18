@@ -1,7 +1,7 @@
 <script lang="ts">
 	// Reason: Content is written by me.
 	/* eslint-disable svelte/no-at-html-tags */
-	import { type History } from '$lib/types/history_tree';
+	import { type History } from '$lib/types/history-tree';
 	import { SvelteURL } from 'svelte/reactivity';
 	import snarkdown from 'snarkdown';
 
