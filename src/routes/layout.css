@@ -32,6 +32,8 @@
 @layer utilities {
   .prose {
     --tw-prose-quote-borders: color-mix(in oklab, var(--color-accent) 60%, transparent);
+    --tw-prose-bullets: var(--color-accent);
+    --tw-prose-counters: var(--color-accent);
   }
 }
 
@@ -116,4 +118,8 @@ img {
 
 :target, h1, h2, h3, h4, h5, h6 {
   @apply scroll-mt-22
+}
+
+.katex {
+  color: var(--color-highlight);
 }
