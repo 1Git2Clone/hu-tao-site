@@ -9,7 +9,7 @@
 >
 	<span class="absolute inset-0"></span>
 	<span
-		class="flex items-center justify-center text-2xl leading-none text-accent"
+		class="flex items-center justify-center text-2xl leading-none text-accent transition-colors duration-200 hover:text-accent-hover"
 		style={mode.current === 'dark' /* align font in the center */
 			? `transform: translateX(-2.65px);`
 			: `transform: translateX(-3.9px);`}
