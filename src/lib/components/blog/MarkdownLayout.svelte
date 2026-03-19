@@ -55,8 +55,10 @@
 				<h1 id={slugify(title)}>{title}</h1>
 			{/if}
 
-			<div class="meta mb-4 text-sm text-slate-500">
-				<span>{date}</span> • <span>{readingTime}</span>
+			<div class="meta mb-4 text-sm text-subtextcol">
+				<span>{date}</span>
+				<span aria-hidden="true">•</span>
+				<span>{readingTime}</span>
 			</div>
 
 			<div class="not-prose mb-8 xl:hidden">

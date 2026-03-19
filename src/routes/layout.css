@@ -9,6 +9,7 @@
 @theme {
 	--color-primary: #eeeeee;
 	--color-textcol: #333333;
+	--color-subtextcol: #111111;
 	--color-muted: #eaeaea;
 	--color-tertiary: #9e9e9e;
 
@@ -22,7 +23,8 @@
 
 .dark {
 	--color-primary: #333333;
-	--color-textcol: #eeeeee;
+	--color-textcol: #dddddd;
+	--color-subtextcol: #eeeeee;
 	--color-muted: #242424;
 	--color-tertiary: #6a6a6a;
 
@@ -36,7 +38,7 @@
 @layer utilities {
   .prose {
     --tw-prose-links: var(--color-accent);
-    --tw-prose-quote-borders: color-mix(in oklab, var(--color-accent) 60%, transparent);
+    --tw-prose-quote-borders: color-mix(in oklab, var(--color-accent) 80%, rgba(0, 0, 0, 0.5));
     --tw-prose-bullets: var(--color-accent);
     --tw-prose-counters: var(--color-accent);
   }
