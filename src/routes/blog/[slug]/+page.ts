@@ -1,20 +1,18 @@
-import type { PostModule } from '$lib/data/posts';
+import type { Component } from 'svelte';
 import type { PageLoad } from './$types';
 
-const posts = import.meta.glob<PostModule>('/src/lib/content/posts/*.svx', { eager: true });
+const posts = import.meta.glob<{ default: Component }>('/src/lib/content/posts/*.svx');
 
-export const load: PageLoad = async ({ data, params }) => {
+export const load: PageLoad = async ({ params, data }) => {
   const slug = params.slug.replace(/\.svx$/, '');
   const key = `/src/lib/content/posts/${slug}.svx`;
 
-  const post = posts[key];
+  const postModule = await posts[key]();
 
-  if (!post) throw new Error(`Post not found: ${params.slug}`);
+  if (!postModule) throw new Error(`Post not found: ${params.slug}`);
 
   return {
     ...data,
-    component: post.default,
-    metadata: post.metadata,
-    headings: post.metadata.headings || []
+    component: postModule.default
   };
 };

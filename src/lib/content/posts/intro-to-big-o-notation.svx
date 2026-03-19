@@ -2,14 +2,10 @@
 title: Intro to Big O Notation
 summary: An overview of Time and Space complexity, common algorithms, and the nuances of mathematical notations in programming.
 date: April 24 2024
-snippets:
-  - file: big-o/examples.py
-    lang: python
-    label: "Common Complexity Examples"
 tags: ["dsa", "cs"]
 ---
 
-<script lang="ts">
+<script>
   import CodeBlock from '$lib/components/CodeBlock.svelte';
   import YouTube from '$lib/components/YouTube.svelte';
   import bigOChart from '$lib/assets/blog/big-o/big-o-complexities-chart.png';
@@ -17,7 +13,7 @@ tags: ["dsa", "cs"]
   import bigOmegaExample from '$lib/assets/blog/big-o/big-omega-example.png';
   import bigThetaExample from '$lib/assets/blog/big-o/big-theta-example.png';
 
-  export let fetchedSnippets = {};
+  export let snippets;
 </script>
 
 > **Note:** A more detailed dive on the topic can be found in my old
@@ -107,8 +103,8 @@ In for easy reference you could refer to it:
 
 ### Code Implementation Examples
 
-<CodeBlock lang={fetchedSnippets[0]?.lang}>
-  {fetchedSnippets[0]?.content}
+<CodeBlock lang={snippets['big-o/examples.py']?.lang}>
+  {snippets['big-o/examples.py']?.content}
 </CodeBlock>
 
 ---

@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { data } = $props();
+	export let data;
 </script>
 
-<data.component fetchedSnippets={data.snippets} metadata={data.metadata} />
+<svelte:component this={data.component} snippets={data.snippets} metadata={data.metadata} />

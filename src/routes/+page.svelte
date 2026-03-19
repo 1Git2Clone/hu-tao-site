@@ -33,9 +33,7 @@
 	<!--
 	<div class="flex w-full min-w-0 flex-col overflow-hidden">
 		<section class="w-full min-w-0 overflow-hidden">
-			<CodeBlock lang={data.snippets['main.rs'].language}
-				>{data.snippets['main.rs'].content}</CodeBlock
-			>
+			<CodeBlock lang={data.snippets['main.rs'].lang}>{data.snippets['main.rs'].content}</CodeBlock>
 		</section>
 	</div>
 
