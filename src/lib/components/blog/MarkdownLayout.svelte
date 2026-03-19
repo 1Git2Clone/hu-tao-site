@@ -67,7 +67,7 @@
 						class="text-primary-900 flex cursor-pointer list-none items-center justify-between p-4 font-bold dark:text-white"
 					>
 						On This Page
-						<span class="text-xs font-normal opacity-50">View Sections</span>
+						<span class="text-xs font-normal text-subtextcol">View Sections</span>
 					</summary>
 					<div class="border-t p-4">
 						<TableOfContents isMobile={true} staticHeadings={headings} />
