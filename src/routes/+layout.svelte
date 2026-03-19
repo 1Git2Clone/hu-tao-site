@@ -1,5 +1,7 @@
 <script lang="ts">
 	import './layout.css';
+	import '$lib/styles/katex.css';
+	import '$lib/styles/font.css';
 	import { ModeWatcher } from 'mode-watcher';
 	import Header from '$lib/components/layout/Header.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
