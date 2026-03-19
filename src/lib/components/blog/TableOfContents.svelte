@@ -15,6 +15,9 @@
 	let headingPositions: { id: string; top: number }[] = [];
 	let cachedInnerHeight: number = 0;
 
+	let headingHeight = 0;
+	let headingPadding = 0;
+
 	const computeHeadingPositions = () => {
 		const headings = Array.from(
 			document.querySelectorAll('article h2, article h3')
@@ -24,6 +27,11 @@
 	};
 
 	onMount(() => {
+		const header = document.querySelector('header') as HTMLElement;
+		if (header) {
+			headingHeight = header.offsetHeight;
+			headingPadding = headingHeight / 4;
+		}
 		computeHeadingPositions();
 
 		let ticking = false;
@@ -31,7 +39,7 @@
 			if (!ticking) {
 				ticking = true;
 				requestAnimationFrame(() => {
-					const scroll = window.scrollY + cachedInnerHeight * 0.2;
+					const scroll = window.scrollY + cachedInnerHeight * 0.2 + headingHeight + headingPadding;
 					for (let i = headingPositions.length - 1; i >= 0; i--) {
 						if (scroll >= headingPositions[i].top) {
 							if (activeId !== headingPositions[i].id) activeId = headingPositions[i].id;
