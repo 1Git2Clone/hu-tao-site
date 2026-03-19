@@ -63,7 +63,7 @@
 		{/if}
 
 		<ul class="space-y-3 {isMobile ? '' : 'border-l border-slate-200'}">
-			{#each staticHeadings as { id, html, level } (id)}
+			{#each staticHeadings as { id, html, level }, i (id + i)}
 				<li>
 					<a
 						href="#{id}"
