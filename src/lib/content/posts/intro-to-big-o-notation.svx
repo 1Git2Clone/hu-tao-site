@@ -7,7 +7,6 @@ tags: ["dsa", "cs"]
 
 <script>
   import CodeBlock from '$lib/components/CodeBlock.svelte';
-  import YouTube from '$lib/components/YouTube.svelte';
   import bigOChart from '$lib/assets/blog/big-o/big-o-complexities-chart.png';
   import bigOExample from '$lib/assets/blog/big-o/big-o-example.png';
   import bigOmegaExample from '$lib/assets/blog/big-o/big-omega-example.png';
@@ -116,7 +115,7 @@ Below is a video with a very comprehensive showcase of all three approaces:
 [Sieve of Eratosthenes](#2-sieve-of-eratosthenes), and
 [Dijkstra's Approach](#3-dijkstras-approach).
 
-<YouTube id="fwxjMKBMR7s" title="Finding Primes - b001" />
+https://www.youtube.com/watch?v=fwxjMKBMR7s
 
 ### 1. Trial Division
 
