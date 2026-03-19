@@ -92,6 +92,7 @@ export default {
     })
   ],
   kit: {
-    adapter: adapter()
+    inlineStyleThreshold: 5000,
+    adapter: adapter(),
   }
 };
