@@ -41,14 +41,14 @@
 						<img
 							src={project.image.source}
 							alt={`${project.title} Cover Image`}
-							class="h-36 w-full"
+							class="h-36 w-full rounded-xl"
 							style="
                 object-fit: {project.image.css.cssObjectFit};
                 object-position: {project.image.css.cssObjectPosition}
               "
 						/>
 
-						<div class="project-image-border"></div>
+						<div class="project-image-border rounded-xl"></div>
 
 						{#if project.sourceUrl}
 							<a
@@ -135,7 +135,6 @@
 		position: absolute;
 		inset: 0;
 		pointer-events: none;
-		border-radius: inherit;
 
 		background:
 			linear-gradient(to top, var(--color-img-inner-border), transparent 20%),
