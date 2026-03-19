@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { SITE_TITLE } from '$lib/utils/consts';
+	import { SITE_TITLE, CURRENT_YEAR } from '$lib/utils/consts';
 	// import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import HistoryTree from '$lib/components/root/HistoryTree.svelte';
 	import { LINUX_AND_DOTFILES_HISTORY_TREE } from '$lib/content/root/linux-and-dotfiles-history-tree';
@@ -19,7 +19,7 @@
 			I've been programming since 9<sup>th</sup> grade in high-school. The main thing that brought
 			me into the field was my child self saying how I'd show my parents that my love for video
 			games wouldn't disappear when I become older and instead I'd be
-			<span class="text-accent">"making video games"</span>. Fast forward to {new Date().getFullYear()}
+			<span class="text-accent">"making video games"</span>. Fast forward to {CURRENT_YEAR}
 			and I'm a programmer who does most types of programming… but not game development. Quite ironic,
 			isn't it?
 		</p>
