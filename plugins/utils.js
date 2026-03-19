@@ -1,3 +1,7 @@
+/**
+ * @param {string} text - Input string
+ * @returns {string} Slugified string
+ */
 export function slugify(text) {
   return text
     .toString()
