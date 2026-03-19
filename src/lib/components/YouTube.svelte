@@ -1,6 +1,17 @@
 <script lang="ts">
-	let { id, title = 'YouTube video' } = $props();
+	import { onMount } from 'svelte';
+
+	const DEFAULT_TITLE = 'YouTube video';
+	let { id, title = DEFAULT_TITLE, timestamp } = $props();
 	let isLoaded = $state(false);
+
+	onMount(() => {
+		if (!title || title == DEFAULT_TITLE) {
+			fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${id}&format=json`)
+				.then((r) => r.json())
+				.then((data) => (title = data.title));
+		}
+	});
 
 	const thumb = (() => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`)();
 </script>
@@ -8,7 +19,7 @@
 <div class="video-container">
 	{#if isLoaded}
 		<iframe
-			src="https://www.youtube.com/embed/{id}?autoplay=1"
+			src="https://www.youtube.com/embed/{id}?autoplay=1{timestamp ? '&start=' + timestamp : ''}"
 			{title}
 			frameborder="0"
 			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
