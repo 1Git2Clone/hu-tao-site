@@ -2,7 +2,7 @@
 
 /*
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_AMS;
 	font-style: normal;
 	font-weight: 400;
@@ -12,7 +12,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_Caligraphic;
 	font-style: normal;
 	font-weight: 700;
@@ -22,7 +22,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_Caligraphic;
 	font-style: normal;
 	font-weight: 400;
@@ -32,7 +32,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_Fraktur;
 	font-style: normal;
 	font-weight: 700;
@@ -42,7 +42,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_Fraktur;
 	font-style: normal;
 	font-weight: 400;
@@ -53,7 +53,7 @@
 */
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_Main;
 	font-style: normal;
 	font-weight: 700;
@@ -63,7 +63,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_Main;
 	font-style: italic;
 	font-weight: 700;
@@ -73,7 +73,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_Main;
 	font-style: italic;
 	font-weight: 400;
@@ -83,7 +83,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_Main;
 	font-style: normal;
 	font-weight: 400;
@@ -93,7 +93,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_Math;
 	font-style: italic;
 	font-weight: 700;
@@ -103,7 +103,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_Math;
 	font-style: italic;
 	font-weight: 400;
@@ -114,7 +114,7 @@
 
 /*
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: "KaTeX_SansSerif";
 	font-style: normal;
 	font-weight: 700;
@@ -124,7 +124,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: "KaTeX_SansSerif";
 	font-style: italic;
 	font-weight: 400;
@@ -134,7 +134,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: "KaTeX_SansSerif";
 	font-style: normal;
 	font-weight: 400;
@@ -144,7 +144,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_Script;
 	font-style: normal;
 	font-weight: 400;
@@ -154,7 +154,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_Size1;
 	font-style: normal;
 	font-weight: 400;
@@ -164,7 +164,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_Size2;
 	font-style: normal;
 	font-weight: 400;
@@ -174,7 +174,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_Size3;
 	font-style: normal;
 	font-weight: 400;
@@ -184,7 +184,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_Size4;
 	font-style: normal;
 	font-weight: 400;
@@ -194,7 +194,7 @@
 }
 
 @font-face {
-	font-display: block;
+	font-display: swap;
 	font-family: KaTeX_Typewriter;
 	font-style: normal;
 	font-weight: 400;
