@@ -20,8 +20,8 @@
 		class="border-border prose min-w-full rounded-lg border bg-muted/40 p-8 dark:prose-invert"
 	>
 		<h1 id="title" class="mb-2 text-center">1Git2Clone</h1>
-		<div class="text-center">
-			<sub>Student | Junior AI Developer | Aspiring Systems Engineer</sub>
+		<div class="text-center text-sm text-subtextcol">
+			Student | Junior AI Developer | Aspiring Systems Engineer
 		</div>
 		<p>
 			Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate numquam molestias cumque
