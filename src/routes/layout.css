@@ -16,7 +16,7 @@
   --color-accent: var(--color-red-700);
   --color-accent-hover: color-mix(in oklab, var(--color-red-800) 60%, black);
   --color-accent-bg: var(--color-red-900);
-  --color-highlight: var(--color-rose-700);
+  --color-highlight: color-mix(in oklab, var(--color-red-700) 60%, black);
 
   --color-img-inner-border: rgba(255, 255, 255, 0.4);
 }
@@ -31,7 +31,7 @@
   --color-accent: var(--color-red-400);
   --color-accent-hover: var(--color-red-200);
   --color-accent-bg: var(--color-red-900);
-  --color-highlight: var(--color-rose-500);
+  --color-highlight: var(--color-rose-200);
 
   --color-img-inner-border: rgba(0, 0, 0, 0.4);
 }
