@@ -12,8 +12,8 @@
 	--color-muted: #eaeaea;
 	--color-tertiary: #9e9e9e;
 
-  --color-accent: var(--color-red-500);
-  --color-accent-hover: var(--color-red-700);
+  --color-accent: var(--color-red-700);
+  --color-accent-hover: var(--color-red-800);
   --color-accent-bg: var(--color-red-900);
   --color-highlight: var(--color-rose-700);
 
@@ -26,8 +26,8 @@
 	--color-muted: #242424;
 	--color-tertiary: #6a6a6a;
 
-  --color-accent: var(--color-red-300);
-  --color-accent-hover: var(--color-red-500);
+  --color-accent: var(--color-red-400);
+  --color-accent-hover: var(--color-red-200);
   --color-accent-bg: var(--color-red-900);
   --color-highlight: var(--color-rose-500);
 
@@ -35,6 +35,7 @@
 }
 @layer utilities {
   .prose {
+    --tw-prose-links: var(--color-accent);
     --tw-prose-quote-borders: color-mix(in oklab, var(--color-accent) 60%, transparent);
     --tw-prose-bullets: var(--color-accent);
     --tw-prose-counters: var(--color-accent);
