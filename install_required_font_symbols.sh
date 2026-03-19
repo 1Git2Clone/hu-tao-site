@@ -1,26 +1,22 @@
 #!/bin/bash
 
-INPUT_FONT="./static/fonts/JetBrainsMonoNerdFont-Regular.woff2"
-OUTPUT_FONT="./static/fonts/JetBrainsMonoNerdFont-Regular-Optimized.woff2"
-SEARCH_DIRS="src"
-LATIN_UNICODES="U+0000-007F"
+INPUT_FONT="static/fonts/JetBrainsMonoNerdFont-Regular.woff2"
+OUTPUT_FONT="static/fonts/JetBrainsMonoNerdFont-Regular-Optimized.woff2"
+DIRS="src"
 
-echo "Scanning source for unique characters..."
+echo "Extracting every unique character from source..."
 
-# -I: Ignore binary files
-# -o: Only print the matching part (the character)
-# . : Match every character
-# sort -u: Unique characters only
-# tr -d '\n': Remove newlines to create one long string
-CHARS=$(rg -I -o . $SEARCH_DIRS | sort -u | tr -d '\n')
+tmp_chars=$(mktemp)
+find ${DIRS} -type f \( -name "*.svelte" -o -name "*.ts" -o -name "*.js" -o -name "*.md" -o -name "*.css" \) -exec cat {} + >"$tmp_chars"
 
-echo "Found unique characters. Optimizing font..."
+echo "Optimizing font..."
 
 pyftsubset "$INPUT_FONT" \
-  --unicodes="$LATIN_UNICODES" \
-  --text="$CHARS" \
+  --unicodes="U+0000-007F,U+0400-04FF,U+3000-303F,U+3040-309F,U+30A0-30FF,U+FF00-FFEF" \
+  --text-file="$tmp_chars" \
   --layout-features="*" \
   --flavor=woff2 \
   --output-file="$OUTPUT_FONT"
 
-echo "Done! New font size: $(du -h $OUTPUT_FONT | cut -f1)"
+rm "$tmp_chars"
+echo "Done!"
