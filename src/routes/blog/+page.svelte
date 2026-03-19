@@ -77,7 +77,7 @@
 	</section>
 
 	<section class="grid gap-6 md:grid-cols-2">
-		{#each searchDisplay as result (result.item.slug)}
+		{#each searchDisplay as result, i (result.item.slug + '-' + i)}
 			{@const post = result.item}
 			<div class="border-border rounded-lg border p-6 transition-all">
 				<h2 class="text-xl font-semibold">

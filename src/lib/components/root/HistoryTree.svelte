@@ -26,7 +26,7 @@
 </script>
 
 <div class="relative ml-4 space-y-8 border-l-2 border-accent pl-6">
-	{#each history as { year, months } (year)}
+	{#each history as { year, months }, i (year + '-' + i)}
 		<section>
 			<div
 				class="border-background absolute -left-2.25 size-4 rounded-full border-4 bg-accent-hover"
@@ -48,7 +48,7 @@
 			</button>
 
 			<div class="space-y-6">
-				{#each months as month (month)}
+				{#each months as month, i (month + '-' + i)}
 					{@const monthId = year + '-' + month.name.replace(/\s+/g, '-').toLowerCase()}
 					<div class="relative">
 						<button
@@ -69,7 +69,7 @@
 						<div
 							class="prose mt-2 max-w-none space-y-4 border-l border-accent/60 pl-4 dark:prose-invert [&_blockquote]:mt-0 [&_li]:mt-0 [&_ol]:mt-0 [&_p]:mt-0 [&_ul]:mt-0"
 						>
-							{#each month.tasks as task (task)}
+							{#each month.tasks as task, i (task + i)}
 								{@html snarkdown(task)}
 							{/each}
 						</div>

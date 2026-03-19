@@ -31,7 +31,7 @@
 	</section>
 
 	<section class="grid grid-cols-1 gap-6 md:grid-cols-2">
-		{#each PROJECTS as project (project.title)}
+		{#each PROJECTS as project, i (project.title + i)}
 			{@const slug = slugify(project.title)}
 			<div
 				class="border-border prose min-w-full rounded-lg border p-6 md:last:col-span-2 dark:prose-invert"
