@@ -90,7 +90,7 @@
 					</a>
 				</h2>
 				{#if post.metadata.date}
-					<sub>{post.metadata.date}</sub>
+					<span class="text-sm text-subtextcol">{post.metadata.date}</span>
 				{/if}
 				<p class="text-muted-foreground mt-2">
 					<Highlight
@@ -100,7 +100,7 @@
 					/>
 				</p>
 				{#if post.metadata.tags}
-					<sub>
+					<span class="text-sm text-subtextcol">
 						<b>Tags</b>:
 
 						<Highlight
@@ -108,7 +108,7 @@
 							matches={result.matches}
 							path={postKey('metadata.tags')}
 						/>
-					</sub>
+					</span>
 				{/if}
 			</div>
 		{:else}
