@@ -57,7 +57,7 @@ increases in size.
 ### $O(1)$ - Constant Complexity
 
 Seen in:
-* Pushing an item to the **front** of a Vector.
+* Pushing an item to the **back** of a Vector.
 * Looking up an item in a Hash Map/Set.
 * Getting the first element of a Linked List.
 
