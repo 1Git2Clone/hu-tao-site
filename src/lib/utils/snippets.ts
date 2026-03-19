@@ -1,8 +1,6 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import { glob } from 'glob';
 import type { Snippet } from '$lib/types/snippets';
 import type { PostModule } from '$lib/data/posts';
+import path from 'node:path';
 
 const languageMap: Record<string, string> = {
   '.rs': 'rust',
@@ -19,18 +17,18 @@ const languageMap: Record<string, string> = {
 };
 
 export const loadSnippets = (post?: PostModule): Record<string, Snippet> => {
-  const snippetFiles = glob.sync('src/lib/snippets/**/*.*');
+  const modules = import.meta.glob('/src/lib/snippets/**/*.*', { eager: true, as: 'raw' });
   const snippets: Record<string, Snippet> = {};
 
-  for (const filePath of snippetFiles) {
-    const content = fs.readFileSync(filePath, 'utf-8');
-    const relativeFile = path.relative('src/lib/snippets', filePath).replace(/\\/g, '/');
+  for (const key in modules) {
+    const relativeFile = path.relative('/src/lib/snippets', key).replace(/\\/g, '/');
+    const content = modules[key] as string;
 
     const meta = post?.metadata?.snippets?.find(s => s.file === relativeFile);
 
     snippets[relativeFile] = {
       file: relativeFile,
-      lang: meta?.lang || languageMap[path.extname(filePath)] || 'text',
+      lang: meta?.lang || languageMap[path.extname(relativeFile)] || 'text',
       label: meta?.label || relativeFile,
       content
     };
