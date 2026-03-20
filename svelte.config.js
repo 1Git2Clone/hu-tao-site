@@ -11,6 +11,7 @@ import { remarkCodeBlock } from './plugins/remark/code-block.js';
 
 import { REHYPE_KATEX } from './plugins/rehype/katex.js';
 import { rehypeHeadingIds } from './plugins/rehype/heading-ids.js';
+import { remarkBlogAssets } from './plugins/remark/blog-assets.js';
 
 /** @type {import('@sveltejs/kit').Config} */
 export default {
@@ -22,7 +23,14 @@ export default {
       layout: {
         _: path.resolve('src/lib/components/blog/MarkdownLayout.svelte')
       },
-      remarkPlugins: [remarkYouTube, remarkCodeBlock, remarkMath, remarkReadingTime, remarkHeadings],
+      remarkPlugins: [
+        remarkYouTube,
+        remarkCodeBlock,
+        remarkBlogAssets,
+        remarkMath,
+        remarkReadingTime,
+        remarkHeadings
+      ],
       rehypePlugins: [rehypeHeadingIds, REHYPE_KATEX]
     })
   ],
