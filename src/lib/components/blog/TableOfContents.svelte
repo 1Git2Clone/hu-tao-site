@@ -70,7 +70,7 @@
 			</b>
 		{/if}
 
-		<ul class="space-y-3 {isMobile ? '' : 'border-l border-slate-200'}">
+		<ul class="space-y-3 {isMobile ? '' : 'border-l'}">
 			{#each staticHeadings as { id, html, level }, i (id + i)}
 				<li>
 					<a
@@ -79,7 +79,7 @@
                           {isMobile ? '' : '-ml-px border-l pl-4'}
                           {level === 3 ? (isMobile ? 'pl-4 italic' : 'ml-4') : ''}
                           {activeId === id
-							? 'border-accent-hover font-medium text-accent'
+							? 'border-accent-bg font-medium text-accent'
 							: 'border-transparent text-accent-bg hover:text-accent-hover'}"
 					>
 						{@html html}
