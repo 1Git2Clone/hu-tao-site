@@ -2,7 +2,7 @@
 title: Intro to Big O Notation
 summary: An overview of Time and Space complexity, common algorithms, and the nuances of mathematical notations in programming.
 date: April 24 2024
-tags: ["dsa", "cs"]
+tags: ['dsa', 'cs']
 ---
 
 > **Note:** A more detailed dive on the topic can be found in my old
@@ -12,18 +12,18 @@ tags: ["dsa", "cs"]
 
 Big $O$ Notation is a mathematical notation that describes the behavior of a
 value (most commonly denoted as $n$ as it reaches infinity.
-Although well defined as such in math, applied in programming it comes in 2 forms **Time
-Complexity** and **Space Complexity**.
-
+Although well defined as such in math, applied in programming it comes in 2
+forms **Time Complexity** and **Space Complexity**.
 
 ## Dictionary
 
-1. **Time Complexity**: Used to determine how much time it takes for the CPU to run the code.
+1. **Time Complexity**: Used to determine how much time it takes for the CPU to
+   run the code.
 2. **Space Complexity**: Memory resources needed to complete the algorithm.
 3. **Compile Time**: This is **not** measured with Big O, instead we care about
    runtime, and even though some algorithms can be optimized from
    $O(n)$ to $O(1)$
-   (like <a href="https://en.wikipedia.org/wiki/Gauss_sum">Gauss Sum</a>) for example, this
+   (like [Gauss Sum](https://en.wikipedia.org/wiki/Gauss_sum) for example, this
    blog doesn't go over these kinds of optimizations.
 4. **Runtime**: When the program is actually executed. This is what LeetCode
    and other platforms alike measure.
@@ -42,9 +42,10 @@ increases in size.
 ### $O(1)$ - Constant Complexity
 
 Seen in:
-* Pushing an item to the **back** of a Vector.
-* Looking up an item in a Hash Map/Set.
-* Getting the first element of a Linked List.
+
+- Pushing an item to the **back** of a Vector.
+- Looking up an item in a Hash Map/Set.
+- Getting the first element of a Linked List.
 
 ### $O(\log n)$ - Logarithmic Complexity
 
@@ -72,7 +73,8 @@ and **Merge sort**, all in regards to time complexity.
 
 ### $O(n^2)$ - Quadratic Complexity
 
-Commonly seen in nested loops or matrix traversals (`arr[i][j]`). Bubble Sort also falls here.
+Commonly seen in nested loops or matrix traversals (`arr[i][j]`). Bubble Sort
+also falls here.
 
 > **Note**: Often $O(n^2)$ solutions are referred to as
 > [Brute Force](https://www.geeksforgeeks.org/dsa/brute-force-approach-and-its-pros-and-cons/).
@@ -83,12 +85,12 @@ Commonly seen in nested loops or matrix traversals (`arr[i][j]`). Bubble Sort al
 
 In for easy reference you could refer to it:
 
-| Complexity               | Example       | Intuition        |
-| ------------------------ | ------------- | ---------------- |
-| $O(1)$                   | array access  | constant         |
-| $O(\log n)$              | binary search | halves each step |
-| $O(n)$                   | linear scan   | proportional     |
-| $O(n^2)$                 | nested loops  | pair comparisons |
+| Complexity  | Example       | Intuition        |
+| ----------- | ------------- | ---------------- |
+| $O(1)$      | array access  | constant         |
+| $O(\log n)$ | binary search | halves each step |
+| $O(n)$      | linear scan   | proportional     |
+| $O(n^2)$    | nested loops  | pair comparisons |
 
 ### Code Implementation Examples
 
@@ -157,36 +159,35 @@ Below is a video with a very comprehensive showcase of all three approaces:
 [Sieve of Eratosthenes](#2-sieve-of-eratosthenes), and
 [Dijkstra's Approach](#3-dijkstras-approach).
 
-https://www.youtube.com/watch?v=fwxjMKBMR7s
+<https://www.youtube.com/watch?v=fwxjMKBMR7s>
 
 ### 1. Trial Division
 
 The most memory-efficient but slowest method. It relies on the fact
 that divisors are mirrored around the square root of $n$.
 
-* **Time**: $O(\sqrt{n})$ \<\<= on theory, good, in reality the slowness is
-  due to <a href="https://en.wikipedia.org/wiki/Integer_factorization">Integer
-  Factorization</a>.
-* **Space**: $O(1)$
+- **Time**: $O(\sqrt{n})$ \<\<= on theory, good, in reality the slowness is
+  due to
+  [Integer Factorization](https://en.wikipedia.org/wiki/Integer_factorization).
+- **Space**: $O(1)$
 
 ### 2. Sieve of Eratosthenes
 
 The quickest for bulk evaluation.
 
-* **Time**: $O(n \log \log n)$
-* **Space**: $O(n)$ (requires a boolean array up to $n$)
+- **Time**: $O(n \log \log n)$
+- **Space**: $O(n)$ (requires a boolean array up to $n$)
 
 ### 3. Dijkstra's Approach
 
 A balanced approach using a "pool" of tuples to track multiples, avoiding the
 massive memory hit of the Sieve while staying faster than Trial Division.
 
-* **Time**: $O(n \log \log n)$ \<\<= whilst sharing the same time
+- **Time**: $O(n \log \log n)$ \<\<= whilst sharing the same time
   complexity as [Sieve of Eratosthenes](#2-sieve-of-eratosthenes), it usually
   performs slower due to
-  <a href="https://www.geeksforgeeks.org/computer-organization-architecture/locality-of-reference-and-cache-operation-in-cache-memory/">
-  Cache Locality</a>.
-* **Space**: $O(n)$ (requires a boolean array up to $n$)
+  [Cache Locality](https://www.geeksforgeeks.org/computer-organization-architecture/locality-of-reference-and-cache-operation-in-cache-memory/).
+- **Space**: $O(n)$ (requires a boolean array up to $n$)
 
 ---
 
@@ -224,9 +225,9 @@ $$
 
 ## Summary
 
-* **Big $O$** is like $\le$ (Worst case / Upper bound)
-* **Big $\Omega$** is like $\ge$ (Best case / Lower bound)
-* **Big $\Theta$** is like $==$ (Tightly bounded / Average case)
+- **Big $O$** is like $\le$ (Worst case / Upper bound)
+- **Big $\Omega$** is like $\ge$ (Best case / Lower bound)
+- **Big $\Theta$** is like $==$ (Tightly bounded / Average case)
 
 Determining what to optimize depends on your specific use case. A big factor to
 these algorithms is also input size, sometimes algorithms like bubble sort
