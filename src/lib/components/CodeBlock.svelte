@@ -18,7 +18,7 @@
 	class="group border-border relative my-6 w-full min-w-0 overflow-hidden rounded-lg border bg-black/50 text-sm"
 >
 	<div class="border-border flex items-center justify-between border-b bg-muted/50 px-4 py-2">
-		<span class="font-mono text-xs text-accent">{detectedLang}</span>
+		<span class="font-mono font-bold text-textcol">{detectedLang}</span>
 		<button onclick={copy} class="size-8 text-xs transition-colors hover:text-accent">
 			<span class="translate-x[-50%] absolute translate-y-[-50%]">
 				{copied ? ' ' : ' '}

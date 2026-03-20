@@ -69,6 +69,16 @@ export function remarkCodeBlock() {
         theme: THEME,
         transformers: [
           {
+            span(node) {
+              const stylesToOverride = ['#908CAA', '#6E6A86'];
+              const correspondingStyle = ['#F4CFCF', '#F4CFCF'];
+
+              stylesToOverride.map((x, i) => { return [x, correspondingStyle[i]]; }).map(([x, y]) => {
+                if (node.properties.style?.includes(x)) {
+                  node.properties.style = node.properties.style.replace(x, y);
+                }
+              });
+            },
             pre(node) {
               const existingStyle = node.properties.style || '';
 
