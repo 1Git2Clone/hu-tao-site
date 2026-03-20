@@ -17,7 +17,7 @@ const languageMap: Record<string, string> = {
 };
 
 export const loadSnippets = (post?: PostModule): Record<string, Snippet> => {
-  const modules = import.meta.glob('/src/lib/snippets/**/*.*', { eager: true, as: 'raw' });
+  const modules = import.meta.glob('/src/lib/snippets/**/*.*', { eager: true, query: '?raw' });
   const snippets: Record<string, Snippet> = {};
 
   for (const key in modules) {
