@@ -15,11 +15,11 @@ import { remarkBlogAssets } from './plugins/remark/blog-assets.js';
 
 /** @type {import('@sveltejs/kit').Config} */
 export default {
-  extensions: ['.svelte', '.svx'],
+  extensions: ['.svelte', '.md'],
   preprocess: [
     vitePreprocess(),
     mdsvex({
-      extensions: ['.svx'],
+      extensions: ['.md'],
       layout: {
         _: path.resolve('src/lib/components/blog/MarkdownLayout.svelte')
       },
