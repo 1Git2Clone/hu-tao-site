@@ -3,9 +3,12 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { mdsvex } from 'mdsvex';
 import path from 'path';
 import remarkMath from 'remark-math';
+
 import { remarkHeadings } from './plugins/remark/headings.js';
 import { remarkReadingTime } from './plugins/remark/reading-time.js';
 import { remarkYouTube } from './plugins/remark/youtube.js';
+import { remarkCodeBlock } from './plugins/remark/code-block.js';
+
 import { REHYPE_KATEX } from './plugins/rehype/katex.js';
 import { rehypeHeadingIds } from './plugins/rehype/heading-ids.js';
 
@@ -19,7 +22,7 @@ export default {
       layout: {
         _: path.resolve('src/lib/components/blog/MarkdownLayout.svelte')
       },
-      remarkPlugins: [remarkYouTube, remarkMath, remarkReadingTime, remarkHeadings],
+      remarkPlugins: [remarkYouTube, remarkCodeBlock, remarkMath, remarkReadingTime, remarkHeadings],
       rehypePlugins: [rehypeHeadingIds, REHYPE_KATEX]
     })
   ],
