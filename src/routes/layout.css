@@ -19,6 +19,7 @@
   --color-highlight: color-mix(in oklab, var(--color-red-700) 60%, black);
 
   --color-img-inner-border: rgba(255, 255, 255, 0.4);
+  --color-code-block: rgba(20, 4, 4, 1);
 }
 
 .dark {
@@ -34,6 +35,7 @@
   --color-highlight: var(--color-rose-200);
 
   --color-img-inner-border: rgba(0, 0, 0, 0.4);
+  --color-code-block: rgba(200, 100, 100, 0.1);
 }
 @layer utilities {
   .prose {
