@@ -24,9 +24,17 @@
 					return;
 				}
 
+				const rect = heading.getBoundingClientRect();
+				const clickX = event.clientX - rect.left;
+				const paddingLeft = parseFloat(window.getComputedStyle(heading).paddingLeft);
+				if (clickX > paddingLeft) {
+					return;
+				}
+
 				const url = new SvelteURL(window.location.href);
 				url.hash = id;
 				const fullLink = url.toString();
+				window.location.href = fullLink;
 
 				navigator.clipboard.writeText(fullLink).then(() => {
 					heading.classList.add('copied');
@@ -95,7 +103,7 @@
 
 	#markdown-article :global(:is(h1, h2, h3, h4, h5, h6)) {
 		position: relative;
-		cursor: pointer;
+		cursor: default;
 	}
 
 	#markdown-article :global(:is(h1)) {
@@ -118,6 +126,7 @@
 		opacity: 0.5;
 		transition: all 0.2s ease;
 		user-select: none;
+		cursor: pointer;
 	}
 
 	#markdown-article :global(:is(h1, h2, h3, h4, h5, h6):hover::before) {
@@ -131,7 +140,9 @@
 		opacity: 1;
 	}
 
+	/*
 	#markdown-article :global(:is(h1, h2, h3, h4, h5, h6).copied) {
 		color: var(--color-accent);
 	}
+  */
 </style>
