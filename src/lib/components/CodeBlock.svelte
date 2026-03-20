@@ -6,12 +6,12 @@
 	import 'prismjs/components/prism-rust';
 	import 'prismjs/components/prism-python';
 
-	let { children, lang, ...rest } = $props();
+	let { children, lang } = $props();
 
 	let copied = $state(false);
 	let codeElement: HTMLElement | undefined = $state();
 
-	let detectedLang = $derived(lang || rest.class?.replace('language-', '') || 'javascript');
+	let detectedLang = $derived(lang || 'javascript');
 
 	function copy() {
 		const text = codeElement?.innerText || '';
