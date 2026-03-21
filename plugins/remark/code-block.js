@@ -94,7 +94,7 @@ export function remarkCodeBlock() {
                 padding: 1rem;
                 margin: 0;
                 background-color: var(--color-code-block);
-                overflow-y: scroll;
+                overflow: auto;
 `.trim();
             }
           }
