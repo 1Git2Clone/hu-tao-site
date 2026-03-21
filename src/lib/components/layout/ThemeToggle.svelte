@@ -3,8 +3,8 @@
 </script>
 
 <button
-	on:click={toggleMode}
-	class="relative flex size-10 items-center justify-center"
+	onclick={toggleMode}
+	class="relative -mr-2 flex size-10 items-center justify-center sm:mr-0"
 	aria-label="Toggle theme"
 >
 	<span class="absolute inset-0"></span>
