@@ -34,7 +34,7 @@
 				const url = new SvelteURL(window.location.href);
 				url.hash = id;
 				const fullLink = url.toString();
-				window.location.href = fullLink;
+				// window.location.href = fullLink;
 
 				navigator.clipboard.writeText(fullLink).then(() => {
 					heading.classList.add('copied');
