@@ -69,6 +69,17 @@
 		transition: background-color 0.2s;
 	}
 
+	.placeholder {
+		transform: scale(1);
+		transition: transform 0.3s ease-in-out;
+	}
+
+	.placeholder:hover {
+		transform: scale(1.1);
+		transition: transform;
+		transition: transform 0.3s ease-in-out;
+	}
+
 	.placeholder:hover .play-button {
 		background-color: #ff0000;
 	}
