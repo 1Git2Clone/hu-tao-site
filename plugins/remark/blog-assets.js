@@ -12,7 +12,7 @@ export function remarkBlogAssets() {
           .replace(/\.[^/.]+$/, "")
           .replace(/[^a-zA-Z0-9]/g, '_');
         const variableName = readable ? `ASSET_${readable}_${hash}` : `ASSET_${hash}`;
-        const assetPath = node.url.replace('./', '$lib/assets/blog/');
+        const assetPath = node.url.replace('./', '$lib/content/posts/');
         ensureComponentImport(tree, {
           importName: variableName,
           importPath: assetPath
