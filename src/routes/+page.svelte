@@ -26,7 +26,7 @@
 		</div>
 
 		<div class="mt-8 text-sm text-tertiary">
-			<a href="/journey" class="inline-flex items-center gap-1">
+			<a href={resolve('/journey')} class="inline-flex items-center gap-1">
 				See my Linux journey <span aria-hidden="true">→</span>
 			</a>
 		</div>

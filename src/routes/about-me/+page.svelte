@@ -1,8 +1,5 @@
 <script lang="ts">
-	// Reason: Content is written by me.
-	/* eslint-disable svelte/no-at-html-tags */
-
-	const markdownTocUrl = ''; // TODO: add GitHub URL
+	import { EMAIL } from '$lib/utils/consts';
 </script>
 
 <div class="space-y-8">
@@ -39,8 +36,8 @@
 		</p>
 
 		<p class="mt-6">
-			<a href="mailto:ivankirilov640@gmail.com" class="inline-flex items-center gap-1">
-				ivankirilov640@gmail.com
+			<a href="mailto:{EMAIL}" class="inline-flex items-center gap-1">
+				{EMAIL}
 			</a>
 		</p>
 	</section>
@@ -69,7 +66,7 @@
 					leveling.
 				</p>
 				<div class="mt-3 flex flex-wrap gap-2">
-					{#each ['Rust', 'Tokio', 'Serenity', 'Poise', 'PostgreSQL', 'Docker', 'OpenTelemetry'] as tag}
+					{#each ['Rust', 'Tokio', 'Serenity', 'Poise', 'PostgreSQL', 'Docker', 'OpenTelemetry'] as tag (tag)}
 						<span class="rounded border border-accent/30 px-2 py-0.5 text-xs text-accent"
 							>{tag}</span
 						>
@@ -78,23 +75,16 @@
 			</div>
 
 			<!-- Markdown TOC Generator -->
+			<!-- TODO: add GitHub URL when repo is public -->
 			<div class="border-border rounded-lg border bg-muted/40 p-6">
 				<div class="flex flex-wrap items-baseline justify-between gap-2">
-					<h3 class="m-0 text-lg font-semibold">
-						{#if markdownTocUrl}
-							<a href={markdownTocUrl} target="_blank" rel="noopener noreferrer">
-								Markdown TOC Generator
-							</a>
-						{:else}
-							Markdown TOC Generator
-						{/if}
-					</h3>
+					<h3 class="m-0 text-lg font-semibold">Markdown TOC Generator</h3>
 				</div>
 				<p class="mt-1 text-sm text-tertiary">
 					CLI tool that generates and injects tables of contents into Markdown files.
 				</p>
 				<div class="mt-3 flex flex-wrap gap-2">
-					{#each ['Rust'] as tag}
+					{#each ['Rust'] as tag (tag)}
 						<span class="rounded border border-accent/30 px-2 py-0.5 text-xs text-accent"
 							>{tag}</span
 						>
@@ -120,7 +110,7 @@
 					setup.
 				</p>
 				<div class="mt-3 flex flex-wrap gap-2">
-					{#each ['Shell', 'Lua'] as tag}
+					{#each ['Shell', 'Lua'] as tag (tag)}
 						<span class="rounded border border-accent/30 px-2 py-0.5 text-xs text-accent"
 							>{tag}</span
 						>
@@ -141,7 +131,7 @@
 					testcontainers integration testing.
 				</p>
 				<div class="mt-3 flex flex-wrap gap-2">
-					{#each ['Go', 'SvelteKit', 'PostgreSQL', 'Docker'] as tag}
+					{#each ['Go', 'SvelteKit', 'PostgreSQL', 'Docker'] as tag (tag)}
 						<span class="rounded border border-accent/30 px-2 py-0.5 text-xs text-accent"
 							>{tag}</span
 						>
@@ -160,7 +150,7 @@
 			infrastructure.
 		</p>
 		<p class="mt-4">
-			<a href="mailto:ivankirilov640@gmail.com" class="text-lg"> ivankirilov640@gmail.com </a>
+			<a href="mailto:{EMAIL}" class="text-lg">{EMAIL}</a>
 		</p>
 	</section>
 </div>
