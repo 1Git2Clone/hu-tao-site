@@ -19,10 +19,7 @@
 			<a href={resolve('/about-me')} class="inline-flex items-center gap-1">
 				About Me <span aria-hidden="true">→</span>
 			</a>
-			<a
-				href={`https://github.com/${GITHUB_PROFILE_NAME}`}
-				class="inline-flex items-center gap-1"
-			>
+			<a href={`https://github.com/${GITHUB_PROFILE_NAME}`} class="inline-flex items-center gap-1">
 				<GitHub width={18} height={18} />
 				GitHub
 			</a>
