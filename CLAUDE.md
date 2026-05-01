@@ -215,3 +215,11 @@ Never auto-retry without confirmation unless the failure is clearly transient.
 - Not a generic blog template — the monospace aesthetic and red theme are intentional
 - Not a corporate portfolio — the personal voice ("Quite ironic, isn't it?") is intentional
 - Do not introduce sans-serif fonts, blue accent colors, or card-heavy layouts without explicit instruction
+
+## Project Skills
+
+Project-specific skills live in `.opencode/skills/` and are loaded via the `skill` tool:
+
+- `calibrating-from-misalignment` — When user points out an expectation gap, write a skill to prevent recurrence
+- `committing-with-trailers` — Every commit must have correct `Co-authored-by:` (and other) trailers
+- `single-responsibility-commits` — Each commit is one logical change; unrelated files get separate commits
