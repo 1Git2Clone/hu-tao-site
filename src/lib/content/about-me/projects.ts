@@ -106,16 +106,16 @@ export class Project {
 export const PROJECTS: Project[] = [
 	new Project({
 		title: 'Serenity Discord Bot',
-		image: new ProjectImage({
-			source: 'https://pbs.twimg.com/media/GeVpru3aAAAejzN?format=jpg&name=4096x4096',
-			css: {
-				cssObjectFit: 'cover',
-				cssObjectPosition: 'center 42%'
-			},
-			artistName: 'じや',
-			artistLink: new SvelteURL('https://x.com/G_Ya_170/status/1866014032018493942')
-		}),
-		sourceUrl: new SvelteURL('https://github.com/1Git2Clone/serenity-discord-bot'),
+    // image: new ProjectImage({
+    //   source: 'https://pbs.twimg.com/media/GeVpru3aAAAejzN?format=jpg&name=4096x4096',
+    //   css: {
+    //     cssObjectFit: 'cover',
+    //     cssObjectPosition: 'center 42%',
+    //   },
+    //   artistName: 'じや',
+    //   artistLink: new SvelteURL('https://x.com/G_Ya_170/status/1866014032018493942')
+    // }),
+    sourceUrl: new SvelteURL('https://github.com/1Git2Clone/serenity-discord-bot'),
 		techStack: {
 			devops: ['Docker', 'GitHub Actions'],
 			observability: ['OpenTelemetry'],
