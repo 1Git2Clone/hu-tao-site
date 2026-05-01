@@ -24,8 +24,8 @@
 		<p>
 			I deliver working, correct code — not just generated output. I've caught and replaced fake
 			parser implementations with proper AST-based solutions, redesigned broken data pipelines, and
-			made architectural decisions that held up in production. I take ownership of problems beyond the
-			immediate ticket.
+			made architectural decisions that held up in production. I take ownership of problems beyond
+			the immediate ticket.
 		</p>
 
 		<p>
@@ -65,13 +65,13 @@
 					</h3>
 				</div>
 				<p class="mt-1 text-sm text-tertiary">
-					A production Discord bot with AI integration, slash commands, and PostgreSQL-backed leveling.
+					A production Discord bot with AI integration, slash commands, and PostgreSQL-backed
+					leveling.
 				</p>
 				<div class="mt-3 flex flex-wrap gap-2">
 					{#each ['Rust', 'Tokio', 'Serenity', 'Poise', 'PostgreSQL', 'Docker', 'OpenTelemetry'] as tag}
-						<span
-							class="border-accent/30 rounded border px-2 py-0.5 text-xs text-accent"
-						>{tag}</span
+						<span class="rounded border border-accent/30 px-2 py-0.5 text-xs text-accent"
+							>{tag}</span
 						>
 					{/each}
 				</div>
@@ -95,9 +95,8 @@
 				</p>
 				<div class="mt-3 flex flex-wrap gap-2">
 					{#each ['Rust'] as tag}
-						<span
-							class="border-accent/30 rounded border px-2 py-0.5 text-xs text-accent"
-						>{tag}</span
+						<span class="rounded border border-accent/30 px-2 py-0.5 text-xs text-accent"
+							>{tag}</span
 						>
 					{/each}
 				</div>
@@ -117,13 +116,13 @@
 					</h3>
 				</div>
 				<p class="mt-1 text-sm text-tertiary">
-					Fully configured Arch Linux desktop environment with a red-themed Neovim, kitty, and tmux setup.
+					Fully configured Arch Linux desktop environment with a red-themed Neovim, kitty, and tmux
+					setup.
 				</p>
 				<div class="mt-3 flex flex-wrap gap-2">
 					{#each ['Shell', 'Lua'] as tag}
-						<span
-							class="border-accent/30 rounded border px-2 py-0.5 text-xs text-accent"
-						>{tag}</span
+						<span class="rounded border border-accent/30 px-2 py-0.5 text-xs text-accent"
+							>{tag}</span
 						>
 					{/each}
 				</div>
@@ -134,18 +133,17 @@
 				<div class="flex flex-wrap items-baseline justify-between gap-2">
 					<h3 class="m-0 text-lg font-semibold">
 						Hunger Games Simulator
-						<span class="text-tertiary text-xs font-normal">(WIP)</span>
+						<span class="text-xs font-normal text-tertiary">(WIP)</span>
 					</h3>
 				</div>
 				<p class="mt-1 text-sm text-tertiary">
-					Real-time multiplayer simulator with Discord OAuth2, WebSocket sync, JWT auth, and testcontainers
-					integration testing.
+					Real-time multiplayer simulator with Discord OAuth2, WebSocket sync, JWT auth, and
+					testcontainers integration testing.
 				</p>
 				<div class="mt-3 flex flex-wrap gap-2">
 					{#each ['Go', 'SvelteKit', 'PostgreSQL', 'Docker'] as tag}
-						<span
-							class="border-accent/30 rounded border px-2 py-0.5 text-xs text-accent"
-						>{tag}</span
+						<span class="rounded border border-accent/30 px-2 py-0.5 text-xs text-accent"
+							>{tag}</span
 						>
 					{/each}
 				</div>
@@ -158,12 +156,11 @@
 	>
 		<h2 id="hire">Want to work together?</h2>
 		<p class="text-tertiary">
-			Available remotely for backend systems, fintech APIs, developer tooling, and cloud infrastructure.
+			Available remotely for backend systems, fintech APIs, developer tooling, and cloud
+			infrastructure.
 		</p>
 		<p class="mt-4">
-			<a href="mailto:ivan@hu-tao.dev" class="text-lg">
-				ivan@hu-tao.dev
-			</a>
+			<a href="mailto:ivan@hu-tao.dev" class="text-lg"> ivan@hu-tao.dev </a>
 		</p>
 	</section>
 </div>
