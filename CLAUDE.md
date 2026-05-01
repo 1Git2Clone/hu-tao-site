@@ -1,126 +1,217 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# CLAUDE.md — 1k2s Portfolio (hu-tao.org)
 
 ## Project Overview
 
-A personal portfolio and blog site built with **SvelteKit** and **TypeScript**,
-featuring a custom markdown-based blog system with math rendering, code syntax
-highlighting, and a reading time calculator.
+Personal portfolio and blog site for Ivan (1Git2Clone). Built with SvelteKit,
+Tailwind CSS v4, mdsvex (Markdown + Svelte), and deployed to Netlify. The site
+has a dark/light theme system, a custom red accent palette, JetBrains Mono Nerd
+Font, and mdsvex-powered blog with KaTeX, YouTube embeds, and reading time.
 
-## Development Commands
+---
 
-- **`npm run dev`** — Start the development server
-- **`npm run build`** — Build for production
-- **`npm run preview`** — Preview the production build locally
-- **`npm run check`** — Type check and validate Svelte components
-- **`npm run check:watch`** — Type check in watch mode
-- **`npm run lint`** — Run Prettier and ESLint checks
-- **`npm run format`** — Auto-format code with Prettier and Tailwind CSS
+## Tech Stack
 
-## Code Architecture
+- **Framework**: SvelteKit 2 + Svelte 5 (runes: `$props`, `$state`, etc.)
+- **Styling**: Tailwind CSS v4 (CSS-first config via `layout.css` `@theme`)
+- **Markdown**: mdsvex with custom remark/rehype plugins
+- **Adapter**: `@sveltejs/adapter-netlify`
+- **Font**: JetBrains Mono Nerd Font (subset-optimized via `install_required_font_symbols.sh`)
+- **Math**: KaTeX via `rehype-katex` + `remark-math`
+- **Theme**: `mode-watcher` for dark/light switching
+- **Search**: `fuse.js`
+- **Package manager**: `bun`
 
-### File Structure
+---
+
+## Design System
+
+### Color Tokens (defined in `src/layout.css`)
+
+Always use CSS variables or Tailwind token names — never hardcode hex values.
+
+| Token                  | Light            | Dark                    | Usage                     |
+| ---------------------- | ---------------- | ----------------------- | ------------------------- |
+| `--color-primary`      | `#bbbbbb`        | `#181818`               | Page background           |
+| `--color-textcol`      | `#333333`        | `#dddddd`               | Body text                 |
+| `--color-subtextcol`   | `#111111`        | `#eeeeee`               | Headings, emphasis        |
+| `--color-muted`        | `#eaeaea`        | `#242424`               | Card/section backgrounds  |
+| `--color-tertiary`     | `#9e9e9e`        | `#6a6a6a`               | Captions, metadata        |
+| `--color-accent`       | `red-700`        | `red-400`               | Links, highlights, icons  |
+| `--color-accent-hover` | `red-800+black`  | `red-200`               | Hover states              |
+| `--color-accent-bg`    | `red-900`        | `red-900`               | Subtle accent backgrounds |
+| `--color-highlight`    | `red-700+black`  | `rose-200`              | KaTeX, inline emphasis    |
+| `--color-code-block`   | `rgba(20,4,4,1)` | `rgba(200,100,100,0.1)` | Code block backgrounds    |
+
+### Typography
+
+- Font: JetBrains Mono Nerd Font (monospace everywhere — this is intentional)
+- Use `prose` + `dark:prose-invert` for markdown/blog content
+- Prose link color overridden to `--color-accent` via `@layer utilities`
+- Headings use `scroll-mt-22` for anchor offset
+
+### Component Conventions
+
+- Sections use: `border-border rounded-lg border bg-muted/40 p-8`
+- Page wrappers use: `prose w-full max-w-none space-y-8 dark:prose-invert`
+- Transitions: page-level uses `fly` in (y: 12, 200ms, delay 200ms) + `fade` out via `grid-stack`
+- Icons: SVG with `fill: currentColor` — color transitions via `a svg { transition: fill 0.2s ease }`
+- Buttons/links: `color: var(--color-accent)` with `0.2s ease` transitions
+
+---
+
+## File Structure Conventions
 
 ```
 src/
-├── lib/
-│   ├── components/          # Reusable Svelte components
-│   │   ├── blog/            # Blog-specific components (MarkdownLayout, TableOfContents)
-│   │   ├── layout/          # Layout components (Header, Nav, Footer, ThemeToggle)
-│   │   ├── icons/           # SVG icon components
-│   │   ├── root/            # Root page components
-│   │   └── *.svelte         # Content components (CodeBlock, Highlight, Math, YouTube)
-│   ├── content/             # Markdown content and data files
-│   │   ├── posts/           # Blog posts in .md format
-│   │   ├── about-me/        # About page content (projects.ts)
-│   │   └── root/            # Root page data (history tree, etc.)
-│   ├── data/                # TypeScript data definitions (posts.ts)
-│   ├── types/               # TypeScript type definitions
-│   ├── utils/               # Utility functions (slugify, snippets, consts)
-│   └── styles/              # Global styles (fonts, KaTeX CSS)
-├── routes/                  # SvelteKit page routes
-│   ├── +page.svelte         # Home page
-│   ├── about-me/            # About page
-│   ├── blog/                # Blog listing
-│   └── blog/[slug]/         # Individual blog post pages
-└── app.html                 # Root HTML template
+  lib/
+    components/
+      layout/       # Header, Footer
+      root/         # Homepage-specific components (HistoryTree, etc.)
+      blog/         # Blog-specific components (MarkdownLayout, etc.)
+    content/
+      root/         # Static data for homepage sections
+    styles/         # katex.css, font.css
+    utils/          # consts.ts, snippets.ts, etc.
+  routes/
+    +layout.svelte  # Global layout (Header, Footer, ModeWatcher, transitions)
+    +page.svelte    # Homepage
+    blog/           # Blog routes
+    about-me/       # About/portfolio route
+plugins/
+  remark/           # Custom remark plugins (headings, reading-time, youtube, code-block, blog-assets)
+  rehype/           # Custom rehype plugins (katex, heading-ids)
+static/
+  fonts/            # JetBrains Mono Nerd Font (optimized woff2)
 ```
 
-### Markdown Blog System
-
-Blog posts are located in `src/lib/content/posts/` as `.md` files. Each post has **YAML frontmatter** with metadata:
-
-```markdown
 ---
-title: Post Title
-summary: Brief description
-date: Month Day Year
-tags: ['dsa', 'cs']
----
+
+## Svelte 5 Patterns
+
+This project uses **Svelte 5 runes**. Do not use Svelte 4 patterns.
+
+```svelte
+<!-- Props -->
+let { data, class: className } = $props();
+
+<!-- State -->
+let count = $state(0);
+
+<!-- Derived -->
+let doubled = $derived(count * 2);
+
+<!-- Effects -->
+$effect(() => { console.log(count); });
+
+<!-- Snippets/render -->
+{@render children()}
 ```
 
-**Post Metadata** extracted from frontmatter includes:
+- Use `$app/state` (not `$app/stores`) — e.g. `import { page } from '$app/state'`
+- Use `$app/paths` for `resolve()` in hrefs
 
-- `title`, `summary`, `date`, `tags`
-- `headings` — auto-extracted H2/H3 headings with KaTeX math rendering support
-- `readingTime` — calculated automatically
-- `snippets` — code snippets referenced in the post
+---
 
-### Custom Markdown Plugins
+## Routing
 
-Custom plugins are in `plugins/` directory and configured in `svelte.config.js`:
+- SvelteKit file-based routing under `src/routes/`
+- Use `+page.server.ts` for server-side data loading
+- Use `+page.svelte` for page components
+- Blog posts are `.md` files processed by mdsvex with the `MarkdownLayout.svelte` layout
 
-- **`remarkHeadings`** — Extracts H2/H3 headings, renders inline math in heading text, generates anchor IDs
-- **`remarkReadingTime`** — Calculates reading time and adds to frontmatter
-- **`remarkYouTube`** — Converts YouTube embed syntax to components
-- **`remarkCodeBlock`** — Processes code blocks with syntax highlighting via Shiki
-- **`remarkBlogAssets`** — Handles asset paths in markdown (images, snippets)
-- **`rehypeHeadingIds`** — Generates stable IDs for all headings
-- **`REHYPE_KATEX`** — Renders LaTeX math expressions
+---
 
-### Key Components
+## Styling Rules
 
-- **`MarkdownLayout.svelte`** — Wrapper for all blog posts; provides title, date, reading time, and table of contents
-- **`TableOfContents.svelte`** — Auto-generated navigation from post headings
-- **`CodeBlock.svelte`** — Syntax-highlighted code blocks with language detection
-- **`Math.svelte`** — Inline and display math rendering (KaTeX)
-- **`YouTube.svelte`** — Embedded YouTube videos from markdown
+1. **Tailwind v4** — config is CSS-first via `@theme` in `layout.css`, not `tailwind.config.ts` (the `.ts` file is legacy/partially used)
+2. Use `@plugin` directives for forms/typography with `strategy: "class"`
+3. Dark mode via `[class~="dark"]` selector — toggled by `mode-watcher`
+4. Never use arbitrary hex values inline — always reference a token
+5. `scrollbar-gutter: stable` on `html` — preserve this, it prevents layout shift
+6. `img { margin: auto }` is global — keep this
 
-### Data Loading & Routing
+---
 
-- **`src/routes/blog/[slug]/+page.server.ts`** — Loads post markdown via `import.meta.glob` with eager loading
-- Posts are identified by URL slug matching filename (minus `.md`)
-- Metadata extracted from frontmatter automatically passed to `+page.svelte`
-- Snippets loaded dynamically based on paths referenced in post metadata
+## Commands
 
-### Styling
+```bash
+bun run dev          # Start dev server
+bun run build        # Production build
+bun run preview      # Preview production build
+bun run check        # Type-check with svelte-check
+bun run lint         # Prettier + ESLint check
+bun run format       # Auto-format with Prettier
+bash install_required_font_symbols.sh  # Re-subset font after adding new characters
+```
 
-- **Tailwind CSS** with typography and forms plugins
-- **Dark mode** via `mode-watcher` (auto detects system preference)
-- **Custom CSS** for KaTeX and fonts in `src/lib/styles/`
-- **Prose styling** applied via Tailwind typography plugin for blog content
+---
 
-## Code Style & Standards
+## Commit Conventions
 
-- **Formatting**: Prettier with tabs (2-space indent), Svelte and Tailwind CSS plugins enabled
-- **Linting**: ESLint with Svelte plugin, no-console warnings
-- **TypeScript**: Strict mode enabled, all types must be explicit
-- **Print width**: 100 characters (Prettier)
-- **Svelte**: Use `$props`, `$derived` syntax (Svelte 5 runes)
+Follow Conventional Commits:
 
-## Deployment
+```
+type(scope): short description
 
-- Adapter: **Netlify** (`@sveltejs/adapter-netlify`)
-- Build output directory configured in `svelte.config.js`
-- Environment-specific build handled by adapter
+Body explaining what and why.
 
-## Dependencies to Know
+Co-authored-by: Claude <noreply@anthropic.com>
+```
 
-- **`marked`** & **`mdsvex`** — Markdown to Svelte compilation
-- **`remark`/`rehype`** plugins — AST manipulation for markdown
-- **`katex`** — LaTeX math rendering
-- **`shiki`** — Syntax highlighting for code blocks
-- **`fuse.js`** — Fuzzy search (used on blog page if `POST_SEARCH_FZF` is true)
-- **`clsx`** — Conditional CSS class utility
-- **`reading-time`** — Estimate reading duration
+Types: `feat`, `fix`, `chore`, `docs`, `style`, `refactor`, `test`
+
+- Scan `git log --oneline -50` before committing to match existing scope conventions
+- Run `git diff --cached --check` before committing to catch trailing whitespace
+- **Do not push to any remote without explicit confirmation**
+- **Do not work on `main` without explicit confirmation**
+- Never amend a pushed commit without confirmation
+
+---
+
+## Agent Workflow
+
+### Before starting work
+
+- Check `.opencode/memory` for project-specific memory entries and surface relevant ones
+- Confirm the target branch — do not assume `main`
+- For ambiguous requirements, ask clarifying questions before proceeding
+
+### Brainstorming
+
+Invoke brainstorming when:
+
+- Requirements are ambiguous
+- The change touches multiple systems or has unclear scope
+
+Skip brainstorming for small, well-specified changes.
+
+### Error handling
+
+| Severity | Examples                                 | Response                 |
+| -------- | ---------------------------------------- | ------------------------ |
+| Critical | git failures, missing deps, broken build | Stop and report verbatim |
+| Medium   | optional tool failures, lint warnings    | Note and continue        |
+| Minor    | transient warnings                       | Retry once or ignore     |
+
+Never auto-retry without confirmation unless the failure is clearly transient.
+
+### Secrets
+
+- Never commit secrets, `.env` files, tokens, or private keys
+- If a staged diff contains obvious secret patterns, abort and warn with file + line reference
+- Do not store sensitive values in agent memory — reference abstractly
+
+### Destructive operations — always confirm first
+
+- `reset --hard`, `clean -fd`, branch deletion
+- Force pushes or history rewrites
+- Any push to a remote
+- Working on `main` or protected branches
+
+---
+
+## What This Site Is NOT
+
+- Not a generic blog template — the monospace aesthetic and red theme are intentional
+- Not a corporate portfolio — the personal voice ("Quite ironic, isn't it?") is intentional
+- Do not introduce sans-serif fonts, blue accent colors, or card-heavy layouts without explicit instruction
