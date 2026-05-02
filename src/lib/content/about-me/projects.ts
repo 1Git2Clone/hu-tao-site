@@ -226,24 +226,24 @@ A production Discord bot built in Rust with AI integration, persistent user data
 `.trim(),
 		licenses: ['Apache 2.0'],
 		tags: ['ai', 'backend']
-	}),
-	new Project({
-		title: 'taboc — Table of Contents CLI',
-		sourceUrl: new SvelteURL('https://github.com/1Git2Clone/taboc'),
-		techStack: {
-			languages: ['Rust']
-		},
-		summary: `
-A zero-dependency Rust CLI for generating and injecting Markdown tables of contents.
-`.trim(),
-		description: `
-**Problem:** No reliable CLI tool existed to generate and inject Markdown tables of contents without external dependencies.
-
-**Solution:** Built a zero-dependency Rust CLI that parses heading structure and writes TOC blocks in-place.
-
-**Outcome:** Installable via \`cargo install taboc\`. Used in documentation workflows.
-`.trim(),
-		licenses: ['MIT'],
-		tags: ['cli', 'tooling']
 	})
+	// 	new Project({
+	// 		title: 'taboc — Table of Contents CLI',
+	// 		sourceUrl: new SvelteURL('https://github.com/1Git2Clone/taboc'),
+	// 		techStack: {
+	// 			languages: ['Rust']
+	// 		},
+	// 		summary: `
+	// A zero-dependency Rust CLI for generating and injecting Markdown tables of contents.
+	// `.trim(),
+	// 		description: `
+	// **Problem:** No reliable CLI tool existed to generate and inject Markdown tables of contents without external dependencies.
+	//
+	// **Solution:** Built a zero-dependency Rust CLI that parses heading structure and writes TOC blocks in-place.
+	//
+	// **Outcome:** Installable via \`cargo install taboc\`. Used in documentation workflows.
+	// `.trim(),
+	// 		licenses: ['MIT'],
+	// 		tags: ['cli', 'tooling']
+	// 	})
 ] as const satisfies Project[];
