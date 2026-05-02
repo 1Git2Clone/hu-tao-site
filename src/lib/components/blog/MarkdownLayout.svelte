@@ -20,7 +20,7 @@
 			if (heading && node.contains(heading)) {
 				const id = heading.id;
 				if (!id) {
-					console.warn(`No heading ID for ${heading}`);
+					if (import.meta.env.DEV) console.warn(`No heading ID for ${heading}`);
 					return;
 				}
 
