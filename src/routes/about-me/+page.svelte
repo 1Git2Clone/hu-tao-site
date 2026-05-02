@@ -15,16 +15,16 @@
 	function getSocialMedia(hostname: string): SocialMedia {
 		return hostToSocial[hostname];
 	}
-
-	function techHtml(items: (keyof typeof TECH_URLS)[]): string {
-		return items
-			.map(
-				(item) =>
-					`<a href="${TECH_URLS[item]}" target="_blank" rel="noopener noreferrer">${item}</a>`
-			)
-			.join(', ');
-	}
 </script>
+
+{#snippet techLinks(items: (keyof typeof TECH_URLS)[])}
+	{#each items as item, i (item)}
+		<a href={TECH_URLS[item]} target="_blank" rel="noopener noreferrer">{item}</a>{i <
+		items.length - 1
+			? ', '
+			: ''}
+	{/each}
+{/snippet}
 
 <div class="space-y-8">
 	<section
@@ -130,30 +130,34 @@
 					<h3 id="{slug}-tech-stack" class="mt-0">Tech Stack:</h3>
 					<ul class="ml-4 list-disc">
 						{#if project.techStack.compute?.length}
-							<li>Compute: {@html techHtml(project.techStack.compute)}</li>
+							<li>Compute: {@render techLinks(project.techStack.compute)}</li>
 						{/if}
 						{#if project.techStack.storage?.length}
-							<li>Storage: {@html techHtml(project.techStack.storage)}</li>
+							<li>Storage: {@render techLinks(project.techStack.storage)}</li>
 						{/if}
 						{#if project.techStack.devops?.length}
-							<li>DevOps: {@html techHtml(project.techStack.devops)}</li>
+							<li>DevOps: {@render techLinks(project.techStack.devops)}</li>
 						{/if}
 						{#if project.techStack.observability?.length}
-							<li>Observability: {@html techHtml(project.techStack.observability)}</li>
+							<li>Observability: {@render techLinks(project.techStack.observability)}</li>
 						{/if}
 						{#if project.techStack.frontendLibraries?.length}
-							<li>Frontend Libraries: {@html techHtml(project.techStack.frontendLibraries)}</li>
+							<li>Frontend Libraries: {@render techLinks(project.techStack.frontendLibraries)}</li>
 						{/if}
 						{#if project.techStack.backendLibraries?.length}
-							<li>Backend Libraries: {@html techHtml(project.techStack.backendLibraries)}</li>
+							<li>Backend Libraries: {@render techLinks(project.techStack.backendLibraries)}</li>
 						{/if}
 						{#if project.techStack.databases?.length}
-							<li>Databases: {@html techHtml(project.techStack.databases)}</li>
+							<li>Databases: {@render techLinks(project.techStack.databases)}</li>
 						{/if}
 						{#if project.techStack.aiIntegrations?.length}
-							<li>AI Integrations: {@html techHtml(project.techStack.aiIntegrations)}</li>
+							<li>AI Integrations: {@render techLinks(project.techStack.aiIntegrations)}</li>
 						{/if}
-						<li>Languages: {@html techHtml(project.techStack.languages) || 'None'}</li>
+						<li>
+							Languages: {#if project.techStack.languages.length}{@render techLinks(
+									project.techStack.languages
+								)}{:else}None{/if}
+						</li>
 					</ul>
 				</div>
 
