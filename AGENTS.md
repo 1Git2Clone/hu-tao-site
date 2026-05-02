@@ -88,31 +88,59 @@ static/
 
 ## Svelte 5 Patterns
 
-This project uses **Svelte 5 runes**. Do not use Svelte 4 patterns.
+This project uses **Svelte 5 runes only**. Legacy Svelte 4 syntax is a logic error and must be refactored.
 
+### State & Reactivity
+
+- ❌ `let x = 0` + `$: y = x * 2` — forbidden
+- ✅ `let x = $state(0)` for mutable state, `let y = $derived(x * 2)` for computed values
+
+### Component Interface (Props)
+
+- ❌ `export let name` — forbidden
+- ✅ `let { name } = $props()` — always typed, use `$bindable()` for two-way bindings
 ```svelte
-<!-- Props -->
-let { data, class: className } = $props();
-
-<!-- State -->
-let count = $state(0);
-
-<!-- Derived -->
-let doubled = $derived(count * 2);
-
-<!-- Effects -->
-$effect(() => { console.log(count); });
-
-<!-- Snippets/render -->
-{@render children()}
+<script lang="ts">
+	let { value = $bindable(0), label = 'Default' }: { value: number; label?: string } = $props();
+</script>
 ```
 
-- Use `$app/state` (not `$app/stores`) — e.g. `import { page } from '$app/state'`
-- Use `$app/paths` for `resolve()` in hrefs
+### Composition (Slots)
+
+- ❌ `<slot />` and `let:item` — deprecated
+- ✅ `{@render children()}` and snippet props for named sections
+
+### Event Handlers
+
+- ❌ `createEventDispatcher` — removed in Svelte 5
+- ✅ Pass callback functions as standard props
+- ❌ `on:click={fn}` — removed
+- ✅ `onclick={fn}` — native attribute syntax
+
+### Lifecycle
+
+- ❌ `beforeUpdate` / `afterUpdate` — deprecated
+- ✅ `$effect()` for DOM-side effects; `$derived` for computed state
 
 ### Rendering
 
 **Render in Svelte, not in strings.** Do not use `{@html}` with string-concatenated HTML to render lists, links, or repeated elements. Use real Svelte constructs (`{#each}`, `{#snippet}` + `{@render}`) so the output is SSR'd, Lighthouse-optimal, and free of XSRF surface for that path. The only exception is `{@html marked(project.description)}` where the content is authored markdown and the library is unavoidable — everything else should be native elements.
+
+### Quick Reference
+
+| Anti-Pattern (Svelte 4) | Correct (Svelte 5) | Reason |
+|---|---|---|
+| `let count = 0;` | `let count = $state(0);` | Explicit signal-based reactivity |
+| `$: total = a + b;` | `let total = $derived(a + b);` | Predictable dependency tracking |
+| `export let name;` | `let { name } = $props();` | Standardized component API |
+| `<slot />` | `{@render children()}` | Function-like UI composition |
+| `on:click={fn}` | `onclick={fn}` | Native attribute standard |
+| `createEventDispatcher` | callback props | Removed in Svelte 5 |
+
+### Store Access
+
+- Use `$app/state` (not `$app/stores`) — e.g. `import { page } from '$app/state'`
+- Use `$app/paths` for `resolve()` in hrefs
 
 ---
 
