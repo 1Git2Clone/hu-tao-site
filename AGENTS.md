@@ -256,3 +256,7 @@ Project-specific skills live in `.agents/skills/` and are loaded via the `skill`
 - `committing-with-trailers` — Every commit must have correct `Co-authored-by:` (and other) trailers
 - `single-responsibility-commits` — Each commit is one logical change; unrelated files get separate commits
 - `no-unsolicited-restyling` — When adding data/content, preserve existing UI structure; don't redesign unless explicitly asked
+- `data-over-type-redesign` — Add entries to existing data structures; don't redesign types or interfaces
+- `widen-to-fit-is-a-smell` — Don't widen type-safe parameters; make new data fit the existing contract
+- `orchestrator-verification-gate` — Verify your own output (merges, trailers, config) separately from subagent work
+- `read-the-full-pattern-first` — Read the entire file before planning any change
