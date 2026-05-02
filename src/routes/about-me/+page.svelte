@@ -83,7 +83,7 @@
 		{#each PROJECTS as project, i (project.title + i)}
 			{@const slug = slugify(project.title)}
 			<div class="md:last:odd:col-span-2 md:last:odd:mx-auto md:last:odd:w-[calc(50%-0.75rem)]">
-				<div class="border-border prose min-w-full rounded-lg border p-6 dark:prose-invert">
+				<div class="border-border prose h-full min-w-full rounded-lg border p-6 dark:prose-invert">
 					{#if project.image}
 						<div class="relative mb-4 overflow-hidden rounded">
 							<img
