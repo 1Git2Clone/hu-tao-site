@@ -32,7 +32,7 @@
 	>
 		<h1 id="title" class="mb-2 text-center">1Git2Clone</h1>
 		<p class="text-center text-sm text-subtextcol">
-			Backend Engineer | Go & Rust | Fintech & Developer Tooling
+			AI Integration Developer | APIs, Data Pipelines & Internal Tools
 		</p>
 		<p class="mt-2 text-center">
 			<a
@@ -47,33 +47,39 @@
 		</p>
 
 		<p>
-			Backend engineer focused on building reliable systems in fintech environments. Built
-			production systems with Go and Rust — including microservices, REST APIs, and data pipelines
-			on AWS (Lambda, S3, RDS). Worked on PCI-adjacent financial systems with strict correctness and
-			data integrity requirements.
+			I'm Ivan, an AI integration developer working in fintech and building practical systems around
+			LLMs, APIs, internal tools, and data pipelines. My current work sits where backend systems
+			meet AI: turning operational workflows into production features that are useful, auditable,
+			and maintainable.
 		</p>
 
 		<p>
-			I deliver working, <strong>correct code</strong> — not just generated output. I've caught and replaced
-			fake parser implementations with proper AST-based solutions, redesigned broken data pipelines, and
-			made architectural decisions that held up in production. I take ownership of problems beyond the
-			immediate ticket.
+			I've shipped production work for failure-rate insights, policy scanning, document forensics,
+			and sensitive data flows. That work has involved OpenAI, Gemini, Ollama, RAG/code graph
+			systems, OCR, computer vision, and AWS services such as Lambda, S3, IAM, VPC, CloudWatch, and
+			CloudFormation.
+		</p>
+
+		<p>
+			I build API backends, AI-backed dashboards, document processing tools, data ingestion flows,
+			automation scripts, and developer tooling. I use Go professionally, prefer Rust for systems
+			work, and am comfortable building interfaces with Svelte or React.
 		</p>
 
 		<p>
 			I have <strong>contributed to rust-random/rand</strong>, the standard Rust random number
-			generation library used across the ecosystem. Available remotely for backend systems, fintech
-			APIs, developer tooling, and cloud infrastructure.
+			generation library used across the ecosystem. Available remotely for AI integrations, API
+			creation, data pipelines, internal tools, and backend infrastructure.
 		</p>
 
 		<p class="mt-6">
-			If you need reliable backend systems, data pipelines, or fintech infrastructure built right,
-			get in touch.
+			If you need an AI feature, API, dashboard, or data pipeline turned into something that can run
+			outside a demo, get in touch.
 			<a href="mailto:{EMAIL}" class="inline-flex items-center gap-1">{EMAIL}</a>
 		</p>
 	</section>
 
-	<p>Projects focused on backend systems, data pipelines, and developer tooling:</p>
+	<p>Projects focused on AI integrations, APIs, data pipelines, and developer tooling:</p>
 
 	<section class="grid grid-cols-1 gap-6 md:grid-cols-2">
 		{#each PROJECTS as project, i (project.title + i)}
