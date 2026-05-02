@@ -205,7 +205,7 @@ A production fintech data pipeline for safely processing and analyzing transacti
 		techStack: {
 			compute: ['AWS Lambda'],
 			storage: ['Amazon S3'],
-			aiIntegrations: ['OpenAI', 'Gemini', 'Ollama'],
+			aiIntegrations: ['OpenAI', 'Gemini'],
 			languages: ['Go', 'Python']
 		},
 		summary: `
