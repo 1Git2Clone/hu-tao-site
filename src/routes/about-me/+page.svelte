@@ -79,8 +79,8 @@
 
 	<section class="border-border rounded-lg border bg-muted/40 p-8">
 		<div class="prose mb-6 min-w-full dark:prose-invert">
-			<h2 id="projects" class="mt-0">Selected Projects</h2>
-			<p class="mb-0">Focused on AI integrations, APIs, data pipelines, and developer tooling.</p>
+			<h2 id="projects" class="mt-0">Built For Real Work</h2>
+			<p class="mb-0">AI features, APIs, data flows, and tooling that moved past the demo stage.</p>
 		</div>
 
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -218,9 +218,9 @@
 		<div
 			class="border-border prose mt-6 min-w-full rounded-lg border p-6 text-center dark:prose-invert"
 		>
-			<h2 id="contact" class="mt-0">Got Something Similar In Mind?</h2>
+			<h2 id="contact" class="mt-0">Got A Messy Idea Worth Shipping?</h2>
 			<p class="mb-0">
-				Want me to turn your idea into a project like the ones above? Contact me at
+				Send me the rough version. I'll help turn it into something real:
 				<a href="mailto:{EMAIL}" class="inline-flex items-center gap-1">{EMAIL}</a>.
 			</p>
 		</div>
