@@ -174,7 +174,7 @@
 								License
 							{/if}
 						</strong>:
-						{project.licenses.join(', ')}
+						{@render techLinks(project.licenses)}
 					</div>
 				{/if}
 

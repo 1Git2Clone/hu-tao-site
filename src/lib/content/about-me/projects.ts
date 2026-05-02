@@ -82,6 +82,19 @@ export const LANGUAGES = {
 } as const;
 export type Languages = keyof typeof LANGUAGES;
 
+export const LICENSES = {
+	Unlicense: 'https://unlicense.org/',
+	MIT: 'https://opensource.org/licenses/MIT',
+	'Apache 2.0': 'https://www.apache.org/licenses/LICENSE-2.0',
+	'BSD 2-Clause': 'https://opensource.org/licenses/BSD-2-Clause',
+	'BSD 3-Clause': 'https://opensource.org/licenses/BSD-3-Clause',
+	GPLv2: 'https://www.gnu.org/licenses/old-licenses/gpl-2.0.html',
+	GPLv3: 'https://www.gnu.org/licenses/gpl-3.0.html',
+	LGPL: 'https://www.gnu.org/licenses/lgpl-3.0.html',
+	MPL: 'https://www.mozilla.org/en-US/MPL/2.0/'
+} as const;
+export type License = keyof typeof LICENSES;
+
 export const TECH_URLS = {
 	...COMPUTE_SERVICES,
 	...STORAGE_SERVICES,
@@ -91,18 +104,9 @@ export const TECH_URLS = {
 	...BACKEND_LIBRARIES,
 	...DATABASES,
 	...AI_INTEGRATIONS,
-	...LANGUAGES
+	...LANGUAGES,
+	...LICENSES
 } as const;
-export type License =
-	| 'Unlicense'
-	| 'MIT'
-	| 'Apache 2.0'
-	| 'BSD 2-Clause'
-	| 'BSD 3-Clause'
-	| 'GPLv2'
-	| 'GPLv3'
-	| 'LGPL'
-	| 'MPL';
 export type Tag =
 	| 'web'
 	| 'ai'
