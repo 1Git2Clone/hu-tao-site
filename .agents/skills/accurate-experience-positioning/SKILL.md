@@ -17,6 +17,7 @@ proposal, or about-me content.
 - Professional work focus: AI integration, internal AI tooling, analytics, and production data flows.
 - Company stack does not use Rust. Rust experience comes from personal/open-source projects.
 - No prior professional software engineering work experience before this role unless the user states otherwise.
+- AI Admin dashboard work: Ivan contributed substantial AI features to a larger internal admin system, but did not build the entire site.
 
 ## Allowed Claims
 
@@ -24,10 +25,12 @@ proposal, or about-me content.
 - Can mention Go, AWS Lambda, S3, VPC, IAM, CloudWatch, CloudFormation, and related AWS exposure where accurate.
 - Can mention Rust for personal projects, open-source work, and self-hosted tooling.
 - Can emphasize ownership, fast learning, communication, and end-to-end implementation.
+- Can claim ownership of specific AI Admin features he built, such as failure-rate insights, policy scanning, and document forensics.
 
 ## Avoid
 
 - Do not call Ivan a senior engineer.
 - Do not imply years of professional backend or fintech experience.
 - Do not imply Rust is used professionally at the fintech company.
+- Do not imply Ivan built the entire AI Admin dashboard/site.
 - Do not disclose company, partner counts, transaction volume, architecture wiring, screenshots, or confidential implementation details.
