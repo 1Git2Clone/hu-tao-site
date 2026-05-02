@@ -48,28 +48,26 @@
 
 		<p>
 			I'm Ivan, an AI integration developer working in fintech and building practical systems around
-			LLMs, APIs, internal tools, and data pipelines. My current work sits where backend systems
-			meet AI: turning operational workflows into production features that are useful, auditable,
-			and maintainable.
-		</p>
-
-		<p>
-			I've shipped production work for failure-rate insights, policy scanning, document forensics,
-			and sensitive data flows. That work has involved OpenAI, Gemini, Ollama, RAG/code graph
-			systems, OCR, computer vision, and AWS services such as Lambda, S3, IAM, VPC, CloudWatch, and
-			CloudFormation.
+			LLMs, APIs, internal tools, and data pipelines. I turn operational workflows into production
+			features that are useful, auditable, and maintainable.
 		</p>
 
 		<p>
 			I build API backends, AI-backed dashboards, document processing tools, data ingestion flows,
-			automation scripts, and developer tooling. I use Go professionally, prefer Rust for systems
-			work, and am comfortable building interfaces with Svelte or React.
+			automation scripts, and developer tooling. Recent production work has involved OpenAI, Gemini,
+			RAG/code graph systems, OCR, computer vision, and AWS services such as Lambda, S3, IAM, VPC,
+			CloudWatch, and CloudFormation.
 		</p>
 
 		<p>
-			I have <strong>contributed to rust-random/rand</strong>, the standard Rust random number
-			generation library used across the ecosystem. Available remotely for AI integrations, API
-			creation, data pipelines, internal tools, and backend infrastructure.
+			I use Go professionally, prefer Rust for systems work, and am comfortable building interfaces
+			with Svelte or React. I have <strong>contributed to rust-random/rand</strong>, the standard
+			Rust random number generation library used across the ecosystem.
+		</p>
+
+		<p>
+			Available remotely for AI integrations, API creation, data pipelines, internal tools, and
+			backend infrastructure.
 		</p>
 
 		<p class="mt-6">
@@ -84,124 +82,126 @@
 	<section class="grid grid-cols-1 gap-6 md:grid-cols-2">
 		{#each PROJECTS as project, i (project.title + i)}
 			{@const slug = slugify(project.title)}
-			<div
-				class="border-border prose min-w-full rounded-lg border p-6 md:last:odd:col-span-2 dark:prose-invert"
-			>
-				{#if project.image}
-					<div class="relative mb-4 overflow-hidden rounded">
-						<img
-							src={project.image.source}
-							alt={`${project.title} Cover Image`}
-							class="h-36 w-full rounded-xl"
-							style="
+			<div class="md:last:odd:col-span-2 md:last:odd:mx-auto md:last:odd:w-[calc(50%-0.75rem)]">
+				<div class="border-border prose min-w-full rounded-lg border p-6 dark:prose-invert">
+					{#if project.image}
+						<div class="relative mb-4 overflow-hidden rounded">
+							<img
+								src={project.image.source}
+								alt={`${project.title} Cover Image`}
+								class="h-36 w-full rounded-xl"
+								style="
                 object-fit: {project.image.css.cssObjectFit};
                 object-position: {project.image.css.cssObjectPosition}
               "
-						/>
+							/>
 
-						<div class="project-image-border rounded-xl"></div>
+							<div class="project-image-border rounded-xl"></div>
 
+							{#if project.sourceUrl}
+								<a
+									href={project.image.artistLink.href}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="absolute right-2 bottom-2 rounded bg-primary/50 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm transition-colors"
+								>
+									Credit: {project.image.artistName} on
+									{getSocialMedia(project.image.artistLink.hostname)}
+								</a>
+							{/if}
+						</div>
+					{/if}
+
+					<h2 id={slug} class="{project.image ? 'mt-4' : ''} text-xl font-semibold">
 						{#if project.sourceUrl}
 							<a
-								href={project.image.artistLink.href}
+								href={project.sourceUrl.href}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="absolute right-2 bottom-2 rounded bg-primary/50 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm transition-colors"
+								aria-label={`View ${project.title} source code`}
+								title={`View source code on ${project.sourceUrl.hostname}.`}
 							>
-								Credit: {project.image.artistName} on
-								{getSocialMedia(project.image.artistLink.hostname)}
+								{project.title}
 							</a>
-						{/if}
-					</div>
-				{/if}
-
-				<h2 id={slug} class="{project.image ? 'mt-4' : ''} text-xl font-semibold">
-					{#if project.sourceUrl}
-						<a
-							href={project.sourceUrl.href}
-							target="_blank"
-							rel="noopener noreferrer"
-							aria-label={`View ${project.title} source code`}
-							title={`View source code on ${project.sourceUrl.hostname}.`}
-						>
+						{:else}
 							{project.title}
-						</a>
-					{:else}
-						{project.title}
-					{/if}
-				</h2>
-				<p class="text-muted-foreground mt-2">{project.summary}</p>
+						{/if}
+					</h2>
+					<p class="text-muted-foreground mt-2">{project.summary}</p>
 
-				<div class="text-muted-foreground mt-2 text-sm">
-					<h3 id="{slug}-tech-stack" class="mt-0">Tech Stack:</h3>
-					<ul class="ml-4 list-disc">
-						{#if project.techStack.compute?.length}
-							<li>Compute: {@render techLinks(project.techStack.compute)}</li>
-						{/if}
-						{#if project.techStack.storage?.length}
-							<li>Storage: {@render techLinks(project.techStack.storage)}</li>
-						{/if}
-						{#if project.techStack.devops?.length}
-							<li>DevOps: {@render techLinks(project.techStack.devops)}</li>
-						{/if}
-						{#if project.techStack.observability?.length}
-							<li>Observability: {@render techLinks(project.techStack.observability)}</li>
-						{/if}
-						{#if project.techStack.frontendLibraries?.length}
-							<li>Frontend Libraries: {@render techLinks(project.techStack.frontendLibraries)}</li>
-						{/if}
-						{#if project.techStack.backendLibraries?.length}
-							<li>Backend Libraries: {@render techLinks(project.techStack.backendLibraries)}</li>
-						{/if}
-						{#if project.techStack.databases?.length}
-							<li>Databases: {@render techLinks(project.techStack.databases)}</li>
-						{/if}
-						{#if project.techStack.aiIntegrations?.length}
-							<li>AI Integrations: {@render techLinks(project.techStack.aiIntegrations)}</li>
-						{/if}
-						<li>
-							Languages: {#if project.techStack.languages.length}{@render techLinks(
-									project.techStack.languages
-								)}{:else}None{/if}
-						</li>
-					</ul>
-				</div>
-
-				<div id="{slug}-description">
-					{@html marked(project.description)}
-				</div>
-
-				{#if project.licenses.length}
-					<div class="mt-4 text-sm">
-						<strong>
-							{#if project.licenses.length > 1}
-								Licenses
-							{:else}
-								License
+					<div class="text-muted-foreground mt-2 text-sm">
+						<h3 id="{slug}-tech-stack" class="mt-0">Tech Stack:</h3>
+						<ul class="ml-4 list-disc">
+							{#if project.techStack.compute?.length}
+								<li>Compute: {@render techLinks(project.techStack.compute)}</li>
 							{/if}
-						</strong>:
-						{@render techLinks(project.licenses)}
+							{#if project.techStack.storage?.length}
+								<li>Storage: {@render techLinks(project.techStack.storage)}</li>
+							{/if}
+							{#if project.techStack.devops?.length}
+								<li>DevOps: {@render techLinks(project.techStack.devops)}</li>
+							{/if}
+							{#if project.techStack.observability?.length}
+								<li>Observability: {@render techLinks(project.techStack.observability)}</li>
+							{/if}
+							{#if project.techStack.frontendLibraries?.length}
+								<li>
+									Frontend Libraries: {@render techLinks(project.techStack.frontendLibraries)}
+								</li>
+							{/if}
+							{#if project.techStack.backendLibraries?.length}
+								<li>Backend Libraries: {@render techLinks(project.techStack.backendLibraries)}</li>
+							{/if}
+							{#if project.techStack.databases?.length}
+								<li>Databases: {@render techLinks(project.techStack.databases)}</li>
+							{/if}
+							{#if project.techStack.aiIntegrations?.length}
+								<li>AI Integrations: {@render techLinks(project.techStack.aiIntegrations)}</li>
+							{/if}
+							<li>
+								Languages: {#if project.techStack.languages.length}{@render techLinks(
+										project.techStack.languages
+									)}{:else}None{/if}
+							</li>
+						</ul>
 					</div>
-				{/if}
 
-				<div class="mt-4 text-sm">
-					<strong>Tags:</strong>
-					{project.tags.join(', ')}
-				</div>
+					<div id="{slug}-description">
+						{@html marked(project.description)}
+					</div>
 
-				<div class="mt-4 text-sm">
-					{#if project.sourceUrl}
-						<a
-							href={project.sourceUrl.href}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center gap-1"
-						>
-							{project.sourceUrl.href}
-						</a>
-					{:else if project.isPrivate}
-						Private / Confidential
+					{#if project.licenses.length}
+						<div class="mt-4 text-sm">
+							<strong>
+								{#if project.licenses.length > 1}
+									Licenses
+								{:else}
+									License
+								{/if}
+							</strong>:
+							{@render techLinks(project.licenses)}
+						</div>
 					{/if}
+
+					<div class="mt-4 text-sm">
+						<strong>Tags:</strong>
+						{project.tags.join(', ')}
+					</div>
+
+					<div class="mt-4 text-sm">
+						{#if project.sourceUrl}
+							<a
+								href={project.sourceUrl.href}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="inline-flex items-center gap-1"
+							>
+								{project.sourceUrl.href}
+							</a>
+						{:else if project.isPrivate}
+							Private / Confidential
+						{/if}
+					</div>
 				</div>
 			</div>
 		{/each}
