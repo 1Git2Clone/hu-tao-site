@@ -79,8 +79,8 @@
 
 	<section class="border-border rounded-lg border bg-muted/40 p-8">
 		<div class="prose mb-6 min-w-full dark:prose-invert">
-			<h2 id="projects" class="mt-0">Built For Real Work</h2>
-			<p class="mb-0">AI features, APIs, data flows, and tooling that moved past the demo stage.</p>
+			<h2 id="projects" class="mt-0">Work Beyond Home (localhost)</h2>
+			<p class="mb-0">Things that actually shipped.</p>
 		</div>
 
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
