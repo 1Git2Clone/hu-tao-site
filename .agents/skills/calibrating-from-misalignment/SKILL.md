@@ -29,7 +29,7 @@ Misalignment → skill that encodes the correct behavior
 When the user identifies a misalignment:
 
 1. **Acknowledge the gap** briefly. Don't apologize at length.
-2. **Write a skill** that captures the correct behavior. Put it in `.opencode/skills/<skill-name>/SKILL.md`.
+2. **Write a skill** that captures the correct behavior. Put it in `.agents/skills/<skill-name>/SKILL.md`.
 3. **Reference the skill** in `CLAUDE.md` or `AGENTS.md` if it's a recurring concern.
 4. **Verify** by committing the skill.
 
@@ -38,7 +38,7 @@ When the user identifies a misalignment:
 ```
 User: "those should've been separate commits"
 You: Write a `single-responsibility-commits` skill.
-     "Committed as `.opencode/skills/single-responsibility-commits/SKILL.md`."
+     "Committed as `.agents/skills/single-responsibility-commits/SKILL.md`."
 ```
 
 ## Rationale
