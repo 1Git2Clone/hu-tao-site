@@ -2,59 +2,97 @@ import { assignDefaults, type ConstructorObject } from '$lib/utils/type-helpers'
 import type * as CSS from 'csstype';
 import { SvelteURL } from 'svelte/reactivity';
 
-export type ComputeService =
-	| readonly ['AWS Lambda', 'https://aws.amazon.com/lambda/']
-	| readonly ['AWS EC2', 'https://aws.amazon.com/ec2/']
-	| readonly ['AWS ECS', 'https://aws.amazon.com/ecs/']
-	| readonly ['AWS Fargate', 'https://aws.amazon.com/fargate/'];
-export type StorageService =
-	| readonly ['Amazon S3', 'https://aws.amazon.com/s3/']
-	| readonly ['Amazon EBS', 'https://aws.amazon.com/ebs/']
-	| readonly ['Amazon EFS', 'https://aws.amazon.com/efs/'];
-export type DevOps =
-	| readonly ['Docker', 'https://www.docker.com/']
-	| readonly ['Kubernetes', 'https://kubernetes.io/']
-	| readonly ['GitHub Actions', 'https://github.com/features/actions'];
-export type ObservabilityTool =
-	| readonly ['Prometheus', 'https://prometheus.io/']
-	| readonly ['Grafana', 'https://grafana.com/']
-	| readonly ['OpenTelemetry', 'https://opentelemetry.io/'];
-export type FrontendLibrary =
-	| readonly ['React', 'https://react.dev/']
-	| readonly ['Svelte', 'https://svelte.dev/']
-	| readonly ['TailwindCSS', 'https://tailwindcss.com/'];
-export type BackendLibrary =
-	| readonly ['Axum', 'https://github.com/tokio-rs/axum']
-	| readonly ['Actix', 'https://actix.rs/']
-	| readonly ['Tokio', 'https://tokio.rs/']
-	| readonly ['Serenity', 'https://github.com/serenity-rs/serenity']
-	| readonly ['Poise', 'https://github.com/serenity-rs/poise'];
-export type Database =
-	| readonly ['PostgreSQL', 'https://www.postgresql.org/']
-	| readonly ['MySQL', 'https://www.mysql.com/']
-	| readonly ['SQLite3', 'https://www.sqlite.org/'];
-export type AiIntegration =
-	| readonly ['OpenAI', 'https://openai.com/']
-	| readonly ['Claude', 'https://anthropic.com/']
-	| readonly ['DeepSeek', 'https://www.deepseek.com/']
-	| readonly ['Mistral', 'https://mistral.ai/']
-	| readonly ['Ollama', 'https://ollama.com/']
-	| readonly ['Hugging Face', 'https://huggingface.co/']
-	| readonly ['Replicate', 'https://replicate.com/'];
-export type Languages =
-	| readonly ['TypeScript', 'https://www.typescriptlang.org/']
-	| readonly ['Python', 'https://www.python.org/']
-	| readonly ['Rust', 'https://www.rust-lang.org/']
-	| readonly ['Go', 'https://go.dev/']
-	| readonly ['C++', 'https://isocpp.org/']
-	| readonly ['C', 'https://www.open-std.org/jtc1/sc22/wg14/']
-	| readonly ['C#', 'https://dotnet.microsoft.com/languages/csharp']
-	| readonly ['PHP', 'https://www.php.net/']
-	| readonly ['Ruby', 'https://www.ruby-lang.org/']
-	| readonly ['Java', 'https://www.java.com/']
-	| readonly ['Kotlin', 'https://kotlinlang.org/']
-	| readonly ['Lua', 'https://www.lua.org/']
-	| readonly ['Shell', 'https://www.gnu.org/software/bash/'];
+export const COMPUTE_SERVICES = {
+	'AWS Lambda': 'https://aws.amazon.com/lambda/',
+	'AWS EC2': 'https://aws.amazon.com/ec2/',
+	'AWS ECS': 'https://aws.amazon.com/ecs/',
+	'AWS Fargate': 'https://aws.amazon.com/fargate/'
+} as const;
+export type ComputeService = keyof typeof COMPUTE_SERVICES;
+
+export const STORAGE_SERVICES = {
+	'Amazon S3': 'https://aws.amazon.com/s3/',
+	'Amazon EBS': 'https://aws.amazon.com/ebs/',
+	'Amazon EFS': 'https://aws.amazon.com/efs/'
+} as const;
+export type StorageService = keyof typeof STORAGE_SERVICES;
+
+export const DEVOPS_TOOLS = {
+	Docker: 'https://www.docker.com/',
+	Kubernetes: 'https://kubernetes.io/',
+	'GitHub Actions': 'https://github.com/features/actions'
+} as const;
+export type DevOps = keyof typeof DEVOPS_TOOLS;
+
+export const OBSERVABILITY_TOOLS = {
+	Prometheus: 'https://prometheus.io/',
+	Grafana: 'https://grafana.com/',
+	OpenTelemetry: 'https://opentelemetry.io/'
+} as const;
+export type ObservabilityTool = keyof typeof OBSERVABILITY_TOOLS;
+
+export const FRONTEND_LIBRARIES = {
+	React: 'https://react.dev/',
+	Svelte: 'https://svelte.dev/',
+	TailwindCSS: 'https://tailwindcss.com/'
+} as const;
+export type FrontendLibrary = keyof typeof FRONTEND_LIBRARIES;
+
+export const BACKEND_LIBRARIES = {
+	Axum: 'https://github.com/tokio-rs/axum',
+	Actix: 'https://actix.rs/',
+	Tokio: 'https://tokio.rs/',
+	Serenity: 'https://github.com/serenity-rs/serenity',
+	Poise: 'https://github.com/serenity-rs/poise'
+} as const;
+export type BackendLibrary = keyof typeof BACKEND_LIBRARIES;
+
+export const DATABASES = {
+	PostgreSQL: 'https://www.postgresql.org/',
+	MySQL: 'https://www.mysql.com/',
+	SQLite3: 'https://www.sqlite.org/'
+} as const;
+export type Database = keyof typeof DATABASES;
+
+export const AI_INTEGRATIONS = {
+	OpenAI: 'https://openai.com/',
+	Claude: 'https://anthropic.com/',
+	DeepSeek: 'https://www.deepseek.com/',
+	Mistral: 'https://mistral.ai/',
+	Ollama: 'https://ollama.com/',
+	'Hugging Face': 'https://huggingface.co/',
+	Replicate: 'https://replicate.com/'
+} as const;
+export type AiIntegration = keyof typeof AI_INTEGRATIONS;
+
+export const LANGUAGES = {
+	TypeScript: 'https://www.typescriptlang.org/',
+	Python: 'https://www.python.org/',
+	Rust: 'https://www.rust-lang.org/',
+	Go: 'https://go.dev/',
+	'C++': 'https://isocpp.org/',
+	C: 'https://www.open-std.org/jtc1/sc22/wg14/',
+	'C#': 'https://dotnet.microsoft.com/languages/csharp',
+	PHP: 'https://www.php.net/',
+	Ruby: 'https://www.ruby-lang.org/',
+	Java: 'https://www.java.com/',
+	Kotlin: 'https://kotlinlang.org/',
+	Lua: 'https://www.lua.org/',
+	Shell: 'https://www.gnu.org/software/bash/'
+} as const;
+export type Languages = keyof typeof LANGUAGES;
+
+export const TECH_URLS = {
+	...COMPUTE_SERVICES,
+	...STORAGE_SERVICES,
+	...DEVOPS_TOOLS,
+	...OBSERVABILITY_TOOLS,
+	...FRONTEND_LIBRARIES,
+	...BACKEND_LIBRARIES,
+	...DATABASES,
+	...AI_INTEGRATIONS,
+	...LANGUAGES
+} as const;
 export type License =
 	| 'Unlicense'
 	| 'MIT'
@@ -139,9 +177,9 @@ export const PROJECTS: Project[] = [
 		title: 'Fintech Transaction Pipeline (Confidential)',
 		isPrivate: true,
 		techStack: {
-			compute: [['AWS Lambda', 'https://aws.amazon.com/lambda/'] as const],
-			storage: [['Amazon S3', 'https://aws.amazon.com/s3/'] as const],
-			languages: [['Go', 'https://go.dev/'] as const]
+			compute: ['AWS Lambda'],
+			storage: ['Amazon S3'],
+			languages: ['Go']
 		},
 		summary: `
 A production fintech data pipeline for safely processing and analyzing transaction flows.
@@ -169,21 +207,12 @@ A production fintech data pipeline for safely processing and analyzing transacti
 		// }),
 		sourceUrl: new SvelteURL('https://github.com/1Git2Clone/serenity-discord-bot'),
 		techStack: {
-			devops: [
-				['Docker', 'https://www.docker.com/'] as const,
-				['GitHub Actions', 'https://github.com/features/actions'] as const
-			] as DevOps[],
-			observability: [
-				['OpenTelemetry', 'https://opentelemetry.io/'] as const
-			] as ObservabilityTool[],
-			backendLibraries: [
-				['Tokio', 'https://tokio.rs/'] as const,
-				['Serenity', 'https://github.com/serenity-rs/serenity'] as const,
-				['Poise', 'https://github.com/serenity-rs/poise'] as const
-			] as BackendLibrary[],
-			databases: [['PostgreSQL', 'https://www.postgresql.org/'] as const] as Database[],
-			aiIntegrations: [['Ollama', 'https://ollama.com/'] as const] as AiIntegration[],
-			languages: [['Rust', 'https://www.rust-lang.org/'] as const] as Languages[]
+			devops: ['Docker', 'GitHub Actions'],
+			observability: ['OpenTelemetry'],
+			backendLibraries: ['Tokio', 'Serenity', 'Poise'],
+			databases: ['PostgreSQL'],
+			aiIntegrations: ['Ollama'],
+			languages: ['Rust']
 		},
 		summary: `
 A production Discord bot built in Rust with AI integration, persistent user data, and full observability.
@@ -202,7 +231,7 @@ A production Discord bot built in Rust with AI integration, persistent user data
 		title: 'taboc — Table of Contents CLI',
 		sourceUrl: new SvelteURL('https://github.com/1Git2Clone/taboc'),
 		techStack: {
-			languages: [['Rust', 'https://www.rust-lang.org/'] as const] as Languages[]
+			languages: ['Rust']
 		},
 		summary: `
 A zero-dependency Rust CLI for generating and injecting Markdown tables of contents.

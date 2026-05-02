@@ -6,7 +6,7 @@
 	/* eslint-disable svelte/no-at-html-tags */
 
 	import { slugify } from '$lib/utils/slugify';
-	import { PROJECTS } from '$lib/content/about-me/projects';
+	import { PROJECTS, TECH_URLS } from '$lib/content/about-me/projects';
 	import { EMAIL, GITHUB_PROFILE_NAME } from '$lib/utils/consts';
 	import { marked } from 'marked';
 	import { hostToSocial, type SocialMedia } from '$lib/types/social-media';
@@ -16,11 +16,11 @@
 		return hostToSocial[hostname];
 	}
 
-	function techHtml(items: readonly (readonly [string, string])[]): string {
+	function techHtml(items: (keyof typeof TECH_URLS)[]): string {
 		return items
 			.map(
-				([label, href]) =>
-					`<a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`
+				(item) =>
+					`<a href="${TECH_URLS[item]}" target="_blank" rel="noopener noreferrer">${item}</a>`
 			)
 			.join(', ');
 	}
