@@ -212,11 +212,11 @@ A production fintech data pipeline for safely processing and analyzing transacti
 Internal AI tooling for operational analytics, policy scanning, and document forensics.
 `.trim(),
 		description: `
-**Problem:** Internal teams needed practical AI tools for analyzing failure rates, scanning policy pages, and inspecting documents without exposing sensitive implementation details or relying on brittle regex-only workflows.
+**Problem:** A larger internal admin system needed practical AI tools for analyzing failure rates, scanning policy pages, and inspecting documents without exposing sensitive implementation details or relying on brittle regex-only workflows.
 
-**Solution:** Built AI-backed features inside an internal SSR Go dashboard, including failure-rate insights, an AI-powered policy scanning scraper that works with SPAs, and document forensics using ExifTool, Tesseract, OpenCV, OCR, and Gemini computer vision.
+**Solution:** Contributed AI-backed features to the internal SSR Go dashboard, including failure-rate insights, an AI-powered policy scanning scraper that works with SPAs, and document forensics using ExifTool, Tesseract, OpenCV, OCR, and Gemini computer vision.
 
-**Outcome:** Turned manual and fragile review workflows into reusable internal tools. The resulting dashboard features help teams inspect operational issues, policy changes, and suspicious document metadata faster while keeping the work auditable.
+**Outcome:** Turned manual and fragile review workflows into reusable internal tools within a larger production admin system. The resulting dashboard features help teams inspect operational issues, policy changes, and suspicious document metadata faster while keeping the work auditable.
 `.trim(),
 		licenses: [],
 		tags: ['ai', 'automation', 'fintech']
