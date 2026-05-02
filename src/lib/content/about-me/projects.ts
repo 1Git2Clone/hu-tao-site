@@ -2,35 +2,59 @@ import { assignDefaults, type ConstructorObject } from '$lib/utils/type-helpers'
 import type * as CSS from 'csstype';
 import { SvelteURL } from 'svelte/reactivity';
 
-export type ComputeService = 'AWS Lambda' | 'AWS EC2' | 'AWS ECS' | 'AWS Fargate';
-export type StorageService = 'Amazon S3' | 'Amazon EBS' | 'Amazon EFS';
-export type DevOps = 'Docker' | 'Kubernetes' | 'GitHub Actions';
-export type ObservabilityTool = 'Prometheus' | 'Grafana' | 'OpenTelemetry';
-export type FrontendLibrary = 'React' | 'Svelte' | 'TailwindCSS';
-export type BackendLibrary = 'Axum' | 'Actix' | 'Tokio' | 'Serenity' | 'Poise';
-export type Database = 'PostgreSQL' | 'MySQL' | 'SQLite3';
+export type ComputeService =
+	| readonly ['AWS Lambda', 'https://aws.amazon.com/lambda/']
+	| readonly ['AWS EC2', 'https://aws.amazon.com/ec2/']
+	| readonly ['AWS ECS', 'https://aws.amazon.com/ecs/']
+	| readonly ['AWS Fargate', 'https://aws.amazon.com/fargate/'];
+export type StorageService =
+	| readonly ['Amazon S3', 'https://aws.amazon.com/s3/']
+	| readonly ['Amazon EBS', 'https://aws.amazon.com/ebs/']
+	| readonly ['Amazon EFS', 'https://aws.amazon.com/efs/'];
+export type DevOps =
+	| readonly ['Docker', 'https://www.docker.com/']
+	| readonly ['Kubernetes', 'https://kubernetes.io/']
+	| readonly ['GitHub Actions', 'https://github.com/features/actions'];
+export type ObservabilityTool =
+	| readonly ['Prometheus', 'https://prometheus.io/']
+	| readonly ['Grafana', 'https://grafana.com/']
+	| readonly ['OpenTelemetry', 'https://opentelemetry.io/'];
+export type FrontendLibrary =
+	| readonly ['React', 'https://react.dev/']
+	| readonly ['Svelte', 'https://svelte.dev/']
+	| readonly ['TailwindCSS', 'https://tailwindcss.com/'];
+export type BackendLibrary =
+	| readonly ['Axum', 'https://github.com/tokio-rs/axum']
+	| readonly ['Actix', 'https://actix.rs/']
+	| readonly ['Tokio', 'https://tokio.rs/']
+	| readonly ['Serenity', 'https://github.com/serenity-rs/serenity']
+	| readonly ['Poise', 'https://github.com/serenity-rs/poise'];
+export type Database =
+	| readonly ['PostgreSQL', 'https://www.postgresql.org/']
+	| readonly ['MySQL', 'https://www.mysql.com/']
+	| readonly ['SQLite3', 'https://www.sqlite.org/'];
 export type AiIntegration =
-	| 'OpenAI'
-	| 'Claude'
-	| 'DeepSeek'
-	| 'Mistral'
-	| 'Ollama'
-	| 'Hugging Face'
-	| 'Replicate';
+	| readonly ['OpenAI', 'https://openai.com/']
+	| readonly ['Claude', 'https://anthropic.com/']
+	| readonly ['DeepSeek', 'https://www.deepseek.com/']
+	| readonly ['Mistral', 'https://mistral.ai/']
+	| readonly ['Ollama', 'https://ollama.com/']
+	| readonly ['Hugging Face', 'https://huggingface.co/']
+	| readonly ['Replicate', 'https://replicate.com/'];
 export type Languages =
-	| 'TypeScript'
-	| 'Python'
-	| 'Rust'
-	| 'Go'
-	| 'C++'
-	| 'C'
-	| 'C#'
-	| 'PHP'
-	| 'Ruby'
-	| 'Java'
-	| 'Kotlin'
-	| 'Lua'
-	| 'Shell';
+	| readonly ['TypeScript', 'https://www.typescriptlang.org/']
+	| readonly ['Python', 'https://www.python.org/']
+	| readonly ['Rust', 'https://www.rust-lang.org/']
+	| readonly ['Go', 'https://go.dev/']
+	| readonly ['C++', 'https://isocpp.org/']
+	| readonly ['C', 'https://www.open-std.org/jtc1/sc22/wg14/']
+	| readonly ['C#', 'https://dotnet.microsoft.com/languages/csharp']
+	| readonly ['PHP', 'https://www.php.net/']
+	| readonly ['Ruby', 'https://www.ruby-lang.org/']
+	| readonly ['Java', 'https://www.java.com/']
+	| readonly ['Kotlin', 'https://kotlinlang.org/']
+	| readonly ['Lua', 'https://www.lua.org/']
+	| readonly ['Shell', 'https://www.gnu.org/software/bash/'];
 export type License =
 	| 'Unlicense'
 	| 'MIT'
@@ -115,9 +139,9 @@ export const PROJECTS: Project[] = [
 		title: 'Fintech Transaction Pipeline (Confidential)',
 		isPrivate: true,
 		techStack: {
-			compute: ['AWS Lambda'],
-			storage: ['Amazon S3'],
-			languages: ['Go']
+			compute: [['AWS Lambda', 'https://aws.amazon.com/lambda/'] as const],
+			storage: [['Amazon S3', 'https://aws.amazon.com/s3/'] as const],
+			languages: [['Go', 'https://go.dev/'] as const]
 		},
 		summary: `
 A production fintech data pipeline for safely processing and analyzing transaction flows.
@@ -134,23 +158,32 @@ A production fintech data pipeline for safely processing and analyzing transacti
 	}),
 	new Project({
 		title: 'Serenity Discord Bot',
-    // image: new ProjectImage({
-    //   source: 'https://pbs.twimg.com/media/GeVpru3aAAAejzN?format=jpg&name=4096x4096',
-    //   css: {
-    //     cssObjectFit: 'cover',
-    //     cssObjectPosition: 'center 42%',
-    //   },
-    //   artistName: 'じや',
-    //   artistLink: new SvelteURL('https://x.com/G_Ya_170/status/1866014032018493942')
-    // }),
-    sourceUrl: new SvelteURL('https://github.com/1Git2Clone/serenity-discord-bot'),
+		// image: new ProjectImage({
+		//   source: 'https://pbs.twimg.com/media/GeVpru3aAAAejzN?format=jpg&name=4096x4096',
+		//   css: {
+		//     cssObjectFit: 'cover',
+		//     cssObjectPosition: 'center 42%',
+		//   },
+		//   artistName: 'じや',
+		//   artistLink: new SvelteURL('https://x.com/G_Ya_170/status/1866014032018493942')
+		// }),
+		sourceUrl: new SvelteURL('https://github.com/1Git2Clone/serenity-discord-bot'),
 		techStack: {
-			devops: ['Docker', 'GitHub Actions'],
-			observability: ['OpenTelemetry'],
-			backendLibraries: ['Tokio', 'Serenity', 'Poise'],
-			databases: ['PostgreSQL'],
-			aiIntegrations: ['Ollama'],
-			languages: ['Rust']
+			devops: [
+				['Docker', 'https://www.docker.com/'] as const,
+				['GitHub Actions', 'https://github.com/features/actions'] as const
+			] as DevOps[],
+			observability: [
+				['OpenTelemetry', 'https://opentelemetry.io/'] as const
+			] as ObservabilityTool[],
+			backendLibraries: [
+				['Tokio', 'https://tokio.rs/'] as const,
+				['Serenity', 'https://github.com/serenity-rs/serenity'] as const,
+				['Poise', 'https://github.com/serenity-rs/poise'] as const
+			] as BackendLibrary[],
+			databases: [['PostgreSQL', 'https://www.postgresql.org/'] as const] as Database[],
+			aiIntegrations: [['Ollama', 'https://ollama.com/'] as const] as AiIntegration[],
+			languages: [['Rust', 'https://www.rust-lang.org/'] as const] as Languages[]
 		},
 		summary: `
 A production Discord bot built in Rust with AI integration, persistent user data, and full observability.
@@ -169,7 +202,7 @@ A production Discord bot built in Rust with AI integration, persistent user data
 		title: 'taboc — Table of Contents CLI',
 		sourceUrl: new SvelteURL('https://github.com/1Git2Clone/taboc'),
 		techStack: {
-			languages: ['Rust']
+			languages: [['Rust', 'https://www.rust-lang.org/'] as const] as Languages[]
 		},
 		summary: `
 A zero-dependency Rust CLI for generating and injecting Markdown tables of contents.
@@ -183,5 +216,5 @@ A zero-dependency Rust CLI for generating and injecting Markdown tables of conte
 `.trim(),
 		licenses: ['MIT'],
 		tags: ['cli', 'tooling']
-	}),
+	})
 ] as const satisfies Project[];

@@ -15,6 +15,15 @@
 	function getSocialMedia(hostname: string): SocialMedia {
 		return hostToSocial[hostname];
 	}
+
+	function techHtml(items: readonly (readonly [string, string])[]): string {
+		return items
+			.map(
+				([label, href]) =>
+					`<a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`
+			)
+			.join(', ');
+	}
 </script>
 
 <div class="space-y-8">
@@ -40,15 +49,15 @@
 		<p>
 			Backend engineer focused on building reliable systems in fintech environments. Built
 			production systems with Go and Rust — including microservices, REST APIs, and data pipelines
-			on AWS (Lambda, S3, RDS). Worked on PCI-adjacent financial systems with strict correctness
-			and data integrity requirements.
+			on AWS (Lambda, S3, RDS). Worked on PCI-adjacent financial systems with strict correctness and
+			data integrity requirements.
 		</p>
 
 		<p>
-			I deliver working, <strong>correct code</strong> — not just generated output. I've caught and
-			replaced fake parser implementations with proper AST-based solutions, redesigned broken data
-			pipelines, and made architectural decisions that held up in production. I take ownership of
-			problems beyond the immediate ticket.
+			I deliver working, <strong>correct code</strong> — not just generated output. I've caught and replaced
+			fake parser implementations with proper AST-based solutions, redesigned broken data pipelines, and
+			made architectural decisions that held up in production. I take ownership of problems beyond the
+			immediate ticket.
 		</p>
 
 		<p>
@@ -121,30 +130,30 @@
 					<h3 id="{slug}-tech-stack" class="mt-0">Tech Stack:</h3>
 					<ul class="ml-4 list-disc">
 						{#if project.techStack.compute?.length}
-							<li>Compute: {project.techStack.compute.join(', ')}</li>
+							<li>Compute: {@html techHtml(project.techStack.compute)}</li>
 						{/if}
 						{#if project.techStack.storage?.length}
-							<li>Storage: {project.techStack.storage.join(', ')}</li>
+							<li>Storage: {@html techHtml(project.techStack.storage)}</li>
 						{/if}
 						{#if project.techStack.devops?.length}
-							<li>DevOps: {project.techStack.devops.join(', ')}</li>
+							<li>DevOps: {@html techHtml(project.techStack.devops)}</li>
 						{/if}
 						{#if project.techStack.observability?.length}
-							<li>Observability: {project.techStack.observability.join(', ')}</li>
+							<li>Observability: {@html techHtml(project.techStack.observability)}</li>
 						{/if}
 						{#if project.techStack.frontendLibraries?.length}
-							<li>Frontend Libraries: {project.techStack.frontendLibraries.join(', ')}</li>
+							<li>Frontend Libraries: {@html techHtml(project.techStack.frontendLibraries)}</li>
 						{/if}
 						{#if project.techStack.backendLibraries?.length}
-							<li>Backend Libraries: {project.techStack.backendLibraries.join(', ')}</li>
+							<li>Backend Libraries: {@html techHtml(project.techStack.backendLibraries)}</li>
 						{/if}
 						{#if project.techStack.databases?.length}
-							<li>Databases: {project.techStack.databases.join(', ')}</li>
+							<li>Databases: {@html techHtml(project.techStack.databases)}</li>
 						{/if}
 						{#if project.techStack.aiIntegrations?.length}
-							<li>AI Integrations: {project.techStack.aiIntegrations.join(', ')}</li>
+							<li>AI Integrations: {@html techHtml(project.techStack.aiIntegrations)}</li>
 						{/if}
-						<li>Languages: {project.techStack.languages.join(', ') || 'None'}</li>
+						<li>Languages: {@html techHtml(project.techStack.languages) || 'None'}</li>
 					</ul>
 				</div>
 
@@ -187,7 +196,6 @@
 			</div>
 		{/each}
 	</section>
-
 </div>
 
 <style>
