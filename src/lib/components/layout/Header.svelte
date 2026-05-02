@@ -10,8 +10,19 @@
 <header
 	class="background sticky top-0 z-1 grid h-16 grid-cols-[1fr_auto_1fr] items-center border-b px-8"
 >
-	<a href={resolve('/')} class="text-lg font-bold whitespace-nowrap">
-		<span class="hidden sm:inline">{SITE_TITLE}</span>
+	<a
+		href="#main-content"
+		class="group relative text-lg font-bold whitespace-nowrap"
+		aria-label="Skip to main content"
+	>
+		<span
+			class="hidden transition-opacity duration-150 ease-in-out group-focus-visible:opacity-0 sm:inline"
+			>{SITE_TITLE}</span
+		>
+		<span
+			class="pointer-events-none absolute inset-0 flex items-center opacity-0 transition-opacity duration-150 ease-in-out group-focus-visible:opacity-100"
+			>Skip to content</span
+		>
 	</a>
 
 	<nav class="flex justify-center">

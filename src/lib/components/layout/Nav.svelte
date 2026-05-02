@@ -1,9 +1,18 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
 </script>
 
 <nav class="flex gap-4 text-lg sm:gap-12">
-	<a href={resolve('/')}>Home</a>
-	<a href={resolve('/blog')}>Blog</a>
-	<a href={resolve('/about-me')}>About Me</a>
+	<a href={resolve('/')} aria-current={page.url.pathname === resolve('/') ? 'page' : undefined}
+		>Home</a
+	>
+	<a
+		href={resolve('/blog')}
+		aria-current={page.url.pathname.startsWith(resolve('/blog')) ? 'page' : undefined}>Blog</a
+	>
+	<a
+		href={resolve('/about-me')}
+		aria-current={page.url.pathname === resolve('/about-me') ? 'page' : undefined}>About Me</a
+	>
 </nav>
