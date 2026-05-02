@@ -215,6 +215,16 @@
 			{/each}
 		</div>
 	</section>
+
+	<section
+		class="border-border prose min-w-full rounded-lg border bg-muted/40 p-8 text-center dark:prose-invert"
+	>
+		<h2 id="contact" class="mt-0">Got Something Similar In Mind?</h2>
+		<p class="mb-0">
+			Want me to turn your idea into a project like the ones above? Contact me at
+			<a href="mailto:{EMAIL}" class="inline-flex items-center gap-1">{EMAIL}</a>.
+		</p>
+	</section>
 </div>
 
 <style>
