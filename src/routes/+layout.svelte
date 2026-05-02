@@ -23,7 +23,7 @@
 
 <main
 	id="main-content"
-	class="relative mx-auto w-screen overflow-x-hidden bg-primary p-6"
+	class="relative mx-auto w-full overflow-x-hidden bg-primary p-6"
 	style="min-height: calc(100vh - 6rem - 4rem);"
 >
 	{#key page.url.pathname}
