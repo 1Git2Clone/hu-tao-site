@@ -265,3 +265,4 @@ Project-specific skills live in `.agents/skills/` and are loaded via the `skill`
 - `tailwind-first-styling` — Prefer Tailwind utility classes over raw CSS in `<style>` blocks; only use `<style>` for pseudo-elements, complex selectors, keyframes, or reusable component classes
 - `accurate-experience-positioning` — Keep portfolio/about-me claims accurate: junior AI developer, early professional tenure, no company Rust usage, no inflated senior/backend claims
 - `typed-task-branch-names` — Branch names must use `<type>/<task>` format, e.g. `feat/refine-about-me-ai-positioning`
+- `one-off-main-commits` — Small one-off fixes may be committed directly to `main` when explicitly allowed; still stage narrowly and include trailers
