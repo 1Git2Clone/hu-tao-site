@@ -99,6 +99,7 @@ This project uses **Svelte 5 runes only**. Legacy Svelte 4 syntax is a logic err
 
 - ❌ `export let name` — forbidden
 - ✅ `let { name } = $props()` — always typed, use `$bindable()` for two-way bindings
+
 ```svelte
 <script lang="ts">
 	let { value = $bindable(0), label = 'Default' }: { value: number; label?: string } = $props();
@@ -128,14 +129,14 @@ This project uses **Svelte 5 runes only**. Legacy Svelte 4 syntax is a logic err
 
 ### Quick Reference
 
-| Anti-Pattern (Svelte 4) | Correct (Svelte 5) | Reason |
-|---|---|---|
-| `let count = 0;` | `let count = $state(0);` | Explicit signal-based reactivity |
-| `$: total = a + b;` | `let total = $derived(a + b);` | Predictable dependency tracking |
-| `export let name;` | `let { name } = $props();` | Standardized component API |
-| `<slot />` | `{@render children()}` | Function-like UI composition |
-| `on:click={fn}` | `onclick={fn}` | Native attribute standard |
-| `createEventDispatcher` | callback props | Removed in Svelte 5 |
+| Anti-Pattern (Svelte 4) | Correct (Svelte 5)             | Reason                           |
+| ----------------------- | ------------------------------ | -------------------------------- |
+| `let count = 0;`        | `let count = $state(0);`       | Explicit signal-based reactivity |
+| `$: total = a + b;`     | `let total = $derived(a + b);` | Predictable dependency tracking  |
+| `export let name;`      | `let { name } = $props();`     | Standardized component API       |
+| `<slot />`              | `{@render children()}`         | Function-like UI composition     |
+| `on:click={fn}`         | `onclick={fn}`                 | Native attribute standard        |
+| `createEventDispatcher` | callback props                 | Removed in Svelte 5              |
 
 ### Store Access
 
@@ -161,6 +162,7 @@ This project uses **Svelte 5 runes only**. Legacy Svelte 4 syntax is a logic err
 4. Never use arbitrary hex values inline — always reference a token
 5. `scrollbar-gutter: stable` on `html` — preserve this, it prevents layout shift
 6. `img { margin: auto }` is global — keep this
+7. **Tailwind-first styling** — prefer Tailwind utility classes over `<style>` blocks. Load the `tailwind-first-styling` skill for the complete convention and boundary rules.
 
 ---
 
@@ -260,3 +262,4 @@ Project-specific skills live in `.agents/skills/` and are loaded via the `skill`
 - `widen-to-fit-is-a-smell` — Don't widen type-safe parameters; make new data fit the existing contract
 - `orchestrator-verification-gate` — Verify your own output (merges, trailers, config) separately from subagent work
 - `read-the-full-pattern-first` — Read the entire file before planning any change
+- `tailwind-first-styling` — Prefer Tailwind utility classes over raw CSS in `<style>` blocks; only use `<style>` for pseudo-elements, complex selectors, keyframes, or reusable component classes
