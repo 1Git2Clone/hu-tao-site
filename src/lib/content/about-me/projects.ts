@@ -56,6 +56,7 @@ export type Database = keyof typeof DATABASES;
 
 export const AI_INTEGRATIONS = {
 	OpenAI: 'https://openai.com/',
+	Gemini: 'https://gemini.google.com/',
 	Claude: 'https://anthropic.com/',
 	DeepSeek: 'https://www.deepseek.com/',
 	Mistral: 'https://mistral.ai/',
@@ -191,12 +192,34 @@ A production fintech data pipeline for safely processing and analyzing transacti
 		description: `
 **Problem:** Needed to safely process sensitive transaction data for analytics while ensuring correctness and reliability under failure conditions.
 
-**Solution:** Designed and built a greenfield AWS ingestion pipeline using NDJSON streaming to process and redact transaction data under Lambda memory constraints. The system batches transaction flows into S3 and feeds a downstream AI ingestion pipeline for failure-rate analytics.
+**Solution:** Designed and built a greenfield AWS writer Lambda using NDJSON streaming to process and redact transaction data under Lambda memory constraints. Built the downstream consumer flow that reads the data for AI analysis, deletes the source data after processing, and preserves the resulting insights.
 
-**Outcome:** Enabled automated failure-rate analytics on live transaction flows. Improved benchmark performance significantly (up to 20x in tests) while maintaining strict correctness requirements for financial data handling.
+**Outcome:** Enabled automated failure-rate analytics on production transaction flows. Improved benchmark performance significantly (up to 20x in tests) while maintaining strict correctness, auditability, and data-handling requirements.
 `.trim(),
 		licenses: [],
 		tags: ['fintech', 'backend', 'aws']
+	}),
+	new Project({
+		title: 'AI Admin Tools (Confidential)',
+		isPrivate: true,
+		techStack: {
+			compute: ['AWS Lambda'],
+			storage: ['Amazon S3'],
+			aiIntegrations: ['OpenAI', 'Gemini', 'Ollama'],
+			languages: ['Go', 'Python']
+		},
+		summary: `
+Internal AI tooling for operational analytics, policy scanning, and document forensics.
+`.trim(),
+		description: `
+**Problem:** Internal teams needed practical AI tools for analyzing failure rates, scanning policy pages, and inspecting documents without exposing sensitive implementation details or relying on brittle regex-only workflows.
+
+**Solution:** Built AI-backed features inside an internal SSR Go dashboard, including failure-rate insights, an AI-powered policy scanning scraper that works with SPAs, and document forensics using ExifTool, Tesseract, OpenCV, OCR, and Gemini computer vision.
+
+**Outcome:** Turned manual and fragile review workflows into reusable internal tools. The resulting dashboard features help teams inspect operational issues, policy changes, and suspicious document metadata faster while keeping the work auditable.
+`.trim(),
+		licenses: [],
+		tags: ['ai', 'automation', 'fintech']
 	}),
 	new Project({
 		title: 'Serenity Discord Bot',

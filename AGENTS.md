@@ -263,3 +263,5 @@ Project-specific skills live in `.agents/skills/` and are loaded via the `skill`
 - `orchestrator-verification-gate` — Verify your own output (merges, trailers, config) separately from subagent work
 - `read-the-full-pattern-first` — Read the entire file before planning any change
 - `tailwind-first-styling` — Prefer Tailwind utility classes over raw CSS in `<style>` blocks; only use `<style>` for pseudo-elements, complex selectors, keyframes, or reusable component classes
+- `accurate-experience-positioning` — Keep portfolio/about-me claims accurate: junior AI developer, early professional tenure, no company Rust usage, no inflated senior/backend claims
+- `typed-task-branch-names` — Branch names must use `<type>/<task>` format, e.g. `feat/refine-about-me-ai-positioning`
