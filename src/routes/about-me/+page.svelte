@@ -61,8 +61,14 @@
 
 		<p>
 			I use Go professionally, prefer Rust for systems work, and am comfortable building interfaces
-			with Svelte or React. I have <strong>contributed to rust-random/rand</strong>, the standard
-			Rust random number generation library used across the ecosystem.
+			with Svelte or React. I have
+			<strong>
+				<a
+					href="https://github.com/rust-random/rand/pulls?q=is%3Apr+by%3A1Git2Clone"
+					target="_blank"
+					rel="noopener noreferrer">contributed to rust-random/rand</a
+				>
+			</strong>, the standard Rust random number generation library used across the ecosystem.
 		</p>
 
 		<p>
