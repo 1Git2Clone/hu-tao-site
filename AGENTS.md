@@ -250,7 +250,7 @@ Never auto-retry without confirmation unless the failure is clearly transient.
 
 ## Project Skills
 
-Project-specific skills live in `.opencode/skills/` and are loaded via the `skill` tool:
+Project-specific skills live in `.agents/skills/` and are loaded via the `skill` tool:
 
 - `calibrating-from-misalignment` — When user points out an expectation gap, write a skill to prevent recurrence
 - `committing-with-trailers` — Every commit must have correct `Co-authored-by:` (and other) trailers
