@@ -7,9 +7,10 @@
 
 	import { slugify } from '$lib/utils/slugify';
 	import { PROJECTS } from '$lib/content/about-me/projects';
-	import { EMAIL } from '$lib/utils/consts';
+	import { EMAIL, GITHUB_PROFILE_NAME } from '$lib/utils/consts';
 	import { marked } from 'marked';
 	import { hostToSocial, type SocialMedia } from '$lib/types/social-media';
+	import GitHub from '$lib/components/icons/GitHub.svelte';
 
 	function getSocialMedia(hostname: string): SocialMedia {
 		return hostToSocial[hostname];
@@ -24,37 +25,46 @@
 		<p class="text-center text-sm text-subtextcol">
 			Backend Engineer | Go & Rust | Fintech & Developer Tooling
 		</p>
-
-		<p>
-			Go and Rust backend engineer with production experience in fintech infrastructure —
-			microservices, REST APIs, PostgreSQL, WebSockets, JWT authentication, and Docker. I've
-			deployed PCI-adjacent financial services on AWS and built AI/MCP infrastructure for enterprise
-			codebases.
+		<p class="mt-2 text-center">
+			<a
+				href="https://github.com/{GITHUB_PROFILE_NAME}"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="inline-flex items-center gap-2"
+			>
+				<GitHub width={16} height={16} />
+				github.com/{GITHUB_PROFILE_NAME}
+			</a>
 		</p>
 
 		<p>
-			I deliver working, correct code — not just generated output. I've caught and replaced fake
-			parser implementations with proper AST-based solutions, redesigned broken data pipelines, and
-			made architectural decisions that held up in production. I take ownership of problems beyond
-			the immediate ticket.
+			Backend engineer focused on building reliable systems in fintech environments. Built
+			production systems with Go and Rust — including microservices, REST APIs, and data pipelines
+			on AWS (Lambda, S3, RDS). Worked on PCI-adjacent financial systems with strict correctness
+			and data integrity requirements.
 		</p>
 
 		<p>
-			Outside of client work, I build open-source developer tooling used by thousands of developers
-			worldwide, which keeps me sharp on the latest ecosystem patterns and best practices.
+			I deliver working, <strong>correct code</strong> — not just generated output. I've caught and
+			replaced fake parser implementations with proper AST-based solutions, redesigned broken data
+			pipelines, and made architectural decisions that held up in production. I take ownership of
+			problems beyond the immediate ticket.
 		</p>
 
 		<p>
-			Available remotely for backend systems, fintech APIs, developer tooling, and cloud
-			infrastructure. Fast communicator, honest about scope.
+			I have <strong>contributed to rust-random/rand</strong>, the standard Rust random number
+			generation library used across the ecosystem. Available remotely for backend systems, fintech
+			APIs, developer tooling, and cloud infrastructure.
 		</p>
 
 		<p class="mt-6">
-			<a href="mailto:{EMAIL}" class="inline-flex items-center gap-1">
-				{EMAIL}
-			</a>
+			If you need reliable backend systems, data pipelines, or fintech infrastructure built right,
+			get in touch.
+			<a href="mailto:{EMAIL}" class="inline-flex items-center gap-1">{EMAIL}</a>
 		</p>
 	</section>
+
+	<p>Projects focused on backend systems, data pipelines, and developer tooling:</p>
 
 	<section class="grid grid-cols-1 gap-6 md:grid-cols-2">
 		{#each PROJECTS as project, i (project.title + i)}
@@ -110,6 +120,12 @@
 				<div class="text-muted-foreground mt-2 text-sm">
 					<h3 id="{slug}-tech-stack" class="mt-0">Tech Stack:</h3>
 					<ul class="ml-4 list-disc">
+						{#if project.techStack.compute?.length}
+							<li>Compute: {project.techStack.compute.join(', ')}</li>
+						{/if}
+						{#if project.techStack.storage?.length}
+							<li>Storage: {project.techStack.storage.join(', ')}</li>
+						{/if}
 						{#if project.techStack.devops?.length}
 							<li>DevOps: {project.techStack.devops.join(', ')}</li>
 						{/if}
@@ -136,37 +152,42 @@
 					{@html marked(project.description)}
 				</div>
 
-				<div class="mt-4 text-sm">
-					<strong>
-						{#if project.licenses.length > 1}
-							Licenses
-						{:else}
-							License
-						{/if}
-					</strong>:
-					{project.licenses.join(', ')}
-				</div>
+				{#if project.licenses.length}
+					<div class="mt-4 text-sm">
+						<strong>
+							{#if project.licenses.length > 1}
+								Licenses
+							{:else}
+								License
+							{/if}
+						</strong>:
+						{project.licenses.join(', ')}
+					</div>
+				{/if}
 
 				<div class="mt-4 text-sm">
 					<strong>Tags:</strong>
 					{project.tags.join(', ')}
 				</div>
+
+				<div class="mt-4 text-sm">
+					{#if project.sourceUrl}
+						<a
+							href={project.sourceUrl.href}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center gap-1"
+						>
+							{project.sourceUrl.href}
+						</a>
+					{:else if project.isPrivate}
+						Private / Confidential
+					{/if}
+				</div>
 			</div>
 		{/each}
 	</section>
 
-	<section
-		class="border-border prose min-w-full rounded-lg border bg-muted/40 p-8 text-center dark:prose-invert"
-	>
-		<h2 id="hire">Want to work together?</h2>
-		<p class="text-tertiary">
-			Available remotely for backend systems, fintech APIs, developer tooling, and cloud
-			infrastructure.
-		</p>
-		<p class="mt-4">
-			<a href="mailto:{EMAIL}" class="text-lg">{EMAIL}</a>
-		</p>
-	</section>
 </div>
 
 <style>

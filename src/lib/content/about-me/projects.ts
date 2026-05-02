@@ -2,6 +2,8 @@ import { assignDefaults, type ConstructorObject } from '$lib/utils/type-helpers'
 import type * as CSS from 'csstype';
 import { SvelteURL } from 'svelte/reactivity';
 
+export type ComputeService = 'AWS Lambda' | 'AWS EC2' | 'AWS ECS' | 'AWS Fargate';
+export type StorageService = 'Amazon S3' | 'Amazon EBS' | 'Amazon EFS';
 export type DevOps = 'Docker' | 'Kubernetes' | 'GitHub Actions';
 export type ObservabilityTool = 'Prometheus' | 'Grafana' | 'OpenTelemetry';
 export type FrontendLibrary = 'React' | 'Svelte' | 'TailwindCSS';
@@ -52,9 +54,13 @@ export type Tag =
 	| 'database'
 	| 'observability'
 	| 'cli'
-	| 'oss';
+	| 'oss'
+	| 'fintech'
+	| 'aws';
 
 export interface TechStack {
+	compute?: ComputeService[];
+	storage?: StorageService[];
 	devops?: DevOps[];
 	observability?: ObservabilityTool[];
 	frontendLibraries?: FrontendLibrary[];
@@ -87,6 +93,7 @@ export class Project {
 	title: string;
 	image?: ProjectImage;
 	sourceUrl?: SvelteURL;
+	isPrivate?: boolean;
 
 	techStack: TechStack;
 
@@ -104,6 +111,27 @@ export class Project {
 }
 
 export const PROJECTS: Project[] = [
+	new Project({
+		title: 'Fintech Transaction Pipeline (Confidential)',
+		isPrivate: true,
+		techStack: {
+			compute: ['AWS Lambda'],
+			storage: ['Amazon S3'],
+			languages: ['Go']
+		},
+		summary: `
+A production fintech data pipeline for safely processing and analyzing transaction flows.
+`.trim(),
+		description: `
+**Problem:** Needed to safely process sensitive transaction data for analytics while ensuring correctness and reliability under failure conditions.
+
+**Solution:** Designed and built a greenfield AWS ingestion pipeline using NDJSON streaming to process and redact transaction data under Lambda memory constraints. The system batches transaction flows into S3 and feeds a downstream AI ingestion pipeline for failure-rate analytics.
+
+**Outcome:** Enabled automated failure-rate analytics on live transaction flows. Improved benchmark performance significantly (up to 20x in tests) while maintaining strict correctness requirements for financial data handling.
+`.trim(),
+		licenses: [],
+		tags: ['fintech', 'backend', 'aws']
+	}),
 	new Project({
 		title: 'Serenity Discord Bot',
     // image: new ProjectImage({
@@ -125,82 +153,35 @@ export const PROJECTS: Project[] = [
 			languages: ['Rust']
 		},
 		summary: `
-A discord bot with various interaction and utility commands as well as AI integration.
+A production Discord bot built in Rust with AI integration, persistent user data, and full observability.
 `.trim(),
 		description: `
-Some of the commands are:
-| Command        | Description                                            |
-| -------------- | ------------------------------------------------------ |
-| \`/age\`       | Displays your or another user's account creation date. |
-| \`/ai\`        | Yap with an AI!                                        |
-| \`/cookie\`    | Give someone a cookie!                                 |
-| \`/level\`     | Displays the user's level.                             |
-| \`/toplevel\`  | Displays the levels for the top 9 users.               |
-| \`/pat\`       | Pat someone.                                           |
-| \`/hug\`       | Hug someone.                                           |
-| \`/peek\`      | Send a peek GIF in the chat.                           |
-| \`/avatar\`    | Get the avatar for someone.                            |
-| \`/quote\`     | Send a Hu Tao quote!                                   |
-| \`/uptime\`    | Displays the bot's current uptime.                     |
+**Problem:** Needed a production Discord bot with AI integration, persistent user data, and observability without the Node.js ecosystem.
 
-You can invite the bot to try it out using this
-[\`OAuth link\`](https://discord.com/oauth2/authorize?client_id=1211325231659089920).
+**Solution:** Built in Rust using Serenity, Poise, and Tokio, backed by PostgreSQL, Docker, and OpenTelemetry.
+
+**Outcome:** Shipped with slash commands, a leveling system, AI chat integration, and sub-100ms response times. Self-hosted by multiple communities. Apache 2.0, self-hostable.
 `.trim(),
 		licenses: ['Apache 2.0'],
 		tags: ['ai', 'backend']
 	}),
 	new Project({
-		title: 'Markdown TOC Generator',
-		sourceUrl: new SvelteURL('https://github.com/1Git2Clone/markdown-toc-generator'),
+		title: 'taboc — Table of Contents CLI',
+		sourceUrl: new SvelteURL('https://github.com/1Git2Clone/taboc'),
 		techStack: {
 			languages: ['Rust']
 		},
 		summary: `
-CLI tool that generates and injects tables of contents into Markdown files.
+A zero-dependency Rust CLI for generating and injecting Markdown tables of contents.
 `.trim(),
 		description: `
-Keeping a table of contents in sync with the actual heading structure of a Markdown file is the kind of task you don't notice until you have to do it manually across a dozen documentation files. One section rename and the TOC is silently wrong — no linter catches it, no compiler errors.
+**Problem:** No reliable CLI tool existed to generate and inject Markdown tables of contents without external dependencies.
 
-This tool parses the document at the AST level — not with fragile regex — building a proper nested tree from the heading hierarchy. It then injects or updates a TOC at a configurable marker location in the file, handling edge cases like headings inside code blocks, multi-line headings, and files with existing TOCs that need replacement. Written in Rust because a documentation tool should complete faster than the blink of an eye, making it practical to run on save without breaking flow.
+**Solution:** Built a zero-dependency Rust CLI that parses heading structure and writes TOC blocks in-place.
+
+**Outcome:** Installable via \`cargo install taboc\`. Used in documentation workflows.
 `.trim(),
 		licenses: ['MIT'],
 		tags: ['cli', 'tooling']
 	}),
-	new Project({
-		title: 'Dotfiles',
-		sourceUrl: new SvelteURL('https://github.com/1Git2Clone/dotfiles'),
-		techStack: {
-			devops: ['Docker'],
-			languages: ['Shell', 'Lua']
-		},
-		summary: `
-Fully configured Arch Linux desktop environment with a red-themed Neovim, kitty, and tmux setup.
-`.trim(),
-		description: `
-These dotfiles have been in active development since late 2023, tracking the evolution of my terminal workflow through real usage rather than theoretical ideals. The environment moved from Hyprland to i3wm and back to Hyprland across different machines — each transition driven by actual productivity needs (tiling behavior under multi-monitor configurations, compositor stability with specific graphics stacks) rather than chasing novelty.
-
-The Neovim configuration grew substantial enough to warrant its own dedicated repository — a sign that the editor setup stopped being "a few config files" and became a serious, opinionated development environment. The entire stack — Neovim, kitty, tmux, window manager, shell prompts — is tuned for a cohesive red-accented aesthetic, because visual consistency across tools reduces the cognitive cost of context switching. Every color, keybinding, and plugin choice has a rationale grounded in actual daily use.
-`.trim(),
-		licenses: ['Unlicense'],
-		tags: ['systems', 'tooling']
-	}),
-	new Project({
-		title: 'Hunger Games Simulator',
-		techStack: {
-			devops: ['Docker'],
-			frontendLibraries: ['Svelte'],
-			databases: ['PostgreSQL'],
-			languages: ['Go']
-		},
-		summary: `
-Real-time multiplayer simulator with Discord OAuth2, WebSocket sync, JWT auth, and testcontainers integration testing.
-`.trim(),
-		description: `
-Real-time multiplayer games present engineering problems that typical web applications don't: synchronizing authoritative game state across dozens of WebSocket connections, handling mid-game disconnects without corrupting the session, and designing an event protocol expressive enough for complex game actions yet compact enough for latency-sensitive delivery.
-
-The Go backend runs a centralized game loop that processes player actions, enforces game rules, and broadcasts state updates through WebSocket connections authenticated via Discord OAuth2 and JWT. SvelteKit handles the real-time frontend, subscribing to server events and rendering state transitions as they happen. The integration testing strategy uses testcontainers to spin up PostgreSQL instances alongside the Go server, verifying the full multiplayer flow — from WebSocket handshake through game completion — in isolated, reproducible environments. Still in active development, but the architecture is designed for the hard parts: state consistency under concurrent access, graceful recovery from dropped connections, and clean separation between game logic and transport layer.
-`.trim(),
-		licenses: ['MIT'],
-		tags: ['backend', 'web', 'containerized', 'database']
-	})
 ] as const satisfies Project[];
