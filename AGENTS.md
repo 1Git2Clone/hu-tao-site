@@ -110,6 +110,10 @@ $effect(() => { console.log(count); });
 - Use `$app/state` (not `$app/stores`) — e.g. `import { page } from '$app/state'`
 - Use `$app/paths` for `resolve()` in hrefs
 
+### Rendering
+
+**Render in Svelte, not in strings.** Do not use `{@html}` with string-concatenated HTML to render lists, links, or repeated elements. Use real Svelte constructs (`{#each}`, `{#snippet}` + `{@render}`) so the output is SSR'd, Lighthouse-optimal, and free of XSRF surface for that path. The only exception is `{@html marked(project.description)}` where the content is authored markdown and the library is unavoidable — everything else should be native elements.
+
 ---
 
 ## Routing
