@@ -52,7 +52,7 @@
 		</article>
 
 		<aside class="hidden xl:block">
-			<div class="scrollbar-hide fixed top-16 right-6 max-h-[calc(100vh-6rem)] w-64 overflow-y-auto rounded-lg border border-border box-gradient px-4 py-12">
+			<div class="scrollbar-hide fixed top-[22] max-h-[calc(100vh-6rem)] w-64 overflow-y-auto rounded-lg border border-border box-gradient px-4 py-12">
 				<TableOfContents staticHeadings={headings} />
 			</div>
 		</aside>
