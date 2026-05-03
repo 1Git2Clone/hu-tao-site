@@ -2,7 +2,23 @@
 	import { SITE_TITLE, GITHUB_PROFILE_NAME, EMAIL } from '$lib/utils/consts';
 	import { resolve } from '$app/paths';
 	import GitHub from '$lib/components/icons/GitHub.svelte';
+
+	const SITE_URL = 'https://1g2c.netlify.app';
+	const title = '1Git2Clone | AI Integration Developer';
+	const description = 'Ship production AI integrations, APIs, data pipelines, and internal tools. AI integration developer building systems that work outside localhost.';
+	const canonical = `${SITE_URL}/`;
 </script>
+
+<svelte:head>
+	<title>{title}</title>
+	<meta name="description" content={description} />
+	<link rel="canonical" href={canonical} />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={canonical} />
+	<meta property="og:image" content="https://1g2c.netlify.app/og-image.jpg" />
+</svelte:head>
 
 <div class="prose w-full max-w-none space-y-8 dark:prose-invert">
 	<section class="border-border rounded-lg border bg-muted/40 p-8">

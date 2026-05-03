@@ -12,11 +12,28 @@
 	import { hostToSocial, type SocialMedia } from '$lib/types/social-media';
 	import GitHub from '$lib/components/icons/GitHub.svelte';
 	import HeadingCopy from '$lib/components/HeadingCopy.svelte';
+	import { page } from '$app/state';
 
 	function getSocialMedia(hostname: string): SocialMedia {
 		return hostToSocial[hostname];
 	}
+
+	const SITE_URL = 'https://1g2c.netlify.app';
+	const title = 'Portfolio | 1Git2Clone';
+	const description = 'AI integration developer building production APIs, data pipelines, and internal tools. See shipped fintech systems, AI admin tools, and open-source work.';
+	const canonical = `${SITE_URL}/about-me`;
 </script>
+
+<svelte:head>
+	<title>{title}</title>
+	<meta name="description" content={description} />
+	<link rel="canonical" href={canonical} />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={canonical} />
+	<meta property="og:image" content="https://1g2c.netlify.app/og-image.jpg" />
+</svelte:head>
 
 {#snippet techLinks(items: (keyof typeof TECH_URLS)[])}
 	{#each items as item, i (item)}
