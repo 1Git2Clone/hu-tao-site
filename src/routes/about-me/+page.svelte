@@ -13,7 +13,6 @@
 	import GitHub from '$lib/components/icons/GitHub.svelte';
 	import HeadingCopy from '$lib/components/HeadingCopy.svelte';
 	import Card from '$lib/components/layout/Card.svelte';
-	import { page } from '$app/state';
 
 	function getSocialMedia(hostname: string): SocialMedia {
 		return hostToSocial[hostname];
@@ -21,7 +20,8 @@
 
 	const SITE_URL = 'https://1g2c.netlify.app';
 	const title = 'Portfolio | 1Git2Clone';
-	const description = 'AI integration developer building production APIs, data pipelines, and internal tools. See shipped fintech systems, AI admin tools, and open-source work.';
+	const description =
+		'AI integration developer building production APIs, data pipelines, and internal tools. See shipped fintech systems, AI admin tools, and open-source work.';
 	const canonical = `${SITE_URL}/about-me`;
 </script>
 
@@ -38,19 +38,19 @@
 
 {#snippet techLinks(items: (keyof typeof TECH_URLS)[])}
 	{#each items as item, i (item)}
+		{@const tech = TECH_URLS[item]}
 		<a
-			href={TECH_URLS[item]}
+			href={tech.url}
 			target="_blank"
 			rel="noopener noreferrer"
-			aria-label={`${item}${item === 'Go' ? ' programming language' : ''}`}
-		>{item}</a
+			aria-label={tech.ariaLabel || String(item)}>{item}</a
 		>{i < items.length - 1 ? ', ' : ''}
 	{/each}
 {/snippet}
 
 <div class="space-y-8">
 	<section
-		class="border-border prose min-w-full rounded-lg border box-gradient hero p-8 dark:prose-invert"
+		class="border-border box-gradient hero prose min-w-full rounded-lg border p-8 dark:prose-invert"
 	>
 		<h1 id="title" class="mb-2 text-center">1Git2Clone</h1>
 		<p class="text-center text-sm text-subtextcol">
@@ -69,14 +69,16 @@
 		</p>
 
 		<blockquote>
-			I turn operational workflows into <em>production features that are useful, auditable, and maintainable</em>.
+			I turn operational workflows into <em
+				>production features that are useful, auditable, and maintainable</em
+			>.
 		</blockquote>
 
 		<p>
 			I build API backends, AI-backed dashboards, document processing tools, data ingestion flows,
-			automation scripts, and developer tooling. Recent production work spans <em>OpenAI, Gemini,
-			RAG/code graph systems, OCR, computer vision</em>, and AWS services like <em>Lambda, S3, IAM, VPC,
-			CloudWatch, and CloudFormation</em>.
+			automation scripts, and developer tooling. Recent production work spans <em
+				>OpenAI, Gemini, RAG/code graph systems, OCR, computer vision</em
+			>, and AWS services like <em>Lambda, S3, IAM, VPC, CloudWatch, and CloudFormation</em>.
 		</p>
 
 		<p>
@@ -92,8 +94,9 @@
 		</p>
 
 		<p>
-			Available remotely for <em>AI integrations, API creation, data pipelines, internal tools, and
-			backend infrastructure</em>.
+			Available remotely for <em
+				>AI integrations, API creation, data pipelines, internal tools, and backend infrastructure</em
+			>.
 		</p>
 
 		<p class="mt-6">
@@ -102,38 +105,54 @@
 			<a href="mailto:{EMAIL}" class="inline-flex items-center gap-1">{EMAIL}</a>
 		</p>
 
-		<p class="mt-4 text-sm text-muted-foreground">
-			Async-friendly. I work from rough requirements to shipped tool. Remote-first, available for new contracts.
+		<p class="text-muted-foreground mt-4 text-sm">
+			Async-friendly. I work from rough requirements to shipped tool. Remote-first, available for
+			new contracts.
 		</p>
 	</section>
 
-	<section class="border-border rounded-lg border box-gradient p-4 text-center">
-		<p class="mb-0 text-sm text-subtextcol">Production AWS Lambda/S3 · rust-random/rand contributor · 20x benchmark improvement · Sub-100ms Discord bot · PCI-adjacent fintech</p>
+	<section class="border-border box-gradient rounded-lg border p-4 text-center">
+		<p class="mb-0 text-sm text-subtextcol">
+			Production AWS Lambda/S3 · rust-random/rand contributor · 20x benchmark improvement ·
+			Sub-100ms Discord bot · PCI-adjacent fintech
+		</p>
 	</section>
 
 	<section class="grid gap-6 md:grid-cols-2">
-		<div class="border-border rounded-lg border box-gradient p-6">
+		<div class="border-border box-gradient rounded-lg border p-6">
 			<h2 class="text-lg font-semibold">API Creation</h2>
-			<p class="text-muted-foreground mb-0 text-sm">Go services and AWS Lambda pipelines that handle async workflows, data ingestion, and backend glue for production systems.</p>
+			<p class="text-muted-foreground mb-0 text-sm">
+				Go services and AWS Lambda pipelines that handle async workflows, data ingestion, and
+				backend glue for production systems.
+			</p>
 		</div>
 
-		<div class="border-border rounded-lg border box-gradient p-6">
+		<div class="border-border box-gradient rounded-lg border p-6">
 			<h2 class="text-lg font-semibold">AI Integration</h2>
-			<p class="text-muted-foreground mb-0 text-sm">LLM features, RAG systems, document processing, and AI-backed automation that remain useful outside the demo.</p>
+			<p class="text-muted-foreground mb-0 text-sm">
+				LLM features, RAG systems, document processing, and AI-backed automation that remain useful
+				outside the demo.
+			</p>
 		</div>
 
-		<div class="border-border rounded-lg border box-gradient p-6">
+		<div class="border-border box-gradient rounded-lg border p-6">
 			<h2 class="text-lg font-semibold">Internal Dashboards & Tooling</h2>
-			<p class="text-muted-foreground mb-0 text-sm">Svelte/React admin interfaces, observability dashboards, and operational tools that teams actually use.</p>
+			<p class="text-muted-foreground mb-0 text-sm">
+				Svelte/React admin interfaces, observability dashboards, and operational tools that teams
+				actually use.
+			</p>
 		</div>
 
-		<div class="border-border rounded-lg border box-gradient p-6">
+		<div class="border-border box-gradient rounded-lg border p-6">
 			<h2 class="text-lg font-semibold">Data Pipelines</h2>
-			<p class="text-muted-foreground mb-0 text-sm">ETL flows, streaming consumers, and analytics infrastructure that scales from batch to event-driven workloads.</p>
+			<p class="text-muted-foreground mb-0 text-sm">
+				ETL flows, streaming consumers, and analytics infrastructure that scales from batch to
+				event-driven workloads.
+			</p>
 		</div>
 	</section>
 
-	<section id="projects" class="scroll-mt-22 border-border rounded-lg border box-gradient p-8">
+	<section id="projects" class="border-border box-gradient scroll-mt-22 rounded-lg border p-8">
 		<HeadingCopy class="prose mb-6 min-w-full dark:prose-invert">
 			<h2 id="projects-heading" class="mt-0">Work Beyond Home (localhost)</h2>
 			<p class="mb-0">Things that actually shipped.</p>
@@ -145,128 +164,128 @@
 				<div class="md:last:odd:col-span-2 md:last:odd:mx-auto md:last:odd:w-[calc(50%-0.75rem)]">
 					<Card>
 						<div class="prose dark:prose-invert">
-						{#if project.image}
-							<div class="relative mb-4 overflow-hidden rounded">
-								<img
-									src={project.image.source}
-									alt={`${project.title} Cover Image`}
-									class="h-36 w-full rounded-xl"
-									style="
+							{#if project.image}
+								<div class="relative mb-4 overflow-hidden rounded">
+									<img
+										src={project.image.source}
+										alt={`${project.title} Cover Image`}
+										class="h-36 w-full rounded-xl"
+										style="
                 object-fit: {project.image.css.cssObjectFit};
                 object-position: {project.image.css.cssObjectPosition}
               "
-								/>
+									/>
 
-								<div class="project-image-border rounded-xl"></div>
+									<div class="project-image-border rounded-xl"></div>
 
+									{#if project.sourceUrl}
+										<a
+											href={project.image.artistLink.href}
+											target="_blank"
+											rel="noopener noreferrer"
+											class="absolute right-2 bottom-2 rounded bg-primary/50 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm transition-colors"
+										>
+											Credit: {project.image.artistName} on
+											{getSocialMedia(project.image.artistLink.hostname)}
+										</a>
+									{/if}
+								</div>
+							{/if}
+
+							<h2 id={slug} class="{project.image ? 'mt-4' : ''} text-xl font-semibold">
 								{#if project.sourceUrl}
 									<a
-										href={project.image.artistLink.href}
+										href={project.sourceUrl.href}
 										target="_blank"
 										rel="noopener noreferrer"
-										class="absolute right-2 bottom-2 rounded bg-primary/50 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm transition-colors"
+										aria-label={`View ${project.title} source code`}
+										title={`View source code on ${project.sourceUrl.hostname}.`}
 									>
-										Credit: {project.image.artistName} on
-										{getSocialMedia(project.image.artistLink.hostname)}
+										{project.title}
 									</a>
-								{/if}
-							</div>
-						{/if}
-
-						<h2 id={slug} class="{project.image ? 'mt-4' : ''} text-xl font-semibold">
-							{#if project.sourceUrl}
-								<a
-									href={project.sourceUrl.href}
-									target="_blank"
-									rel="noopener noreferrer"
-									aria-label={`View ${project.title} source code`}
-									title={`View source code on ${project.sourceUrl.hostname}.`}
-								>
+								{:else}
 									{project.title}
-								</a>
-							{:else}
-								{project.title}
-							{/if}
-						</h2>
-						<p class="text-muted-foreground mt-2">{project.summary}</p>
+								{/if}
+							</h2>
+							<p class="text-muted-foreground mt-2">{project.summary}</p>
 
-						<div class="text-muted-foreground mt-2 text-sm">
-							<h3 id="{slug}-tech-stack" class="mt-0">Tech Stack:</h2>
-							<ul class="ml-4 list-disc">
-								{#if project.techStack.compute?.length}
-									<li>Compute: {@render techLinks(project.techStack.compute)}</li>
-								{/if}
-								{#if project.techStack.storage?.length}
-									<li>Storage: {@render techLinks(project.techStack.storage)}</li>
-								{/if}
-								{#if project.techStack.devops?.length}
-									<li>DevOps: {@render techLinks(project.techStack.devops)}</li>
-								{/if}
-								{#if project.techStack.observability?.length}
-									<li>Observability: {@render techLinks(project.techStack.observability)}</li>
-								{/if}
-								{#if project.techStack.frontendLibraries?.length}
-									<li>
-										Frontend Libraries: {@render techLinks(project.techStack.frontendLibraries)}
-									</li>
-								{/if}
-								{#if project.techStack.backendLibraries?.length}
-									<li>
-										Backend Libraries: {@render techLinks(project.techStack.backendLibraries)}
-									</li>
-								{/if}
-								{#if project.techStack.databases?.length}
-									<li>Databases: {@render techLinks(project.techStack.databases)}</li>
-								{/if}
-								{#if project.techStack.aiIntegrations?.length}
-									<li>AI Integrations: {@render techLinks(project.techStack.aiIntegrations)}</li>
-								{/if}
-								<li>
-									Languages: {#if project.techStack.languages.length}{@render techLinks(
-											project.techStack.languages
-										)}{:else}None{/if}
-								</li>
-							</ul>
-						</div>
-
-						<div id="{slug}-description">
-							{@html marked(project.description)}
-						</div>
-
-						{#if project.licenses.length}
-							<div class="mt-4 text-sm">
-								<strong>
-									{#if project.licenses.length > 1}
-										Licenses
-									{:else}
-										License
+							<div class="text-muted-foreground mt-2 text-sm">
+								<h3 id="{slug}-tech-stack" class="mt-0">Tech Stack:</h3>
+								<ul class="ml-4 list-disc">
+									{#if project.techStack.compute?.length}
+										<li>Compute: {@render techLinks(project.techStack.compute)}</li>
 									{/if}
-								</strong>:
-								{@render techLinks(project.licenses)}
+									{#if project.techStack.storage?.length}
+										<li>Storage: {@render techLinks(project.techStack.storage)}</li>
+									{/if}
+									{#if project.techStack.devops?.length}
+										<li>DevOps: {@render techLinks(project.techStack.devops)}</li>
+									{/if}
+									{#if project.techStack.observability?.length}
+										<li>Observability: {@render techLinks(project.techStack.observability)}</li>
+									{/if}
+									{#if project.techStack.frontendLibraries?.length}
+										<li>
+											Frontend Libraries: {@render techLinks(project.techStack.frontendLibraries)}
+										</li>
+									{/if}
+									{#if project.techStack.backendLibraries?.length}
+										<li>
+											Backend Libraries: {@render techLinks(project.techStack.backendLibraries)}
+										</li>
+									{/if}
+									{#if project.techStack.databases?.length}
+										<li>Databases: {@render techLinks(project.techStack.databases)}</li>
+									{/if}
+									{#if project.techStack.aiIntegrations?.length}
+										<li>AI Integrations: {@render techLinks(project.techStack.aiIntegrations)}</li>
+									{/if}
+									<li>
+										Languages: {#if project.techStack.languages.length}{@render techLinks(
+												project.techStack.languages
+											)}{:else}None{/if}
+									</li>
+								</ul>
 							</div>
-						{/if}
 
-						<div class="mt-4 text-sm">
-							<strong>Tags:</strong>
-							{project.tags.join(', ')}
-						</div>
+							<div id="{slug}-description">
+								{@html marked(project.description)}
+							</div>
 
-						<div class="mt-4 text-sm">
-							{#if project.sourceUrl}
-								<a
-									href={project.sourceUrl.href}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="inline-flex items-center gap-1"
-								>
-									Read more <span aria-hidden="true">→</span>
-								</a>
-							{:else if project.isPrivate}
-								<span class="text-muted-foreground">Available on request</span>
+							{#if project.licenses.length}
+								<div class="mt-4 text-sm">
+									<strong>
+										{#if project.licenses.length > 1}
+											Licenses
+										{:else}
+											License
+										{/if}
+									</strong>:
+									{@render techLinks(project.licenses)}
+								</div>
 							{/if}
+
+							<div class="mt-4 text-sm">
+								<strong>Tags:</strong>
+								{project.tags.join(', ')}
+							</div>
+
+							<div class="mt-4 text-sm">
+								{#if project.sourceUrl}
+									<a
+										href={project.sourceUrl.href}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="inline-flex items-center gap-1"
+									>
+										Read more <span aria-hidden="true">→</span>
+									</a>
+								{:else if project.isPrivate}
+									<span class="text-muted-foreground">Available on request</span>
+								{/if}
+							</div>
 						</div>
-					</div>
-				</Card>
+					</Card>
 				</div>
 			{/each}
 		</div>
