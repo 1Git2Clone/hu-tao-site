@@ -84,7 +84,7 @@
 		</p>
 	</section>
 
-	<section id="projects" class="border-border rounded-lg border bg-muted/40 p-8">
+	<section id="projects" class="scroll-mt-22 border-border rounded-lg border bg-muted/40 p-8">
 		<HeadingCopy class="prose mb-6 min-w-full dark:prose-invert">
 			<h2 id="projects-heading" class="mt-0">Work Beyond Home (localhost)</h2>
 			<p class="mb-0">Things that actually shipped.</p>

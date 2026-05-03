@@ -52,6 +52,6 @@
 	}
 
 	:global(html) {
-		scroll-behavior: smooth;
+		scroll-behavior: auto;
 	}
 </style>
