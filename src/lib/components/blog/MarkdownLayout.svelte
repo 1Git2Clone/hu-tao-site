@@ -18,10 +18,11 @@
 	<div class="grid grid-cols-1 xl:grid-cols-[16rem_minmax(0,52rem)_16rem] xl:gap-8">
 		<div class="hidden xl:block"></div>
 
-		<HeadingCopy
-			tag="article"
-			class="prose max-w-none min-w-0 py-12 wrap-break-word dark:prose-invert"
-		>
+		<article class="border-border rounded-lg border box-gradient p-8">
+			<HeadingCopy
+				tag="div"
+				class="prose max-w-none min-w-0 wrap-break-word dark:prose-invert"
+			>
 			{#if title}
 				<h1 id={slugify(title)}>{title}</h1>
 			{/if}
@@ -47,7 +48,8 @@
 			</div>
 
 			{@render children()}
-		</HeadingCopy>
+			</HeadingCopy>
+		</article>
 
 		<aside class="hidden xl:block">
 			<div class="scrollbar-hide fixed top-20 max-h-[calc(100vh-10rem)] overflow-y-auto py-12">
