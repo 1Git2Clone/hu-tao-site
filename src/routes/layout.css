@@ -213,3 +213,11 @@ footer.background {
 #main-content a:hover {
   border-bottom-color: var(--color-accent);
 }
+
+#main-content nav a {
+  border-bottom: none;
+}
+
+#main-content nav a:hover {
+  border-bottom-color: transparent;
+}
