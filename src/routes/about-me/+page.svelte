@@ -11,6 +11,7 @@
 	import { marked } from 'marked';
 	import { hostToSocial, type SocialMedia } from '$lib/types/social-media';
 	import GitHub from '$lib/components/icons/GitHub.svelte';
+	import HeadingCopy from '$lib/components/HeadingCopy.svelte';
 
 	function getSocialMedia(hostname: string): SocialMedia {
 		return hostToSocial[hostname];
@@ -84,10 +85,10 @@
 	</section>
 
 	<section class="border-border rounded-lg border bg-muted/40 p-8">
-		<div class="prose mb-6 min-w-full dark:prose-invert">
+		<HeadingCopy class="prose mb-6 min-w-full dark:prose-invert">
 			<h2 id="projects" class="mt-0">Work Beyond Home (localhost)</h2>
 			<p class="mb-0">Things that actually shipped.</p>
-		</div>
+		</HeadingCopy>
 
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 			{#each PROJECTS as project, i (project.title + i)}
