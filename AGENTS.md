@@ -267,3 +267,4 @@ Project-specific skills live in `.agents/skills/` and are loaded via the `skill`
 - `typed-task-branch-names` — Branch names must use `<type>/<task>` format, e.g. `feat/refine-about-me-ai-positioning`
 - `one-off-main-commits` — Small one-off fixes may be committed directly to `main` when explicitly allowed; still stage narrowly and include trailers
 - `no-delayed-hash-scroll-fixes` — Do not fix hash-link offsets with delayed JS re-scrolls; fix anchor targets, `scroll-mt-*`, or smooth-scroll/transition conflicts
+- `plural-collection-routes` — Collection pages use plural routes and labels, e.g. `/blogs` and `Blogs`
