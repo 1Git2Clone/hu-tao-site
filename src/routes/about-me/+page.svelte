@@ -46,11 +46,11 @@
 
 <div class="space-y-8">
 	<section
-		class="border-border prose min-w-full rounded-lg border box-gradient p-8 dark:prose-invert"
+		class="border-border prose min-w-full rounded-lg border box-gradient hero p-8 dark:prose-invert"
 	>
 		<h1 id="title" class="mb-2 text-center">1Git2Clone</h1>
 		<p class="text-center text-sm text-subtextcol">
-			AI Integration Developer | APIs, Data Pipelines & Internal Tools
+			<em>AI Integration Developer</em> | APIs, Data Pipelines & Internal Tools
 		</p>
 		<p class="mt-2 text-center">
 			<a
@@ -64,21 +64,19 @@
 			</a>
 		</p>
 
-		<p>
-			I'm Ivan, an AI integration developer working in fintech and building practical systems around
-			LLMs, APIs, internal tools, and data pipelines. I turn operational workflows into production
-			features that are useful, auditable, and maintainable.
-		</p>
+		<blockquote>
+			I turn operational workflows into <em>production features that are useful, auditable, and maintainable</em>.
+		</blockquote>
 
 		<p>
 			I build API backends, AI-backed dashboards, document processing tools, data ingestion flows,
-			automation scripts, and developer tooling. Recent production work has involved OpenAI, Gemini,
-			RAG/code graph systems, OCR, computer vision, and AWS services such as Lambda, S3, IAM, VPC,
-			CloudWatch, and CloudFormation.
+			automation scripts, and developer tooling. Recent production work spans <em>OpenAI, Gemini,
+			RAG/code graph systems, OCR, computer vision</em>, and AWS services like <em>Lambda, S3, IAM, VPC,
+			CloudWatch, and CloudFormation</em>.
 		</p>
 
 		<p>
-			I use Go professionally, prefer Rust for systems work, and am comfortable building interfaces
+			I use <em>Go professionally</em>, prefer <em>Rust for systems work</em>, and build interfaces
 			with Svelte or React. I have
 			<strong>
 				<a
@@ -86,12 +84,12 @@
 					target="_blank"
 					rel="noopener noreferrer">contributed to rust-random/rand</a
 				>
-			</strong>, the standard Rust random number generation library used across the ecosystem.
+			</strong>, <em>the standard Rust random number generation library</em> used across the ecosystem.
 		</p>
 
 		<p>
-			Available remotely for AI integrations, API creation, data pipelines, internal tools, and
-			backend infrastructure.
+			Available remotely for <em>AI integrations, API creation, data pipelines, internal tools, and
+			backend infrastructure</em>.
 		</p>
 
 		<p class="mt-6">

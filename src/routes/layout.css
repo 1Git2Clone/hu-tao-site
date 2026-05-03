@@ -144,14 +144,22 @@ img {
 
 .box-gradient {
   background: rgba(0, 0, 0, 0.35);
-  border: 1px solid var(--color-accent);
-  box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
+  border: 1px solid var(--color-tertiary);
   backdrop-filter: blur(2px);
 }
 
 .dark .box-gradient {
   background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--color-tertiary);
+  backdrop-filter: blur(2px);
+}
+
+.box-gradient.hero {
+  border: 1px solid var(--color-accent);
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
+}
+
+.dark .box-gradient.hero {
   border: 1px solid var(--color-accent);
   box-shadow: 0 0 20px rgba(248, 113, 113, 0.15);
-  backdrop-filter: blur(2px);
 }
