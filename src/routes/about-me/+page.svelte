@@ -7,7 +7,7 @@
 
 	import { slugify } from '$lib/utils/slugify';
 	import { PROJECTS, TECH_URLS } from '$lib/content/about-me/projects';
-	import { EMAIL, GITHUB_PROFILE_NAME } from '$lib/utils/consts';
+	import { EMAIL, GITHUB_PROFILE_NAME, SITE_TAGLINE } from '$lib/utils/consts';
 	import { marked } from 'marked';
 	import { hostToSocial, type SocialMedia } from '$lib/types/social-media';
 	import GitHub from '$lib/components/icons/GitHub.svelte';
@@ -50,7 +50,7 @@
 	>
 		<h1 id="title" class="mb-2 text-center">1Git2Clone</h1>
 		<p class="text-center text-sm text-subtextcol">
-			<em>AI Integration Developer</em> | APIs, Data Pipelines & Internal Tools
+			{SITE_TAGLINE}
 		</p>
 		<p class="mt-2 text-center">
 			<a
