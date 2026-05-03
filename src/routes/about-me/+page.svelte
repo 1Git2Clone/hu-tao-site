@@ -82,6 +82,12 @@
 			outside a demo, get in touch.
 			<a href="mailto:{EMAIL}" class="inline-flex items-center gap-1">{EMAIL}</a>
 		</p>
+
+		<div class="border-border mt-6 rounded-lg border p-4 text-sm">
+			<p class="mb-0">
+				Async-friendly. I work from rough requirements to shipped tool. Remote-first, available for new contracts.
+			</p>
+		</div>
 	</section>
 
 	<section class="grid gap-6 md:grid-cols-2">
