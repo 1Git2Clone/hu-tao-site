@@ -56,8 +56,8 @@ html {
 
 .background {
   background:
-    repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px),
-    repeating-linear-gradient(-45deg, transparent, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px),
+    repeating-linear-gradient(45deg, transparent, transparent 6px, rgba(0, 0, 0, 0.08) 6px, rgba(0, 0, 0, 0.08) 12px),
+    repeating-linear-gradient(-45deg, transparent, transparent 6px, rgba(0, 0, 0, 0.08) 6px, rgba(0, 0, 0, 0.08) 12px),
     linear-gradient(
       rgba(255, 255, 255, 0.7),
       rgba(195, 195, 195, 0.95)
@@ -67,8 +67,8 @@ html {
 
 .dark .background {
   background:
-    repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255, 255, 255, 0.02) 2px, rgba(255, 255, 255, 0.02) 4px),
-    repeating-linear-gradient(-45deg, transparent, transparent 2px, rgba(255, 255, 255, 0.02) 2px, rgba(255, 255, 255, 0.02) 4px),
+    repeating-linear-gradient(45deg, transparent, transparent 6px, rgba(255, 255, 255, 0.06) 6px, rgba(255, 255, 255, 0.06) 12px),
+    repeating-linear-gradient(-45deg, transparent, transparent 6px, rgba(255, 255, 255, 0.06) 6px, rgba(255, 255, 255, 0.06) 12px),
     linear-gradient(
       rgba(30, 30, 30, 0.5),
       rgba(10, 10, 10, 0.85)
