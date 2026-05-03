@@ -55,7 +55,10 @@ html {
 }
 
 .background {
-  background: linear-gradient(
+  background:
+    repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px),
+    repeating-linear-gradient(-45deg, transparent, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px),
+    linear-gradient(
       rgba(255, 255, 255, 0.7),
       rgba(195, 195, 195, 0.95)
     );
@@ -63,7 +66,10 @@ html {
 }
 
 .dark .background {
-  background: linear-gradient(
+  background:
+    repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255, 255, 255, 0.02) 2px, rgba(255, 255, 255, 0.02) 4px),
+    repeating-linear-gradient(-45deg, transparent, transparent 2px, rgba(255, 255, 255, 0.02) 2px, rgba(255, 255, 255, 0.02) 4px),
+    linear-gradient(
       rgba(30, 30, 30, 0.5),
       rgba(10, 10, 10, 0.85)
     );
@@ -137,13 +143,15 @@ img {
 }
 
 .box-gradient {
-  background: linear-gradient(135deg, var(--color-muted) 0%, color-mix(in oklab, var(--color-muted) 70%, black) 100%);
+  background: rgba(0, 0, 0, 0.35);
   border: 1px solid var(--color-accent);
   box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
+  backdrop-filter: blur(2px);
 }
 
 .dark .box-gradient {
-  background: linear-gradient(135deg, var(--color-muted) 0%, color-mix(in oklab, var(--color-muted) 130%, white) 100%);
+  background: rgba(0, 0, 0, 0.5);
   border: 1px solid var(--color-accent);
   box-shadow: 0 0 20px rgba(248, 113, 113, 0.15);
+  backdrop-filter: blur(2px);
 }
