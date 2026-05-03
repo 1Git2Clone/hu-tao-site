@@ -2,6 +2,7 @@
 	import { SITE_TITLE, SITE_TAGLINE, GITHUB_PROFILE_NAME, EMAIL } from '$lib/utils/consts';
 	import { resolve } from '$app/paths';
 	import GitHub from '$lib/components/icons/GitHub.svelte';
+	import Card from '$lib/components/layout/Card.svelte';
 
 	const SITE_URL = 'https://1g2c.netlify.app';
 	const title = '1Git2Clone | AI Integration Developer';
@@ -49,29 +50,29 @@
 	<section class="border-border rounded-lg border box-gradient p-8">
 		<h2 id="what-i-build" class="mt-0">What I Build</h2>
 		<div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-			<div class="border-border rounded-lg border p-5">
+			<Card>
 				<h3 id="ai-integrations" class="mt-0 text-lg">AI Integrations</h3>
 				<p class="mb-0 text-sm">
 					LLM-backed features, RAG/code graph workflows, OCR, computer vision, and internal
 					automation that is useful after the first demo.
 				</p>
-			</div>
+			</Card>
 
-			<div class="border-border rounded-lg border p-5">
+			<Card>
 				<h3 id="apis-data-flows" class="mt-0 text-lg">APIs & Data Flows</h3>
 				<p class="mb-0 text-sm">
 					Go services, AWS Lambda pipelines, S3-backed processing, audit-friendly data handling, and
 					backend glue for real workflows.
 				</p>
-			</div>
+			</Card>
 
-			<div class="border-border rounded-lg border p-5">
+			<Card>
 				<h3 id="interfaces-tools" class="mt-0 text-lg">Interfaces & Tools</h3>
 				<p class="mb-0 text-sm">
 					Svelte/React dashboards, admin tools, developer tooling, and Rust systems projects when
 					the problem needs lower-level control.
 				</p>
-			</div>
+			</Card>
 		</div>
 	</section>
 

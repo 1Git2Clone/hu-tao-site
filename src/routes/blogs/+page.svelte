@@ -3,6 +3,7 @@
 	import Fuse from 'fuse.js';
 	import { POST_SEARCH_FZF, postKey } from '$lib/data/posts';
 	import { resolve } from '$app/paths';
+	import Card from '$lib/components/layout/Card.svelte';
 
 	let { data } = $props();
 	let searchQuery = $state('');
@@ -79,7 +80,7 @@
 	<section class="grid gap-6 md:grid-cols-2">
 		{#each searchDisplay as result, i (result.item.slug + '-' + i)}
 			{@const post = result.item}
-			<div class="border-border rounded-lg border box-gradient p-6 transition-all">
+			<Card>
 				<h2 class="text-xl font-semibold">
 					<a class="text-xl underline hover:text-textcol" href={resolve(`/blogs/${post.slug}`)}>
 						<Highlight
@@ -115,7 +116,7 @@
 						/>
 					</span>
 				{/if}
-			</div>
+			</Card>
 		{:else}
 			<div class="col-span-full py-10 text-center text-muted-foreground">
 				No posts found matching "{searchQuery}"
