@@ -7,7 +7,7 @@ tags: ['dsa', 'cs']
 
 > **Note:** A more detailed dive on the topic can be found in my old
 > site's blog
-> [`1k2s.netlify.app`](https://1k2s.netlify.app/blog/understanding-big-o-notation).
+> [`1k2s.netlify.app`](https://1k2s.netlify.app/blogs/understanding-big-o-notation).
 > This page goes over the same topic but in a more succinct matter.
 
 Big $O$ Notation is a mathematical notation that describes the behavior of a

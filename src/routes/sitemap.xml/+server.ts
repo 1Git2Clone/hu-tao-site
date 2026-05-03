@@ -6,7 +6,7 @@ export const prerender = true;
 
 const SITE_URL = 'https://1g2c.netlify.app';
 
-const STATIC_ROUTES = ['/', '/blog', '/about-me', '/journey'];
+const STATIC_ROUTES = ['/', '/blogs', '/about-me', '/journey'];
 
 const posts = import.meta.glob<PostModule>('/src/lib/content/posts/*.md', { eager: true });
 
@@ -28,12 +28,12 @@ export const GET: RequestHandler = () => {
 	const postEntries = Object.entries(posts).map(([path, mod]) => {
 		const filename = path.split('/').pop() ?? '';
 		const slug = filename.endsWith(`.${BLOG_ITEMS_EXTENSION}`)
-			? filename.slice(0, -(`.${BLOG_ITEMS_EXTENSION}`.length))
+			? filename.slice(0, -`.${BLOG_ITEMS_EXTENSION}`.length)
 			: filename;
 		const lastmod = mod.metadata?.date
 			? new Date(mod.metadata.date).toISOString().split('T')[0]
 			: undefined;
-		return urlEntry(`${SITE_URL}/blog/${slug}`, lastmod);
+		return urlEntry(`${SITE_URL}/blogs/${slug}`, lastmod);
 	});
 
 	const body = `<?xml version="1.0" encoding="UTF-8"?>

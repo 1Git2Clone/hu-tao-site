@@ -43,7 +43,7 @@
 
 <div class="space-y-8">
 	<section class="border-border flex flex-col items-center rounded-lg border bg-muted/40 p-8">
-		<h1 class="text-center text-4xl font-bold tracking-tight">Blog</h1>
+		<h1 class="text-center text-4xl font-bold tracking-tight">Blogs</h1>
 		<div
 			class="border-border bg-background mt-6 flex w-full max-w-md items-center gap-2 rounded border px-2 py-1 transition-shadow focus-within:ring-2 focus-within:ring-primary"
 		>
@@ -81,7 +81,7 @@
 			{@const post = result.item}
 			<div class="border-border rounded-lg border p-6 transition-all">
 				<h2 class="text-xl font-semibold">
-					<a class="text-xl underline hover:text-textcol" href={resolve(`/blog/${post.slug}`)}>
+					<a class="text-xl underline hover:text-textcol" href={resolve(`/blogs/${post.slug}`)}>
 						<Highlight
 							text={post.metadata.title}
 							matches={result.matches}

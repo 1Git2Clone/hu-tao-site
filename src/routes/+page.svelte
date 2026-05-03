@@ -20,8 +20,8 @@
 			<a href={resolve('/about-me')} class="inline-flex items-center gap-1 font-semibold">
 				See shipped work <span aria-hidden="true">→</span>
 			</a>
-			<a href={resolve('/blog')} class="inline-flex items-center gap-1">
-				Read the blog <span aria-hidden="true">→</span>
+			<a href={resolve('/blogs')} class="inline-flex items-center gap-1">
+				Read the blogs <span aria-hidden="true">→</span>
 			</a>
 			<a href={`https://github.com/${GITHUB_PROFILE_NAME}`} class="inline-flex items-center gap-1">
 				<GitHub width={18} height={18} />
@@ -78,8 +78,8 @@
 				you explain them.
 			</p>
 			<div class="flex flex-wrap gap-6 text-sm">
-				<a href={resolve('/blog')} class="inline-flex items-center gap-1">
-					Blog <span aria-hidden="true">→</span>
+				<a href={resolve('/blogs')} class="inline-flex items-center gap-1">
+					Blogs <span aria-hidden="true">→</span>
 				</a>
 				<a href={resolve('/journey')} class="inline-flex items-center gap-1">
 					Linux journey <span aria-hidden="true">→</span>
