@@ -135,3 +135,11 @@ img {
 .katex {
   color: var(--color-highlight);
 }
+
+.box-gradient {
+  background: linear-gradient(135deg, var(--color-muted) 0%, color-mix(in oklab, var(--color-muted) 85%, black) 100%);
+}
+
+.dark .box-gradient {
+  background: linear-gradient(135deg, var(--color-muted) 0%, color-mix(in oklab, var(--color-muted) 120%, white) 100%);
+}
