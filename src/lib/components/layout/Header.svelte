@@ -8,8 +8,10 @@
 	import { GITHUB_PROFILE_NAME, SITE_TITLE, TWITTER_PROFILE_HANDLE } from '$lib/utils/consts';
 
 	function handleLogoClick(e: MouseEvent) {
-		e.preventDefault();
-		goto(resolve('/'));
+		if (e.clientX !== 0 || e.clientY !== 0) {
+			e.preventDefault();
+			goto(resolve('/'));
+		}
 	}
 </script>
 
