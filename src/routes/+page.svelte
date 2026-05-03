@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { SITE_TITLE, GITHUB_PROFILE_NAME, EMAIL } from '$lib/utils/consts';
+	import { SITE_TITLE, SITE_TAGLINE, GITHUB_PROFILE_NAME, EMAIL } from '$lib/utils/consts';
 	import { resolve } from '$app/paths';
 	import GitHub from '$lib/components/icons/GitHub.svelte';
 
@@ -24,7 +24,7 @@
 	<section class="border-border rounded-lg border box-gradient p-8">
 		<h1 id="title" class="text-4xl font-bold tracking-tight">Welcome to {SITE_TITLE}!</h1>
 		<p class="text-lg text-subtextcol">
-			AI Integration Developer | APIs, Data Pipelines & Internal Tools
+			{SITE_TAGLINE}
 		</p>
 
 		<p>
