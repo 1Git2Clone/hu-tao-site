@@ -84,6 +84,28 @@
 		</p>
 	</section>
 
+	<section class="grid gap-6 md:grid-cols-2">
+		<div class="border-border rounded-lg border bg-muted/40 p-6">
+			<h3 class="text-lg font-semibold">API Creation</h3>
+			<p class="text-muted-foreground mb-0 text-sm">Go services and AWS Lambda pipelines that handle async workflows, data ingestion, and backend glue for production systems.</p>
+		</div>
+
+		<div class="border-border rounded-lg border bg-muted/40 p-6">
+			<h3 class="text-lg font-semibold">AI Integration</h3>
+			<p class="text-muted-foreground mb-0 text-sm">LLM features, RAG systems, document processing, and AI-backed automation that remain useful outside the demo.</p>
+		</div>
+
+		<div class="border-border rounded-lg border bg-muted/40 p-6">
+			<h3 class="text-lg font-semibold">Internal Dashboards & Tooling</h3>
+			<p class="text-muted-foreground mb-0 text-sm">Svelte/React admin interfaces, observability dashboards, and operational tools that teams actually use.</p>
+		</div>
+
+		<div class="border-border rounded-lg border bg-muted/40 p-6">
+			<h3 class="text-lg font-semibold">Data Pipelines</h3>
+			<p class="text-muted-foreground mb-0 text-sm">ETL flows, streaming consumers, and analytics infrastructure that scales from batch to event-driven workloads.</p>
+		</div>
+	</section>
+
 	<section id="projects" class="scroll-mt-22 border-border rounded-lg border bg-muted/40 p-8">
 		<HeadingCopy class="prose mb-6 min-w-full dark:prose-invert">
 			<h2 id="projects-heading" class="mt-0">Work Beyond Home (localhost)</h2>
