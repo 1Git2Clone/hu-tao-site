@@ -166,6 +166,7 @@ img {
 
 #main-content a {
   position: relative;
+  display: inline-block;
   text-decoration: none;
 }
 
