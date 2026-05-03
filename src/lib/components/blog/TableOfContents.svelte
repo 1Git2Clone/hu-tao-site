@@ -75,7 +75,7 @@
 				<li>
 					<a
 						href="#{id}"
-						class="block text-sm transition-colors duration-200
+						class="block break-words text-sm transition-colors duration-200
                           {isMobile ? '' : '-ml-px border-l pl-4'}
                           {level === 3 ? (isMobile ? 'pl-4 italic' : 'ml-4') : ''}
                           {activeId === id
