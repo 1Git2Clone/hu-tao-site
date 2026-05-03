@@ -1,42 +1,231 @@
-# sv
+# 1Git2Clone Portfolio
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+[![Website Icon]][Website]&emsp;[![Netlify Icon]][Netlify Deploy]&emsp;[![SvelteKit Icon]][SvelteKit]
 
-## Creating a project
+[Website Icon]: https://img.shields.io/badge/site-hu--tao.org-red
+[Website]: https://hu-tao.org
+[Netlify Icon]: https://img.shields.io/badge/deploy-Netlify-00c7b7
+[Netlify Deploy]: https://app.netlify.com/projects/hu-tao/deploys
+[SvelteKit Icon]: https://img.shields.io/badge/SvelteKit-2-ff3e00
+[SvelteKit]: https://svelte.dev/docs/kit/introduction
 
-If you're seeing this, you've probably already done this step. Congrats!
+<!-- markdownlint-disable MD033 -->
+<p>
+  <img
+    height="50px"
+    src="https://codeberg.org/1Kill2Steal/skill-icons/raw/branch/main/icons/Svelte.svg"
+    alt="Svelte"
+  />
+  <img
+    height="50px"
+    src="https://codeberg.org/1Kill2Steal/skill-icons/raw/branch/main/icons/TypeScript.svg"
+    alt="TypeScript"
+  />
+  <img
+    height="50px"
+    src="https://codeberg.org/1Kill2Steal/skill-icons/raw/branch/main/icons/TailwindCSS-Dark.svg"
+    alt="Tailwind CSS"
+  />
+  <img
+    height="50px"
+    src="https://codeberg.org/1Kill2Steal/skill-icons/raw/branch/main/icons/Markdown-Dark.svg"
+    alt="Markdown"
+  />
+  <img
+    height="50px"
+    src="https://codeberg.org/1Kill2Steal/skill-icons/raw/branch/main/icons/Netlify-Dark.svg"
+    alt="Netlify"
+  />
+</p>
+<!-- markdownlint-enable MD033 -->
+
+Personal portfolio and blog for Ivan Kirilov / 1Git2Clone. The site is built
+with SvelteKit, Svelte 5, Tailwind CSS v4, and mdsvex, then deployed to
+Netlify.
+
+It is not a generic starter template. The monospace typography, red accent
+palette, dark/light theme, technical project cards, and Markdown-powered blog
+are all part of the site's identity.
+
+## Table Of Contents
+
+- [1Git2Clone Portfolio](#1git2clone-portfolio)
+  - [Getting Started](#getting-started)
+    - [Get The Repo](#get-the-repo)
+    - [Install Dependencies](#install-dependencies)
+    - [Run Locally](#run-locally)
+    - [Check The Project](#check-the-project)
+    - [Build The Project](#build-the-project)
+    - [Preview The Build](#preview-the-build)
+  - [File Structure](#file-structure)
+  - [Content](#content)
+    - [Portfolio Projects](#portfolio-projects)
+    - [Blog Posts](#blog-posts)
+    - [Site Constants](#site-constants)
+  - [Styling](#styling)
+  - [Deployment](#deployment)
+  - [Maintenance Notes](#maintenance-notes)
+
+## Getting Started
+
+### Get The Repo
 
 ```sh
-# create a new project
-npx sv create my-app
+git clone https://github.com/1Git2Clone/1g2c-site
+cd 1g2c-site
 ```
 
-To recreate this project with the same configuration:
+### Install Dependencies
 
 ```sh
-# recreate this project
-bun x sv@0.12.7 create --template minimal --types ts --add prettier eslint tailwindcss="plugins:typography,forms" mdsvex sveltekit-adapter="adapter:auto" --install bun 1k2s
+pnpm install
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### Run Locally
 
 ```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm run dev
 ```
 
-## Building
-
-To create a production version of your app:
+### Check The Project
 
 ```sh
-npm run build
+pnpm run check
 ```
 
-You can preview the production build with `npm run preview`.
+This runs `svelte-kit sync` and `svelte-check` against the project TypeScript
+configuration.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+### Build The Project
+
+```sh
+pnpm run build
+```
+
+### Preview The Build
+
+```sh
+pnpm run preview
+```
+
+## File Structure
+
+```text
+1g2c-site
+├── AGENTS.md                         # Project instructions for coding agents
+├── netlify.toml                      # Netlify build configuration
+├── package.json                      # Scripts and dependencies
+├── plugins
+│   ├── rehype                        # HTML transforms for mdsvex output
+│   │   ├── heading-ids.js            # Stable heading IDs
+│   │   └── katex.js                  # KaTeX HTML handling
+│   ├── remark                        # Markdown transforms
+│   │   ├── blog-assets.js            # Blog-local asset handling
+│   │   ├── code-block.js             # Code block metadata/rendering support
+│   │   ├── headings.js               # Heading extraction
+│   │   ├── reading-time.js           # Reading-time metadata
+│   │   └── youtube.js                # YouTube embed syntax
+│   └── utils.js                      # Shared plugin helpers
+├── src
+│   ├── lib
+│   │   ├── components
+│   │   │   ├── blog                  # Markdown layout and table of contents
+│   │   │   ├── icons                 # Social icons
+│   │   │   └── layout                # Header, nav, footer, theme toggle
+│   │   ├── content
+│   │   │   ├── about-me              # Project data for the portfolio page
+│   │   │   ├── posts                 # mdsvex blog posts and post assets
+│   │   │   └── root                  # Homepage content data
+│   │   ├── styles                    # Font and KaTeX styles
+│   │   ├── types                     # Shared TypeScript types
+│   │   └── utils                     # Constants, slug helpers, snippets
+│   └── routes
+│       ├── about-me                  # Portfolio/about page
+│       ├── blog                      # Blog index and post routes
+│       ├── sitemap.xml               # Sitemap endpoint
+│       ├── +layout.svelte            # App shell
+│       ├── +page.svelte              # Homepage
+│       └── layout.css                # Tailwind v4 theme and global styles
+├── static
+│   └── fonts                         # Optimized JetBrains Mono / KaTeX fonts
+└── install_required_font_symbols.sh  # Font subset helper
+```
+
+## Content
+
+### Portfolio Projects
+
+Portfolio project cards are data-driven from:
+
+```text
+src/lib/content/about-me/projects.ts
+```
+
+Each project can define a title, source URL, confidential/private marker,
+typed tech stack, summary, Markdown description, licenses, and tags. Tech stack
+labels link to their official project pages through the `TECH_URLS` map.
+
+### Blog Posts
+
+Blog posts live in:
+
+```text
+src/lib/content/posts/
+```
+
+Posts are Markdown files processed through mdsvex and custom remark/rehype
+plugins. The pipeline supports reading time, heading extraction, stable heading
+IDs, KaTeX math, code blocks, YouTube embeds, and blog-local assets.
+
+### Site Constants
+
+Shared constants live in:
+
+```text
+src/lib/utils/consts.ts
+```
+
+This includes the GitHub username, Twitter handle, site title, current year,
+blog extension, and contact email.
+
+## Styling
+
+The visual system is defined primarily in `src/routes/layout.css` with
+Tailwind CSS v4 theme tokens.
+
+Key conventions:
+
+- JetBrains Mono Nerd Font is used throughout the site.
+- Theme colors are tokenized in CSS; avoid hardcoded inline hex values.
+- Dark mode is driven by `mode-watcher`.
+- Markdown pages use `prose` and `dark:prose-invert`.
+- Component styling should prefer Tailwind utility classes.
+- Raw CSS should be reserved for pseudo-elements, complex selectors, keyframes,
+  or reusable component-specific effects.
+
+## Deployment
+
+The site is configured for Netlify through `@sveltejs/adapter-netlify` and
+`netlify.toml`.
+
+Netlify runs:
+
+```sh
+pnpm run build
+```
+
+and publishes:
+
+```text
+build
+```
+
+## Maintenance Notes
+
+- Run `pnpm run check` before committing Svelte or TypeScript changes.
+- Run `pnpm run lint` when working on formatting or lint cleanup. There may be
+  existing repo-wide formatting noise, so inspect the current diff before broad
+  formatting changes.
+- Run `install_required_font_symbols.sh` after adding glyphs that must be
+  included in the optimized font subset.
+- Do not commit secrets, `.env` files, tokens, or private credentials.
