@@ -89,9 +89,14 @@
 						/>
 					</a>
 				</h2>
-				{#if post.metadata.date}
-					<span class="text-sm text-subtextcol">{post.metadata.date}</span>
-				{/if}
+				<div class="flex flex-wrap gap-4 text-sm text-subtextcol">
+					{#if post.metadata.date}
+						<span>{post.metadata.date}</span>
+					{/if}
+					{#if post.metadata.readingTime}
+						<span>{post.metadata.readingTime}</span>
+					{/if}
+				</div>
 				<p class="text-muted-foreground mt-2">
 					<Highlight
 						text={post.metadata.summary}
