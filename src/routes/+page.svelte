@@ -6,7 +6,8 @@
 
 	const SITE_URL = 'https://1g2c.netlify.app';
 	const title = '1Git2Clone | AI Integration Developer';
-	const description = 'Ship production AI integrations, APIs, data pipelines, and internal tools. AI integration developer building systems that work outside localhost.';
+	const description =
+		'Ship production AI integrations, APIs, data pipelines, and internal tools. AI integration developer building systems that work outside localhost.';
 	const canonical = `${SITE_URL}/`;
 </script>
 
@@ -22,7 +23,7 @@
 </svelte:head>
 
 <div class="prose w-full max-w-none space-y-8 dark:prose-invert">
-	<section class="border-border rounded-lg border box-gradient p-8">
+	<section class="border-border box-gradient rounded-lg border p-8">
 		<h1 id="title" class="text-4xl font-bold tracking-tight">Welcome to {SITE_TITLE}!</h1>
 		<p class="text-lg text-subtextcol">
 			{SITE_TAGLINE}
@@ -47,7 +48,7 @@
 		</div>
 	</section>
 
-	<section class="border-border rounded-lg border box-gradient p-8">
+	<section class="border-border box-gradient rounded-lg border p-8">
 		<h2 id="what-i-build" class="mt-0">What I Build</h2>
 		<div class="grid grid-cols-1 gap-4 md:grid-cols-3">
 			<Card>
@@ -77,18 +78,18 @@
 	</section>
 
 	<section class="grid grid-cols-1 gap-6 md:grid-cols-2">
-		<div class="border-border rounded-lg border box-gradient p-8">
+		<div class="border-border box-gradient rounded-lg border p-8">
 			<h2 id="proof" class="mt-0">Proof, Not Posturing</h2>
 			<p>
 				The portfolio page has the concrete work: confidential fintech systems, AI admin tooling,
 				and public Rust projects.
 			</p>
-			<a href={`${resolve('/about-me')}#projects`} class="inline-flex items-center gap-1">
+			<a href="{resolve('/about-me')}#projects" class="inline-flex items-center gap-1">
 				Work beyond home (localhost) <span aria-hidden="true">→</span>
 			</a>
 		</div>
 
-		<div class="border-border rounded-lg border box-gradient p-8">
+		<div class="border-border box-gradient rounded-lg border p-8">
 			<h2 id="notes" class="mt-0">Notes From The Terminal</h2>
 			<p>
 				Writing on algorithms, Linux, tooling, and the parts of software that become clearer when
@@ -105,7 +106,7 @@
 		</div>
 	</section>
 
-	<section class="border-border rounded-lg border box-gradient p-8 text-center">
+	<section class="border-border box-gradient rounded-lg border p-8 text-center">
 		<h2 id="contact" class="mt-0">Got A Messy Idea Worth Shipping?</h2>
 		<p class="mb-0">
 			Send me the rough version:

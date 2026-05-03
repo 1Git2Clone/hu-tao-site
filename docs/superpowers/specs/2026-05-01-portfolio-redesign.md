@@ -8,12 +8,12 @@ losing its personal character.
 
 ## Files to Modify
 
-| File | Action |
-|---|---|
-| `src/lib/utils/consts.ts` | Add `EMAIL` constant |
+| File                               | Action                                                                |
+| ---------------------------------- | --------------------------------------------------------------------- |
+| `src/lib/utils/consts.ts`          | Add `EMAIL` constant                                                  |
 | `src/routes/about-me/+page.svelte` | Replace lorem ipsum bio, add portfolio projects section, add hire CTA |
-| `src/routes/+page.svelte` | Replace Linux journey with professional intro |
-| `src/routes/journey/+page.svelte` | **New** — hosts the HistoryTree component |
+| `src/routes/+page.svelte`          | Replace Linux journey with professional intro                         |
+| `src/routes/journey/+page.svelte`  | **New** — hosts the HistoryTree component                             |
 
 ---
 
@@ -58,12 +58,12 @@ Each project is a card showing:
 
 Four projects:
 
-| Project | URL | Description | Tags | Metric |
-|---|---|---|---|---|
-| Serenity Discord Bot | `https://github.com/1Git2Clone/serenity-discord-bot` | Production Discord bot with AI, slash commands, and PostgreSQL-backed leveling | Rust, Tokio, Serenity, Poise, PostgreSQL, Docker, OpenTelemetry | — |
-| Markdown TOC Generator | `TODO` (URL unknown — leave TODO comment) | CLI tool that generates and injects TOCs into Markdown files | Rust | — |
-| Dotfiles | `https://github.com/1Git2Clone/dotfiles` | Fully configured Arch desktop — Hyprland/i3wm, red-themed Neovim, kitty, tmux | Shell, Lua | — |
-| Hunger Games Simulator | private/WIP | Real-time multiplayer simulator with Discord OAuth2, WebSocket sync, JWT auth, testcontainers | Go, SvelteKit, PostgreSQL, Docker | WIP |
+| Project                | URL                                                  | Description                                                                                   | Tags                                                            | Metric |
+| ---------------------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | ------ |
+| Serenity Discord Bot   | `https://github.com/1Git2Clone/serenity-discord-bot` | Production Discord bot with AI, slash commands, and PostgreSQL-backed leveling                | Rust, Tokio, Serenity, Poise, PostgreSQL, Docker, OpenTelemetry | —      |
+| Markdown TOC Generator | `TODO` (URL unknown — leave TODO comment)            | CLI tool that generates and injects TOCs into Markdown files                                  | Rust                                                            | —      |
+| Dotfiles               | `https://github.com/1Git2Clone/dotfiles`             | Fully configured Arch desktop — Hyprland/i3wm, red-themed Neovim, kitty, tmux                 | Shell, Lua                                                      | —      |
+| Hunger Games Simulator | private/WIP                                          | Real-time multiplayer simulator with Discord OAuth2, WebSocket sync, JWT auth, testcontainers | Go, SvelteKit, PostgreSQL, Docker                               | WIP    |
 
 **Styling**: inline in the page, not a separate component. Cards use
 `border-border rounded-lg border bg-muted/40 p-8`. Tags are inline spans with
@@ -72,6 +72,7 @@ Four projects:
 ### 2c. Hire CTA Section
 
 Bottom section on the page:
+
 - "Want to work together?" heading
 - Email link: `href="mailto:ivan@hu-tao.dev"`
 - Match existing icon/link styling: `color: var(--color-accent)`, `0.2s ease`
@@ -116,15 +117,15 @@ A simple page containing:
 
 ```svelte
 <script lang="ts">
-  import HistoryTree from '$lib/components/root/HistoryTree.svelte';
-  import { LINUX_AND_DOTFILES_HISTORY_TREE } from '$lib/content/root/linux-and-dotfiles-history-tree';
+	import HistoryTree from '$lib/components/root/HistoryTree.svelte';
+	import { LINUX_AND_DOTFILES_HISTORY_TREE } from '$lib/content/root/linux-and-dotfiles-history-tree';
 </script>
 
 <div class="prose w-full max-w-none space-y-8 dark:prose-invert">
-  <section class="border-border rounded-lg border bg-muted/40 p-8">
-    <h1>Linux Journey</h1>
-    <HistoryTree history={LINUX_AND_DOTFILES_HISTORY_TREE} baseHeadingLevel={2} />
-  </section>
+	<section class="border-border rounded-lg border bg-muted/40 p-8">
+		<h1>Linux Journey</h1>
+		<HistoryTree history={LINUX_AND_DOTFILES_HISTORY_TREE} baseHeadingLevel={2} />
+	</section>
 </div>
 ```
 

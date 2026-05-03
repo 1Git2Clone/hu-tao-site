@@ -24,11 +24,11 @@ description: Use when adding entries to an existing data file (projects list, co
 
 ## Common Mistakes
 
-| Situation | Right action |
-|-----------|-------------|
-| Adding a project with `isPrivate: true` | Add it to `PROJECTS` array. The `Project` class already handles it. |
-| Adding a new license value | Add the string to the `License` union type. Don't touch `TECH_URLS` or the snippet unless the new type requires a link. |
-| Adding a field to a type | You're probably over-engineering. Append data, don't expand interfaces. |
+| Situation                               | Right action                                                                                                            |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Adding a project with `isPrivate: true` | Add it to `PROJECTS` array. The `Project` class already handles it.                                                     |
+| Adding a new license value              | Add the string to the `License` union type. Don't touch `TECH_URLS` or the snippet unless the new type requires a link. |
+| Adding a field to a type                | You're probably over-engineering. Append data, don't expand interfaces.                                                 |
 
 ## Red Flags
 

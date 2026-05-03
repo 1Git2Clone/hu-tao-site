@@ -69,13 +69,13 @@ Explicit skills are better than implicit lessons. Writing down the pattern means
 
 ## Common Mistakes
 
-| Excuse | Reality |
-| --- | --- |
-| "I'll just remember next time" | You won't. Different session, different context. |
-| "It's too specific to encode" | Specific rules are the easiest to follow. |
-| "I'll fix it in the moment" | Fixing now ≠ preventing recurrence. |
-| "The user didn't explicitly ask for a skill" | They shouldn't have to. The feedback is the signal. |
-| "I'll write the skill after I finish this task" | Later never comes. Encode it before moving on. |
+| Excuse                                          | Reality                                             |
+| ----------------------------------------------- | --------------------------------------------------- |
+| "I'll just remember next time"                  | You won't. Different session, different context.    |
+| "It's too specific to encode"                   | Specific rules are the easiest to follow.           |
+| "I'll fix it in the moment"                     | Fixing now ≠ preventing recurrence.                 |
+| "The user didn't explicitly ask for a skill"    | They shouldn't have to. The feedback is the signal. |
+| "I'll write the skill after I finish this task" | Later never comes. Encode it before moving on.      |
 
 ## Red Flags
 

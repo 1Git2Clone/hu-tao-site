@@ -43,7 +43,7 @@
 <svelte:window onkeydown={handleKeydown} />
 
 <div class="space-y-8">
-	<section class="border-border flex flex-col items-center rounded-lg border box-gradient p-8">
+	<section class="border-border box-gradient flex flex-col items-center rounded-lg border p-8">
 		<h1 class="text-center text-4xl font-bold tracking-tight">Blogs</h1>
 		<div
 			class="border-border bg-background mt-6 flex w-full max-w-md items-center gap-2 rounded border px-2 py-1 transition-shadow focus-within:ring-2 focus-within:ring-primary"

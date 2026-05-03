@@ -25,10 +25,10 @@ The function signature was deliberately narrow for a reason. Widening it to `str
 
 ## Common Mistakes
 
-| Temptation | Right action |
-|-----------|-------------|
-| Change `(keyof typeof X)[]` to `string[]` | Add your new keys to `X` instead |
-| Add `as any` cast | Find the actual type mismatch and fix it |
+| Temptation                                               | Right action                              |
+| -------------------------------------------------------- | ----------------------------------------- |
+| Change `(keyof typeof X)[]` to `string[]`                | Add your new keys to `X` instead          |
+| Add `as any` cast                                        | Find the actual type mismatch and fix it  |
 | Replace typed map with a looser `Record<string, string>` | Keep the const map, add your missing keys |
 
 ## Red Flags

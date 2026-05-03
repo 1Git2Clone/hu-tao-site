@@ -29,13 +29,13 @@ Each commit should represent one logical change. If you're staging files that ad
 
 ## Common Splits
 
-| Group A | Group B | Commit types |
-|---------|---------|-------------|
-| Implementation code | Tests for it | `feat:` + `test:` (or squash if tightly coupled) |
-| Feature A | Feature B | Two `feat:` commits |
-| Code changes | Documentation | `feat:` + `docs:` |
-| Refactoring | Feature work | `refactor:` + `feat:` |
-| Skill A | Skill B | Two `docs(ai):` commits |
+| Group A             | Group B       | Commit types                                     |
+| ------------------- | ------------- | ------------------------------------------------ |
+| Implementation code | Tests for it  | `feat:` + `test:` (or squash if tightly coupled) |
+| Feature A           | Feature B     | Two `feat:` commits                              |
+| Code changes        | Documentation | `feat:` + `docs:`                                |
+| Refactoring         | Feature work  | `refactor:` + `feat:`                            |
+| Skill A             | Skill B       | Two `docs(ai):` commits                          |
 
 ## Red Flags
 

@@ -28,12 +28,12 @@ Every commit must carry the appropriate `Co-authored-by:` (and any other require
 
 ## Common Mistakes
 
-| Mistake | Fix |
-|---------|-----|
-| `git commit -m "msg"` without `--trailer` | Always use `--trailer "Co-authored-by: ..."` |
-| Trailer missing closing `>` in a sed/echo string | Test the string with `printf` before running filter-branch |
-| Assuming subagents always add trailers | Verify with `git log --format='%b' -1 | grep 'Co-authored-by'` |
-| Amending without re-adding the trailer | `git commit --amend --no-edit --trailer "Co-authored-by: ..."` |
+| Mistake                                          | Fix                                                            |
+| ------------------------------------------------ | -------------------------------------------------------------- | ---------------------- |
+| `git commit -m "msg"` without `--trailer`        | Always use `--trailer "Co-authored-by: ..."`                   |
+| Trailer missing closing `>` in a sed/echo string | Test the string with `printf` before running filter-branch     |
+| Assuming subagents always add trailers           | Verify with `git log --format='%b' -1                          | grep 'Co-authored-by'` |
+| Amending without re-adding the trailer           | `git commit --amend --no-edit --trailer "Co-authored-by: ..."` |
 
 ## Red Flags
 
