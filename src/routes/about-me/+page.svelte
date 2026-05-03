@@ -118,17 +118,17 @@
 		</div>
 
 		<div class="border-border rounded-lg border box-gradient p-6">
-			<h3 class="text-lg font-semibold">AI Integration</h3>
+			<h2 class="text-lg font-semibold">AI Integration</h2>
 			<p class="text-muted-foreground mb-0 text-sm">LLM features, RAG systems, document processing, and AI-backed automation that remain useful outside the demo.</p>
 		</div>
 
 		<div class="border-border rounded-lg border box-gradient p-6">
-			<h3 class="text-lg font-semibold">Internal Dashboards & Tooling</h3>
+			<h2 class="text-lg font-semibold">Internal Dashboards & Tooling</h2>
 			<p class="text-muted-foreground mb-0 text-sm">Svelte/React admin interfaces, observability dashboards, and operational tools that teams actually use.</p>
 		</div>
 
 		<div class="border-border rounded-lg border box-gradient p-6">
-			<h3 class="text-lg font-semibold">Data Pipelines</h3>
+			<h2 class="text-lg font-semibold">Data Pipelines</h2>
 			<p class="text-muted-foreground mb-0 text-sm">ETL flows, streaming consumers, and analytics infrastructure that scales from batch to event-driven workloads.</p>
 		</div>
 	</section>
@@ -191,7 +191,7 @@
 						<p class="text-muted-foreground mt-2">{project.summary}</p>
 
 						<div class="text-muted-foreground mt-2 text-sm">
-							<h3 id="{slug}-tech-stack" class="mt-0">Tech Stack:</h3>
+							<h3 id="{slug}-tech-stack" class="mt-0">Tech Stack:</h2>
 							<ul class="ml-4 list-disc">
 								{#if project.techStack.compute?.length}
 									<li>Compute: {@render techLinks(project.techStack.compute)}</li>
