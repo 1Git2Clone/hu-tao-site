@@ -4,4 +4,4 @@ export const SITE_TITLE_SHORT = '1G2C';
 export const SITE_TITLE = '1Git2Clone';
 export const CURRENT_YEAR = new Date().getFullYear();
 export const BLOG_ITEMS_EXTENSION: 'md' | 'mdx' | 'svx' = 'md';
-export const EMAIL = 'ivan@hu-tao.dev';
+export const EMAIL = 'ivan@hu-tao.org';
