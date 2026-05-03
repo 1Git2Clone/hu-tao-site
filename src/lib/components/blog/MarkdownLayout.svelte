@@ -34,9 +34,9 @@
 			</div>
 
 			<div class="not-prose mb-8 xl:hidden">
-				<details class="dark:border-accent-bg-hover rounded-lg border border-primary bg-muted/40">
+				<details class="border-border rounded-lg border box-gradient">
 					<summary
-						class="text-primary-900 flex cursor-pointer list-none items-center justify-between p-4 font-bold dark:text-white"
+						class="flex cursor-pointer list-none items-center justify-between p-4 font-bold text-subtextcol"
 					>
 						On This Page
 						<span class="text-xs font-normal text-subtextcol">View Sections</span>
@@ -52,7 +52,7 @@
 		</article>
 
 		<aside class="hidden xl:block">
-			<div class="scrollbar-hide fixed top-20 max-h-[calc(100vh-10rem)] overflow-y-auto py-12">
+			<div class="scrollbar-hide fixed top-20 max-h-[calc(100vh-10rem)] overflow-y-auto rounded-lg border border-border box-gradient p-4 py-12">
 				<TableOfContents staticHeadings={headings} />
 			</div>
 		</aside>
