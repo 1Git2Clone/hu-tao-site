@@ -12,6 +12,7 @@
 	import { hostToSocial, type SocialMedia } from '$lib/types/social-media';
 	import GitHub from '$lib/components/icons/GitHub.svelte';
 	import HeadingCopy from '$lib/components/HeadingCopy.svelte';
+	import Card from '$lib/components/layout/Card.svelte';
 	import { page } from '$app/state';
 
 	function getSocialMedia(hostname: string): SocialMedia {
@@ -139,9 +140,8 @@
 			{#each PROJECTS as project, i (project.title + i)}
 				{@const slug = slugify(project.title)}
 				<div class="md:last:odd:col-span-2 md:last:odd:mx-auto md:last:odd:w-[calc(50%-0.75rem)]">
-					<div
-						class="border-border prose h-full min-w-full rounded-lg border p-6 dark:prose-invert"
-					>
+					<Card>
+						<div class="prose dark:prose-invert">
 						{#if project.image}
 							<div class="relative mb-4 overflow-hidden rounded">
 								<img
@@ -263,6 +263,7 @@
 							{/if}
 						</div>
 					</div>
+				</Card>
 				</div>
 			{/each}
 		</div>
