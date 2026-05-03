@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { slugify } from '$lib/utils/slugify';
-	import { SvelteURL } from 'svelte/reactivity';
+	import HeadingCopy from '$lib/components/HeadingCopy.svelte';
 	import TableOfContents from './TableOfContents.svelte';
 
 	let { title, date, readingTime, children } = $props<{
@@ -12,51 +12,14 @@
 	}>();
 
 	const headings = $derived(page.data.headings || []);
-	function headingCopy(node: HTMLElement) {
-		const handleGlobalClick = (event: MouseEvent) => {
-			const target = event.target as HTMLElement;
-			const heading = target.closest('h1, h2, h3, h4, h5, h6') as HTMLElement | null;
-
-			if (heading && node.contains(heading)) {
-				const id = heading.id;
-				if (!id) {
-					if (import.meta.env.DEV) console.warn(`No heading ID for ${heading}`);
-					return;
-				}
-
-				const rect = heading.getBoundingClientRect();
-				const clickX = event.clientX - rect.left;
-				const paddingLeft = parseFloat(window.getComputedStyle(heading).paddingLeft);
-				if (clickX > paddingLeft) {
-					return;
-				}
-
-				const url = new SvelteURL(window.location.href);
-				url.hash = id;
-				const fullLink = url.toString();
-				// window.location.href = fullLink;
-
-				navigator.clipboard.writeText(fullLink).then(() => {
-					heading.classList.add('copied');
-					setTimeout(() => heading.classList.remove('copied'), 1250);
-				});
-			}
-		};
-
-		node.addEventListener('click', handleGlobalClick);
-		return {
-			destroy: () => node.removeEventListener('click', handleGlobalClick)
-		};
-	}
 </script>
 
 <div class="mx-auto w-full max-w-400">
 	<div class="grid grid-cols-1 xl:grid-cols-[16rem_minmax(0,52rem)_16rem] xl:gap-8">
 		<div class="hidden xl:block"></div>
 
-		<article
-			id="markdown-article"
-			use:headingCopy
+		<HeadingCopy
+			tag="article"
 			class="prose max-w-none min-w-0 py-12 wrap-break-word dark:prose-invert"
 		>
 			{#if title}
@@ -84,7 +47,7 @@
 			</div>
 
 			{@render children()}
-		</article>
+		</HeadingCopy>
 
 		<aside class="hidden xl:block">
 			<div class="scrollbar-hide fixed top-20 max-h-[calc(100vh-10rem)] overflow-y-auto py-12">
@@ -100,49 +63,4 @@
 		overflow-y: hidden;
 		padding: 0.5rem 0;
 	}
-
-	#markdown-article :global(:is(h1, h2, h3, h4, h5, h6)) {
-		position: relative;
-		cursor: default;
-	}
-
-	#markdown-article :global(:is(h1)) {
-		padding-left: 2.75rem;
-	}
-
-	#markdown-article :global(:is(h2)) {
-		padding-left: 2rem;
-	}
-
-	#markdown-article :global(:is(h3, h4, h5, h6)) {
-		padding-left: 1.75rem;
-	}
-
-	#markdown-article :global(:is(h1, h2, h3, h4, h5, h6)::before) {
-		content: '';
-		position: absolute;
-		left: 0;
-		color: var(--color-accent);
-		opacity: 0.5;
-		transition: all 0.2s ease;
-		user-select: none;
-		cursor: pointer;
-	}
-
-	#markdown-article :global(:is(h1, h2, h3, h4, h5, h6):hover::before) {
-		opacity: 1;
-		/* transform: scale(1.1); */
-	}
-
-	#markdown-article :global(:is(h1, h2, h3, h4, h5, h6).copied::before) {
-		content: '';
-		color: var(--color-highlight);
-		opacity: 1;
-	}
-
-	/*
-	#markdown-article :global(:is(h1, h2, h3, h4, h5, h6).copied) {
-		color: var(--color-accent);
-	}
-  */
 </style>
