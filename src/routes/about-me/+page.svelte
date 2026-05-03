@@ -107,6 +107,10 @@
 		</div>
 	</section>
 
+	<section class="border-border rounded-lg border bg-muted/40 p-4 text-center">
+		<p class="mb-0 text-sm text-subtextcol">Production AWS Lambda/S3 · rust-random/rand contributor · 20x benchmark improvement · Sub-100ms Discord bot · PCI-adjacent fintech</p>
+	</section>
+
 	<section class="grid gap-6 md:grid-cols-2">
 		<div class="border-border rounded-lg border bg-muted/40 p-6">
 			<h3 class="text-lg font-semibold">API Creation</h3>
