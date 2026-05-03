@@ -6,9 +6,19 @@ export const prerender = true;
 
 const SITE_URL = 'https://1g2c.netlify.app';
 
-const STATIC_ROUTES = ['/', '/blogs', '/about-me', '/journey'];
+const routePages = import.meta.glob('/src/routes/**/+page.svelte', { eager: true });
 
 const posts = import.meta.glob<PostModule>('/src/lib/content/posts/*.md', { eager: true });
+
+function routeFromPagePath(path: string): string {
+	const route = path.replace('/src/routes', '').replace('/+page.svelte', '');
+	return route || '/';
+}
+
+const STATIC_ROUTES = Object.keys(routePages)
+	.map(routeFromPagePath)
+	.filter((route) => !route.includes('['))
+	.sort((a, b) => a.localeCompare(b));
 
 function urlEntry(loc: string, lastmod?: string): string {
 	return [
