@@ -239,10 +239,10 @@
 									rel="noopener noreferrer"
 									class="inline-flex items-center gap-1"
 								>
-									{project.sourceUrl.href}
+									Read more <span aria-hidden="true">→</span>
 								</a>
 							{:else if project.isPrivate}
-								Private / Confidential
+								<span class="text-muted-foreground">Available on request</span>
 							{/if}
 						</div>
 					</div>
