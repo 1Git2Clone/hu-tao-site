@@ -56,7 +56,6 @@
 		]
 	},
 	"dependencies": {
-		"clsx": "^2.1.1",
-		"statuses": "^2.0.2"
+		"clsx": "^2.1.1"
 	}
 }
