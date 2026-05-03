@@ -1,10 +1,16 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import { goto } from '$app/navigation';
 	import Nav from '$lib/components/layout/Nav.svelte';
 	import GitHub from '$lib/components/icons/GitHub.svelte';
 	import Twitter from '$lib/components/icons/Twitter.svelte';
 	import ThemeToggle from './ThemeToggle.svelte';
 	import { GITHUB_PROFILE_NAME, SITE_TITLE, TWITTER_PROFILE_HANDLE } from '$lib/utils/consts';
+
+	function handleLogoClick(e: MouseEvent) {
+		e.preventDefault();
+		goto(resolve('/'));
+	}
 </script>
 
 <header
@@ -12,8 +18,9 @@
 >
 	<a
 		href="#main-content"
-		class="group relative text-lg font-bold whitespace-nowrap"
+		class="group relative w-fit text-lg font-bold whitespace-nowrap"
 		aria-label="Skip to main content"
+		onclick={handleLogoClick}
 	>
 		<span
 			class="hidden transition-opacity duration-150 ease-in-out group-focus-visible:opacity-0 sm:inline"
