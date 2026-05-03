@@ -165,8 +165,8 @@ img {
 }
 
 #main-content a {
-  position: relative !important;
-  text-decoration: none !important;
+  position: relative;
+  text-decoration: none;
 }
 
 #main-content a::after {
@@ -180,7 +180,6 @@ img {
   transition: width 0.3s ease;
 }
 
-#main-content a:hover::after,
-#main-content strong a:hover::after {
+#main-content a:hover::after {
   width: 100%;
 }
