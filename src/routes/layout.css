@@ -165,22 +165,11 @@ img {
 }
 
 #main-content a {
-  position: relative;
-  display: inline-block;
   text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
 }
 
-#main-content a::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: var(--color-accent);
-  transition: width 0.3s ease;
-}
-
-#main-content a:hover::after {
-  width: 100%;
+#main-content a:hover {
+  border-bottom-color: var(--color-accent);
 }
