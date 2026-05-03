@@ -190,11 +190,11 @@ export const PROJECTS: Project[] = [
 A production fintech data pipeline for safely processing and analyzing transaction flows.
 `.trim(),
 		description: `
-**Problem:** Needed to safely process sensitive transaction data for analytics while ensuring correctness and reliability under failure conditions.
+**Problem:** Process sensitive transaction data for analytics while guaranteeing correctness under failure conditions.
 
-**Solution:** Designed and built a greenfield AWS writer Lambda using NDJSON streaming to process and redact transaction data under Lambda memory constraints. Built the consumer flow that reads the data for AI analysis, deletes the source data, and preserves the resulting insights.
+**Solution:** Built a greenfield AWS Lambda with NDJSON streaming to redact transaction data under memory constraints, feeding a consumer flow that analyzes, deletes, and preserves insights.
 
-**Outcome:** Enabled automated failure-rate analytics on production transaction flows. Improved benchmark performance up to 20x in tests while preserving correctness, auditability, and data-handling requirements.
+**Outcome:** Enabled automated failure-rate analytics on production flows with 20x benchmark improvements while maintaining correctness, auditability, and data-handling compliance.
 `.trim(),
 		licenses: [],
 		tags: ['fintech', 'backend', 'aws']
@@ -212,11 +212,11 @@ A production fintech data pipeline for safely processing and analyzing transacti
 Internal AI tooling for operational analytics, policy scanning, and document forensics.
 `.trim(),
 		description: `
-**Problem:** A larger internal admin system needed practical AI tools for analyzing failure rates, scanning policy pages, and inspecting documents without relying on brittle regex-only workflows.
+**Problem:** An internal admin system needed AI tools for analyzing failures, scanning policies, and inspecting documents without regex-only brittle workflows.
 
-**Solution:** Contributed AI-backed features to the internal SSR Go dashboard: failure-rate insights, an AI-powered policy scanner that works with SPAs, and document forensics using ExifTool, Tesseract, OpenCV, OCR, and Gemini computer vision.
+**Solution:** Built AI-backed features for the Go dashboard: failure-rate insights, an AI policy scanner that handles SPAs, and document forensics using ExifTool, Tesseract, OpenCV, and Gemini computer vision.
 
-**Outcome:** Turned fragile review workflows into reusable tools inside a larger production admin system. The features help teams inspect operational issues, policy changes, and suspicious document metadata faster while keeping the work auditable.
+**Outcome:** Replaced fragile review workflows with auditable, reusable tools that help teams inspect operational issues, policy changes, and suspicious metadata faster inside production systems.
 `.trim(),
 		licenses: [],
 		tags: ['ai', 'automation', 'fintech']
@@ -245,11 +245,11 @@ Internal AI tooling for operational analytics, policy scanning, and document for
 A production Discord bot built in Rust with AI integration, persistent user data, and full observability.
 `.trim(),
 		description: `
-**Problem:** Needed a production Discord bot with AI integration, persistent user data, and observability without the Node.js ecosystem.
+**Problem:** Build a production Discord bot with AI integration, persistent data, and observability without Node.js.
 
-**Solution:** Built in Rust using Serenity, Poise, and Tokio, backed by PostgreSQL, Docker, and OpenTelemetry.
+**Solution:** Built with Rust using Serenity, Poise, and Tokio, backed by PostgreSQL, Docker, and OpenTelemetry for full observability.
 
-**Outcome:** Shipped with slash commands, a leveling system, AI chat integration, and sub-100ms response times. Self-hosted by multiple communities. Apache 2.0, self-hostable.
+**Outcome:** Shipped with slash commands, leveling system, AI chat, and sub-100ms response times. Self-hosted by multiple communities. Apache 2.0 licensed.
 `.trim(),
 		licenses: ['Apache 2.0'],
 		tags: ['ai', 'backend']
