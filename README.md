@@ -141,7 +141,7 @@ pnpm run preview
 │   │   └── utils                     # Constants, slug helpers, snippets
 │   └── routes
 │       ├── about-me                  # Portfolio/about page
-│       ├── blog                      # Blog index and post routes
+│       ├── blogs                     # Blogs index and post routes
 │       ├── sitemap.xml               # Sitemap endpoint
 │       ├── +layout.svelte            # App shell
 │       ├── +page.svelte              # Homepage

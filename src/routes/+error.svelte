@@ -21,8 +21,8 @@
 			<a href={resolve('/')} class="inline-flex items-center gap-1">
 				Go home <span aria-hidden="true">→</span>
 			</a>
-			<a href={resolve('/blog')} class="inline-flex items-center gap-1">
-				Browse blog <span aria-hidden="true">→</span>
+			<a href={resolve('/blogs')} class="inline-flex items-center gap-1">
+				Browse blogs <span aria-hidden="true">→</span>
 			</a>
 		</div>
 	</section>

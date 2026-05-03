@@ -75,7 +75,7 @@ src/
   routes/
     +layout.svelte  # Global layout (Header, Footer, ModeWatcher, transitions)
     +page.svelte    # Homepage
-    blog/           # Blog routes
+    blogs/          # Blogs routes
     about-me/       # About/portfolio route
 plugins/
   remark/           # Custom remark plugins (headings, reading-time, youtube, code-block, blog-assets)

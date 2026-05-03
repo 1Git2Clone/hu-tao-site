@@ -8,8 +8,8 @@
 		>Home</a
 	>
 	<a
-		href={resolve('/blog')}
-		aria-current={page.url.pathname.startsWith(resolve('/blog')) ? 'page' : undefined}>Blog</a
+		href={resolve('/blogs')}
+		aria-current={page.url.pathname.startsWith(resolve('/blogs')) ? 'page' : undefined}>Blogs</a
 	>
 	<a
 		href={resolve('/about-me')}
