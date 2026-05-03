@@ -38,10 +38,13 @@
 
 {#snippet techLinks(items: (keyof typeof TECH_URLS)[])}
 	{#each items as item, i (item)}
-		<a href={TECH_URLS[item]} target="_blank" rel="noopener noreferrer">{item}</a>{i <
-		items.length - 1
-			? ', '
-			: ''}
+		<a
+			href={TECH_URLS[item]}
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label={`${item}${item === 'Go' ? ' programming language' : ''}`}
+		>{item}</a
+		>{i < items.length - 1 ? ', ' : ''}
 	{/each}
 {/snippet}
 
@@ -110,7 +113,7 @@
 
 	<section class="grid gap-6 md:grid-cols-2">
 		<div class="border-border rounded-lg border box-gradient p-6">
-			<h3 class="text-lg font-semibold">API Creation</h3>
+			<h2 class="text-lg font-semibold">API Creation</h2>
 			<p class="text-muted-foreground mb-0 text-sm">Go services and AWS Lambda pipelines that handle async workflows, data ingestion, and backend glue for production systems.</p>
 		</div>
 
