@@ -79,7 +79,7 @@
 	<section class="grid gap-6 md:grid-cols-2">
 		{#each searchDisplay as result, i (result.item.slug + '-' + i)}
 			{@const post = result.item}
-			<div class="border-border rounded-lg border p-6 transition-all">
+			<div class="border-border rounded-lg border box-gradient p-6 transition-all">
 				<h2 class="text-xl font-semibold">
 					<a class="text-xl underline hover:text-textcol" href={resolve(`/blogs/${post.slug}`)}>
 						<Highlight
