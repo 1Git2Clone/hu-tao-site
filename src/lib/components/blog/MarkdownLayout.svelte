@@ -18,41 +18,40 @@
 	<div class="grid grid-cols-1 xl:grid-cols-[16rem_minmax(0,52rem)_16rem] xl:gap-8">
 		<div class="hidden xl:block"></div>
 
-		<article class="border-border rounded-lg border box-gradient p-8">
-			<HeadingCopy
-				tag="div"
-				class="prose max-w-none min-w-0 wrap-break-word dark:prose-invert"
-			>
-			{#if title}
-				<h1 id={slugify(title)}>{title}</h1>
-			{/if}
+		<article class="border-border box-gradient rounded-lg border p-8">
+			<HeadingCopy tag="div" class="prose max-w-none min-w-0 wrap-break-word dark:prose-invert">
+				{#if title}
+					<h1 id={slugify(title)}>{title}</h1>
+				{/if}
 
-			<div class="meta mb-4 text-sm text-subtextcol">
-				<span>{date}</span>
-				<span aria-hidden="true">•</span>
-				<span>{readingTime}</span>
-			</div>
+				<div class="meta mb-4 text-sm text-subtextcol">
+					<span>{date}</span>
+					<span aria-hidden="true">•</span>
+					<span>{readingTime}</span>
+				</div>
 
-			<div class="not-prose mb-8 xl:hidden">
-				<details class="border-border rounded-lg border box-gradient">
-					<summary
-						class="flex cursor-pointer list-none items-center justify-between p-4 font-bold text-subtextcol"
-					>
-						On This Page
-						<span class="text-xs font-normal text-subtextcol">View Sections</span>
-					</summary>
-					<div class="border-t p-4">
-						<TableOfContents isMobile={true} staticHeadings={headings} />
-					</div>
-				</details>
-			</div>
+				<div class="not-prose mb-8 xl:hidden">
+					<details class="border-border box-gradient rounded-lg border">
+						<summary
+							class="flex cursor-pointer list-none items-center justify-between p-4 font-bold text-subtextcol"
+						>
+							On This Page
+							<span class="text-xs font-normal text-subtextcol">View Sections</span>
+						</summary>
+						<div class="border-t p-4">
+							<TableOfContents isMobile={true} staticHeadings={headings} />
+						</div>
+					</details>
+				</div>
 
-			{@render children()}
+				{@render children()}
 			</HeadingCopy>
 		</article>
 
 		<aside class="hidden xl:block">
-			<div class="scrollbar-hide fixed top-[22] max-h-[calc(100vh-6rem)] w-64 overflow-y-auto rounded-lg border border-border box-gradient px-4 py-12">
+			<div
+				class="scrollbar-hide border-border box-gradient fixed top-[22] max-h-[calc(100vh-6rem)] w-64 overflow-y-auto rounded-lg border px-4 py-12"
+			>
 				<TableOfContents staticHeadings={headings} />
 			</div>
 		</aside>

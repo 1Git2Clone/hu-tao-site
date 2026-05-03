@@ -25,12 +25,12 @@ description: Use before modifying any existing file — read its entire current 
 
 ## Common Mistakes
 
-| Mistake | Fix |
-|---------|-----|
-| Reading only the section you plan to change | Read the full file — your change may affect an unrelated section |
-| Searching for a pattern and editing the match without context | Read the surrounding 50+ lines to understand the structure |
-| Assuming a file follows a simple pattern without verifying | Every file has quirks. Read to find them before changing them. |
-| Editing based on what a subagent told you about the file | Read the file yourself — subagents can miss details |
+| Mistake                                                       | Fix                                                              |
+| ------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Reading only the section you plan to change                   | Read the full file — your change may affect an unrelated section |
+| Searching for a pattern and editing the match without context | Read the surrounding 50+ lines to understand the structure       |
+| Assuming a file follows a simple pattern without verifying    | Every file has quirks. Read to find them before changing them.   |
+| Editing based on what a subagent told you about the file      | Read the file yourself — subagents can miss details              |
 
 ## Red Flags
 

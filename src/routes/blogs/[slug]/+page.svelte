@@ -3,9 +3,9 @@
 	export let data;
 
 	const SITE_URL = 'https://1g2c.netlify.app';
-	$: ({ title, summary } = data.metadata);
-	$: canonical = `${SITE_URL}${page.url.pathname}`;
-	$: ogTitle = `${title} — 1Git2Clone`;
+	const { title, summary } = data.metadata;
+	const canonical = `${SITE_URL}${page.url.pathname}`;
+	const ogTitle = `${title} — 1Git2Clone`;
 </script>
 
 <svelte:head>

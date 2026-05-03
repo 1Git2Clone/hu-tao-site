@@ -15,27 +15,27 @@ import { remarkBlogAssets } from './plugins/remark/blog-assets.js';
 
 /** @type {import('@sveltejs/kit').Config} */
 export default {
-  extensions: ['.svelte', '.md'],
-  preprocess: [
-    vitePreprocess(),
-    mdsvex({
-      extensions: ['.md'],
-      layout: {
-        _: path.resolve('src/lib/components/blog/MarkdownLayout.svelte')
-      },
-      remarkPlugins: [
-        remarkYouTube,
-        remarkCodeBlock,
-        remarkBlogAssets,
-        remarkMath,
-        remarkReadingTime,
-        remarkHeadings
-      ],
-      rehypePlugins: [rehypeHeadingIds, REHYPE_KATEX]
-    })
-  ],
-  kit: {
-    inlineStyleThreshold: 5000,
-    adapter: adapter(),
-  }
+	extensions: ['.svelte', '.md'],
+	preprocess: [
+		vitePreprocess(),
+		mdsvex({
+			extensions: ['.md'],
+			layout: {
+				_: path.resolve('src/lib/components/blog/MarkdownLayout.svelte')
+			},
+			remarkPlugins: [
+				remarkYouTube,
+				remarkCodeBlock,
+				remarkBlogAssets,
+				remarkMath,
+				remarkReadingTime,
+				remarkHeadings
+			],
+			rehypePlugins: [rehypeHeadingIds, REHYPE_KATEX]
+		})
+	],
+	kit: {
+		inlineStyleThreshold: 5000,
+		adapter: adapter()
+	}
 };

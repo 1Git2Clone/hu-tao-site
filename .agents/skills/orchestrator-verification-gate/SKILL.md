@@ -25,12 +25,12 @@ description: Use after dispatching subagents or making direct commits — verify
 
 ## Common Mistakes
 
-| Mistake | Prevention |
-|---------|-----------|
-| Forgetting `--trailer` on a direct commit | Always add `--trailer "Co-authored-by: ..."` on direct commits |
-| Wrong merge parents (`--no-ff` vs fast-forward) | Verify with `git log --graph` before declaring done |
-| Layout breaks only visible at certain item counts | Test with 1, 2, 3, and 4 items |
-| Removing a CSS class that handled an edge case | Read the full template before modifying any class |
+| Mistake                                           | Prevention                                                     |
+| ------------------------------------------------- | -------------------------------------------------------------- |
+| Forgetting `--trailer` on a direct commit         | Always add `--trailer "Co-authored-by: ..."` on direct commits |
+| Wrong merge parents (`--no-ff` vs fast-forward)   | Verify with `git log --graph` before declaring done            |
+| Layout breaks only visible at certain item counts | Test with 1, 2, 3, and 4 items                                 |
+| Removing a CSS class that handled an edge case    | Read the full template before modifying any class              |
 
 ## Red Flags
 

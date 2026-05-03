@@ -29,12 +29,12 @@ When extending an existing page or component, preserve its visual structure. If 
 
 ## Common Mistakes
 
-| Mistake | Fix |
-|---------|-----|
-| Replacing a working card template with a simpler one because "the new data doesn't need all those fields" | Use the existing template — unused fields are handled by conditionals (`{#if}`) |
-| Thinking "this structure is overcomplicated for what we need now" | Not your call. Keep the existing structure. |
-| Removing images, tech stack breakdowns, or metadata because "the new projects don't have those" | The existing projects have them. Add new projects with empty fields rather than gutting the template. |
-| Splitting a single section into multiple sub-sections without instruction | Add content within the existing flow. |
+| Mistake                                                                                                   | Fix                                                                                                   |
+| --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Replacing a working card template with a simpler one because "the new data doesn't need all those fields" | Use the existing template — unused fields are handled by conditionals (`{#if}`)                       |
+| Thinking "this structure is overcomplicated for what we need now"                                         | Not your call. Keep the existing structure.                                                           |
+| Removing images, tech stack breakdowns, or metadata because "the new projects don't have those"           | The existing projects have them. Add new projects with empty fields rather than gutting the template. |
+| Splitting a single section into multiple sub-sections without instruction                                 | Add content within the existing flow.                                                                 |
 
 ## Red Flags
 
