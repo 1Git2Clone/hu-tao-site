@@ -55,12 +55,16 @@
 	}
 
 	$effect(() => {
-		const params = new SvelteURLSearchParams();
-		if (searchQuery) {
-			params.set('q', searchQuery);
-		}
-		params.set('page', '1');
-		goto(`${resolve('/blogs')}?${params.toString()}`, { replaceState: true, noScroll: true });
+		const timer = setTimeout(() => {
+			const params = new SvelteURLSearchParams();
+			if (searchQuery) {
+				params.set('q', searchQuery);
+			}
+			params.set('page', '1');
+			goto(`${resolve('/blogs')}?${params.toString()}`, { replaceState: true, noScroll: true });
+		}, 300);
+
+		return () => clearTimeout(timer);
 	});
 </script>
 
