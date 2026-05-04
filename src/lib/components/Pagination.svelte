@@ -16,17 +16,13 @@
 	const hasNextPage = $derived(currentPage < totalPages);
 	const hasPrevPage = $derived(currentPage > 1);
 
-	function getPageUrl(page: number): string {
+	function handlePageChange(page: number) {
 		const searchParams = new SvelteURLSearchParams();
 		searchParams.set('page', page.toString());
 		if (query) {
 			searchParams.set('q', query);
 		}
-		return `${resolve('/blogs')}?${searchParams.toString()}`;
-	}
-
-	function handlePageChange(page: number) {
-		goto(getPageUrl(page), { noScroll: true });
+		goto(resolve(`/blogs?${searchParams.toString()}`), { noScroll: true });
 	}
 </script>
 
