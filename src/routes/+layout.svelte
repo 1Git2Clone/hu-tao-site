@@ -41,6 +41,7 @@
 
 <style>
 	.grid-stack {
+		min-height: calc(100dvh - 6rem - 4rem - 3rem);
 		display: grid;
 		grid-template-areas: 'stack';
 		align-items: start;

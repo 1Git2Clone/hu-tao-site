@@ -70,8 +70,13 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
-<div class="space-y-8">
-	<section class="border-border box-gradient flex flex-col items-center rounded-lg border p-8">
+<div
+	class="grid h-full grid-cols-1 gap-2 space-y-8"
+	style="grid-template-rows: auto auto 1fr auto;"
+>
+	<section
+		class="border-border box-gradient row-start-1 flex flex-col items-center rounded-lg border p-8"
+	>
 		<h1 class="text-center text-4xl font-bold tracking-tight">Blogs</h1>
 		<div
 			class="border-border bg-background mt-6 flex w-full max-w-md items-center gap-2 rounded border px-2 py-1 transition-shadow focus-within:ring-2 focus-within:ring-primary"
@@ -105,7 +110,7 @@
 		</p>
 	</section>
 
-	<section class="grid gap-6 md:grid-cols-2">
+	<section class="row-start-2 grid gap-6 md:grid-cols-2">
 		{#each searchDisplay as result (result.item.slug)}
 			{@const post = result.item}
 			<Card>
@@ -152,12 +157,11 @@
 		{/each}
 	</section>
 
-	<Pagination
-		{currentPage}
-		totalItems={allResults.length}
-		{itemsPerPage}
-		query={searchQuery}
-	/>
+	<div class="row-start-3"></div>
+
+	<div class="row-start-4">
+		<Pagination {currentPage} totalItems={allResults.length} {itemsPerPage} query={searchQuery} />
+	</div>
 </div>
 
 <style>
