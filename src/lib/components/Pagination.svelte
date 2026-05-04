@@ -2,7 +2,6 @@
 	import { resolve } from '$app/paths';
 	import { SvelteURLSearchParams } from 'svelte/reactivity';
 	import { goto } from '$app/navigation';
-	import { base } from '$app/paths';
 
 	interface Props {
 		currentPage: number;
@@ -27,8 +26,7 @@
 	}
 
 	function handlePageChange(page: number) {
-		const url = getPageUrl(page);
-		goto(url.startsWith('/') ? url : `/${url}`, { noScroll: true });
+		goto(getPageUrl(page), { noScroll: true });
 	}
 </script>
 

@@ -12,16 +12,11 @@
 	let { data } = $props();
 	let searchQuery = $state(page.url.searchParams.get('q') || '');
 	let searchInput: HTMLInputElement | undefined = $state();
-	let prevPage = $state(1);
 
 	const itemsPerPage = 10;
 	const currentPage = $derived.by(() =>
 		Math.max(1, parseInt(page.url.searchParams.get('page') || '1'))
 	);
-
-	$effect(() => {
-		prevPage = currentPage;
-	});
 
 	const fuse = new Fuse(data.posts, {
 		keys: [
