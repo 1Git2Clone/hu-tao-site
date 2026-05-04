@@ -102,7 +102,7 @@
 	</section>
 
 	<section class="grid gap-6 md:grid-cols-2">
-		{#each searchDisplay as result, i (result.item.slug + '-' + i)}
+		{#each searchDisplay as result (result.item.slug)}
 			{@const post = result.item}
 			<Card>
 				<h2 class="text-xl font-semibold">
