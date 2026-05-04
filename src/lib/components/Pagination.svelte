@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { SvelteURLSearchParams } from 'svelte/reactivity';
+	import { goto } from '$app/navigation';
 
 	interface Props {
 		currentPage: number;
@@ -23,34 +24,36 @@
 		}
 		return `${resolve('/blogs')}?${searchParams.toString()}`;
 	}
+
+	function handlePageChange(page: number) {
+		goto(getPageUrl(page), { noScroll: true });
+	}
 </script>
 
 {#if totalPages > 1}
 	<nav class="mt-12 flex items-center justify-center gap-4" aria-label="Pagination">
-		<a
-			href={getPageUrl(currentPage - 1)}
-			aria-disabled={!hasPrevPage}
+		<button
+			onclick={() => handlePageChange(currentPage - 1)}
+			disabled={!hasPrevPage}
 			class="inline-flex items-center gap-1 px-3 py-2 text-sm disabled:opacity-50"
 			class:pointer-events-none={!hasPrevPage}
-			class:opacity-50={!hasPrevPage}
 		>
 			<span aria-hidden="true">←</span>
 			Previous
-		</a>
+		</button>
 
 		<span class="text-sm text-muted-foreground">
 			Page {currentPage} of {totalPages}
 		</span>
 
-		<a
-			href={getPageUrl(currentPage + 1)}
-			aria-disabled={!hasNextPage}
+		<button
+			onclick={() => handlePageChange(currentPage + 1)}
+			disabled={!hasNextPage}
 			class="inline-flex items-center gap-1 px-3 py-2 text-sm disabled:opacity-50"
 			class:pointer-events-none={!hasNextPage}
-			class:opacity-50={!hasNextPage}
 		>
 			Next
 			<span aria-hidden="true">→</span>
-		</a>
+		</button>
 	</nav>
 {/if}
