@@ -4,10 +4,15 @@
 	import { POST_SEARCH_FZF, postKey } from '$lib/data/posts';
 	import { resolve } from '$app/paths';
 	import Card from '$lib/components/layout/Card.svelte';
+	import Pagination from '$lib/components/Pagination.svelte';
+	import { SvelteURL, SvelteURLSearchParams } from 'svelte/reactivity';
 
-	let { data } = $props();
-	let searchQuery = $state('');
+	let { data, url }: { data: any; url: SvelteURL } = $props();
+	let searchQuery = $state(url.searchParams.get('q') || '');
 	let searchInput: HTMLInputElement | undefined = $state();
+
+	const itemsPerPage = 10;
+	const currentPage = Math.max(1, parseInt(url.searchParams.get('page') || '1'));
 
 	const fuse = $derived(
 		new Fuse(data.posts, {
@@ -22,10 +27,14 @@
 		})
 	);
 
-	let searchDisplay = $derived(
+	let allResults = $derived(
 		searchQuery.trim().length > 0
 			? fuse.search(searchQuery.trim())
 			: data.posts.map((p) => ({ item: p, matches: [] }))
+	);
+
+	let searchDisplay = $derived(
+		allResults.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 	);
 
 	function handleKeydown(e: KeyboardEvent) {
@@ -38,6 +47,15 @@
 			searchInput?.blur();
 		}
 	}
+
+	$effect(() => {
+		const params = new SvelteURLSearchParams();
+		if (searchQuery) {
+			params.set('q', searchQuery);
+		}
+		params.set('page', '1');
+		window.history.replaceState({}, '', `${resolve('/blogs')}?${params.toString()}`);
+	});
 </script>
 
 <svelte:window onkeydown={handleKeydown} />
@@ -68,8 +86,8 @@
 			</kbd>
 		</div>
 		<p id="search-results" class="mt-4">
-			{#if searchQuery.trim() && searchDisplay.length > 0}
-				{@const n = searchDisplay.length}
+			{#if searchQuery.trim() && allResults.length > 0}
+				{@const n = allResults.length}
 				{@const N = data.posts.length}
 
 				{n}/{N} results for search: "<b>{searchQuery.trim()}</b>".
@@ -123,6 +141,13 @@
 			</div>
 		{/each}
 	</section>
+
+	<Pagination
+		{currentPage}
+		totalItems={allResults.length}
+		{itemsPerPage}
+		query={searchQuery}
+	/>
 </div>
 
 <style>
