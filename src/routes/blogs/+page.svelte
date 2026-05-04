@@ -8,13 +8,20 @@
 	import { SvelteURLSearchParams } from 'svelte/reactivity';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
+	import { fly } from 'svelte/transition';
 
 	let { data } = $props();
 	let searchQuery = $state(page.url.searchParams.get('q') || '');
 	let searchInput: HTMLInputElement | undefined = $state();
+	let prevPage = $state(1);
 
 	const itemsPerPage = 10;
 	const currentPage = $derived(Math.max(1, parseInt(page.url.searchParams.get('page') || '1')));
+	const direction = $derived(currentPage > prevPage ? -1 : 1);
+
+	$effect(() => {
+		prevPage = currentPage;
+	});
 
 	const fuse = $derived(
 		new Fuse(data.posts, {
@@ -97,9 +104,10 @@
 		</p>
 	</section>
 
-	<section class="grid gap-6 md:grid-cols-2">
+	<section class="grid gap-6 md:grid-cols-2" key={currentPage}>
 		{#each searchDisplay as result, i (result.item.slug + '-' + i)}
 			{@const post = result.item}
+			<div transition:fly={{ x: direction * 500, duration: 150 }}>
 			<Card>
 				<h2 class="text-xl font-semibold">
 					<a class="text-xl underline hover:text-textcol" href={resolve(`/blogs/${post.slug}`)}>
@@ -137,6 +145,7 @@
 					</span>
 				{/if}
 			</Card>
+			</div>
 		{:else}
 			<div class="col-span-full py-10 text-center text-muted-foreground">
 				No posts found matching "{searchQuery}"
