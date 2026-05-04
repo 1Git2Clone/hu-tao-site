@@ -24,7 +24,7 @@
 <main
 	id="main-content"
 	class="background relative mx-auto w-full overflow-x-hidden p-6"
-	style="min-height: calc(100vh - 6rem - 4rem);"
+	style="min-height: calc(100dvh - 6rem - 4rem);"
 >
 	{#key page.url.pathname}
 		<div
