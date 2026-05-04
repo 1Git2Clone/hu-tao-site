@@ -63,7 +63,7 @@
 			params.set('q', searchQuery);
 		}
 		params.set('page', '1');
-		goto(`${resolve('/blogs')}?${params.toString()}`, { replaceState: true });
+		goto(`${resolve('/blogs')}?${params.toString()}`, { replaceState: true, noScroll: true });
 	});
 </script>
 
