@@ -18,16 +18,18 @@
 		Math.max(1, parseInt(page.url.searchParams.get('page') || '1'))
 	);
 
-	const fuse = new Fuse(data.posts, {
-		keys: [
-			{ name: postKey('metadata.title'), weight: 1 },
-			{ name: postKey('metadata.summary'), weight: 0.5 },
-			{ name: postKey('metadata.tags'), weight: 0.4 },
-			{ name: postKey('slug'), weight: 0.3 }
-		],
-		threshold: 0.4,
-		includeMatches: POST_SEARCH_FZF
-	});
+	const fuse = $derived(
+		new Fuse(data.posts, {
+			keys: [
+				{ name: postKey('metadata.title'), weight: 1 },
+				{ name: postKey('metadata.summary'), weight: 0.5 },
+				{ name: postKey('metadata.tags'), weight: 0.4 },
+				{ name: postKey('slug'), weight: 0.3 }
+			],
+			threshold: 0.4,
+			includeMatches: POST_SEARCH_FZF
+		})
+	);
 
 	let allResults = $derived(
 		searchQuery.trim().length > 0
