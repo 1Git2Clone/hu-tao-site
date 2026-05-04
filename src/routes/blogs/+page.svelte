@@ -8,7 +8,6 @@
 	import { SvelteURLSearchParams } from 'svelte/reactivity';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
-	import { fly } from 'svelte/transition';
 
 	let { data } = $props();
 	let searchQuery = $state(page.url.searchParams.get('q') || '');
@@ -104,10 +103,9 @@
 		</p>
 	</section>
 
-	<section class="grid gap-6 md:grid-cols-2" key={currentPage}>
+	<section class="grid gap-6 md:grid-cols-2">
 		{#each searchDisplay as result, i (result.item.slug + '-' + i)}
 			{@const post = result.item}
-			<div transition:fly={{ x: direction * 500, duration: 150 }}>
 			<Card>
 				<h2 class="text-xl font-semibold">
 					<a class="text-xl underline hover:text-textcol" href={resolve(`/blogs/${post.slug}`)}>
@@ -145,7 +143,6 @@
 					</span>
 				{/if}
 			</Card>
-			</div>
 		{:else}
 			<div class="col-span-full py-10 text-center text-muted-foreground">
 				No posts found matching "{searchQuery}"
