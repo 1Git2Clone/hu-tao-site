@@ -10,18 +10,11 @@
 	import { page } from '$app/state';
 
 	let { data } = $props();
-	let searchQuery = $state('');
+	let searchQuery = $state(page.url.searchParams.get('q') || '');
 	let searchInput: HTMLInputElement | undefined = $state();
-	let currentPage = $state(1);
 
 	const itemsPerPage = 10;
-
-	$effect(() => {
-		if (page.current) {
-			searchQuery = page.current.url.searchParams.get('q') || '';
-			currentPage = Math.max(1, parseInt(page.current.url.searchParams.get('page') || '1'));
-		}
-	});
+	const currentPage = $derived(Math.max(1, parseInt(page.url.searchParams.get('page') || '1')));
 
 	const fuse = $derived(
 		new Fuse(data.posts, {
