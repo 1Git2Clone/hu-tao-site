@@ -5,14 +5,23 @@
 	import { resolve } from '$app/paths';
 	import Card from '$lib/components/layout/Card.svelte';
 	import Pagination from '$lib/components/Pagination.svelte';
-	import { SvelteURL, SvelteURLSearchParams } from 'svelte/reactivity';
+	import { SvelteURLSearchParams } from 'svelte/reactivity';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
 
-	let { data, url }: { data: any; url: SvelteURL } = $props();
-	let searchQuery = $state(url.searchParams.get('q') || '');
+	let { data } = $props();
+	let searchQuery = $state('');
 	let searchInput: HTMLInputElement | undefined = $state();
+	let currentPage = $state(1);
 
 	const itemsPerPage = 10;
-	const currentPage = Math.max(1, parseInt(url.searchParams.get('page') || '1'));
+
+	$effect(() => {
+		if (page.current) {
+			searchQuery = page.current.url.searchParams.get('q') || '';
+			currentPage = Math.max(1, parseInt(page.current.url.searchParams.get('page') || '1'));
+		}
+	});
 
 	const fuse = $derived(
 		new Fuse(data.posts, {
@@ -54,7 +63,7 @@
 			params.set('q', searchQuery);
 		}
 		params.set('page', '1');
-		window.history.replaceState({}, '', `${resolve('/blogs')}?${params.toString()}`);
+		goto(`${resolve('/blogs')}?${params.toString()}`, { replaceState: true });
 	});
 </script>
 
