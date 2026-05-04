@@ -50,7 +50,9 @@
 					<h1 class="flex items-center gap-3 text-6xl font-bold">
 						{page.status}
 						<span class="text-muted-foreground" style="opacity: 0.85">|</span>
-						<span class="text-4xl text-muted-foreground italic" style="opacity: 0.85">{statusText}</span>
+						<span class="text-muted-foreground text-4xl italic" style="opacity: 0.85"
+							>{statusText}</span
+						>
 					</h1>
 					{#if page.error?.message && !statusMessages[page.status]}
 						<p class="mt-4 text-sm text-subtextcol">{page.error.message}</p>

@@ -42,7 +42,7 @@
 			Previous
 		</button>
 
-		<span class="text-sm text-muted-foreground">
+		<span class="text-muted-foreground text-sm">
 			Page {currentPage} of {totalPages}
 		</span>
 
