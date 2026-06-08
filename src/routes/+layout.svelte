@@ -6,8 +6,6 @@
 	import Header from '$lib/components/layout/Header.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
 
-	import { fade, fly } from 'svelte/transition';
-	import { page } from '$app/state';
 	import { SITE_TITLE } from '$lib/utils/consts';
 	import { onMount } from 'svelte';
 
@@ -26,15 +24,9 @@
 	class="background relative mx-auto w-full overflow-x-hidden p-6"
 	style="min-height: calc(100dvh - 6rem - 4rem);"
 >
-	{#key page.url.pathname}
-		<div
-			class="grid-stack"
-			in:fly={{ y: 12, duration: 200, delay: 200, opacity: 0 }}
-			out:fade={{ duration: 200 }}
-		>
-			{@render children()}
-		</div>
-	{/key}
+	<div class="grid-stack">
+		{@render children()}
+	</div>
 </main>
 
 <Footer />
