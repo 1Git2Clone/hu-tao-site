@@ -231,9 +231,9 @@ Replaced fragile review workflows with auditable, reusable tools that help teams
 	}),
 	new Project({
 		title: 'Serenity Discord Bot',
-		sourceUrl: new SvelteURL('https://github.com/1Git2Clone/serenity-bots'),
+		sourceUrl: new SvelteURL('https://github.com/1Git2Clone/serenity-discord-bot'),
 		techStack: {
-			backendLibraries: ['Serenity', 'Tokio'],
+			backendLibraries: ['Serenity', 'Poise', 'Tokio'],
 			databases: ['PostgreSQL'],
 			languages: ['Rust']
 		},
