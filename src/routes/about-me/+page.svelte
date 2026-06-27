@@ -19,9 +19,9 @@
 	}
 
 	const SITE_URL = 'https://1g2c.netlify.app';
-	const title = 'Portfolio | 1Git2Clone';
+	const title = '1Git2Clone';
 	const description =
-		'AI integration developer building production APIs, data pipelines, and internal tools. See shipped fintech systems, AI admin tools, and open-source work.';
+		'AI integrations, APIs, data pipelines, and internal tools. Fintech systems, AI admin tooling, and open-source work.';
 	const canonical = `${SITE_URL}/about-me`;
 </script>
 
@@ -68,46 +68,22 @@
 			</a>
 		</p>
 
-		<blockquote>
-			I turn operational workflows into <em
-				>production features that are useful, auditable, and maintainable</em
-			>.
-		</blockquote>
-
 		<p>
-			I build API backends, AI-backed dashboards, document processing tools, data ingestion flows,
-			automation scripts, and developer tooling. Recent production work spans <em
+			API backends, AI-backed dashboards, document processing tools, data ingestion flows, automation
+			scripts, and developer tooling. Production work spans <em
 				>OpenAI, Gemini, RAG/code graph systems, OCR, computer vision</em
 			>, and AWS services like <em>Lambda, S3, IAM, VPC, CloudWatch, and CloudFormation</em>.
 		</p>
 
 		<p>
-			I use <em>Go professionally</em>, prefer <em>Rust for systems work</em>, and build interfaces
-			with Svelte or React. I have
+			Go professionally, Rust for systems work, interfaces with Svelte or React.
 			<strong>
 				<a
 					href="https://github.com/rust-random/rand/pulls?q=is%3Apr+by%3A1Git2Clone"
 					target="_blank"
-					rel="noopener noreferrer">contributed to rust-random/rand</a
+					rel="noopener noreferrer">Contributed to rust-random/rand</a
 				>
 			</strong>, <em>the standard Rust random number generation library</em> used across the ecosystem.
-		</p>
-
-		<p>
-			Available remotely for <em
-				>AI integrations, API creation, data pipelines, internal tools, and backend infrastructure</em
-			>.
-		</p>
-
-		<p class="mt-6">
-			If you need an AI feature, API, dashboard, or data pipeline turned into something that can run
-			outside a demo, get in touch.
-			<a href="mailto:{EMAIL}" class="inline-flex items-center gap-1">{EMAIL}</a>
-		</p>
-
-		<p class="text-muted-foreground mt-4 text-sm">
-			Async-friendly. I work from rough requirements to shipped tool. Remote-first, available for
-			new contracts.
 		</p>
 	</section>
 
@@ -130,8 +106,7 @@
 		<div class="border-border box-gradient rounded-lg border p-6">
 			<h2 class="text-lg font-semibold">AI Integration</h2>
 			<p class="text-muted-foreground mb-0 text-sm">
-				LLM features, RAG systems, document processing, and AI-backed automation that remain useful
-				outside the demo.
+				LLM features, RAG systems, document processing, and AI-backed automation.
 			</p>
 		</div>
 
@@ -293,10 +268,9 @@
 		<div
 			class="border-border prose mt-6 min-w-full rounded-lg border p-6 text-center dark:prose-invert"
 		>
-			<h2 id="contact" class="mt-0">Got A Messy Idea Worth Shipping?</h2>
+			<h2 id="contact" class="mt-0">Contact</h2>
 			<p class="mb-0">
-				Send me the rough version. I'll help turn it into something real:
-				<a href="mailto:{EMAIL}" class="inline-flex items-center gap-1">{EMAIL}</a>.
+				<a href="mailto:{EMAIL}" class="inline-flex items-center gap-1">{EMAIL}</a>
 			</p>
 		</div>
 	</section>
