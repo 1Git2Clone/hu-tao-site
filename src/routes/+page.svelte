@@ -5,9 +5,9 @@
 	import Card from '$lib/components/layout/Card.svelte';
 
 	const SITE_URL = 'https://1g2c.netlify.app';
-	const title = '1Git2Clone | AI Integration Developer';
+	const title = '1Git2Clone';
 	const description =
-		'Ship production AI integrations, APIs, data pipelines, and internal tools. AI integration developer building systems that work outside localhost.';
+		'Building AI integrations, APIs, data pipelines, and internal tools that work in production.';
 	const canonical = `${SITE_URL}/`;
 </script>
 
@@ -30,13 +30,13 @@
 		</p>
 
 		<p>
-			I turn messy workflows into shipped tools: AI integrations, API backends, internal dashboards,
-			document processing, and data pipelines that have to work outside localhost.
+			I build AI integrations, API backends, internal dashboards, document processing tools, and data
+			pipelines that run in production.
 		</p>
 
 		<div class="mt-6 flex flex-wrap gap-6 text-sm">
 			<a href={resolve('/about-me')} class="inline-flex items-center gap-1 font-semibold">
-				See shipped work <span aria-hidden="true">→</span>
+				View work <span aria-hidden="true">→</span>
 			</a>
 			<a href={resolve('/blogs')} class="inline-flex items-center gap-1">
 				Read the blogs <span aria-hidden="true">→</span>
@@ -79,13 +79,12 @@
 
 	<section class="grid grid-cols-1 gap-6 md:grid-cols-2">
 		<div class="border-border box-gradient rounded-lg border p-8">
-			<h2 id="proof" class="mt-0">Proof, Not Posturing</h2>
+			<h2 id="proof" class="mt-0">Work</h2>
 			<p>
-				The portfolio page has the concrete work: confidential fintech systems, AI admin tooling,
-				and public Rust projects.
+				Confidential fintech systems, AI admin tooling, and public Rust projects.
 			</p>
 			<a href="{resolve('/about-me')}#projects" class="inline-flex items-center gap-1">
-				Work beyond home (localhost) <span aria-hidden="true">→</span>
+				See details <span aria-hidden="true">→</span>
 			</a>
 		</div>
 
@@ -107,10 +106,9 @@
 	</section>
 
 	<section class="border-border box-gradient rounded-lg border p-8 text-center">
-		<h2 id="contact" class="mt-0">Got A Messy Idea Worth Shipping?</h2>
+		<h2 id="contact" class="mt-0">Contact</h2>
 		<p class="mb-0">
-			Send me the rough version:
-			<a href="mailto:{EMAIL}" class="inline-flex items-center gap-1">{EMAIL}</a>.
+			<a href="mailto:{EMAIL}" class="inline-flex items-center gap-1">{EMAIL}</a>
 		</p>
 	</section>
 </div>
