@@ -46,6 +46,15 @@
 	}
 }
 
+:root {
+	--header-height: 4rem;
+	--footer-height: 6rem;
+	--main-padding: 1.5rem;
+
+	/* Everything vertical that is not page content. Subtract from 100dvh. */
+	--layout-chrome: calc(var(--header-height) + var(--footer-height) + var(--main-padding) * 2);
+}
+
 * {
 	box-sizing: border-box;
 }

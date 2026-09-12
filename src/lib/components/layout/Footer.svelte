@@ -4,7 +4,7 @@
 	import { CURRENT_YEAR, GITHUB_PROFILE_NAME, TWITTER_PROFILE_HANDLE } from '$lib/utils/consts';
 </script>
 
-<footer class="background flex h-24 flex-col border-t">
+<footer class="background flex h-[var(--footer-height)] flex-col border-t">
 	<div class="mx-auto max-w-4xl pt-4 text-center text-sm opacity-70">
 		© {CURRENT_YEAR} Ivan, All rights reserved.
 	</div>

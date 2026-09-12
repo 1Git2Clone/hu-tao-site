@@ -16,7 +16,7 @@
 </script>
 
 <header
-	class="background sticky top-0 z-1 grid h-16 grid-cols-[1fr_auto_1fr] items-center border-b px-8"
+	class="background sticky top-0 z-1 grid h-[var(--header-height)] grid-cols-[1fr_auto_1fr] items-center border-b px-8"
 >
 	<a
 		href="#main-content"

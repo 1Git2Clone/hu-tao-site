@@ -50,7 +50,7 @@
 
 		<aside class="hidden xl:block">
 			<div
-				class="scrollbar-hide border-border box-gradient fixed max-h-[calc(100dvh-13rem)] w-64 overflow-y-auto rounded-lg border px-4 py-8"
+				class="scrollbar-hide border-border box-gradient fixed max-h-[calc(100dvh-var(--layout-chrome))] w-64 overflow-y-auto rounded-lg border px-4 py-8"
 			>
 				<TableOfContents staticHeadings={headings} />
 			</div>
