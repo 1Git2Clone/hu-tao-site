@@ -142,13 +142,13 @@
 						<ul class="flex flex-wrap gap-2">
 							{#each items as item (item)}
 								{@const tech = TECH_URLS[item]}
-								<li>
+								<li class="border-border card inline-block rounded border px-2 py-1 text-sm">
 									<a
 										href={tech.url}
 										target="_blank"
 										rel="noopener noreferrer"
 										aria-label={tech.ariaLabel || String(item)}
-										class="border-border card inline-block rounded border px-2 py-1 text-sm"
+										style="border: 0;"
 									>
 										{item}
 									</a>
