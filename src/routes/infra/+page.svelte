@@ -65,7 +65,10 @@
 		</ul>
 	</section>
 
-	<section id="public" class="border-border box-gradient scroll-mt-22 rounded-lg border p-8">
+	<section
+		id="public"
+		class="border-border box-gradient scroll-mt-[var(--scroll-offset)] rounded-lg border p-8"
+	>
 		<HeadingCopy class="prose mb-6 min-w-full dark:prose-invert">
 			<h2 id="public-heading" class="mt-0">Public</h2>
 			<p class="mb-0">Reachable from anywhere, behind one reverse proxy and one certificate.</p>
@@ -92,7 +95,10 @@
 		</div>
 	</section>
 
-	<section id="private" class="border-border box-gradient scroll-mt-22 rounded-lg border p-8">
+	<section
+		id="private"
+		class="border-border box-gradient scroll-mt-[var(--scroll-offset)] rounded-lg border p-8"
+	>
 		<HeadingCopy class="prose mb-6 min-w-full dark:prose-invert">
 			<h2 id="private-heading" class="mt-0">Also Running</h2>
 			<p class="mb-0">

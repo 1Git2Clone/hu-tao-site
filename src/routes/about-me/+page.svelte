@@ -128,7 +128,10 @@
 		</div>
 	</section>
 
-	<section id="skills" class="border-border box-gradient scroll-mt-22 rounded-lg border p-8">
+	<section
+		id="skills"
+		class="border-border box-gradient scroll-mt-[var(--scroll-offset)] rounded-lg border p-8"
+	>
 		<HeadingCopy class="prose mb-6 min-w-full dark:prose-invert">
 			<h2 id="skills-heading" class="mt-0">Skills</h2>
 			<p class="mb-0">What I reach for, grouped by what it is for.</p>
@@ -161,7 +164,10 @@
 		</dl>
 	</section>
 
-	<section id="projects" class="border-border box-gradient scroll-mt-22 rounded-lg border p-8">
+	<section
+		id="projects"
+		class="border-border box-gradient scroll-mt-[var(--scroll-offset)] rounded-lg border p-8"
+	>
 		<HeadingCopy class="prose mb-6 min-w-full dark:prose-invert">
 			<h2 id="projects-heading" class="mt-0">Work Beyond Home (localhost)</h2>
 			<p class="mb-0">Things that actually shipped.</p>

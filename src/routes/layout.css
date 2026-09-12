@@ -53,6 +53,9 @@
 
 	/* Everything vertical that is not page content. Subtract from 100dvh. */
 	--layout-chrome: calc(var(--header-height) + var(--footer-height) + var(--main-padding) * 2);
+
+	/* Clears the sticky header so an anchored heading is not hidden behind it. */
+	--scroll-offset: calc(var(--header-height) + var(--main-padding));
 }
 
 * {
@@ -258,7 +261,7 @@ h3,
 h4,
 h5,
 h6 {
-	@apply scroll-mt-22;
+	scroll-margin-top: var(--scroll-offset);
 }
 
 .katex {
