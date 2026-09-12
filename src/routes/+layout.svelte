@@ -21,8 +21,8 @@
 
 <main
 	id="main-content"
-	class="background relative mx-auto w-full overflow-x-hidden p-6"
-	style="min-height: calc(100dvh - 6rem - 4rem);"
+	class="background relative mx-auto w-full overflow-x-hidden p-[var(--main-padding)]"
+	style="min-height: calc(100dvh - var(--header-height) - var(--footer-height));"
 >
 	<div class="grid-stack">
 		{@render children()}
@@ -33,7 +33,7 @@
 
 <style>
 	.grid-stack {
-		min-height: calc(100dvh - 6rem - 4rem - 3rem);
+		min-height: calc(100dvh - var(--layout-chrome));
 		display: grid;
 		grid-template-areas: 'stack';
 		align-items: start;
