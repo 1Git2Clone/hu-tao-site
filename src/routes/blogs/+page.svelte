@@ -149,7 +149,7 @@
 				{/if}
 			</Card>
 		{:else}
-			<div class="col-span-full py-10 text-center text-muted-foreground">
+			<div class="text-muted-foreground col-span-full py-10 text-center">
 				No posts found matching "{searchQuery}"
 			</div>
 		{/each}
