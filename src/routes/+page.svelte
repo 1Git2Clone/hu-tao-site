@@ -99,6 +99,9 @@
 				<a href={resolve('/journey')} class="inline-flex items-center gap-1">
 					Linux journey <span aria-hidden="true">→</span>
 				</a>
+				<a href={resolve('/infra')} class="inline-flex items-center gap-1">
+					Infra <span aria-hidden="true">→</span>
+				</a>
 			</div>
 		</div>
 	</section>
