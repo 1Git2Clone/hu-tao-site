@@ -1,4 +1,13 @@
 allowBuilds:
   esbuild: true
+
+# pnpm 11 holds back very recently published versions by default. The markdown
+# engine is ours, so its releases are expected to be fresh and are not waiting
+# out that window.
+minimumReleaseAgeExclude:
+  - '@skavex/skavex@0.2.0'
+
+# pnpm 10 reads this; pnpm 11 reads allowBuilds above. Both are here so the
+# repo installs the same way on either, and neither leaves esbuild unbuilt.
 onlyBuiltDependencies:
   - esbuild

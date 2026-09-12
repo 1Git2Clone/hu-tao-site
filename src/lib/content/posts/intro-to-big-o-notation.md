@@ -159,7 +159,7 @@ Below is a video with a very comprehensive showcase of all three approaces:
 [Sieve of Eratosthenes](#2-sieve-of-eratosthenes), and
 [Dijkstra's Approach](#3-dijkstras-approach).
 
-<https://www.youtube.com/watch?v=fwxjMKBMR7s>
+<YouTube id="fwxjMKBMR7s" title="Prime numbers and the Sieve of Eratosthenes" />
 
 ### 1. Trial Division
 

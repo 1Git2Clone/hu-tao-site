@@ -18,12 +18,11 @@
     in
     {
       devShells = forAllSystems (pkgs: {
-        # .nvmrc and netlify.toml still say node 20, which went EOL on
-        # 2026-04-30 and now throws on eval in nixpkgs. 22 is the oldest LTS
-        # that still builds.
+        # Matches .nvmrc and netlify.toml, so the version that builds here is
+        # the version Netlify builds with.
         default = pkgs.mkShell {
           packages = [
-            pkgs.nodejs_22
+            pkgs.nodejs_26
             pkgs.pnpm
           ];
         };
