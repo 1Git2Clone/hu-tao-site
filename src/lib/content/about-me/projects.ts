@@ -22,7 +22,10 @@ export type StorageService = keyof typeof STORAGE_SERVICES;
 export const DEVOPS_TOOLS: Record<string, TechRef> = {
 	Docker: { url: 'https://www.docker.com/' },
 	Kubernetes: { url: 'https://kubernetes.io/' },
-	'GitHub Actions': { url: 'https://github.com/features/actions' }
+	'GitHub Actions': { url: 'https://github.com/features/actions' },
+	Nix: { url: 'https://nixos.org/' },
+	OpenTofu: { url: 'https://opentofu.org/' },
+	Caddy: { url: 'https://caddyserver.com/' }
 } as const;
 export type DevOps = keyof typeof DEVOPS_TOOLS;
 
