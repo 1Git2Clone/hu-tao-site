@@ -7,6 +7,7 @@
 
 	import { slugify } from '$lib/utils/slugify';
 	import { PROJECTS, TECH_URLS } from '$lib/content/about-me/projects';
+	import { SKILLS } from '$lib/content/about-me/skills';
 	import { EMAIL, GITHUB_PROFILE_NAME, SITE_TAGLINE } from '$lib/utils/consts';
 	import { marked } from 'marked';
 	import { hostToSocial, type SocialMedia } from '$lib/types/social-media';
@@ -69,8 +70,8 @@
 		</p>
 
 		<p>
-			API backends, AI-backed dashboards, document processing tools, data ingestion flows, automation
-			scripts, and developer tooling. Production work spans <em
+			API backends, AI-backed dashboards, document processing tools, data ingestion flows,
+			automation scripts, and developer tooling. Production work spans <em
 				>OpenAI, Gemini, RAG/code graph systems, OCR, computer vision</em
 			>, and AWS services like <em>Lambda, S3, IAM, VPC, CloudWatch, and CloudFormation</em>.
 		</p>
@@ -125,6 +126,39 @@
 				event-driven workloads.
 			</p>
 		</div>
+	</section>
+
+	<section id="skills" class="border-border box-gradient scroll-mt-22 rounded-lg border p-8">
+		<HeadingCopy class="prose mb-6 min-w-full dark:prose-invert">
+			<h2 id="skills-heading" class="mt-0">Skills</h2>
+			<p class="mb-0">What I reach for, grouped by what it is for.</p>
+		</HeadingCopy>
+
+		<dl class="space-y-4">
+			{#each SKILLS as { group, items } (group)}
+				<div class="sm:grid sm:grid-cols-[8rem_1fr] sm:gap-4">
+					<dt class="text-sm font-semibold text-subtextcol sm:py-1">{group}</dt>
+					<dd class="mt-2 ml-0 sm:mt-0">
+						<ul class="flex flex-wrap gap-2">
+							{#each items as item (item)}
+								{@const tech = TECH_URLS[item]}
+								<li>
+									<a
+										href={tech.url}
+										target="_blank"
+										rel="noopener noreferrer"
+										aria-label={tech.ariaLabel || String(item)}
+										class="border-border card inline-block rounded border px-2 py-1 text-sm"
+									>
+										{item}
+									</a>
+								</li>
+							{/each}
+						</ul>
+					</dd>
+				</div>
+			{/each}
+		</dl>
 	</section>
 
 	<section id="projects" class="border-border box-gradient scroll-mt-22 rounded-lg border p-8">

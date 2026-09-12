@@ -30,8 +30,8 @@
 		</p>
 
 		<p>
-			I build AI integrations, API backends, internal dashboards, document processing tools, and data
-			pipelines that run in production.
+			I build AI integrations, API backends, internal dashboards, document processing tools, and
+			data pipelines that run in production.
 		</p>
 
 		<div class="mt-6 flex flex-wrap gap-6 text-sm">
@@ -80,9 +80,7 @@
 	<section class="grid grid-cols-1 gap-6 md:grid-cols-2">
 		<div class="border-border box-gradient rounded-lg border p-8">
 			<h2 id="proof" class="mt-0">Work</h2>
-			<p>
-				Confidential fintech systems, AI admin tooling, and public Rust projects.
-			</p>
+			<p>Confidential fintech systems, AI admin tooling, and public Rust projects.</p>
 			<a href="{resolve('/about-me')}#projects" class="inline-flex items-center gap-1">
 				See details <span aria-hidden="true">→</span>
 			</a>
