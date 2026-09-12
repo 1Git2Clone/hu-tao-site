@@ -14,7 +14,16 @@ export const SKILLS: SkillGroup[] = [
 	{ group: 'Data', items: ['PostgreSQL', 'SQLite3'] },
 	{
 		group: 'Infrastructure',
-		items: ['Nix', 'Docker', 'Caddy', 'OpenTofu', 'AWS Lambda', 'Amazon S3']
+		items: [
+			'Nix',
+			'Docker',
+			'Caddy',
+			'OpenTofu',
+			'AWS Lambda',
+			'Amazon S3',
+			'Hetzner Cloud',
+			'Scaleway'
+		]
 	},
 	{ group: 'Observability', items: ['Grafana', 'OpenTelemetry', 'Prometheus'] },
 	{ group: 'AI', items: ['OpenAI', 'Gemini', 'Claude'] }

@@ -100,6 +100,8 @@ export const PRIVATE_SERVICES: Service[] = [
 export const INFRA_STACK = [
 	{ name: 'NixOS', url: 'https://nixos.org/' },
 	{ name: 'OpenTofu', url: 'https://opentofu.org/' },
+	{ name: 'Hetzner', url: 'https://www.hetzner.com/cloud/' },
+	{ name: 'Cloudflare', url: 'https://www.cloudflare.com/' },
 	{ name: 'Caddy', url: 'https://caddyserver.com/' },
 	{ name: 'nftables', url: 'https://netfilter.org/projects/nftables/' },
 	{ name: 'sops-nix', url: 'https://github.com/Mic92/sops-nix' },
