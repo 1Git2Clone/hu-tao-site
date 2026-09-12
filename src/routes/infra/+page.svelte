@@ -2,14 +2,15 @@
 	// Reason: Supposed to be external urls
 	/* eslint-disable svelte/no-navigation-without-resolve */
 
+	// Reason: Content is written by me.
+	/* eslint-disable svelte/no-at-html-tags */
+
+	import { marked } from 'marked';
+	import { SvelteURL } from 'svelte/reactivity';
+
 	import Card from '$lib/components/layout/Card.svelte';
 	import HeadingCopy from '$lib/components/HeadingCopy.svelte';
-	import {
-		INFRA_DOMAIN,
-		INFRA_STACK,
-		PRIVATE_SERVICES,
-		PUBLIC_SERVICES
-	} from '$lib/content/infra/services';
+	import { INFRA_STACK, PRIVATE_SERVICES, PUBLIC_SERVICES } from '$lib/content/infra/services';
 	import { SITE_URL } from '$lib/utils/consts';
 
 	const title = 'Infrastructure — 1Git2Clone';
@@ -17,7 +18,7 @@
 		'A self-hosted VPS described entirely in one NixOS flake: git hosting, CI, status, search, observability, and backups.';
 	const canonical = `${SITE_URL}/infra`;
 
-	const SOURCE_URL = 'https://github.com/1Git2Clone/nixos-image';
+	const SOURCE_URL = 'https://git.hu-tao.dev/hutao/vps';
 </script>
 
 <svelte:head>
@@ -55,13 +56,8 @@
 	<section class="border-border box-gradient rounded-lg border p-4">
 		<ul class="flex flex-wrap justify-center gap-2">
 			{#each INFRA_STACK as tech (tech.name)}
-				<li>
-					<a
-						href={tech.url}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="border-border card inline-block rounded border px-2 py-1 text-sm"
-					>
+				<li class="border-border card inline-block rounded border px-2 py-1 text-sm">
+					<a href={tech.url} target="_blank" rel="noopener noreferrer" style="border: 0;">
 						{tech.name}
 					</a>
 				</li>
@@ -77,20 +73,19 @@
 
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 			{#each PUBLIC_SERVICES as service (service.name)}
-				{@const host = `${service.subdomain}.${INFRA_DOMAIN}`}
 				<Card>
 					<div class="prose dark:prose-invert">
 						<h3 class="mt-0 text-xl font-semibold">
-							<a href="https://{host}" target="_blank" rel="noopener noreferrer">{service.name}</a>
+							{#if service.page}
+								<a href={service.page} target="_blank" rel="noopener noreferrer">{service.name}</a>
+								<p class="mt-1 mb-0 font-mono text-sm break-all text-subtextcol">
+									{service.displayPage || new SvelteURL(service.page).hostname}
+								</p>
+							{:else}
+								{service.name}
+							{/if}
 						</h3>
-						<p class="mt-1 mb-0 font-mono text-sm break-all text-subtextcol">{host}</p>
-						<p class="mt-3">{service.what}</p>
-						<p class="mb-0 text-sm text-subtextcol">{service.exposure}</p>
-						{#if service.requiresAuth}
-							<p class="mt-3 mb-0 text-sm">
-								<strong>Credentials required.</strong> Ask if you want a look.
-							</p>
-						{/if}
+						<p class="mt-3">{@html marked(service.description)}</p>
 					</div>
 				</Card>
 			{/each}
@@ -111,8 +106,7 @@
 				<Card>
 					<div class="prose dark:prose-invert">
 						<h3 class="mt-0 text-xl font-semibold">{service.name}</h3>
-						<p class="mt-3">{service.what}</p>
-						<p class="mb-0 text-sm text-subtextcol">{service.exposure}</p>
+						<p class="mt-3">{@html marked(service.description)}</p>
 					</div>
 				</Card>
 			{/each}

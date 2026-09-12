@@ -5,7 +5,7 @@
 @plugin '@tailwindcss/typography' {
 	strategy: 'class';
 }
-@variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 @theme {
 	--color-primary: #bbbbbb;
 	--color-textcol: #333333;
@@ -89,6 +89,46 @@ html {
 			rgba(255, 255, 255, 0.04) 3px,
 			rgba(255, 255, 255, 0.04) 6px
 		),
+		var(--color-primary);
+}
+
+.background-mobile-nav {
+	background:
+		repeating-linear-gradient(
+			45deg,
+			transparent,
+			transparent 3px,
+			rgba(0, 0, 0, 0.06) 3px,
+			rgba(0, 0, 0, 0.06) 6px
+		),
+		repeating-linear-gradient(
+			-45deg,
+			transparent,
+			transparent 3px,
+			rgba(0, 0, 0, 0.06) 3px,
+			rgba(0, 0, 0, 0.06) 6px
+		),
+		linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.8) 50%, transparent 100%),
+		var(--color-primary);
+}
+
+.dark .background-mobile-nav {
+	background:
+		repeating-linear-gradient(
+			45deg,
+			transparent,
+			transparent 3px,
+			rgba(255, 255, 255, 0.04) 3px,
+			rgba(255, 255, 255, 0.04) 6px
+		),
+		repeating-linear-gradient(
+			-45deg,
+			transparent,
+			transparent 3px,
+			rgba(255, 255, 255, 0.04) 3px,
+			rgba(255, 255, 255, 0.04) 6px
+		),
+		linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.8) 50%, transparent 100%),
 		var(--color-primary);
 }
 
