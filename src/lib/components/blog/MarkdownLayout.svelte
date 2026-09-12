@@ -15,7 +15,18 @@
 </script>
 
 <div class="mx-auto w-full max-w-400">
-	<div class="grid grid-cols-1 xl:grid-cols-[16rem_minmax(0,52rem)_16rem] xl:gap-8">
+	<!--
+		xl:justify-center is load-bearing. The three tracks add up to 88rem and the
+		container allows 100rem, so on anything wider than 1408px there is slack —
+		and a grid puts all of it after the last track by default, shoving the
+		article and its sidebar left of centre while the header stays centred on
+		the viewport. Centring the track block fixes it: the two side columns are
+		both 16rem, so the article sits exactly in the middle of the block, and
+		therefore exactly in the middle of the page.
+	-->
+	<div
+		class="grid grid-cols-1 xl:grid-cols-[16rem_minmax(0,52rem)_16rem] xl:justify-center xl:gap-8"
+	>
 		<div class="hidden xl:block"></div>
 
 		<article class="border-border box-gradient rounded-lg border p-8">
