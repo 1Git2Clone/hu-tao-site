@@ -8,7 +8,8 @@ export const COMPUTE_SERVICES: Record<string, TechRef> = {
 	'AWS Lambda': { url: 'https://aws.amazon.com/lambda/' },
 	'AWS EC2': { url: 'https://aws.amazon.com/ec2/' },
 	'AWS ECS': { url: 'https://aws.amazon.com/ecs/' },
-	'AWS Fargate': { url: 'https://aws.amazon.com/fargate/' }
+	'Hetzner Cloud': { url: 'https://www.hetzner.com/cloud/' },
+	Scaleway: { url: 'https://www.scaleway.com/' }
 } as const;
 export type ComputeService = keyof typeof COMPUTE_SERVICES;
 
@@ -22,7 +23,10 @@ export type StorageService = keyof typeof STORAGE_SERVICES;
 export const DEVOPS_TOOLS: Record<string, TechRef> = {
 	Docker: { url: 'https://www.docker.com/' },
 	Kubernetes: { url: 'https://kubernetes.io/' },
-	'GitHub Actions': { url: 'https://github.com/features/actions' }
+	'GitHub Actions': { url: 'https://github.com/features/actions' },
+	Nix: { url: 'https://nixos.org/' },
+	OpenTofu: { url: 'https://opentofu.org/' },
+	Caddy: { url: 'https://caddyserver.com/' }
 } as const;
 export type DevOps = keyof typeof DEVOPS_TOOLS;
 
