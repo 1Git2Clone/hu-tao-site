@@ -1,4 +1,6 @@
 allowBuilds:
   esbuild: true
+minimumReleaseAgeExclude:
+  - '@skavex/skavex@0.1.0'
 onlyBuiltDependencies:
   - esbuild
