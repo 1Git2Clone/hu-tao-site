@@ -3,7 +3,7 @@
 [![Website Icon]][Website]&emsp;[![Netlify Icon]][Netlify Deploy]&emsp;[![SvelteKit Icon]][SvelteKit]
 
 [Website Icon]: https://img.shields.io/badge/site-hu--tao.org-red
-[Website]: https://hu-tao.org
+[Website]: https://hu-tao.dev
 [Netlify Icon]: https://img.shields.io/badge/deploy-Netlify-00c7b7
 [Netlify Deploy]: https://app.netlify.com/projects/hu-tao/deploys
 [SvelteKit Icon]: https://img.shields.io/badge/SvelteKit-2-ff3e00
