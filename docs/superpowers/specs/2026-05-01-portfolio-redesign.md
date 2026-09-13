@@ -2,7 +2,7 @@
 
 ## Overview
 
-Reorient 1Git2Clone's personal site (hu-tao.org) toward also serving as a
+Reorient 1Git2Clone's personal site (hu-tao.dev) toward also serving as a
 professional portfolio that can be linked from freelance profiles, without
 losing its personal character.
 

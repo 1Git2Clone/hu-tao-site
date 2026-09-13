@@ -1,4 +1,4 @@
-# CLAUDE.md — 1k2s Portfolio (hu-tao.org)
+# CLAUDE.md — 1k2s Portfolio (hu-tao.dev)
 
 ## Project Overview
 

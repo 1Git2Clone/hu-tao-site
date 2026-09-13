@@ -5,5 +5,5 @@ export const SITE_TITLE = '1Git2Clone';
 export const SITE_TAGLINE = 'Building AI integrations, APIs, data pipelines, and internal tools.';
 export const CURRENT_YEAR = new Date().getFullYear();
 export const BLOG_ITEMS_EXTENSION: 'md' | 'mdx' | 'svx' = 'md';
-export const EMAIL = 'ivan@hu-tao.org';
+export const EMAIL = 'ivan@hu-tao.dev';
 export const SITE_URL = 'https://1g2c.netlify.app';
