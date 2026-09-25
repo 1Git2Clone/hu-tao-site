@@ -11,6 +11,10 @@ export interface Heading {
 }
 
 export interface PostMetadata {
+	/** Mandatory, unique UUIDv7 (`pnpm compute-blog-id <post.md>`). */
+	id: string;
+	/** Ids of hand-picked related posts; overrides the tag-based ranking. */
+	related?: string[];
 	title: string;
 	summary: string;
 	date: Date;
