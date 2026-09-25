@@ -3,6 +3,8 @@ import { loadSnippets } from '$lib/utils/snippets';
 import type { PageServerLoad } from './$types';
 import type { PostModule } from '$lib/data/posts';
 import { BLOG_ITEMS_EXTENSION } from '$lib/utils/consts';
+import { relatedPosts } from '$lib/data/related';
+import { POSTS } from '$lib/server/posts';
 
 const posts = import.meta.glob<PostModule>('/src/lib/content/posts/*.md', { eager: true });
 
@@ -15,8 +17,14 @@ export const load: PageServerLoad = async ({ params }) => {
 
 	const snippets = loadSnippets(postModule);
 
+	// Only what a card shows; the full metadata of every related post stays on the server.
+	const related = relatedPosts({ slug, metadata: postModule.metadata }, POSTS).map(
+		({ slug, metadata: { title, date, readingTime } }) => ({ slug, title, date, readingTime })
+	);
+
 	return {
 		metadata: postModule.metadata,
-		snippets
+		snippets,
+		related
 	};
 };
