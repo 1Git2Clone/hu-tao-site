@@ -47,8 +47,8 @@
 	</button>
 
 	<div
-		class="absolute inset-x-0 top-full grid grid-rows-[1fr] overflow-hidden transition-[grid-template-rows] duration-300 ease-[ease] aria-hidden:grid-rows-[0fr]"
-		aria-hidden={!isOpen}
+		class="absolute inset-x-0 top-full grid grid-rows-[1fr] overflow-hidden transition-[grid-template-rows] duration-300 ease-[ease] inert:grid-rows-[0fr]"
+		inert={!isOpen}
 	>
 		<ul class="background-mobile-nav flex min-h-0 flex-col overflow-hidden border-b px-8 text-lg">
 			{#each LINKS as link (link.href)}
