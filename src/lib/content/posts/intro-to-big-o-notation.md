@@ -1,7 +1,8 @@
 ---
+id: 019cf95d-28b0-7205-8359-94495239ca2a
 title: Intro to Big O Notation
 summary: An overview of Time and Space complexity, common algorithms, and the nuances of mathematical notations in programming.
-date: April 24 2024
+date: March 17 2026
 tags: ['dsa', 'cs']
 ---
 

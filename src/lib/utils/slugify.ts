@@ -16,9 +16,9 @@
  *
  * It has to stay a single definition because it is called from both ends of the
  * build: `plugins/rehype/headings.js` assigns every heading's `id` while the
- * document is compiling, and the table of contents, the post title and the
- * about-me project links build their `href` with it at render time. Two copies
- * would have to agree forever. They would not.
+ * document is compiling, and the table of contents and the post title build
+ * their `href` with it at render time. Two copies would have to agree forever.
+ * They would not.
  *
  * The `<.../>` and `{...}` clauses strip component markup and expressions that
  * survived into the text, so a heading containing either still slugifies to
