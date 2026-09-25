@@ -23,16 +23,17 @@
 }
 
 .dark {
-	--color-primary: #181818;
-	--color-textcol: #dddddd;
-	--color-subtextcol: #eeeeee;
-	--color-muted: #242424;
-	--color-tertiary: #6a6a6a;
+	/* Sampled from the background art (えしねこ, pixiv 99130119). */
+	--color-primary: #1c1a1e;
+	--color-textcol: #e6dcd7;
+	--color-subtextcol: #f4e7e0;
+	--color-muted: #2a262b;
+	--color-tertiary: #6e6264;
 
-	--color-accent: var(--color-red-400);
-	--color-accent-hover: var(--color-red-200);
-	--color-accent-bg: var(--color-red-900);
-	--color-highlight: var(--color-rose-200);
+	--color-accent: #e0766c;
+	--color-accent-hover: #f4c7bd;
+	--color-accent-bg: #7a4a47;
+	--color-highlight: #d5ada0;
 
 	--color-img-inner-border: rgba(0, 0, 0, 0.4);
 	--color-code-block: rgba(200, 100, 100, 0.1);
@@ -87,20 +88,8 @@ html {
 
 .dark .background {
 	background:
-		repeating-linear-gradient(
-			45deg,
-			transparent,
-			transparent 3px,
-			rgba(255, 255, 255, 0.04) 3px,
-			rgba(255, 255, 255, 0.04) 6px
-		),
-		repeating-linear-gradient(
-			-45deg,
-			transparent,
-			transparent 3px,
-			rgba(255, 255, 255, 0.04) 3px,
-			rgba(255, 255, 255, 0.04) 6px
-		),
+		linear-gradient(rgba(28, 26, 30, 0.55), rgba(28, 26, 30, 0.75)),
+		url('/images/hutao-night.webp') center 60% / cover fixed,
 		var(--color-primary);
 }
 
