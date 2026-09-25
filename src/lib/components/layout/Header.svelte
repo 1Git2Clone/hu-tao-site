@@ -2,10 +2,9 @@
 	import { resolve } from '$app/paths';
 	import { goto } from '$app/navigation';
 	import Nav from '$lib/components/layout/Nav.svelte';
-	import GitHub from '$lib/components/icons/GitHub.svelte';
-	import Twitter from '$lib/components/icons/Twitter.svelte';
+	import SocialLinks from '$lib/components/layout/SocialLinks.svelte';
 	import ThemeToggle from './ThemeToggle.svelte';
-	import { GITHUB_PROFILE_NAME, SITE_TITLE, TWITTER_PROFILE_HANDLE } from '$lib/utils/consts';
+	import { SITE_TITLE } from '$lib/utils/consts';
 
 	function handleLogoClick(e: MouseEvent) {
 		if (e.clientX !== 0 || e.clientY !== 0) {
@@ -39,20 +38,7 @@
 	</nav>
 
 	<div class="flex items-center justify-end gap-4">
-		<a
-			href="https://github.com/{GITHUB_PROFILE_NAME}"
-			class="hidden sm:inline-flex"
-			aria-label="GitHub"
-		>
-			<GitHub />
-		</a>
-		<a
-			href="https://twitter.com/{TWITTER_PROFILE_HANDLE}"
-			class="hidden sm:inline-flex"
-			aria-label="Twitter"
-		>
-			<Twitter />
-		</a>
+		<SocialLinks class="hidden sm:flex" />
 
 		<div class="hidden sm:inline-flex" aria-hidden={true}></div>
 
