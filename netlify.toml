@@ -1,7 +1,8 @@
 [build]
-# NOTE: Make sure to update this every time you do `nix flake update`.
-command = "npm install -g --force pnpm@12.3.4 && pnpm run build"
+command = "npm install -g --force pnpm@${PNPM_VERSION} && pnpm run build"
 publish = "build"
 
 [build.environment]
 NODE_VERSION = "26"
+# NOTE: Make sure to update this every time you do `nix flake update`.
+PNPM_VERSION = "12.3.4"
