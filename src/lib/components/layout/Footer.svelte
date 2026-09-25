@@ -7,7 +7,7 @@
 <footer class="background flex h-[var(--footer-height)] flex-col border-t">
 	<div class="mx-auto max-w-4xl pt-4 text-center text-sm opacity-70">
 		© {CURRENT_YEAR} Ivan, All rights reserved.
-		<span class="hidden dark:inline">
+		<span>
 			· Art: <a href="https://www.pixiv.net/en/artworks/99130119">“💧❤️” by えしねこ</a>
 		</span>
 	</div>
