@@ -12,6 +12,32 @@
 	}>();
 
 	const headings = $derived(page.data.headings || []);
+
+	// The TOC fills the viewport (same margin top and bottom), and gives back
+	// exactly as much height as the footer has scrolled into view, so its
+	// bottom never crosses the footer.
+	let footerOverlap = $state(0);
+
+	$effect(() => {
+		const footer = document.querySelector('footer');
+		if (!footer) return;
+
+		let frame = 0;
+		const measure = () => {
+			frame = 0;
+			footerOverlap = Math.max(0, window.innerHeight - footer.getBoundingClientRect().top);
+		};
+		const schedule = () => (frame ||= requestAnimationFrame(measure));
+
+		measure();
+		window.addEventListener('scroll', schedule, { passive: true });
+		window.addEventListener('resize', schedule);
+		return () => {
+			cancelAnimationFrame(frame);
+			window.removeEventListener('scroll', schedule);
+			window.removeEventListener('resize', schedule);
+		};
+	});
 </script>
 
 <div class="mx-auto w-full max-w-400">
@@ -61,7 +87,8 @@
 
 		<aside class="hidden xl:block">
 			<div
-				class="scrollbar-hide border-border box-gradient fixed max-h-[calc(100dvh-var(--layout-chrome))] w-64 overflow-y-auto rounded-lg border px-4 py-8"
+				class="scrollbar-hide border-border box-gradient fixed h-[calc(100dvh-var(--header-height)-var(--main-padding)*2-var(--footer-overlap))] w-64 overflow-y-auto rounded-lg border px-4 py-8"
+				style:--footer-overlap="{footerOverlap}px"
 			>
 				<TableOfContents staticHeadings={headings} />
 			</div>

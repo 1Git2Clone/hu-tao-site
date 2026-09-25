@@ -267,8 +267,8 @@ h6 {
 	box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
 }
 
-/* Heroes and the blog article sit over the busiest part of the background art. */
-:is(.box-gradient.hero, article.box-gradient) {
+/* Heroes, the blog article and its TOC sit over the busiest part of the background art. */
+:is(.box-gradient.hero, article.box-gradient, aside .box-gradient) {
 	backdrop-filter: blur(6px);
 }
 
