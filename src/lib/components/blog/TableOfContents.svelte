@@ -62,7 +62,7 @@
 	});
 </script>
 
-<nav class="w-full contrast-70">
+<nav class="w-full text-left contrast-70">
 	<div>
 		{#if !isMobile}
 			<b class="mb-4 block text-sm font-bold tracking-widest text-textcol uppercase">
