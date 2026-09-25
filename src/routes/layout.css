@@ -45,6 +45,11 @@
 		--tw-prose-bullets: var(--color-accent);
 		--tw-prose-counters: var(--color-accent);
 	}
+
+	/* Typography pins td to text-align: start; follow main's justify instead. */
+	.prose :where(td) {
+		text-align: inherit;
+	}
 }
 
 :root {
