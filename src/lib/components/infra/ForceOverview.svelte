@@ -5,10 +5,10 @@
 
 	let { graph, wide, tall }: { graph: Graph<OverviewNode>; wide: Layout; tall: Layout } = $props();
 
-	let selectedId = $state<string | null>(null);
+	let selectedId = $state<string>();
 </script>
 
-<svelte:window onkeydown={(event) => event.key === 'Escape' && (selectedId = null)} />
+<svelte:window onkeydown={(event) => event.key === 'Escape' && (selectedId = undefined)} />
 
 <!-- Both are laid out on the server and switched by CSS, so nothing moves on hydration. -->
 <ForceGraph {graph} layout={wide} bind:selectedId class="hidden lg:block" />

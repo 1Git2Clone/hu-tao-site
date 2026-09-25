@@ -10,7 +10,6 @@
 		clamp,
 		createSimulation,
 		positionsOf,
-		type ForceSimulation,
 		type Layout
 	} from '$lib/data/graph-layout';
 	import type { Graph, OverviewNode } from '$lib/types/infra-graph';
@@ -18,19 +17,19 @@
 	let {
 		graph,
 		layout,
-		selectedId = $bindable(null),
+		selectedId = $bindable(),
 		class: className
 	}: {
 		graph: Graph<OverviewNode>;
 		/** Settled on the server, so its picture is the one the page first paints. */
 		layout: Layout;
-		selectedId?: string | null;
+		selectedId?: string;
 		class?: string;
 	} = $props();
 
 	const size = untrack(() => layout.size);
 	let positions = $state.raw(untrack(() => layout.positions));
-	let hoveredId = $state<string | null>(null);
+	let hoveredId = $state<string>();
 	const focusId = $derived(hoveredId ?? selectedId);
 	const selected = $derived(graph.nodes.find((node) => node.id === selectedId));
 	const lit = $derived(
@@ -43,45 +42,46 @@
 	);
 
 	let svg: SVGSVGElement;
-	// Only a drag needs physics, so the simulation starts on the first one.
-	let simulation: ForceSimulation | undefined;
-	let drag: { id: string; x: number; y: number } | null = null;
+	// Stopped until a drag: then it pushes the other nodes out of the way and settles.
+	const simulation = untrack(() => createSimulation(graph, size, layout.positions)).on(
+		'tick',
+		() => (positions = positionsOf(simulation))
+	);
+	let pressedAt = { x: 0, y: 0 };
 	let dragged = false;
 
-	onDestroy(() => simulation?.stop());
+	onDestroy(() => simulation.stop());
 
 	// Dragging is for mice and pens. A finger on the graph belongs to the page: it scrolls,
 	// and a tap is a click. Browsers ignore touch-action inside an SVG, so there is no
 	// way to claim a finger for a node without also trapping the page's scroll.
-	function onpointerdown(event: PointerEvent, id: string) {
+	// While a node holds the pointer capture, it is being dragged.
+	function onpointerdown(event: PointerEvent) {
 		if (event.pointerType === 'touch') return;
 		(event.currentTarget as Element).setPointerCapture(event.pointerId);
-		drag = { id, x: event.clientX, y: event.clientY };
+		pressedAt = { x: event.clientX, y: event.clientY };
 		dragged = false;
 	}
 
-	function onpointermove(event: PointerEvent) {
-		if (!drag) return;
-		if (!dragged && Math.hypot(event.clientX - drag.x, event.clientY - drag.y) < 4) return;
+	// A node's simulation twin sits at the same index: createSimulation maps graph.nodes in order.
+	function onpointermove(event: PointerEvent, index: number) {
+		if (!(event.currentTarget as Element).hasPointerCapture(event.pointerId)) return;
+		const { clientX, clientY } = event;
+		if (!dragged && Math.hypot(clientX - pressedAt.x, clientY - pressedAt.y) < 4) return;
 		dragged = true;
-		simulation ??= createSimulation(graph, size, positions).on(
-			'tick',
-			() => (positions = positionsOf(simulation!))
-		);
-		const node = simulation.nodes().find(({ id }) => id === drag!.id)!;
-		const { x, y } = new DOMPoint(event.clientX, event.clientY).matrixTransform(
-			svg.getScreenCTM()!.inverse()
-		);
+		const rect = svg.getBoundingClientRect();
+		const node = simulation.nodes()[index];
+		const x = ((clientX - rect.left) / rect.width) * size.width;
+		const y = ((clientY - rect.top) / rect.height) * size.height;
 		node.fx = clamp(x, node.halfWidth, size.width - node.halfWidth);
 		node.fy = clamp(y, NODE_HEIGHT / 2, size.height - NODE_HEIGHT / 2);
 		simulation.alphaTarget(0.3).restart();
 	}
 
-	function onpointerup() {
-		const node = simulation?.nodes().find(({ id }) => id === drag?.id);
-		if (node) node.fx = node.fy = null;
-		drag = null;
-		if (!simulation) return;
+	function onpointerup(event: PointerEvent, index: number) {
+		if (!(event.currentTarget as Element).hasPointerCapture(event.pointerId)) return;
+		const node = simulation.nodes()[index];
+		node.fx = node.fy = undefined;
 		simulation.alphaTarget(0);
 		if (prefersReducedMotion.current) {
 			simulation.stop().tick(300);
@@ -90,7 +90,7 @@
 	}
 
 	function toggle(id: string) {
-		selectedId = selectedId === id ? null : id;
+		selectedId = selectedId === id ? undefined : id;
 	}
 
 	function onclick(id: string) {
@@ -128,30 +128,30 @@
 			/>
 		{/each}
 
-		{#each graph.nodes as node (node.id)}
+		{#each graph.nodes as node, index (node.id)}
 			{@const { x, y } = positions[node.id]}
 			<g
 				role="button"
 				tabindex="0"
 				aria-pressed={selectedId === node.id}
 				transform="translate({x - boxWidth(node.label) / 2} {y - NODE_HEIGHT / 2})"
-				class="group cursor-pointer outline-none [@media(pointer:fine)]:cursor-grab [@media(pointer:fine)]:active:cursor-grabbing"
-				onpointerdown={(event) => onpointerdown(event, node.id)}
-				{onpointermove}
-				{onpointerup}
-				onpointercancel={onpointerup}
+				class="group cursor-pointer outline-none pointer-fine:cursor-grab pointer-fine:active:cursor-grabbing"
+				{onpointerdown}
+				onpointermove={(event) => onpointermove(event, index)}
+				onpointerup={(event) => onpointerup(event, index)}
+				onpointercancel={(event) => onpointerup(event, index)}
 				onclick={() => onclick(node.id)}
 				onkeydown={(event) => onkeydown(event, node.id)}
 				onpointerenter={() => (hoveredId = node.id)}
-				onpointerleave={() => (hoveredId = null)}
+				onpointerleave={() => (hoveredId = undefined)}
 				onfocus={() => (hoveredId = node.id)}
-				onblur={() => (hoveredId = null)}
+				onblur={() => (hoveredId = undefined)}
 			>
 				<NodeBox
 					label={node.label}
 					kind={node.kind}
 					active={selectedId === node.id}
-					dimmed={focusId !== null && !lit.has(node.id)}
+					dimmed={focusId !== undefined && !lit.has(node.id)}
 				/>
 			</g>
 		{/each}
@@ -165,7 +165,7 @@
 					<!-- Wide: the top corner away from the node. -->
 					<NodeDetails
 						node={selected}
-						onclose={() => (selectedId = null)}
+						onclose={() => (selectedId = undefined)}
 						class={['top-2 w-72', x > size.width / 2 ? 'left-2' : 'right-2'].join(' ')}
 					/>
 				{:else}
@@ -174,7 +174,7 @@
 					{@const gap = NODE_HEIGHT / 2 + 8}
 					<NodeDetails
 						node={selected}
-						onclose={() => (selectedId = null)}
+						onclose={() => (selectedId = undefined)}
 						class="inset-x-2"
 						style={y > size.height / 2
 							? `bottom: ${(1 - (y - gap) / size.height) * 100}%`
