@@ -274,6 +274,11 @@ h6 {
 	box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
 }
 
+/* Heroes and the blog article sit over the busiest part of the background art. */
+:is(.box-gradient.hero, article.box-gradient) {
+	backdrop-filter: blur(6px);
+}
+
 .dark .box-gradient.hero {
 	border: 1px solid var(--color-accent);
 	box-shadow: 0 0 20px rgba(248, 113, 113, 0.15);
