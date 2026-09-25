@@ -10,7 +10,9 @@
 
 	import Card from '$lib/components/layout/Card.svelte';
 	import HeadingCopy from '$lib/components/HeadingCopy.svelte';
+	import ForceOverview from '$lib/components/infra/ForceOverview.svelte';
 	import { INFRA_STACK, PRIVATE_SERVICES, PUBLIC_SERVICES } from '$lib/content/infra/services';
+	import { OVERVIEW } from '$lib/content/infra/topology';
 	import { SITE_URL } from '$lib/utils/consts';
 
 	const title = 'Infrastructure — 1Git2Clone';
@@ -19,6 +21,8 @@
 	const canonical = `${SITE_URL}/infra`;
 
 	const SOURCE_URL = 'https://git.hu-tao.dev/hutao/vps';
+
+	let { data } = $props();
 </script>
 
 <svelte:head>
@@ -63,6 +67,18 @@
 				</li>
 			{/each}
 		</ul>
+	</section>
+
+	<section
+		id="overview"
+		class="border-border box-gradient scroll-mt-[var(--scroll-offset)] rounded-lg border p-4 md:p-8"
+	>
+		<HeadingCopy class="prose mb-6 min-w-full dark:prose-invert">
+			<h2 id="overview-heading" class="mt-0">Overview</h2>
+			<p class="mb-0">Tap or click a box for what it does. With a mouse, drag them around.</p>
+		</HeadingCopy>
+
+		<ForceOverview graph={OVERVIEW} {...data.overview} />
 	</section>
 
 	<section
