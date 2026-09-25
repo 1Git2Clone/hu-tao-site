@@ -26,7 +26,8 @@ const CHAR_WIDTH = 0.6 * 14;
 const PADDING_X = 13;
 export const boxWidth = (label: string) => Math.ceil(label.length * CHAR_WIDTH + 2 * PADDING_X);
 
-export type ForceNode = SimulationNodeDatum & { id: string; halfWidth: number };
+/** d3 leaves x and y optional until it places a node; every node here starts placed. */
+export type ForceNode = SimulationNodeDatum & Point & { id: string; halfWidth: number };
 export type ForceSimulation = Simulation<ForceNode, SimulationLinkDatum<ForceNode>>;
 
 const GAP = 10;
@@ -40,20 +41,20 @@ function forceBoxCollide() {
 	const force = () => {
 		for (const [i, a] of nodes.entries()) {
 			for (const b of nodes.slice(i + 1)) {
-				const dx = b.x! - a.x!;
-				const dy = b.y! - a.y!;
+				const dx = b.x - a.x;
+				const dy = b.y - a.y;
 				const overlapX = a.halfWidth + b.halfWidth + GAP - Math.abs(dx);
 				const overlapY = NODE_HEIGHT + GAP - Math.abs(dy);
 				if (overlapX <= 0 || overlapY <= 0) continue;
 				// Part along whichever axis needs the smaller push.
 				if (overlapX < overlapY) {
 					const push = (overlapX / 2) * (Math.sign(dx) || 1);
-					a.x! -= push;
-					b.x! += push;
+					a.x -= push;
+					b.x += push;
 				} else {
 					const push = (overlapY / 2) * (Math.sign(dy) || 1);
-					a.y! -= push;
-					b.y! += push;
+					a.y -= push;
+					b.y += push;
 				}
 			}
 		}
@@ -67,26 +68,25 @@ function forceBounds({ width, height }: Size) {
 	let nodes: ForceNode[] = [];
 	const force = () => {
 		for (const node of nodes) {
-			node.x = clamp(node.x!, node.halfWidth, width - node.halfWidth);
-			node.y = clamp(node.y!, NODE_HEIGHT / 2, height - NODE_HEIGHT / 2);
+			node.x = clamp(node.x, node.halfWidth, width - node.halfWidth);
+			node.y = clamp(node.y, NODE_HEIGHT / 2, height - NODE_HEIGHT / 2);
 		}
 	};
 	force.initialize = (all: ForceNode[]) => (nodes = all);
 	return force;
 }
 
+/** The graph's nodes as d3 wants them, in `graph.nodes` order, each starting at `start`. */
+const forceNodes = (graph: Graph, start: Positions): ForceNode[] =>
+	graph.nodes.map(({ id, label }) => ({ id, halfWidth: boxWidth(label) / 2, ...start[id] }));
+
 /** A stopped simulation in a `size` box, with every node starting at `start`. */
 export function createSimulation(graph: Graph, size: Size, start: Positions): ForceSimulation {
 	const { width, height } = size;
-	const nodes: ForceNode[] = graph.nodes.map(({ id, label }) => ({
-		id,
-		halfWidth: boxWidth(label) / 2,
-		...start[id]
-	}));
 	const links = graph.links.map((link) => ({ ...link }));
 
 	// Pull harder along the short axis, so the graph spreads to the container's shape.
-	return forceSimulation(nodes)
+	return forceSimulation(forceNodes(graph, start))
 		.force(
 			'link',
 			forceLink<ForceNode, SimulationLinkDatum<ForceNode>>(links)
@@ -104,9 +104,7 @@ export function createSimulation(graph: Graph, size: Size, start: Positions): Fo
 /** Box centres, keyed by node id, to a tenth of a pixel so the page data stays small. */
 const tenth = (value: number) => Math.round(value * 10) / 10;
 export const positionsOf = (simulation: ForceSimulation): Positions =>
-	Object.fromEntries(
-		simulation.nodes().map(({ id, x, y }) => [id, { x: tenth(x!), y: tenth(y!) }])
-	);
+	Object.fromEntries(simulation.nodes().map(({ id, x, y }) => [id, { x: tenth(x), y: tenth(y) }]));
 
 /** Runs a simulation to rest: 300 ticks is d3's own count from alpha 1 to alphaMin. */
 export function settle(graph: Graph, size: Size, start: Positions): Positions {
@@ -175,15 +173,13 @@ export function untangled(graph: Graph, size: Size, tries = 200): Positions {
 			])
 		);
 
-	let best: { positions: Positions; score: number } | undefined;
-	for (let i = 0; i < tries; i++) {
+	const tried = Array.from({ length: tries }, () => {
 		const positions = settle(graph, size, scatter());
 		const { overlaps, crossings, throughBoxes } = tangle(graph, positions);
 		// Any overlap or crossing is worse than any number of links grazing a box.
-		const score = (overlaps + crossings) * graph.links.length ** 2 + throughBoxes;
-		if (!best || score < best.score) best = { positions, score };
-	}
-	return best!.positions;
+		return { positions, score: (overlaps + crossings) * graph.links.length ** 2 + throughBoxes };
+	});
+	return tried.reduce((best, next) => (next.score < best.score ? next : best)).positions;
 }
 
 /**
@@ -199,11 +195,10 @@ export function rotated(graph: Graph, from: Layout, size: Size): Positions {
 		])
 	);
 	// Boxes stay horizontal, so a few collide after the turn: only collision and bounds run.
-	const simulation = createSimulation(graph, size, start)
-		.force('link', null)
-		.force('charge', null)
-		.force('x', null)
-		.force('y', null);
+	const simulation: ForceSimulation = forceSimulation(forceNodes(graph, start))
+		.force('collide', forceBoxCollide())
+		.force('bounds', forceBounds(size))
+		.stop();
 	simulation.tick(300);
 	return positionsOf(simulation);
 }
