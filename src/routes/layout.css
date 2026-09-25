@@ -59,6 +59,44 @@
 	.prose :where(td) {
 		text-align: inherit;
 	}
+
+	/* A two-column table names things and says what they are: Projects on home, the
+	   services on /infra. The name column is start-aligned, centred on its row, and never
+	   broken mid-word. On phones each row stacks, name over description. Wider tables are
+	   data, and keep their grid. */
+	.prose :where(table:not(:has(th:nth-child(3)))) :where(td:first-child) {
+		text-align: start;
+		vertical-align: middle;
+	}
+
+	/* Side by side, a name keeps to one line. Stacked on a phone it has the full width,
+	   and a host like "syncthing.hu-tao.dev • Tailnet only" may wrap at its spaces. */
+	@media (width >= 40rem) {
+		.prose :where(table:not(:has(th:nth-child(3)))) :where(td:first-child) {
+			white-space: nowrap;
+		}
+	}
+
+	@media (width < 40rem) {
+		.prose :where(table:not(:has(th:nth-child(3)))) :where(thead) {
+			display: none;
+		}
+
+		/* Stacked, the cells of a row read as one entry: padding goes around the row, not
+		   between its cells. */
+		.prose :where(table:not(:has(th:nth-child(3)))) :where(td) {
+			display: block;
+			padding-inline: 0;
+		}
+
+		.prose :where(table:not(:has(th:nth-child(3)))) :where(td:first-child) {
+			padding-bottom: 0;
+		}
+
+		.prose :where(table:not(:has(th:nth-child(3)))) :where(td:last-child) {
+			padding-top: 0;
+		}
+	}
 }
 
 :root {
