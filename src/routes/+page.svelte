@@ -33,7 +33,7 @@
 		class="border-border box-gradient hero prose min-w-full rounded-lg border p-8 dark:prose-invert"
 	>
 		<h1 id="title" class="mb-2 text-center text-4xl font-bold tracking-tight">1Git2Clone</h1>
-		<p class="mt-0 text-center text-sm text-subtextcol">
+		<p class="mt-0 text-center text-sm text-subtextcol italic">
 			A dev with the horrible habit of “doing it myself”.
 		</p>
 		<p>
