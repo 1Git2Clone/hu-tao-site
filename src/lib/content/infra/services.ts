@@ -81,19 +81,25 @@ A minecraft server for me and my friends.
 export const PRIVATE_SERVICES: Service[] = [
 	{
 		name: 'Grafana + Tempo',
+		page: 'https://grafana.hu-tao.dev',
+		displayPage: 'grafana.hu-tao.dev • Tailnet only',
 		description: 'Dashboards and OTLP traces.'
 	},
 	{
 		name: 'Dozzle',
+		page: 'https://dozzle.hu-tao.dev',
+		displayPage: 'dozzle.hu-tao.dev  • Tailnet only',
 		description: 'Live container logs for all my services.'
+	},
+	{
+		name: 'Syncthing',
+		page: 'https://syncthing.hu-tao.dev',
+		displayPage: 'syncthing.hu-tao.dev  • Tailnet only',
+		description: 'File sync across my machines.'
 	},
 	{
 		name: 'PostgreSQL + pgbouncer',
 		description: 'Shared database and connection pooler.'
-	},
-	{
-		name: 'Syncthing',
-		description: 'File sync across my machines.'
 	}
 ];
 
