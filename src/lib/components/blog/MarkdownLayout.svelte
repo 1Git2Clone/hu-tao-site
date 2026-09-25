@@ -109,7 +109,7 @@
 			</HeadingCopy>
 		</article>
 
-		<section class="border-border box-gradient mt-8 rounded-lg border p-6 xl:hidden">
+		<section class="border-border box-gradient related-posts mt-8 rounded-lg border p-6 xl:hidden">
 			<b class="mb-4 block text-center text-sm font-bold tracking-widest text-textcol uppercase">
 				Related Posts
 			</b>
