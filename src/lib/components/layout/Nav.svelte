@@ -5,7 +5,6 @@
 	const LINKS = [
 		{ href: resolve('/'), label: 'Home', exact: true },
 		{ href: resolve('/blogs'), label: 'Blogs', exact: false },
-		{ href: resolve('/about-me'), label: 'About Me', exact: true },
 		{ href: resolve('/infra'), label: 'Infra', exact: true }
 	];
 
