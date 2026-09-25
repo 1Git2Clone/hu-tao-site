@@ -8,10 +8,14 @@
 	import { marked } from 'marked';
 	import { SvelteURL } from 'svelte/reactivity';
 
-	import Card from '$lib/components/layout/Card.svelte';
 	import HeadingCopy from '$lib/components/HeadingCopy.svelte';
 	import ForceOverview from '$lib/components/infra/ForceOverview.svelte';
-	import { INFRA_STACK, PRIVATE_SERVICES, PUBLIC_SERVICES } from '$lib/content/infra/services';
+	import {
+		INFRA_STACK,
+		PRIVATE_SERVICES,
+		PUBLIC_SERVICES,
+		type Service
+	} from '$lib/content/infra/services';
 	import { OVERVIEW } from '$lib/content/infra/topology';
 	import { SITE_URL } from '$lib/utils/consts';
 
@@ -24,6 +28,43 @@
 
 	let { data } = $props();
 </script>
+
+<!-- One box per section: the services are rows, like the projects on home. -->
+{#snippet serviceTable(services: Service[])}
+	<div class="prose min-w-full dark:prose-invert [&_td_blockquote]:my-2 [&_td_p]:my-0">
+		<table>
+			<thead>
+				<tr><th>Service</th><th>What it is</th></tr>
+			</thead>
+			<tbody>
+				{#each services as service (service.name)}
+					<tr>
+						<!-- Names and hosts, not prose: start-aligned (over the prose td rule that inherits
+						     main's justify), and a host never breaks mid-word;
+						     "grafana.hu-tao.dev • Tailnet only" may wrap only at the bullet. -->
+						<td class="text-left!">
+							{#if service.page}
+								{@const host = service.displayPage || new SvelteURL(service.page).hostname}
+								<a href={service.page} target="_blank" rel="noopener noreferrer"
+									><strong>{service.name}</strong></a
+								>
+								<span class="block text-sm text-subtextcol">
+									{#each host.split(/\s*•\s*/) as part, i (i)}
+										{#if i > 0}{' • '}{/if}
+										<span class="whitespace-nowrap">{part}</span>
+									{/each}
+								</span>
+							{:else}
+								<strong>{service.name}</strong>
+							{/if}
+						</td>
+						<td>{@html marked(service.description)}</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</div>
+{/snippet}
 
 <svelte:head>
 	<title>{title}</title>
@@ -90,25 +131,7 @@
 			<p class="mb-0">Reachable from anywhere, behind one reverse proxy and one certificate.</p>
 		</HeadingCopy>
 
-		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-			{#each PUBLIC_SERVICES as service (service.name)}
-				<Card>
-					<div class="prose dark:prose-invert">
-						<h3 class="mt-0 text-xl font-semibold">
-							{#if service.page}
-								<a href={service.page} target="_blank" rel="noopener noreferrer">{service.name}</a>
-								<p class="mt-1 mb-0 font-mono text-sm break-all text-subtextcol">
-									{service.displayPage || new SvelteURL(service.page).hostname}
-								</p>
-							{:else}
-								{service.name}
-							{/if}
-						</h3>
-						<div class="mt-3">{@html marked(service.description)}</div>
-					</div>
-				</Card>
-			{/each}
-		</div>
+		{@render serviceTable(PUBLIC_SERVICES)}
 	</section>
 
 	<section
@@ -123,24 +146,6 @@
 			</p>
 		</HeadingCopy>
 
-		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-			{#each PRIVATE_SERVICES as service (service.name)}
-				<Card>
-					<div class="prose dark:prose-invert">
-						<h3 class="mt-0 text-xl font-semibold">
-							{#if service.page}
-								<a href={service.page} target="_blank" rel="noopener noreferrer">{service.name}</a>
-								<p class="mt-1 mb-0 font-mono text-sm break-all text-subtextcol">
-									{service.displayPage || new SvelteURL(service.page).hostname}
-								</p>
-							{:else}
-								{service.name}
-							{/if}
-						</h3>
-						<div class="mt-3">{@html marked(service.description)}</div>
-					</div>
-				</Card>
-			{/each}
-		</div>
+		{@render serviceTable(PRIVATE_SERVICES)}
 	</section>
 </div>
