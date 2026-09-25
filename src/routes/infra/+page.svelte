@@ -88,7 +88,7 @@
 								{service.name}
 							{/if}
 						</h3>
-						<p class="mt-3">{@html marked(service.description)}</p>
+						<div class="mt-3">{@html marked(service.description)}</div>
 					</div>
 				</Card>
 			{/each}
@@ -121,7 +121,7 @@
 								{service.name}
 							{/if}
 						</h3>
-						<p class="mt-3">{@html marked(service.description)}</p>
+						<div class="mt-3">{@html marked(service.description)}</div>
 					</div>
 				</Card>
 			{/each}
