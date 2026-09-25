@@ -1,14 +1,20 @@
 <script lang="ts">
-	import { SITE_TITLE, SITE_TAGLINE, GITHUB_PROFILE_NAME, EMAIL } from '$lib/utils/consts';
-	import { resolve } from '$app/paths';
-	import GitHub from '$lib/components/icons/GitHub.svelte';
-	import Card from '$lib/components/layout/Card.svelte';
+	// Reason: Supposed to be external urls
+	/* eslint-disable svelte/no-navigation-without-resolve */
 
-	const SITE_URL = 'https://1g2c.netlify.app';
+	import { resolve } from '$app/paths';
+	import HeadingCopy from '$lib/components/HeadingCopy.svelte';
+	import { SKILLS } from '$lib/content/root/skills';
+	import { TECH_URLS } from '$lib/content/root/tech';
+	import { EMAIL, GITHUB_PROFILE_NAME, SITE_URL } from '$lib/utils/consts';
+
 	const title = '1Git2Clone';
 	const description =
-		'Building AI integrations, APIs, data pipelines, and internal tools that work in production.';
+		'A dev with the horrible habit of "doing it myself". A NixOS-described VPS, Rust side projects, and AI integration by day.';
 	const canonical = `${SITE_URL}/`;
+
+	const FORGEJO_URL = 'https://git.hu-tao.dev/hutao';
+	const GITHUB_URL = `https://github.com/${GITHUB_PROFILE_NAME}`;
 </script>
 
 <svelte:head>
@@ -22,94 +28,177 @@
 	<meta property="og:image" content="https://1g2c.netlify.app/og-image.jpg" />
 </svelte:head>
 
-<div class="prose w-full max-w-none space-y-8 dark:prose-invert">
-	<section class="border-border box-gradient rounded-lg border p-8">
-		<h1 id="title" class="text-4xl font-bold tracking-tight">Welcome to {SITE_TITLE}!</h1>
-		<p class="text-lg text-subtextcol">
-			{SITE_TAGLINE}
+<div class="space-y-8">
+	<section
+		class="border-border box-gradient hero prose min-w-full rounded-lg border p-8 dark:prose-invert"
+	>
+		<h1 id="title" class="mb-2 text-center text-4xl font-bold tracking-tight">1Git2Clone</h1>
+		<p class="mt-0 text-center text-sm text-subtextcol">
+			A dev with the horrible habit of “doing it myself”.
 		</p>
-
 		<p>
-			I build AI integrations, API backends, internal dashboards, document processing tools, and
-			data pipelines that run in production.
+			By day, Junior AI Dev at a fintech: LLM integrations and Go/AWS data flows. Everything below
+			is what happens when nobody's paying me to.
 		</p>
-
-		<div class="mt-6 flex flex-wrap gap-6 text-sm">
-			<a href={resolve('/about-me')} class="inline-flex items-center gap-1 font-semibold">
-				View work <span aria-hidden="true">→</span>
-			</a>
-			<a href={resolve('/blogs')} class="inline-flex items-center gap-1">
-				Read the blogs <span aria-hidden="true">→</span>
-			</a>
-			<a href={`https://github.com/${GITHUB_PROFILE_NAME}`} class="inline-flex items-center gap-1">
-				<GitHub width={18} height={18} />
-				GitHub
-			</a>
+		<div class="not-prose mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+			<a href={FORGEJO_URL} target="_blank" rel="noopener noreferrer"> git.hu-tao.dev</a>
+			<a href={GITHUB_URL} target="_blank" rel="noopener noreferrer"
+				> github.com/{GITHUB_PROFILE_NAME}</a
+			>
+			<a href={resolve('/infra')}>Infra <span aria-hidden="true">→</span></a>
+			<a href={resolve('/blogs')}>Blogs <span aria-hidden="true">→</span></a>
 		</div>
 	</section>
 
 	<section class="border-border box-gradient rounded-lg border p-8">
-		<h2 id="what-i-build" class="mt-0">What I Build</h2>
-		<div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-			<Card>
-				<h3 id="ai-integrations" class="mt-0 text-lg">AI Integrations</h3>
-				<p class="mb-0 text-sm">
-					LLM-backed features, RAG/code graph workflows, OCR, computer vision, and internal
-					automation that is useful after the first demo.
-				</p>
-			</Card>
-
-			<Card>
-				<h3 id="apis-data-flows" class="mt-0 text-lg">APIs & Data Flows</h3>
-				<p class="mb-0 text-sm">
-					Go services, AWS Lambda pipelines, S3-backed processing, audit-friendly data handling, and
-					backend glue for real workflows.
-				</p>
-			</Card>
-
-			<Card>
-				<h3 id="interfaces-tools" class="mt-0 text-lg">Interfaces & Tools</h3>
-				<p class="mb-0 text-sm">
-					Svelte/React dashboards, admin tools, developer tooling, and Rust systems projects when
-					the problem needs lower-level control.
-				</p>
-			</Card>
-		</div>
+		<HeadingCopy class="prose min-w-full dark:prose-invert">
+			<h2 id="projects" class="mt-0">Projects</h2>
+			<p>A few of the more notable ones:</p>
+			<table>
+				<thead>
+					<tr><th>Project</th><th>What it is</th></tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<a href="https://git.hu-tao.dev/hutao/vps" target="_blank" rel="noopener noreferrer"
+								><strong>VPS flake</strong></a
+							>
+						</td>
+						<td>
+							Everything in <a href={resolve('/infra')}>Infra</a>. 14 services, 3 trust boundaries,
+							0 manual steps
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a
+								href="https://git.hu-tao.dev/hutao/serenity-discord-bot"
+								target="_blank"
+								rel="noopener noreferrer"><strong>Serenity Discord bot</strong></a
+							>
+						</td>
+						<td>Rust · Serenity/Poise · Postgres · Redis · tokio-console</td>
+					</tr>
+					<tr>
+						<td>
+							<a
+								href="https://github.com/rust-random/rand/pulls?q=is%3Apr+by%3A1Git2Clone"
+								target="_blank"
+								rel="noopener noreferrer"><strong>rust-random/rand</strong></a
+							>
+						</td>
+						<td>
+							Contributions to <em>the</em> random number generation library for Rust, as a
+							<a href="/images/random-kid-pr.webp" target="_blank" rel="noopener noreferrer"
+								>random kid</a
+							>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a
+								href="https://git.hu-tao.dev/skavex/skavex"
+								target="_blank"
+								rel="noopener noreferrer"><strong>skavex</strong></a
+							>
+						</td>
+						<td>
+							The Markdown + LaTeX + Svelte preprocessor behind
+							<a href={resolve('/blogs')}>this site's blogs</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a
+								href="https://git.hu-tao.dev/hutao/hu-tao-dev"
+								target="_blank"
+								rel="noopener noreferrer"><strong>hu-tao.dev</strong></a
+							>
+						</td>
+						<td>SvelteKit 2 · Svelte 5 · Tailwind v4 · skavex. You're looking at it.</td>
+					</tr>
+				</tbody>
+			</table>
+		</HeadingCopy>
 	</section>
 
-	<section class="grid grid-cols-1 gap-6 md:grid-cols-2">
-		<div class="border-border box-gradient rounded-lg border p-8">
-			<h2 id="proof" class="mt-0">Work</h2>
-			<p>Confidential fintech systems, AI admin tooling, and public Rust projects.</p>
-			<a href="{resolve('/about-me')}#projects" class="inline-flex items-center gap-1">
-				See details <span aria-hidden="true">→</span>
-			</a>
-		</div>
-
-		<div class="border-border box-gradient rounded-lg border p-8">
-			<h2 id="notes" class="mt-0">Notes From The Terminal</h2>
+	<section class="border-border box-gradient rounded-lg border p-8">
+		<HeadingCopy class="prose min-w-full dark:prose-invert">
+			<h2 id="infrastructure" class="mt-0">Infrastructure</h2>
 			<p>
-				Writing on algorithms, Linux, tooling, and the parts of software that become clearer when
-				you explain them.
+				One VPS, described end to end in a single NixOS flake — disks, firewall, secrets, and every
+				container service. Git hosting, music, search, a status page, and the observability to
+				notice when any of them fall over.
 			</p>
-			<div class="flex flex-wrap gap-6 text-sm">
-				<a href={resolve('/blogs')} class="inline-flex items-center gap-1">
-					Blogs <span aria-hidden="true">→</span>
-				</a>
-				<a href={resolve('/journey')} class="inline-flex items-center gap-1">
-					Linux journey <span aria-hidden="true">→</span>
-				</a>
-				<a href={resolve('/infra')} class="inline-flex items-center gap-1">
-					Infra <span aria-hidden="true">→</span>
-				</a>
-			</div>
-		</div>
+			<blockquote>
+				<p>
+					Forgejo, because of <a
+						href="https://github.blog/news-insights/company-news/github-availability-report-april-2026/"
+						target="_blank"
+						rel="noopener noreferrer">GitHub's incredible reliability</a
+					>.
+				</p>
+			</blockquote>
+			<p class="mb-0">
+				<a href={resolve('/infra')}>Read more <span aria-hidden="true">→</span></a>
+			</p>
+		</HeadingCopy>
 	</section>
 
-	<section class="border-border box-gradient rounded-lg border p-8 text-center">
+	<section class="border-border box-gradient rounded-lg border p-8">
+		<HeadingCopy class="prose mb-6 min-w-full dark:prose-invert">
+			<h2 id="skills" class="mt-0">Stuff I Reach For</h2>
+			<p class="mb-0">
+				The day job covers the Go and AWS parts. The rest is the “doing it myself” habit.
+			</p>
+		</HeadingCopy>
+
+		<dl class="space-y-4">
+			{#each SKILLS as { group, items } (group)}
+				<div class="sm:grid sm:grid-cols-[8rem_1fr] sm:gap-4">
+					<dt class="text-sm font-semibold text-subtextcol sm:py-1">{group}</dt>
+					<dd class="mt-2 ml-0 sm:mt-0">
+						<ul class="flex flex-wrap gap-2">
+							{#each items as item (item)}
+								{@const tech = TECH_URLS[item]}
+								<li class="border-border card inline-block rounded border px-2 py-1 text-sm">
+									<a
+										href={tech.url}
+										target="_blank"
+										rel="noopener noreferrer"
+										aria-label={tech.ariaLabel || String(item)}
+										style="border: 0;"
+									>
+										{item}
+									</a>
+								</li>
+							{/each}
+						</ul>
+					</dd>
+				</div>
+			{/each}
+		</dl>
+	</section>
+
+	<section class="border-border box-gradient rounded-lg border p-8">
+		<HeadingCopy class="prose min-w-full dark:prose-invert">
+			<h2 id="writing" class="mt-0">Writing</h2>
+			<p>
+				Algorithms, Linux, tooling, and the parts of software that become clearer when you explain
+				them.
+			</p>
+			<ul class="mb-0">
+				<li><a href={resolve('/blogs')}>Blogs</a></li>
+				<li><a href={resolve('/journey')}>Linux journey</a></li>
+			</ul>
+		</HeadingCopy>
+	</section>
+
+	<section
+		class="border-border box-gradient prose min-w-full rounded-lg border p-8 text-center dark:prose-invert"
+	>
 		<h2 id="contact" class="mt-0">Contact</h2>
-		<p class="mb-0">
-			<a href="mailto:{EMAIL}" class="inline-flex items-center gap-1">{EMAIL}</a>
-		</p>
+		<p class="mb-0"><a href="mailto:{EMAIL}">{EMAIL}</a></p>
 	</section>
 </div>

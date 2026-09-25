@@ -6,3 +6,9 @@ publish = "build"
 NODE_VERSION = "26.10.0"
 # NOTE: Make sure to update this every time you do `nix flake update`.
 PNPM_PIN = "12.3.4"
+
+# About Me was merged into the homepage.
+[[redirects]]
+from = "/about-me"
+to = "/"
+status = 301
