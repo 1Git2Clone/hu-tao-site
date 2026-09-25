@@ -3,6 +3,6 @@ command = "npm install -g --force pnpm@${PNPM_VERSION} && pnpm run build"
 publish = "build"
 
 [build.environment]
-NODE_VERSION = "26"
+NODE_VERSION = "26.10.0"
 # NOTE: Make sure to update this every time you do `nix flake update`.
 PNPM_VERSION = "12.3.4"
