@@ -23,7 +23,7 @@
         default = pkgs.mkShell {
           packages = [
             pkgs.nodejs_26
-            pkgs.pnpm
+            pkgs.pnpm # NOTE: Make sure to update `netlify.toml` on every `nix flake update`.
           ];
         };
       });
