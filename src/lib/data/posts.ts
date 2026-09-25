@@ -35,6 +35,10 @@ export interface PostModule {
 	metadata: PostMetadata;
 }
 
+/** `test-*` posts are fixtures: listed and routable in dev only. */
+export const isPublished = (slug: string): boolean =>
+	import.meta.env.DEV || !slug.startsWith('test-');
+
 export const postKey = (path: Paths<Post>): string => path;
 
 export const POST_SEARCH_FZF: boolean = true;
