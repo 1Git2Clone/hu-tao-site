@@ -1,4 +1,4 @@
-import { TECH_URLS } from './projects';
+import { TECH_URLS } from './tech';
 
 export type Tech = keyof typeof TECH_URLS;
 

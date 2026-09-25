@@ -1,14 +1,11 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import type { PostModule } from '$lib/data/posts';
-import { BLOG_ITEMS_EXTENSION } from '$lib/utils/consts';
+import { POSTS } from '$lib/server/posts';
 
 export const prerender = true;
 
 const SITE_URL = 'https://1g2c.netlify.app';
 
 const routePages = import.meta.glob('/src/routes/**/+page.svelte', { eager: true });
-
-const posts = import.meta.glob<PostModule>('/src/lib/content/posts/*.md', { eager: true });
 
 function routeFromPagePath(path: string): string {
 	const route = path.replace('/src/routes', '').replace('/+page.svelte', '');
@@ -35,14 +32,8 @@ function urlEntry(loc: string, lastmod?: string): string {
 export const GET: RequestHandler = () => {
 	const staticEntries = STATIC_ROUTES.map((route) => urlEntry(`${SITE_URL}${route}`));
 
-	const postEntries = Object.entries(posts).map(([path, mod]) => {
-		const filename = path.split('/').pop() ?? '';
-		const slug = filename.endsWith(`.${BLOG_ITEMS_EXTENSION}`)
-			? filename.slice(0, -`.${BLOG_ITEMS_EXTENSION}`.length)
-			: filename;
-		const lastmod = mod.metadata?.date
-			? new Date(mod.metadata.date).toISOString().split('T')[0]
-			: undefined;
+	const postEntries = POSTS.map(({ slug, metadata }) => {
+		const lastmod = metadata.date ? new Date(metadata.date).toISOString().split('T')[0] : undefined;
 		return urlEntry(`${SITE_URL}/blogs/${slug}`, lastmod);
 	});
 

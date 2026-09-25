@@ -21,7 +21,7 @@
 
 <main
 	id="main-content"
-	class="background relative mx-auto w-full overflow-x-hidden p-[var(--main-padding)]"
+	class="background relative mx-auto w-full overflow-x-hidden p-[var(--main-padding)] text-justify"
 	style="min-height: calc(100dvh - var(--header-height) - var(--footer-height));"
 >
 	<div class="grid-stack">

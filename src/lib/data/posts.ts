@@ -11,6 +11,10 @@ export interface Heading {
 }
 
 export interface PostMetadata {
+	/** Mandatory, unique UUIDv7 (`pnpm compute-blog-id <post.md>`). */
+	id: string;
+	/** Ids of hand-picked related posts; overrides the tag-based ranking. */
+	related?: string[];
 	title: string;
 	summary: string;
 	date: Date;
@@ -30,6 +34,10 @@ export interface PostModule {
 	default: Component;
 	metadata: PostMetadata;
 }
+
+/** `test-*` posts are fixtures: listed and routable in dev only. */
+export const isPublished = (slug: string): boolean =>
+	import.meta.env.DEV || !slug.startsWith('test-');
 
 export const postKey = (path: Paths<Post>): string => path;
 

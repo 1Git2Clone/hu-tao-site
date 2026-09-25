@@ -23,26 +23,41 @@
 }
 
 .dark {
-	--color-primary: #181818;
-	--color-textcol: #dddddd;
-	--color-subtextcol: #eeeeee;
-	--color-muted: #242424;
-	--color-tertiary: #6a6a6a;
+	/* Sampled from the background art (えしねこ, pixiv 99130119). */
+	--color-primary: #1c1a1e;
+	--color-textcol: #e6dcd7;
+	--color-subtextcol: #f4e7e0;
+	--color-muted: #2a262b;
+	--color-tertiary: #6e6264;
 
-	--color-accent: var(--color-red-400);
-	--color-accent-hover: var(--color-red-200);
-	--color-accent-bg: var(--color-red-900);
-	--color-highlight: var(--color-rose-200);
+	--color-accent: #e0766c;
+	--color-accent-hover: #f4c7bd;
+	--color-accent-bg: #7a4a47;
+	--color-highlight: #d5ada0;
 
 	--color-img-inner-border: rgba(0, 0, 0, 0.4);
 	--color-code-block: rgba(200, 100, 100, 0.1);
 }
+
+/* Headings never justify: main's text-justify would stretch a wrapped title.
+   Base layer, so a text-center utility still wins. */
+@layer base {
+	:where(h1, h2, h3, h4, h5, h6) {
+		text-align: start;
+	}
+}
+
 @layer utilities {
 	.prose {
 		--tw-prose-links: var(--color-accent);
 		--tw-prose-quote-borders: color-mix(in oklab, var(--color-accent) 80%, rgba(0, 0, 0, 0.5));
 		--tw-prose-bullets: var(--color-accent);
 		--tw-prose-counters: var(--color-accent);
+	}
+
+	/* Typography pins td to text-align: start; follow main's justify instead. */
+	.prose :where(td) {
+		text-align: inherit;
 	}
 }
 
@@ -68,39 +83,15 @@ html {
 
 .background {
 	background:
-		repeating-linear-gradient(
-			45deg,
-			transparent,
-			transparent 3px,
-			rgba(0, 0, 0, 0.06) 3px,
-			rgba(0, 0, 0, 0.06) 6px
-		),
-		repeating-linear-gradient(
-			-45deg,
-			transparent,
-			transparent 3px,
-			rgba(0, 0, 0, 0.06) 3px,
-			rgba(0, 0, 0, 0.06) 6px
-		),
+		linear-gradient(rgba(187, 187, 187, 0.55), rgba(187, 187, 187, 0.72)),
+		url('/images/hutao-night.webp') center 60% / cover no-repeat fixed,
 		var(--color-primary);
 }
 
 .dark .background {
 	background:
-		repeating-linear-gradient(
-			45deg,
-			transparent,
-			transparent 3px,
-			rgba(255, 255, 255, 0.04) 3px,
-			rgba(255, 255, 255, 0.04) 6px
-		),
-		repeating-linear-gradient(
-			-45deg,
-			transparent,
-			transparent 3px,
-			rgba(255, 255, 255, 0.04) 3px,
-			rgba(255, 255, 255, 0.04) 6px
-		),
+		linear-gradient(rgba(28, 26, 30, 0.55), rgba(28, 26, 30, 0.75)),
+		url('/images/hutao-night.webp') center 60% / cover no-repeat fixed,
 		var(--color-primary);
 }
 
@@ -269,13 +260,13 @@ h6 {
 }
 
 .box-gradient {
-	background: rgba(255, 255, 255, 0.4);
+	background: rgba(255, 255, 255, 0.65);
 	border: 1px solid var(--color-tertiary);
 	backdrop-filter: blur(2px);
 }
 
 .dark .box-gradient {
-	background: rgba(0, 0, 0, 0.5);
+	background: rgba(0, 0, 0, 0.75);
 	border: 1px solid var(--color-tertiary);
 	backdrop-filter: blur(2px);
 }
@@ -285,13 +276,19 @@ h6 {
 	box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
 }
 
+/* Heroes, the blog article, its asides and the mobile related posts sit over the
+   busiest part of the background art. */
+:is(.box-gradient.hero, article.box-gradient, aside .box-gradient, .box-gradient.related-posts) {
+	backdrop-filter: blur(6px);
+}
+
 .dark .box-gradient.hero {
 	border: 1px solid var(--color-accent);
 	box-shadow: 0 0 20px rgba(248, 113, 113, 0.15);
 }
 
 .card {
-	background: rgba(255, 255, 255, 0.4);
+	background: rgba(255, 255, 255, 0.65);
 	border: 1px solid var(--color-tertiary);
 	backdrop-filter: blur(2px);
 	transition:
@@ -301,19 +298,19 @@ h6 {
 }
 
 .card:hover {
-	background: rgba(255, 255, 255, 0.55);
+	background: rgba(255, 255, 255, 0.78);
 	border-color: var(--color-accent);
 	box-shadow: 0 0 12px rgba(220, 38, 38, 0.15);
 }
 
 .dark .card {
-	background: rgba(0, 0, 0, 0.5);
+	background: rgba(0, 0, 0, 0.75);
 	border: 1px solid var(--color-tertiary);
 	backdrop-filter: blur(2px);
 }
 
 .dark .card:hover {
-	background: rgba(0, 0, 0, 0.65);
+	background: rgba(0, 0, 0, 0.82);
 	border-color: var(--color-accent);
 	box-shadow: 0 0 12px rgba(248, 113, 113, 0.15);
 }
