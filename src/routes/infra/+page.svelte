@@ -6,11 +6,11 @@
 	/* eslint-disable svelte/no-at-html-tags */
 
 	import { marked } from 'marked';
-	import { SvelteURL } from 'svelte/reactivity';
 
-	import Card from '$lib/components/layout/Card.svelte';
 	import HeadingCopy from '$lib/components/HeadingCopy.svelte';
+	import ForceOverview from '$lib/components/infra/ForceOverview.svelte';
 	import { INFRA_STACK, PRIVATE_SERVICES, PUBLIC_SERVICES } from '$lib/content/infra/services';
+	import { OVERVIEW } from '$lib/content/infra/topology';
 	import { SITE_URL } from '$lib/utils/consts';
 
 	const title = 'Infrastructure — 1Git2Clone';
@@ -19,6 +19,8 @@
 	const canonical = `${SITE_URL}/infra`;
 
 	const SOURCE_URL = 'https://git.hu-tao.dev/hutao/vps';
+
+	let { data } = $props();
 </script>
 
 <svelte:head>
@@ -32,10 +34,14 @@
 </svelte:head>
 
 <div class="space-y-8">
+	<!-- "Infrastructure" is one long word in a monospace font: smaller on phones, and on the
+	     narrowest it wraps rather than widen the page. -->
 	<section
-		class="border-border box-gradient hero prose min-w-full rounded-lg border p-8 dark:prose-invert"
+		class="border-border box-gradient hero prose min-w-full rounded-lg border p-6 sm:p-8 dark:prose-invert"
 	>
-		<h1 id="title" class="mt-0 text-4xl font-bold tracking-tight">Infrastructure</h1>
+		<h1 id="title" class="mt-0 text-3xl font-bold tracking-tight wrap-anywhere sm:text-4xl">
+			Infrastructure
+		</h1>
 		<p class="text-lg text-subtextcol">
 			One VPS, described end to end in a single NixOS flake — disks, firewall, secrets, and every
 			container service.
@@ -66,65 +72,39 @@
 	</section>
 
 	<section
-		id="public"
-		class="border-border box-gradient scroll-mt-[var(--scroll-offset)] rounded-lg border p-8"
+		id="overview"
+		class="border-border box-gradient scroll-mt-(--scroll-offset) rounded-lg border p-4 md:p-8"
 	>
 		<HeadingCopy class="prose mb-6 min-w-full dark:prose-invert">
-			<h2 id="public-heading" class="mt-0">Public</h2>
-			<p class="mb-0">Reachable from anywhere, behind one reverse proxy and one certificate.</p>
+			<h2 id="overview-heading" class="mt-0">Overview</h2>
+			<p class="mb-0">Tap or click a box for what it does. With a mouse, drag them around.</p>
 		</HeadingCopy>
 
-		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-			{#each PUBLIC_SERVICES as service (service.name)}
-				<Card>
-					<div class="prose dark:prose-invert">
-						<h3 class="mt-0 text-xl font-semibold">
-							{#if service.page}
-								<a href={service.page} target="_blank" rel="noopener noreferrer">{service.name}</a>
-								<p class="mt-1 mb-0 font-mono text-sm break-all text-subtextcol">
-									{service.displayPage || new SvelteURL(service.page).hostname}
-								</p>
-							{:else}
-								{service.name}
-							{/if}
-						</h3>
-						<p class="mt-3">{@html marked(service.description)}</p>
-					</div>
-				</Card>
-			{/each}
-		</div>
+		<ForceOverview graph={OVERVIEW} {...data.overview} />
+	</section>
+
+	<section
+		id="public"
+		class="border-border box-gradient scroll-mt-(--scroll-offset) rounded-lg border p-8"
+	>
+		<HeadingCopy class="prose min-w-full dark:prose-invert">
+			<h2 id="public-heading" class="mt-0">Public</h2>
+			<p>Reachable from anywhere, behind one reverse proxy and one certificate.</p>
+			{@html marked(PUBLIC_SERVICES)}
+		</HeadingCopy>
 	</section>
 
 	<section
 		id="private"
-		class="border-border box-gradient scroll-mt-[var(--scroll-offset)] rounded-lg border p-8"
+		class="border-border box-gradient scroll-mt-(--scroll-offset) rounded-lg border p-8"
 	>
-		<HeadingCopy class="prose mb-6 min-w-full dark:prose-invert">
+		<HeadingCopy class="prose min-w-full dark:prose-invert">
 			<h2 id="private-heading" class="mt-0">Also Running</h2>
-			<p class="mb-0">
+			<p>
 				Private, or mine rather than yours. Listed because they are part of the same flake, not
 				linked because there is nothing useful for a visitor behind them.
 			</p>
+			{@html marked(PRIVATE_SERVICES)}
 		</HeadingCopy>
-
-		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-			{#each PRIVATE_SERVICES as service (service.name)}
-				<Card>
-					<div class="prose dark:prose-invert">
-						<h3 class="mt-0 text-xl font-semibold">
-							{#if service.page}
-								<a href={service.page} target="_blank" rel="noopener noreferrer">{service.name}</a>
-								<p class="mt-1 mb-0 font-mono text-sm break-all text-subtextcol">
-									{service.displayPage || new SvelteURL(service.page).hostname}
-								</p>
-							{:else}
-								{service.name}
-							{/if}
-						</h3>
-						<p class="mt-3">{@html marked(service.description)}</p>
-					</div>
-				</Card>
-			{/each}
-		</div>
 	</section>
 </div>

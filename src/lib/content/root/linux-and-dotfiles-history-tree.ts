@@ -90,6 +90,21 @@ glad I didn't._
 [separate repo](https://github.com/1Git2Clone/nvim-config).
 `.trim()
 				]
+			},
+			{
+				name: 'September',
+				tasks: [
+					`
+[65035b7](https://github.com/1Git2Clone/dotfiles/commit/65035b7c0ddd09393634ae590405c24cba5c2efc)
+-> The last remains of Arch Linux.
+
+After that I moved to [NixOS](https://git.hu-tao.dev/hutao/nixos-dotfiles)
+on all my home machines.
+
+During this same month I made the [vps](https://github.com/1Git2Clone/vps)
+running everything from [the infra section](/infra).
+`.trim()
+				]
 			}
 		]
 	}
