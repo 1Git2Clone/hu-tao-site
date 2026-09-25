@@ -260,13 +260,13 @@ h6 {
 }
 
 .box-gradient {
-	background: rgba(255, 255, 255, 0.4);
+	background: rgba(255, 255, 255, 0.65);
 	border: 1px solid var(--color-tertiary);
 	backdrop-filter: blur(2px);
 }
 
 .dark .box-gradient {
-	background: rgba(0, 0, 0, 0.5);
+	background: rgba(0, 0, 0, 0.75);
 	border: 1px solid var(--color-tertiary);
 	backdrop-filter: blur(2px);
 }
@@ -276,8 +276,9 @@ h6 {
 	box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
 }
 
-/* Heroes, the blog article and its TOC sit over the busiest part of the background art. */
-:is(.box-gradient.hero, article.box-gradient, aside .box-gradient) {
+/* Heroes, the blog article, its asides and the mobile related posts sit over the
+   busiest part of the background art. */
+:is(.box-gradient.hero, article.box-gradient, aside .box-gradient, .box-gradient.related-posts) {
 	backdrop-filter: blur(6px);
 }
 
@@ -287,7 +288,7 @@ h6 {
 }
 
 .card {
-	background: rgba(255, 255, 255, 0.4);
+	background: rgba(255, 255, 255, 0.65);
 	border: 1px solid var(--color-tertiary);
 	backdrop-filter: blur(2px);
 	transition:
@@ -297,19 +298,19 @@ h6 {
 }
 
 .card:hover {
-	background: rgba(255, 255, 255, 0.55);
+	background: rgba(255, 255, 255, 0.78);
 	border-color: var(--color-accent);
 	box-shadow: 0 0 12px rgba(220, 38, 38, 0.15);
 }
 
 .dark .card {
-	background: rgba(0, 0, 0, 0.5);
+	background: rgba(0, 0, 0, 0.75);
 	border: 1px solid var(--color-tertiary);
 	backdrop-filter: blur(2px);
 }
 
 .dark .card:hover {
-	background: rgba(0, 0, 0, 0.65);
+	background: rgba(0, 0, 0, 0.82);
 	border-color: var(--color-accent);
 	box-shadow: 0 0 12px rgba(248, 113, 113, 0.15);
 }
