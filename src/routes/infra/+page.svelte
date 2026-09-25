@@ -111,7 +111,16 @@
 			{#each PRIVATE_SERVICES as service (service.name)}
 				<Card>
 					<div class="prose dark:prose-invert">
-						<h3 class="mt-0 text-xl font-semibold">{service.name}</h3>
+						<h3 class="mt-0 text-xl font-semibold">
+							{#if service.page}
+								<a href={service.page} target="_blank" rel="noopener noreferrer">{service.name}</a>
+								<p class="mt-1 mb-0 font-mono text-sm break-all text-subtextcol">
+									{service.displayPage || new SvelteURL(service.page).hostname}
+								</p>
+							{:else}
+								{service.name}
+							{/if}
+						</h3>
 						<p class="mt-3">{@html marked(service.description)}</p>
 					</div>
 				</Card>
