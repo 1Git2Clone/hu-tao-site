@@ -29,7 +29,7 @@
 	>
 		<div class="hidden xl:block"></div>
 
-		<article class="border-border box-gradient rounded-lg border p-8">
+		<article class="border-border box-gradient rounded-lg border p-8 text-justify">
 			<HeadingCopy tag="div" class="prose max-w-none min-w-0 wrap-break-word dark:prose-invert">
 				{#if title}
 					<h1 id={slugify(title)}>{title}</h1>
