@@ -38,6 +38,15 @@
 	--color-img-inner-border: rgba(0, 0, 0, 0.4);
 	--color-code-block: rgba(200, 100, 100, 0.1);
 }
+
+/* Headings never justify: main's text-justify would stretch a wrapped title.
+   Base layer, so a text-center utility still wins. */
+@layer base {
+	:where(h1, h2, h3, h4, h5, h6) {
+		text-align: start;
+	}
+}
+
 @layer utilities {
 	.prose {
 		--tw-prose-links: var(--color-accent);
