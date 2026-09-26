@@ -8,31 +8,23 @@ import {
 	forceSimulation,
 	forceX,
 	forceY,
-	type Simulation,
-	type SimulationLinkDatum,
-	type SimulationNodeDatum
+	type SimulationLinkDatum
 } from 'd3-force';
 import type { Graph } from '../types/infra-graph';
-
-export type Point = { x: number; y: number };
-export type Size = { width: number; height: number };
-export type Positions = Record<string, Point>;
-/** A settled picture: the viewBox it was laid out for, and where each node sits in it. */
-export type Layout = { size: Size; positions: Positions };
-
-/** Nodes render `text-sm` in a monospace font, so a label's width is known without measuring. */
-export const NODE_HEIGHT = 32;
-const CHAR_WIDTH = 0.6 * 14;
-const PADDING_X = 13;
-export const boxWidth = (label: string) => Math.ceil(label.length * CHAR_WIDTH + 2 * PADDING_X);
-
-/** d3 leaves x and y optional until it places a node; every node here starts placed. */
-export type ForceNode = SimulationNodeDatum & Point & { id: string; halfWidth: number };
-export type ForceSimulation = Simulation<ForceNode, SimulationLinkDatum<ForceNode>>;
+import {
+	NODE_HEIGHT,
+	boxWidth,
+	clamp,
+	positionsOf,
+	type ForceNode,
+	type ForceSimulation,
+	type Layout,
+	type Point,
+	type Positions,
+	type Size
+} from './graph-geometry.ts';
 
 const GAP = 10;
-export const clamp = (value: number, min: number, max: number) =>
-	Math.min(Math.max(value, min), max);
 
 /** d3's forceCollide is for circles; these boxes are wide and short. */
 // ponytail: O(n²) pairs, fine for the dozen overview nodes; quadtree if it ever holds hundreds.
@@ -100,11 +92,6 @@ export function createSimulation(graph: Graph, size: Size, start: Positions): Fo
 		.force('bounds', forceBounds(size))
 		.stop();
 }
-
-/** Box centres, keyed by node id, to a tenth of a pixel so the page data stays small. */
-const tenth = (value: number) => Math.round(value * 10) / 10;
-export const positionsOf = (simulation: ForceSimulation): Positions =>
-	Object.fromEntries(simulation.nodes().map(({ id, x, y }) => [id, { x: tenth(x), y: tenth(y) }]));
 
 /** Runs a simulation to rest: 300 ticks is d3's own count from alpha 1 to alphaMin. */
 export function settle(graph: Graph, size: Size, start: Positions): Positions {

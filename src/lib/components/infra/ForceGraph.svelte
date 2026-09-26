@@ -8,10 +8,10 @@
 		NODE_HEIGHT,
 		boxWidth,
 		clamp,
-		createSimulation,
 		positionsOf,
+		type ForceSimulation,
 		type Layout
-	} from '$lib/data/graph-layout';
+	} from '$lib/data/graph-geometry';
 	import type { Graph, OverviewNode } from '$lib/types/infra-graph';
 
 	let {
@@ -42,15 +42,18 @@
 	);
 
 	let svg: SVGSVGElement;
-	// Stopped until a drag: then it pushes the other nodes out of the way and settles.
-	const simulation = untrack(() => createSimulation(graph, size, layout.positions)).on(
-		'tick',
-		() => (positions = positionsOf(simulation))
-	);
+	// Made on the first drag, so d3-force loads then rather than with the page: most visits
+	// never drag, and a finger never does. It pushes the other nodes out of the way and settles.
+	let simulation: Promise<ForceSimulation> | undefined;
+	const simulate = () =>
+		(simulation ??= import('$lib/data/graph-layout').then(({ createSimulation }) => {
+			const created = createSimulation(graph, size, layout.positions);
+			return created.on('tick', () => (positions = positionsOf(created)));
+		}));
 	let pressedAt = { x: 0, y: 0 };
 	let dragged = false;
 
-	onDestroy(() => simulation.stop());
+	onDestroy(() => void simulation?.then((running) => running.stop()));
 
 	// Dragging is for mice and pens. A finger on the graph belongs to the page: it scrolls,
 	// and a tap is a click. Browsers ignore touch-action inside an SVG, so there is no
@@ -70,23 +73,28 @@
 		if (!dragged && Math.hypot(clientX - pressedAt.x, clientY - pressedAt.y) < 4) return;
 		dragged = true;
 		const rect = svg.getBoundingClientRect();
-		const node = simulation.nodes()[index];
 		const x = ((clientX - rect.left) / rect.width) * size.width;
 		const y = ((clientY - rect.top) / rect.height) * size.height;
-		node.fx = clamp(x, node.halfWidth, size.width - node.halfWidth);
-		node.fy = clamp(y, NODE_HEIGHT / 2, size.height - NODE_HEIGHT / 2);
-		simulation.alphaTarget(0.3).restart();
+		void simulate().then((running) => {
+			const node = running.nodes()[index];
+			node.fx = clamp(x, node.halfWidth, size.width - node.halfWidth);
+			node.fy = clamp(y, NODE_HEIGHT / 2, size.height - NODE_HEIGHT / 2);
+			running.alphaTarget(0.3).restart();
+		});
 	}
 
 	function onpointerup(event: PointerEvent, index: number) {
 		if (!(event.currentTarget as Element).hasPointerCapture(event.pointerId)) return;
-		const node = simulation.nodes()[index];
-		node.fx = node.fy = undefined;
-		simulation.alphaTarget(0);
-		if (prefersReducedMotion.current) {
-			simulation.stop().tick(300);
-			positions = positionsOf(simulation);
-		}
+		// A press that never became a drag has no simulation to let go of.
+		void simulation?.then((running) => {
+			const node = running.nodes()[index];
+			node.fx = node.fy = undefined;
+			running.alphaTarget(0);
+			if (prefersReducedMotion.current) {
+				running.stop().tick(300);
+				positions = positionsOf(running);
+			}
+		});
 	}
 
 	function toggle(id: string) {
