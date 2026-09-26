@@ -1,12 +1,17 @@
 import { error } from '@sveltejs/kit';
 import { loadSnippets } from '$lib/utils/snippets';
-import type { PageServerLoad } from './$types';
+import type { EntryGenerator, PageServerLoad } from './$types';
 import { isPublished, type PostModule } from '$lib/data/posts';
 import { BLOG_ITEMS_EXTENSION } from '$lib/utils/consts';
 import { relatedPosts } from '$lib/data/related';
 import { POSTS } from '$lib/server/posts';
 
 const posts = import.meta.glob<PostModule>('/src/lib/content/posts/*.md', { eager: true });
+
+// Every published post is built ahead; `auto` keeps the server for any other slug,
+// like an old link ending in `.md`, which the load below still resolves.
+export const prerender = 'auto';
+export const entries: EntryGenerator = () => POSTS.map(({ slug }) => ({ slug }));
 
 export const load: PageServerLoad = async ({ params }) => {
 	const slug = params.slug.replace(`.${BLOG_ITEMS_EXTENSION}`, '');
