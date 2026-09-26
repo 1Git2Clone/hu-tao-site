@@ -1,7 +1,6 @@
 <script lang="ts">
 	// Reason: Content is written by me.
 	/* eslint-disable svelte/no-at-html-tags */
-	import { marked } from 'marked';
 	import { fly } from 'svelte/transition';
 
 	import type { OverviewNode } from '$lib/types/infra-graph';
@@ -29,6 +28,6 @@
 		</button>
 	</div>
 	<div class="prose prose-sm mt-2 text-left dark:prose-invert [&_p]:my-0">
-		{@html marked(node.description)}
+		{@html node.description}
 	</div>
 </div>

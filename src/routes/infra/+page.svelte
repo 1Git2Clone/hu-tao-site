@@ -5,12 +5,9 @@
 	// Reason: Content is written by me.
 	/* eslint-disable svelte/no-at-html-tags */
 
-	import { marked } from 'marked';
-
 	import HeadingCopy from '$lib/components/HeadingCopy.svelte';
 	import ForceOverview from '$lib/components/infra/ForceOverview.svelte';
-	import { INFRA_STACK, PRIVATE_SERVICES, PUBLIC_SERVICES } from '$lib/content/infra/services';
-	import { OVERVIEW } from '$lib/content/infra/topology';
+	import { INFRA_STACK } from '$lib/content/infra/services';
 	import { SITE_URL } from '$lib/utils/consts';
 
 	const title = 'Infrastructure — 1Git2Clone';
@@ -80,7 +77,7 @@
 			<p class="mb-0">Tap or click a box for what it does. With a mouse, drag them around.</p>
 		</HeadingCopy>
 
-		<ForceOverview graph={OVERVIEW} {...data.overview} />
+		<ForceOverview graph={data.graph} {...data.overview} />
 	</section>
 
 	<section
@@ -90,7 +87,7 @@
 		<HeadingCopy class="prose min-w-full dark:prose-invert">
 			<h2 id="public-heading" class="mt-0">Public</h2>
 			<p>Reachable from anywhere, behind one reverse proxy and one certificate.</p>
-			{@html marked(PUBLIC_SERVICES)}
+			{@html data.services.public}
 		</HeadingCopy>
 	</section>
 
@@ -104,7 +101,7 @@
 				Private, or mine rather than yours. Listed because they are part of the same flake, not
 				linked because there is nothing useful for a visitor behind them.
 			</p>
-			{@html marked(PRIVATE_SERVICES)}
+			{@html data.services.private}
 		</HeadingCopy>
 	</section>
 </div>
