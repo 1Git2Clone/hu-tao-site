@@ -16,6 +16,11 @@
 	const thumb = (() => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`)();
 </script>
 
+<!-- The thumbnail is a CSS background, found late: warm up its host, on posts with a video only. -->
+<svelte:head>
+	<link rel="preconnect" href="https://i.ytimg.com" />
+</svelte:head>
+
 <div class="video-container">
 	{#if isLoaded}
 		<iframe
