@@ -16,7 +16,7 @@ export default {
 	extensions: ['.svelte', '.md'],
 	preprocess: [vitePreprocess()],
 	kit: {
-		inlineStyleThreshold: 5000,
+		inlineStyleThreshold: Infinity,
 		adapter: adapter()
 	}
 };

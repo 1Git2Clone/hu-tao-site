@@ -1,4 +1,5 @@
 <script lang="ts">
+	import '$lib/styles/katex.css';
 	import { page } from '$app/state';
 	import { slugify } from '$lib/utils/slugify';
 	import HeadingCopy from '$lib/components/HeadingCopy.svelte';
