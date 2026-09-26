@@ -7,7 +7,7 @@ export type GraphNode = {
 };
 
 export type OverviewNode = GraphNode & {
-	/** Markdown, one or two sentences. */
+	/** Markdown, one or two sentences, in `topology.ts`; the page's server load renders it to HTML. */
 	description: string;
 };
 

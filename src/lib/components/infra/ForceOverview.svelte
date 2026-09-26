@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ForceGraph from './ForceGraph.svelte';
-	import type { Layout } from '$lib/data/graph-layout';
+	import type { Layout } from '$lib/data/graph-geometry';
 	import type { Graph, OverviewNode } from '$lib/types/infra-graph';
 
 	let { graph, wide, tall }: { graph: Graph<OverviewNode>; wide: Layout; tall: Layout } = $props();
