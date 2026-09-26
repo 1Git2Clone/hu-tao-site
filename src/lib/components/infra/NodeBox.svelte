@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { NODE_HEIGHT, boxWidth } from '$lib/data/graph-layout';
+	import { NODE_HEIGHT, boxWidth } from '$lib/data/graph-geometry';
 	import type { NodeKind } from '$lib/types/infra-graph';
 
 	let {

@@ -1,4 +1,4 @@
-import type { Size } from '../../data/graph-layout';
+import type { Size } from '../../data/graph-geometry';
 import type { Graph, GraphLink, OverviewNode } from '../../types/infra-graph';
 
 const link = (source: string, target: string): GraphLink => ({ source, target });
