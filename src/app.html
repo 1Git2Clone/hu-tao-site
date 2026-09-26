@@ -21,14 +21,8 @@
 
 		%sveltekit.head%
 
-		<link
-			rel="preload"
-			href="/fonts/JetBrainsMonoNerdFont-Regular-Optimized.woff2"
-			as="font"
-			type="font/woff2"
-			crossorigin
-			fetchpriority="high"
-		/>
+		<!-- No font preload: with the CSS inlined, @font-face is found just as early, and the
+		     preload made Chrome often hold back the first paint by one to two seconds. -->
 		<link rel="icon" href="/favicon.ico" />
 	</head>
 	<body data-sveltekit-preload-data="hover">
