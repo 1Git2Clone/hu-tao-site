@@ -132,7 +132,7 @@ html {
 
 	background:
 		linear-gradient(rgba(187, 187, 187, 0.45), rgba(187, 187, 187, 0.52)),
-		url('/images/bg.jpg') center 60% / cover no-repeat fixed,
+		url('/images/bg.webp') center 60% / cover no-repeat fixed,
 		var(--color-primary);
 
 	filter: invert(1) hue-rotate(180deg) saturate(0.7);
@@ -141,7 +141,7 @@ html {
 .dark #main-content::before {
 	background:
 		linear-gradient(rgba(28, 26, 30, 0.35), rgba(28, 26, 30, 0.45)),
-		url('/images/bg.jpg') center 60% / cover no-repeat fixed,
+		url('/images/bg.webp') center 60% / cover no-repeat fixed,
 		var(--color-primary);
 	filter: none;
 }
