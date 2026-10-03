@@ -119,18 +119,31 @@ html {
 	scrollbar-gutter: stable;
 }
 
-.background {
-	background:
-		linear-gradient(rgba(187, 187, 187, 0.55), rgba(187, 187, 187, 0.72)),
-		url('/images/hutao-night.webp') center 60% / cover no-repeat fixed,
-		var(--color-primary);
+#main-content {
+	position: relative;
+	isolation: isolate;
 }
 
-.dark .background {
+#main-content::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+
 	background:
-		linear-gradient(rgba(28, 26, 30, 0.55), rgba(28, 26, 30, 0.75)),
-		url('/images/hutao-night.webp') center 60% / cover no-repeat fixed,
+		linear-gradient(rgba(187, 187, 187, 0.45), rgba(187, 187, 187, 0.52)),
+		url('/images/bg.jpg') center 60% / cover no-repeat fixed,
 		var(--color-primary);
+
+	filter: invert(1) hue-rotate(180deg) saturate(0.7);
+}
+
+.dark #main-content::before {
+	background:
+		linear-gradient(rgba(28, 26, 30, 0.35), rgba(28, 26, 30, 0.45)),
+		url('/images/bg.jpg') center 60% / cover no-repeat fixed,
+		var(--color-primary);
+	filter: none;
 }
 
 .background-mobile-nav {
