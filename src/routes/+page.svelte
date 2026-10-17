@@ -25,7 +25,7 @@
 	<meta property="og:description" content={description} />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content={canonical} />
-	<meta property="og:image" content="https://1g2c.netlify.app/og-image.jpg" />
+	<meta property="og:image" content={`${SITE_URL}/og-image.jpg`} />
 </svelte:head>
 
 <div class="space-y-8">

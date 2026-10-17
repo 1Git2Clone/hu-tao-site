@@ -6,4 +6,4 @@ export const SITE_TAGLINE = 'Building AI integrations, APIs, data pipelines, and
 export const CURRENT_YEAR = new Date().getFullYear();
 export const BLOG_ITEMS_EXTENSION: 'md' | 'mdx' | 'svx' = 'md';
 export const EMAIL = 'ivan@hu-tao.dev';
-export const SITE_URL = 'https://1g2c.netlify.app';
+export const SITE_URL = 'https://hu-tao.dev';

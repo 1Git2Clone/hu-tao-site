@@ -3,7 +3,7 @@ import { POSTS } from '$lib/server/posts';
 
 export const prerender = true;
 
-const SITE_URL = 'https://1g2c.netlify.app';
+import { SITE_URL } from '$lib/utils/consts';
 
 const routePages = import.meta.glob('/src/routes/**/+page.svelte', { eager: true });
 
