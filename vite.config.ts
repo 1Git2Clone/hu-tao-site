@@ -1,7 +1,7 @@
 import tailwindcss from '@tailwindcss/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { skavex } from '@skavex/skavex/vite';
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vite-plus';
 import path from 'path';
 
 import { remarkReadingTime } from './plugins/remark/reading-time.js';
@@ -41,5 +41,25 @@ export default defineConfig({
 	resolve: { alias: { $lib: path.resolve('./src/lib') } },
 	server: {
 		host: true
+	},
+
+	// Oxfmt, set up the way Prettier was. It does not format .svelte files yet.
+	fmt: {
+		useTabs: true,
+		singleQuote: true,
+		trailingComma: 'none',
+		printWidth: 100,
+		ignorePatterns: [
+			'build/**',
+			'.svelte-kit/**',
+			'static/**',
+			'pnpm-lock.yaml',
+			'package-lock.json'
+		]
+	},
+
+	lint: {
+		ignorePatterns: ['build/**', '.svelte-kit/**', 'static/**'],
+		options: { typeAware: true }
 	}
 });
