@@ -1,6 +1,4 @@
 <script lang="ts">
-	// Reason: Content is written by me.
-	/* eslint-disable svelte/no-at-html-tags */
 	import { fly } from 'svelte/transition';
 
 	import type { OverviewNode } from '$lib/types/infra-graph';

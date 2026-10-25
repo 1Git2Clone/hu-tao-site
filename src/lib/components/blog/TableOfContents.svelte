@@ -1,6 +1,4 @@
 <script lang="ts">
-	// Reason: Re-rendering already rendered content.
-	/* eslint-disable svelte/no-at-html-tags */
 	import { onMount } from 'svelte';
 
 	type Heading = { id: string; html: string; level: number };

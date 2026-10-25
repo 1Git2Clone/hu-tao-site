@@ -1,10 +1,4 @@
 <script lang="ts">
-	// Reason: Supposed to be external urls
-	/* eslint-disable svelte/no-navigation-without-resolve */
-
-	// Reason: Content is written by me.
-	/* eslint-disable svelte/no-at-html-tags */
-
 	import HeadingCopy from '$lib/components/HeadingCopy.svelte';
 	import ForceOverview from '$lib/components/infra/ForceOverview.svelte';
 	import { INFRA_STACK } from '$lib/content/infra/services';

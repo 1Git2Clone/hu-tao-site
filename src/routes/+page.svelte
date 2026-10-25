@@ -1,7 +1,4 @@
 <script lang="ts">
-	// Reason: Supposed to be external urls
-	/* eslint-disable svelte/no-navigation-without-resolve */
-
 	import { resolve } from '$app/paths';
 	import HeadingCopy from '$lib/components/HeadingCopy.svelte';
 	import { SKILLS } from '$lib/content/root/skills';
