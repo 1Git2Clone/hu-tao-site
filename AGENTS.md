@@ -174,7 +174,7 @@ bun run build        # Production build
 bun run preview      # Preview production build
 bun run check        # Type-check with svelte-check
 bun run lint         # Oxfmt + Oxlint check (Vite+)
-bun run format       # Auto-format with Oxfmt (not .svelte files)
+bun run format       # Auto-format with Oxfmt
 bash install_required_font_symbols.sh  # Re-subset font after adding new characters
 ```
 
