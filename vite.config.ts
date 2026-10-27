@@ -43,12 +43,14 @@ export default defineConfig({
 		host: true
 	},
 
-	// Oxfmt, set up the way Prettier was. It does not format .svelte files yet.
+	// Oxfmt, set up the way Prettier and its svelte and tailwindcss plugins were.
 	fmt: {
 		useTabs: true,
 		singleQuote: true,
 		trailingComma: 'none',
 		printWidth: 100,
+		svelte: {},
+		sortTailwindcss: { stylesheet: './src/routes/layout.css' },
 		ignorePatterns: [
 			'build/**',
 			'.svelte-kit/**',
