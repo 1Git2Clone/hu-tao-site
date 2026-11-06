@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { pushState } from "$app/navigation";
 
   type Heading = { id: string; html: string; level: number };
 
@@ -23,6 +24,19 @@
     headingPositions = headings.map((el) => ({ id: el.id, top: el.offsetTop }));
     cachedInnerHeight = window.innerHeight;
   };
+
+  // Smooth on a click here only: elsewhere a jump (back, a shared link) must
+  // land at once.
+  function scrollTo(event: MouseEvent, id: string) {
+    const target = document.getElementById(id);
+    if (!target || event.button || event.metaKey || event.ctrlKey) return;
+    if (event.shiftKey || event.altKey) return;
+
+    event.preventDefault();
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    target.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+    pushState(`#${id}`, {});
+  }
 
   onMount(() => {
     const header = document.querySelector("header") as HTMLElement;
@@ -72,6 +86,7 @@
         <li>
           <a
             href="#{id}"
+            onclick={(e) => scrollTo(e, id)}
             class="block text-sm break-words transition-colors duration-200
                           {isMobile ? '' : '-ml-px border-l pl-4'}
                           {level === 3
