@@ -2,27 +2,11 @@
   import HeadingCopy from "$lib/components/HeadingCopy.svelte";
   import ForceOverview from "$lib/components/infra/ForceOverview.svelte";
   import { INFRA_STACK } from "$lib/content/infra/services";
-  import { SITE_URL } from "$lib/utils/consts";
-
-  const title = "Infrastructure — 1Git2Clone";
-  const description =
-    "A self-hosted VPS described entirely in one NixOS flake: git hosting, CI, status, search, observability, and backups.";
-  const canonical = `${SITE_URL}/infra`;
 
   const SOURCE_URL = "https://git.hu-tao.dev/hutao/vps";
 
   let { data } = $props();
 </script>
-
-<svelte:head>
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <link rel="canonical" href={canonical} />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={canonical} />
-</svelte:head>
 
 <div class="space-y-8">
   <!-- "Infrastructure" is one long word in a monospace font: smaller on phones, and on the

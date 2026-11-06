@@ -3,27 +3,11 @@
   import HeadingCopy from "$lib/components/HeadingCopy.svelte";
   import { SKILLS } from "$lib/content/root/skills";
   import { TECH_URLS } from "$lib/content/root/tech";
-  import { EMAIL, GITHUB_PROFILE_NAME, SITE_URL } from "$lib/utils/consts";
-
-  const title = "1Git2Clone";
-  const description =
-    'A dev with the horrible habit of "doing it myself". A NixOS-described VPS, Rust side projects, and AI integration by day.';
-  const canonical = `${SITE_URL}/`;
+  import { EMAIL, GITHUB_PROFILE_NAME } from "$lib/utils/consts";
 
   const FORGEJO_URL = "https://git.hu-tao.dev/hutao";
   const GITHUB_URL = `https://github.com/${GITHUB_PROFILE_NAME}`;
 </script>
-
-<svelte:head>
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <link rel="canonical" href={canonical} />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={canonical} />
-  <meta property="og:image" content={`${SITE_URL}/og-image.jpg`} />
-</svelte:head>
 
 <div class="space-y-8">
   <section

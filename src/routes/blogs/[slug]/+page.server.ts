@@ -38,6 +38,8 @@ export const load: PageServerLoad = async ({ params }) => {
   }));
 
   return {
+    // Without a legacy `.md`, so `<Seo>` builds the canonical URL from it.
+    slug,
     metadata: postModule.metadata,
     snippets,
     related,
