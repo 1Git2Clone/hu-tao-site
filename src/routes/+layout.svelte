@@ -4,6 +4,7 @@
   import { ModeWatcher } from "mode-watcher";
   import Header from "$lib/components/layout/Header.svelte";
   import Footer from "$lib/components/layout/Footer.svelte";
+  import Background from "$lib/components/layout/Background.svelte";
 
   import Seo from "$lib/components/layout/Seo.svelte";
 
@@ -19,6 +20,7 @@
   class="background relative mx-auto w-full overflow-x-hidden p-(--main-padding) text-justify"
   style="min-height: calc(100dvh - var(--header-height) - var(--footer-height));"
 >
+  <Background />
   <div class="grid-stack">
     {@render children()}
   </div>
