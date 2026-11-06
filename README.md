@@ -237,5 +237,8 @@ build
 
 [MIT](LICENSE), except for third-party files, which keep their own licenses:
 
+- `src/lib/vendor/faulty-terminal/`: ported from
+  [React Bits](https://github.com/DavidHDev/react-bits), MIT + Commons Clause.
+  See its [`LICENSE.md`](src/lib/vendor/faulty-terminal/LICENSE.md).
 - `static/fonts/`: JetBrains Mono Nerd Font and the KaTeX fonts.
 - `static/images/`: the art belongs to its artists.

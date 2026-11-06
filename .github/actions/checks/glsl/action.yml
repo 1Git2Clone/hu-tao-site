@@ -1,0 +1,10 @@
+name: GLSL
+description: Validates the shaders with glslangValidator.
+
+runs:
+  using: composite
+  steps:
+    - run: scripts/install-glslang.sh
+      shell: bash
+    - run: scripts/check-glsl.sh
+      shell: bash

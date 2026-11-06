@@ -27,6 +27,8 @@
             # What the `lint-ci` job runs.
             pkgs.actionlint
             pkgs.shellcheck
+            # What the `glsl` job runs.
+            pkgs.glslang
           ];
         };
       });

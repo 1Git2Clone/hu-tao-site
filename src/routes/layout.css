@@ -20,6 +20,10 @@
 
   --color-img-inner-border: rgba(255, 255, 255, 0.4);
   --color-code-block: rgba(20, 4, 4, 1);
+
+  /* The faulty terminal's glyphs. A hex value: the shader parses it, and
+     lightMode turns it into ink on the light theme. */
+  --color-terminal-tint: #642931;
 }
 
 .dark {
@@ -149,6 +153,14 @@ html {
     linear-gradient(rgba(28, 26, 30, 0.35), rgba(28, 26, 30, 0.45)),
     url("/images/bg.webp") center 60% / cover no-repeat fixed,
     var(--color-primary);
+  filter: none;
+}
+
+/* With WebGL 2 the faulty terminal draws over a plain page, and the art above is
+   the fallback. app.html sets .webgl; Background.svelte takes it away again if
+   the terminal cannot start. */
+.webgl #main-content::before {
+  background: var(--color-primary);
   filter: none;
 }
 
