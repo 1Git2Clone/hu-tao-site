@@ -1,5 +1,5 @@
 <script lang="ts">
-  import HeadingCopy from "$lib/components/HeadingCopy.svelte";
+  import Term from "$lib/components/layout/Term.svelte";
   import ForceOverview from "$lib/components/infra/ForceOverview.svelte";
   import { INFRA_STACK } from "$lib/content/infra/services";
 
@@ -8,19 +8,18 @@
   let { data } = $props();
 </script>
 
-<div class="space-y-8">
-  <!-- "Infrastructure" is one long word in a monospace font: smaller on phones, and on the
-	     narrowest it wraps rather than widen the page. -->
-  <section
-    class="border-border box-gradient hero prose min-w-full rounded-lg border p-6 sm:p-8 dark:prose-invert"
+<div class="mx-auto w-full max-w-4xl space-y-8">
+  <Term
+    label="Infrastructure"
+    level={1}
+    id="title"
+    path="~/infra"
+    cmd="cat README.md"
+    cursor
+    hero
+    bodyClass="prose min-w-full px-4 pt-4 pb-6 sm:px-8 dark:prose-invert"
   >
-    <h1
-      id="title"
-      class="mt-0 text-3xl font-bold tracking-tight wrap-anywhere sm:text-4xl"
-    >
-      Infrastructure
-    </h1>
-    <p class="text-lg text-subtextcol">
+    <p class="mt-0 text-lg text-subtextcol">
       One VPS, described end to end in a single NixOS flake — disks, firewall,
       secrets, and every container service.
     </p>
@@ -36,14 +35,12 @@
         Read the flake <span aria-hidden="true">→</span>
       </a>
     </p>
-  </section>
+  </Term>
 
-  <section class="border-border box-gradient rounded-lg border p-4">
-    <ul class="flex flex-wrap justify-center gap-2">
+  <Term label="Stack" id="stack" path="~/infra" cmd="ls stack/">
+    <ul class="flex flex-wrap gap-2">
       {#each INFRA_STACK as tech (tech.name)}
-        <li
-          class="border-border card inline-block rounded border px-2 py-1 text-sm"
-        >
+        <li class="card inline-block px-2 py-1 text-sm">
           <a
             href={tech.url}
             target="_blank"
@@ -55,47 +52,41 @@
         </li>
       {/each}
     </ul>
-  </section>
+  </Term>
 
-  <section
-    id="overview"
-    class="border-border box-gradient scroll-mt-(--scroll-offset) rounded-lg border p-4 md:p-8"
-  >
-    <HeadingCopy class="prose mb-6 min-w-full dark:prose-invert">
-      <h2 id="overview-heading" class="mt-0">Overview</h2>
-      <p class="mb-0">
-        Tap or click a box for what it does. With a mouse, drag them around.
-      </p>
-    </HeadingCopy>
+  <Term label="Overview" id="overview" path="~/infra" cmd="tree">
+    <p class="mt-0 mb-6">
+      Tap or click a box for what it does. With a mouse, drag them around.
+    </p>
 
     <ForceOverview graph={data.graph} {...data.overview} />
-  </section>
+  </Term>
 
-  <section
+  <Term
+    label="Public"
     id="public"
-    class="border-border box-gradient scroll-mt-(--scroll-offset) rounded-lg border p-8"
+    path="~/infra"
+    cmd="ls public/"
+    bodyClass="prose min-w-full px-4 pt-4 pb-6 sm:px-8 dark:prose-invert"
   >
-    <HeadingCopy class="prose min-w-full dark:prose-invert">
-      <h2 id="public-heading" class="mt-0">Public</h2>
-      <p>
-        Reachable from anywhere, behind one reverse proxy and one certificate.
-      </p>
-      {@html data.services.public}
-    </HeadingCopy>
-  </section>
+    <p class="mt-0">
+      Reachable from anywhere, behind one reverse proxy and one certificate.
+    </p>
+    {@html data.services.public}
+  </Term>
 
-  <section
+  <Term
+    label="Also Running"
     id="private"
-    class="border-border box-gradient scroll-mt-(--scroll-offset) rounded-lg border p-8"
+    path="~/infra"
+    cmd="ls private/"
+    bodyClass="prose min-w-full px-4 pt-4 pb-6 sm:px-8 dark:prose-invert"
   >
-    <HeadingCopy class="prose min-w-full dark:prose-invert">
-      <h2 id="private-heading" class="mt-0">Also Running</h2>
-      <p>
-        Private, or mine rather than yours. Listed because they are part of the
-        same flake, not linked because there is nothing useful for a visitor
-        behind them.
-      </p>
-      {@html data.services.private}
-    </HeadingCopy>
-  </section>
+    <p class="mt-0">
+      Private, or mine rather than yours. Listed because they are part of the
+      same flake, not linked because there is nothing useful for a visitor
+      behind them.
+    </p>
+    {@html data.services.private}
+  </Term>
 </div>

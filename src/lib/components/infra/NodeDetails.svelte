@@ -19,7 +19,7 @@
 
 <div
   transition:fly={{ y: 12, duration: 200 }}
-  class={["card absolute z-10 rounded-lg p-4", placement]}
+  class={["card absolute z-10 p-4", placement]}
   {style}
 >
   <div class="flex items-start justify-between gap-4">

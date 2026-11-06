@@ -4,6 +4,7 @@
   import { POST_SEARCH_FZF, postKey } from "$lib/data/posts";
   import { resolve } from "$app/paths";
   import Card from "$lib/components/layout/Card.svelte";
+  import Term from "$lib/components/layout/Term.svelte";
   import Pagination from "$lib/components/Pagination.svelte";
   import { SvelteURLSearchParams } from "svelte/reactivity";
   import { goto } from "$app/navigation";
@@ -75,15 +76,22 @@
 <svelte:window onkeydown={handleKeydown} />
 
 <div
-  class="grid h-full grid-cols-1 gap-2 space-y-8"
+  class="mx-auto grid h-full w-full max-w-4xl grid-cols-1 gap-2 space-y-8"
   style="grid-template-rows: auto auto 1fr auto;"
 >
-  <section
-    class="border-border box-gradient row-start-1 flex flex-col items-center rounded-lg border p-8"
+  <Term
+    label="Blogs"
+    level={1}
+    id="title"
+    path="~/blogs"
+    cmd="ls"
+    cursor
+    hero
+    class="row-start-1"
+    bodyClass="flex flex-col items-center px-4 pt-4 pb-6 sm:px-8"
   >
-    <h1 class="text-center text-4xl font-bold tracking-tight">Blogs</h1>
     <div
-      class="border-border bg-background mt-6 flex w-full max-w-md items-center gap-2 rounded border px-2 py-1 transition-shadow focus-within:ring-2 focus-within:ring-primary"
+      class="flex w-full max-w-md items-center gap-2 border border-frame px-2 py-1 transition-shadow focus-within:ring-2 focus-within:ring-primary"
     >
       <span
         class="text-muted-foreground flex size-10 items-center justify-center text-xl leading-none"
@@ -112,7 +120,7 @@
         {n}/{N} results for search: "<b>{searchQuery.trim()}</b>".
       {/if}
     </p>
-  </section>
+  </Term>
 
   <section class="row-start-2 grid gap-6 md:grid-cols-2">
     {#each searchDisplay as result (result.item.slug)}
