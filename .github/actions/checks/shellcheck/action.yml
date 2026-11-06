@@ -1,0 +1,8 @@
+name: shellcheck
+description: Lints the repo's shell scripts. shellcheck ships on the runner image.
+
+runs:
+  using: composite
+  steps:
+    - run: shellcheck scripts/*.sh install_required_font_symbols.sh
+      shell: bash

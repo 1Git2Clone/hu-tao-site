@@ -1,263 +1,279 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @plugin '@tailwindcss/forms' {
-	strategy: 'class';
+  strategy: "class";
 }
 @plugin '@tailwindcss/typography' {
-	strategy: 'class';
+  strategy: "class";
 }
 @custom-variant dark (&:where(.dark, .dark *));
 @theme {
-	--color-primary: #bbbbbb;
-	--color-textcol: #333333;
-	--color-subtextcol: #111111;
-	--color-muted: #eaeaea;
-	--color-tertiary: #9e9e9e;
+  --color-primary: #bbbbbb;
+  --color-textcol: #333333;
+  --color-subtextcol: #111111;
+  --color-muted: #eaeaea;
+  --color-tertiary: #9e9e9e;
 
-	--color-accent: var(--color-red-700);
-	--color-accent-hover: color-mix(in oklab, var(--color-red-800) 60%, black);
-	--color-accent-bg: var(--color-red-900);
-	--color-highlight: color-mix(in oklab, var(--color-red-700) 60%, black);
+  --color-accent: var(--color-red-700);
+  --color-accent-hover: color-mix(in oklab, var(--color-red-800) 60%, black);
+  --color-accent-bg: var(--color-red-900);
+  --color-highlight: color-mix(in oklab, var(--color-red-700) 60%, black);
 
-	--color-img-inner-border: rgba(255, 255, 255, 0.4);
-	--color-code-block: rgba(20, 4, 4, 1);
+  --color-img-inner-border: rgba(255, 255, 255, 0.4);
+  --color-code-block: rgba(20, 4, 4, 1);
 }
 
 .dark {
-	/* Sampled from the background art (えしねこ, pixiv 99130119). */
-	--color-primary: #1c1a1e;
-	--color-textcol: #e6dcd7;
-	--color-subtextcol: #f4e7e0;
-	--color-muted: #2a262b;
-	--color-tertiary: #6e6264;
+  /* Sampled from the background art (えしねこ, pixiv 99130119). */
+  --color-primary: #1c1a1e;
+  --color-textcol: #e6dcd7;
+  --color-subtextcol: #f4e7e0;
+  --color-muted: #2a262b;
+  --color-tertiary: #6e6264;
 
-	--color-accent: #e0766c;
-	--color-accent-hover: #f4c7bd;
-	--color-accent-bg: #7a4a47;
-	--color-highlight: #d5ada0;
+  --color-accent: #e0766c;
+  --color-accent-hover: #f4c7bd;
+  --color-accent-bg: #7a4a47;
+  --color-highlight: #d5ada0;
 
-	--color-img-inner-border: rgba(0, 0, 0, 0.4);
-	--color-code-block: rgba(200, 100, 100, 0.1);
+  --color-img-inner-border: rgba(0, 0, 0, 0.4);
+  --color-code-block: rgba(200, 100, 100, 0.1);
 }
 
 /* Headings never justify: main's text-justify would stretch a wrapped title.
    Base layer, so a text-center utility still wins. */
 @layer base {
-	:where(h1, h2, h3, h4, h5, h6) {
-		text-align: start;
-	}
+  :where(h1, h2, h3, h4, h5, h6) {
+    text-align: start;
+  }
 }
 
 @layer utilities {
-	.prose {
-		--tw-prose-links: var(--color-accent);
-		--tw-prose-quote-borders: color-mix(in oklab, var(--color-accent) 80%, rgba(0, 0, 0, 0.5));
-		--tw-prose-bullets: var(--color-accent);
-		--tw-prose-counters: var(--color-accent);
-	}
+  .prose {
+    --tw-prose-links: var(--color-accent);
+    --tw-prose-quote-borders: color-mix(
+      in oklab,
+      var(--color-accent) 80%,
+      rgba(0, 0, 0, 0.5)
+    );
+    --tw-prose-bullets: var(--color-accent);
+    --tw-prose-counters: var(--color-accent);
+  }
 
-	/* Typography pins td to text-align: start; follow main's justify instead. */
-	.prose :where(td) {
-		text-align: inherit;
-	}
+  /* Typography pins td to text-align: start; follow main's justify instead. */
+  .prose :where(td) {
+    text-align: inherit;
+  }
 
-	/* A two-column table names things and says what they are: Projects on home, the
+  /* A two-column table names things and says what they are: Projects on home, the
 	   services on /infra. The name column is start-aligned, centred on its row, and never
 	   broken mid-word. On phones each row stacks, name over description. Wider tables are
 	   data, and keep their grid. */
-	.prose :where(table:not(:has(th:nth-child(3)))) :where(td:first-child) {
-		text-align: start;
-		vertical-align: middle;
-	}
+  .prose :where(table:not(:has(th:nth-child(3)))) :where(td:first-child) {
+    text-align: start;
+    vertical-align: middle;
+  }
 
-	/* Side by side, a name keeps to one line. Stacked on a phone it has the full width,
+  /* Side by side, a name keeps to one line. Stacked on a phone it has the full width,
 	   and a host like "syncthing.hu-tao.dev • Tailnet only" may wrap at its spaces. */
-	@media (width >= 40rem) {
-		.prose :where(table:not(:has(th:nth-child(3)))) :where(td:first-child) {
-			white-space: nowrap;
-		}
-	}
+  @media (width >= 40rem) {
+    .prose :where(table:not(:has(th:nth-child(3)))) :where(td:first-child) {
+      white-space: nowrap;
+    }
+  }
 
-	@media (width < 40rem) {
-		.prose :where(table:not(:has(th:nth-child(3)))) :where(thead) {
-			display: none;
-		}
+  @media (width < 40rem) {
+    .prose :where(table:not(:has(th:nth-child(3)))) :where(thead) {
+      display: none;
+    }
 
-		/* Stacked, the cells of a row read as one entry: padding goes around the row, not
+    /* Stacked, the cells of a row read as one entry: padding goes around the row, not
 		   between its cells. */
-		.prose :where(table:not(:has(th:nth-child(3)))) :where(td) {
-			display: block;
-			padding-inline: 0;
-		}
+    .prose :where(table:not(:has(th:nth-child(3)))) :where(td) {
+      display: block;
+      padding-inline: 0;
+    }
 
-		.prose :where(table:not(:has(th:nth-child(3)))) :where(td:first-child) {
-			padding-bottom: 0;
-		}
+    .prose :where(table:not(:has(th:nth-child(3)))) :where(td:first-child) {
+      padding-bottom: 0;
+    }
 
-		.prose :where(table:not(:has(th:nth-child(3)))) :where(td:last-child) {
-			padding-top: 0;
-		}
-	}
+    .prose :where(table:not(:has(th:nth-child(3)))) :where(td:last-child) {
+      padding-top: 0;
+    }
+  }
 }
 
 :root {
-	--header-height: 4rem;
-	--footer-height: 6rem;
-	--main-padding: 1.5rem;
+  --header-height: 4rem;
+  --footer-height: 6rem;
+  --main-padding: 1.5rem;
 
-	/* Everything vertical that is not page content. Subtract from 100dvh. */
-	--layout-chrome: calc(var(--header-height) + var(--footer-height) + var(--main-padding) * 2);
+  /* Everything vertical that is not page content. Subtract from 100dvh. */
+  --layout-chrome: calc(
+    var(--header-height) + var(--footer-height) + var(--main-padding) * 2
+  );
 
-	/* Clears the sticky header so an anchored heading is not hidden behind it. */
-	--scroll-offset: calc(var(--header-height) + var(--main-padding));
+  /* Clears the sticky header so an anchored heading is not hidden behind it. */
+  --scroll-offset: calc(var(--header-height) + var(--main-padding));
 }
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-	scrollbar-gutter: stable;
+  scrollbar-gutter: stable;
 }
 
 #main-content {
-	position: relative;
-	isolation: isolate;
+  position: relative;
+  isolation: isolate;
 }
 
 #main-content::before {
-	content: '';
-	position: absolute;
-	inset: 0;
-	z-index: -1;
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
 
-	background:
-		linear-gradient(rgba(187, 187, 187, 0.45), rgba(187, 187, 187, 0.52)),
-		url('/images/bg.webp') center 60% / cover no-repeat fixed,
-		var(--color-primary);
+  background:
+    linear-gradient(rgba(187, 187, 187, 0.45), rgba(187, 187, 187, 0.52)),
+    url("/images/bg.webp") center 60% / cover no-repeat fixed,
+    var(--color-primary);
 
-	filter: invert(1) hue-rotate(180deg) saturate(0.7);
+  filter: invert(1) hue-rotate(180deg) saturate(0.7);
 }
 
 .dark #main-content::before {
-	background:
-		linear-gradient(rgba(28, 26, 30, 0.35), rgba(28, 26, 30, 0.45)),
-		url('/images/bg.webp') center 60% / cover no-repeat fixed,
-		var(--color-primary);
-	filter: none;
+  background:
+    linear-gradient(rgba(28, 26, 30, 0.35), rgba(28, 26, 30, 0.45)),
+    url("/images/bg.webp") center 60% / cover no-repeat fixed,
+    var(--color-primary);
+  filter: none;
 }
 
 .background-mobile-nav {
-	background:
-		repeating-linear-gradient(
-			45deg,
-			transparent,
-			transparent 3px,
-			rgba(0, 0, 0, 0.06) 3px,
-			rgba(0, 0, 0, 0.06) 6px
-		),
-		repeating-linear-gradient(
-			-45deg,
-			transparent,
-			transparent 3px,
-			rgba(0, 0, 0, 0.06) 3px,
-			rgba(0, 0, 0, 0.06) 6px
-		),
-		linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.8) 50%, transparent 100%),
-		var(--color-primary);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.06) 3px,
+      rgba(0, 0, 0, 0.06) 6px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.06) 3px,
+      rgba(0, 0, 0, 0.06) 6px
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.8) 50%,
+      transparent 100%
+    ),
+    var(--color-primary);
 }
 
 .dark .background-mobile-nav {
-	background:
-		repeating-linear-gradient(
-			45deg,
-			transparent,
-			transparent 3px,
-			rgba(255, 255, 255, 0.04) 3px,
-			rgba(255, 255, 255, 0.04) 6px
-		),
-		repeating-linear-gradient(
-			-45deg,
-			transparent,
-			transparent 3px,
-			rgba(255, 255, 255, 0.04) 3px,
-			rgba(255, 255, 255, 0.04) 6px
-		),
-		linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.8) 50%, transparent 100%),
-		var(--color-primary);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 255, 255, 0.04) 3px,
+      rgba(255, 255, 255, 0.04) 6px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 255, 255, 0.04) 3px,
+      rgba(255, 255, 255, 0.04) 6px
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.8) 50%,
+      transparent 100%
+    ),
+    var(--color-primary);
 }
 
 @media (min-width: 1280px) {
-	main:has(article) .background {
-		background:
-			repeating-linear-gradient(
-				45deg,
-				transparent,
-				transparent 3px,
-				rgba(0, 0, 0, 0.06) 3px,
-				rgba(0, 0, 0, 0.06) 6px
-			),
-			repeating-linear-gradient(
-				-45deg,
-				transparent,
-				transparent 3px,
-				rgba(0, 0, 0, 0.06) 3px,
-				rgba(0, 0, 0, 0.06) 6px
-			),
-			linear-gradient(
-				to right,
-				rgba(255, 255, 255, 0.7),
-				rgba(195, 195, 195, 0.95) 50%,
-				rgba(255, 255, 255, 0.7)
-			);
-	}
+  main:has(article) .background {
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 3px,
+        rgba(0, 0, 0, 0.06) 3px,
+        rgba(0, 0, 0, 0.06) 6px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 3px,
+        rgba(0, 0, 0, 0.06) 3px,
+        rgba(0, 0, 0, 0.06) 6px
+      ),
+      linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.7),
+        rgba(195, 195, 195, 0.95) 50%,
+        rgba(255, 255, 255, 0.7)
+      );
+  }
 
-	.dark main:has(article) .background {
-		background:
-			repeating-linear-gradient(
-				45deg,
-				transparent,
-				transparent 3px,
-				rgba(255, 255, 255, 0.04) 3px,
-				rgba(255, 255, 255, 0.04) 6px
-			),
-			repeating-linear-gradient(
-				-45deg,
-				transparent,
-				transparent 3px,
-				rgba(255, 255, 255, 0.04) 3px,
-				rgba(255, 255, 255, 0.04) 6px
-			),
-			linear-gradient(
-				to right,
-				rgba(30, 30, 30, 0.5),
-				rgba(10, 10, 10, 0.85) 50%,
-				rgba(30, 30, 30, 0.5)
-			);
-	}
+  .dark main:has(article) .background {
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 3px,
+        rgba(255, 255, 255, 0.04) 3px,
+        rgba(255, 255, 255, 0.04) 6px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 3px,
+        rgba(255, 255, 255, 0.04) 3px,
+        rgba(255, 255, 255, 0.04) 6px
+      ),
+      linear-gradient(
+        to right,
+        rgba(30, 30, 30, 0.5),
+        rgba(10, 10, 10, 0.85) 50%,
+        rgba(30, 30, 30, 0.5)
+      );
+  }
 }
 
 a,
 button {
-	color: var(--color-accent);
-	text-decoration: none;
-	transition:
-		color 0.2s ease,
-		background-color 0.2s ease;
+  color: var(--color-accent);
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 a:hover,
 a:focus,
 button:hover {
-	color: var(--color-accent-hover);
+  color: var(--color-accent-hover);
 }
 
 a svg {
-	transition: fill 0.2s ease;
-	fill: currentColor;
+  transition: fill 0.2s ease;
+  fill: currentColor;
 }
 
 button {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 h1,
@@ -267,33 +283,33 @@ h4,
 h5,
 h6,
 p {
-	color: var(--color-textcol);
+  color: var(--color-textcol);
 }
 
 .group.border-border {
-	display: flex;
-	flex-direction: column;
-	width: 100% !important;
-	min-width: 0 !important;
-	max-width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-	width: 4px;
+  width: 4px;
 }
 
 .scrollbar-hide::-webkit-scrollbar-thumb {
-	background: #e2e8f0; /* slate-200 */
-	border-radius: 10px;
+  background: #e2e8f0; /* slate-200 */
+  border-radius: 10px;
 }
 
 .scrollbar-hide {
-	scrollbar-width: thin;
-	scrollbar-color: #e2e8f0 transparent;
+  scrollbar-width: thin;
+  scrollbar-color: #e2e8f0 transparent;
 }
 
 img {
-	margin: auto;
+  margin: auto;
 }
 
 :target,
@@ -303,163 +319,184 @@ h3,
 h4,
 h5,
 h6 {
-	scroll-margin-top: var(--scroll-offset);
+  scroll-margin-top: var(--scroll-offset);
 }
 
 .katex {
-	color: var(--color-highlight);
+  color: var(--color-highlight);
 }
 
 .box-gradient {
-	background: rgba(255, 255, 255, 0.65);
-	border: 1px solid var(--color-tertiary);
-	backdrop-filter: blur(2px);
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid var(--color-tertiary);
+  backdrop-filter: blur(2px);
 }
 
 .dark .box-gradient {
-	background: rgba(0, 0, 0, 0.75);
-	border: 1px solid var(--color-tertiary);
-	backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid var(--color-tertiary);
+  backdrop-filter: blur(2px);
 }
 
 .box-gradient.hero {
-	border: 1px solid var(--color-accent);
-	box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
+  border: 1px solid var(--color-accent);
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
 }
 
 /* Heroes, the blog article, its asides and the mobile related posts sit over the
    busiest part of the background art. */
-:is(.box-gradient.hero, article.box-gradient, aside .box-gradient, .box-gradient.related-posts) {
-	backdrop-filter: blur(6px);
+:is(
+  .box-gradient.hero,
+  article.box-gradient,
+  aside .box-gradient,
+  .box-gradient.related-posts
+) {
+  backdrop-filter: blur(6px);
 }
 
 .dark .box-gradient.hero {
-	border: 1px solid var(--color-accent);
-	box-shadow: 0 0 20px rgba(248, 113, 113, 0.15);
+  border: 1px solid var(--color-accent);
+  box-shadow: 0 0 20px rgba(248, 113, 113, 0.15);
 }
 
 .card {
-	background: rgba(255, 255, 255, 0.65);
-	border: 1px solid var(--color-tertiary);
-	backdrop-filter: blur(2px);
-	transition:
-		background 0.2s ease,
-		border-color 0.2s ease,
-		box-shadow 0.2s ease;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid var(--color-tertiary);
+  backdrop-filter: blur(2px);
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .card:hover {
-	background: rgba(255, 255, 255, 0.78);
-	border-color: var(--color-accent);
-	box-shadow: 0 0 12px rgba(220, 38, 38, 0.15);
+  background: rgba(255, 255, 255, 0.78);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 12px rgba(220, 38, 38, 0.15);
 }
 
 .dark .card {
-	background: rgba(0, 0, 0, 0.75);
-	border: 1px solid var(--color-tertiary);
-	backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid var(--color-tertiary);
+  backdrop-filter: blur(2px);
 }
 
 .dark .card:hover {
-	background: rgba(0, 0, 0, 0.82);
-	border-color: var(--color-accent);
-	box-shadow: 0 0 12px rgba(248, 113, 113, 0.15);
+  background: rgba(0, 0, 0, 0.82);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 12px rgba(248, 113, 113, 0.15);
 }
 
 header.background {
-	background:
-		repeating-linear-gradient(
-			45deg,
-			transparent,
-			transparent 3px,
-			rgba(0, 0, 0, 0.06) 3px,
-			rgba(0, 0, 0, 0.06) 6px
-		),
-		repeating-linear-gradient(
-			-45deg,
-			transparent,
-			transparent 3px,
-			rgba(0, 0, 0, 0.06) 3px,
-			rgba(0, 0, 0, 0.06) 6px
-		),
-		radial-gradient(circle at center, rgba(255, 255, 255, 0.6), var(--color-primary) 70%),
-		var(--color-primary);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.06) 3px,
+      rgba(0, 0, 0, 0.06) 6px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.06) 3px,
+      rgba(0, 0, 0, 0.06) 6px
+    ),
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.6),
+      var(--color-primary) 70%
+    ),
+    var(--color-primary);
 }
 
 .dark header.background {
-	background:
-		repeating-linear-gradient(
-			45deg,
-			transparent,
-			transparent 3px,
-			rgba(255, 255, 255, 0.04) 3px,
-			rgba(255, 255, 255, 0.04) 6px
-		),
-		repeating-linear-gradient(
-			-45deg,
-			transparent,
-			transparent 3px,
-			rgba(255, 255, 255, 0.04) 3px,
-			rgba(255, 255, 255, 0.04) 6px
-		),
-		radial-gradient(circle at center, rgba(0, 0, 0, 0.8), var(--color-primary) 70%),
-		var(--color-primary);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 255, 255, 0.04) 3px,
+      rgba(255, 255, 255, 0.04) 6px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 255, 255, 0.04) 3px,
+      rgba(255, 255, 255, 0.04) 6px
+    ),
+    radial-gradient(
+      circle at center,
+      rgba(0, 0, 0, 0.8),
+      var(--color-primary) 70%
+    ),
+    var(--color-primary);
 }
 
 footer.background {
-	background:
-		repeating-linear-gradient(
-			45deg,
-			transparent,
-			transparent 3px,
-			rgba(0, 0, 0, 0.06) 3px,
-			rgba(0, 0, 0, 0.06) 6px
-		),
-		repeating-linear-gradient(
-			-45deg,
-			transparent,
-			transparent 3px,
-			rgba(0, 0, 0, 0.06) 3px,
-			rgba(0, 0, 0, 0.06) 6px
-		),
-		radial-gradient(circle at center, rgba(255, 255, 255, 0.6), var(--color-primary) 70%),
-		var(--color-primary);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.06) 3px,
+      rgba(0, 0, 0, 0.06) 6px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.06) 3px,
+      rgba(0, 0, 0, 0.06) 6px
+    ),
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.6),
+      var(--color-primary) 70%
+    ),
+    var(--color-primary);
 }
 
 .dark footer.background {
-	background:
-		repeating-linear-gradient(
-			45deg,
-			transparent,
-			transparent 3px,
-			rgba(255, 255, 255, 0.04) 3px,
-			rgba(255, 255, 255, 0.04) 6px
-		),
-		repeating-linear-gradient(
-			-45deg,
-			transparent,
-			transparent 3px,
-			rgba(255, 255, 255, 0.04) 3px,
-			rgba(255, 255, 255, 0.04) 6px
-		),
-		radial-gradient(circle at center, rgba(0, 0, 0, 0.8), var(--color-primary) 70%),
-		var(--color-primary);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 255, 255, 0.04) 3px,
+      rgba(255, 255, 255, 0.04) 6px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 255, 255, 0.04) 3px,
+      rgba(255, 255, 255, 0.04) 6px
+    ),
+    radial-gradient(
+      circle at center,
+      rgba(0, 0, 0, 0.8),
+      var(--color-primary) 70%
+    ),
+    var(--color-primary);
 }
 
 #main-content a {
-	text-decoration: none;
-	border-bottom: 1px solid transparent;
-	transition: border-color 0.3s ease;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
 }
 
 #main-content a:hover {
-	border-bottom-color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
 }
 
 #main-content nav a {
-	border-bottom: none;
+  border-bottom: none;
 }
 
 #main-content nav a:hover {
-	border-bottom-color: transparent;
+  border-bottom-color: transparent;
 }

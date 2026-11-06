@@ -1,6 +1,6 @@
 ---
 id: 019e807a-ec00-7b8a-bd0e-a57c462284f2
-title: 'Test: Lonely Post'
+title: "Test: Lonely Post"
 summary: Development fixture for the related-posts UI.
 date: June 1 2026
 tags: []

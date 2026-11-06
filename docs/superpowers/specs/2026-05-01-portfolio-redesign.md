@@ -22,7 +22,7 @@ losing its personal character.
 Add one new constant:
 
 ```ts
-export const EMAIL = 'ivankirilov640@gmail.com';
+export const EMAIL = "ivankirilov640@gmail.com";
 ```
 
 No `UPWORK_URL` — the site should not mention Upwork. It is a portfolio piece
@@ -117,15 +117,18 @@ A simple page containing:
 
 ```svelte
 <script lang="ts">
-	import HistoryTree from '$lib/components/root/HistoryTree.svelte';
-	import { LINUX_AND_DOTFILES_HISTORY_TREE } from '$lib/content/root/linux-and-dotfiles-history-tree';
+  import HistoryTree from "$lib/components/root/HistoryTree.svelte";
+  import { LINUX_AND_DOTFILES_HISTORY_TREE } from "$lib/content/root/linux-and-dotfiles-history-tree";
 </script>
 
 <div class="prose w-full max-w-none space-y-8 dark:prose-invert">
-	<section class="border-border rounded-lg border bg-muted/40 p-8">
-		<h1>Linux Journey</h1>
-		<HistoryTree history={LINUX_AND_DOTFILES_HISTORY_TREE} baseHeadingLevel={2} />
-	</section>
+  <section class="border-border rounded-lg border bg-muted/40 p-8">
+    <h1>Linux Journey</h1>
+    <HistoryTree
+      history={LINUX_AND_DOTFILES_HISTORY_TREE}
+      baseHeadingLevel={2}
+    />
+  </section>
 </div>
 ```
 

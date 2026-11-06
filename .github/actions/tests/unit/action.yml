@@ -1,0 +1,9 @@
+name: Unit tests
+description: The assert-based checks in scripts/, run by `pnpm test`.
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/setup
+    - run: pnpm test
+      shell: bash

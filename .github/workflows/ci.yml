@@ -1,0 +1,75 @@
+name: CI
+
+# One job per stage, so each passes or fails on its own. The steps live in
+# composite actions under .github/actions/{checks,tests,deploy}/.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# A newer push to the same branch or PR supersedes a run still in flight.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/checks/format
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/checks/lint
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/checks/typecheck
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/checks/build
+
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/checks/actionlint
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/checks/shellcheck
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/tests/unit
+
+  # Netlify's own Git builds are stopped; this is the only way the site deploys,
+  # and only once every check and test is green. Each run shows up under the
+  # repo's Deployments.
+  deploy:
+    needs: [format, lint, typecheck, build, actionlint, shellcheck, unit-tests]
+    # Fork PRs get no secrets, so they get no preview either.
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.event_name == 'push' && 'production' || 'preview' }}
+      url: ${{ steps.deploy.outputs.url }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: deploy
+        uses: ./.github/actions/deploy/netlify
+        with:
+          token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          pr: ${{ github.event.pull_request.number }}

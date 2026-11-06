@@ -1,0 +1,20 @@
+name: Netlify token
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # Daily, so it fails a week out even when nothing is being pushed.
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/checks/netlify-token
+        with:
+          token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          expires: ${{ vars.NETLIFY_TOKEN_EXPIRES }}

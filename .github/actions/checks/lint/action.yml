@@ -1,0 +1,9 @@
+name: Lint
+description: Oxlint, type-aware.
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/setup
+    - run: pnpm exec vp lint
+      shell: bash

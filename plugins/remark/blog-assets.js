@@ -1,8 +1,8 @@
-import { visit } from 'unist-util-visit';
-import { componentNode } from '@skavex/skavex/utils';
+import { visit } from "unist-util-visit";
+import { componentNode } from "@skavex/skavex/utils";
 
 /** Where post assets live, and what a `./`-relative image resolves against. */
-const POSTS_ROOT = '/src/lib/content/posts';
+const POSTS_ROOT = "/src/lib/content/posts";
 
 /**
  * Remark plugin that points post-relative images at `<PostImage />`.
@@ -18,17 +18,17 @@ const POSTS_ROOT = '/src/lib/content/posts';
  * @returns {(tree: import('mdast').Root) => void}
  */
 export function remarkBlogAssets() {
-	return (tree) => {
-		visit(tree, 'image', (node, index, parent) => {
-			if (parent === undefined || index === undefined) return;
-			if (!node.url.startsWith('./')) return;
+  return (tree) => {
+    visit(tree, "image", (node, index, parent) => {
+      if (parent === undefined || index === undefined) return;
+      if (!node.url.startsWith("./")) return;
 
-			parent.children[index] = /** @type {any} */ (
-				componentNode('PostImage', {
-					src: node.url.replace('./', `${POSTS_ROOT}/`),
-					alt: node.alt || ''
-				})
-			);
-		});
-	};
+      parent.children[index] = /** @type {any} */ (
+        componentNode("PostImage", {
+          src: node.url.replace("./", `${POSTS_ROOT}/`),
+          alt: node.alt || "",
+        })
+      );
+    });
+  };
 }

@@ -1,0 +1,29 @@
+name: Deploy to Netlify
+description: Builds and deploys; production when `pr` is empty, else a pr-<n> preview.
+
+inputs:
+  token:
+    description: NETLIFY_AUTH_TOKEN.
+    required: true
+  pr:
+    description: The PR number for a preview. Empty for production.
+    required: false
+    default: ""
+
+outputs:
+  url:
+    description: The deployed URL.
+    value: ${{ steps.deploy.outputs.url }}
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/setup
+    - id: deploy
+      # The token is scoped to this step, out of reach of install scripts.
+      run: scripts/deploy.sh "$PR_NUMBER"
+      shell: bash
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ inputs.token }}
+        NETLIFY_SITE_ID: 4b1d57b6-8406-4e40-8a61-0ee9995cbc15
+        PR_NUMBER: ${{ inputs.pr }}
