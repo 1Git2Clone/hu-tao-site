@@ -6,6 +6,7 @@
   import TableOfContents from "./TableOfContents.svelte";
   import RelatedPostCard from "./RelatedPostCard.svelte";
   import Carousel from "$lib/components/Carousel.svelte";
+  import Term from "$lib/components/layout/Term.svelte";
   import type { RelatedPost } from "$lib/data/related";
 
   let { title, date, readingTime, children } = $props<{
@@ -69,24 +70,30 @@
   <div
     class="grid grid-cols-1 xl:grid-cols-[16rem_minmax(0,52rem)_16rem] xl:justify-center xl:gap-8"
   >
-    <aside class="hidden xl:block" aria-label="Related posts">
-      <div
-        class="scrollbar-hide border-border box-gradient fixed h-[calc(100dvh-var(--header-height)-var(--main-padding)*2-var(--footer-overlap))] w-64 overflow-y-auto rounded-lg border px-4 py-8"
-        style:--footer-overlap="{footerOverlap}px"
+    <!-- The legend pokes above the box, so the body scrolls, not the box. -->
+    <aside
+      class="hidden xl:block"
+      aria-label="Related posts"
+      style:--footer-overlap="{footerOverlap}px"
+    >
+      <Term
+        tag="div"
+        cmd="./related"
+        class="fixed h-[calc(100dvh-var(--header-height)-var(--main-padding)*2-var(--footer-overlap))] w-64"
+        bodyClass="scrollbar-hide min-h-0 flex-1 space-y-3 overflow-y-auto px-4 pt-4 pb-6"
       >
-        <b
-          class="mb-4 block text-center text-sm font-bold tracking-widest text-textcol uppercase"
-        >
-          Related Posts
-        </b>
-        <div class="space-y-3">
-          {@render relatedCards()}
-        </div>
-      </div>
+        {@render relatedCards()}
+      </Term>
     </aside>
 
-    <article
-      class="border-border box-gradient rounded-lg border p-8 text-justify"
+    <Term
+      tag="article"
+      path="~/{page.params.slug}"
+      cmd="cat README.md"
+      cursor
+      hero
+      class="mx-auto w-full max-w-4xl"
+      bodyClass="px-4 pt-4 pb-8 sm:px-8"
     >
       <HeadingCopy
         tag="div"
@@ -103,16 +110,19 @@
         </div>
 
         <div class="not-prose mb-8 xl:hidden">
-          <details class="border-border box-gradient rounded-lg border">
+          <details class="box-gradient border">
             <summary
-              class="flex cursor-pointer list-none items-center justify-between p-4 font-bold text-subtextcol"
+              class="flex cursor-pointer list-none items-center justify-between p-4"
             >
-              On This Page
-              <span class="text-xs font-normal text-subtextcol"
+              <span class="whitespace-nowrap">
+                <span class="text-accent">$</span>
+                <span class="font-bold text-subtextcol">cat SUMMARY.md</span>
+              </span>
+              <span class="hidden text-xs text-subtextcol sm:inline"
                 >View Sections</span
               >
             </summary>
-            <div class="border-t p-4">
+            <div class="border-t border-frame p-4">
               <TableOfContents isMobile={true} staticHeadings={headings} />
             </div>
           </details>
@@ -120,28 +130,26 @@
 
         {@render children()}
       </HeadingCopy>
-    </article>
+    </Term>
 
-    <section
-      class="border-border box-gradient related-posts mt-8 rounded-lg border p-6 xl:hidden"
+    <Term
+      cmd="./related"
+      class="related-posts mx-auto mt-11 w-full max-w-4xl xl:hidden"
     >
-      <b
-        class="mb-4 block text-center text-sm font-bold tracking-widest text-textcol uppercase"
-      >
-        Related Posts
-      </b>
       <Carousel label="Related posts" buttons="md-up">
         {@render relatedCards()}
       </Carousel>
-    </section>
+    </Term>
 
-    <aside class="hidden xl:block">
-      <div
-        class="scrollbar-hide border-border box-gradient fixed h-[calc(100dvh-var(--header-height)-var(--main-padding)*2-var(--footer-overlap))] w-64 overflow-y-auto rounded-lg border px-4 py-8"
-        style:--footer-overlap="{footerOverlap}px"
+    <aside class="hidden xl:block" style:--footer-overlap="{footerOverlap}px">
+      <Term
+        tag="div"
+        cmd="cat SUMMARY.md"
+        class="fixed h-[calc(100dvh-var(--header-height)-var(--main-padding)*2-var(--footer-overlap))] w-64"
+        bodyClass="scrollbar-hide min-h-0 flex-1 overflow-y-auto px-4 pt-4 pb-6"
       >
         <TableOfContents staticHeadings={headings} />
-      </div>
+      </Term>
     </aside>
   </div>
 </div>

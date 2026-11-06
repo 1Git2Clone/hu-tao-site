@@ -37,11 +37,13 @@
 
 <main
   id="main-content"
-  class="background relative mx-auto w-full overflow-x-hidden p-(--main-padding) text-justify"
+  class="background relative mx-auto w-full overflow-x-hidden p-(--main-padding)"
   style="min-height: calc(100dvh - var(--header-height) - var(--footer-height));"
 >
   <Background />
-  <div class="page">
+  <!-- pt-3: the first box's prompt sits half a line above the box. The page
+       transition clips to this element, so the prompt must be inside it. -->
+  <div class="page pt-3">
     {@render children()}
   </div>
 </main>
