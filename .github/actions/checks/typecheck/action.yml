@@ -1,0 +1,9 @@
+name: Typecheck
+description: svelte-check over the whole project.
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/setup
+    - run: pnpm run check
+      shell: bash

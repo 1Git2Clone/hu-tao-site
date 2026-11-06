@@ -1,0 +1,9 @@
+name: Build
+description: The production build, prerendering included.
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/setup
+    - run: pnpm run build
+      shell: bash

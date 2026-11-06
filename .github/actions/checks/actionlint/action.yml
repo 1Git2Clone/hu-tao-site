@@ -1,0 +1,8 @@
+name: actionlint
+description: Lints the workflows, and shellchecks their `run:` blocks.
+
+runs:
+  using: composite
+  steps:
+    - run: docker run --rm -v "$PWD:/repo" -w /repo rhysd/actionlint:1.7.12 -color
+      shell: bash

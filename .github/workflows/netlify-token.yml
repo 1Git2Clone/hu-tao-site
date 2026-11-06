@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_TOKEN_EXPIRES: ${{ vars.NETLIFY_TOKEN_EXPIRES }}
-        run: scripts/check-netlify-token.sh
+      - uses: ./.github/actions/checks/netlify-token
+        with:
+          token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          expires: ${{ vars.NETLIFY_TOKEN_EXPIRES }}
