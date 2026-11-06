@@ -24,6 +24,9 @@
           packages = [
             pkgs.nodejs_26
             pkgs.pnpm # NOTE: Make sure to update `netlify.toml` on every `nix flake update`.
+            # What the `lint-ci` job runs.
+            pkgs.actionlint
+            pkgs.shellcheck
           ];
         };
       });

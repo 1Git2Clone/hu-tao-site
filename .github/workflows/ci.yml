@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# A newer push to the same branch or PR supersedes a run still in flight.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # Version comes from `packageManager` in package.json.
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # `lint` is `vp fmt --check && vp lint`, so unformatted code fails here.
+      - run: pnpm run lint
+      - run: pnpm run check
+      - run: pnpm run build
+
+  # Workflows and shell scripts. actionlint shellchecks every `run:` block too.
+  lint-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: docker run --rm -v "$PWD:/repo" -w /repo rhysd/actionlint:1.7.12 -color
+      # shellcheck ships on the runner image.
+      - run: shellcheck scripts/*.sh install_required_font_symbols.sh
+
+  # Netlify's own Git builds are stopped; this is the only way the site deploys,
+  # and only once CI is green. Each run shows up under the repo's Deployments.
+  deploy:
+    needs: [ci, lint-ci]
+    # Fork PRs get no secrets, so they get no preview either.
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.event_name == 'push' && 'production' || 'preview' }}
+      url: ${{ steps.deploy.outputs.url }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - id: deploy
+        # The token is scoped to this step, out of reach of install scripts.
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: 4b1d57b6-8406-4e40-8a61-0ee9995cbc15
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: scripts/deploy.sh "$PR_NUMBER"
