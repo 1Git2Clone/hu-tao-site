@@ -20,6 +20,10 @@
 
   --color-img-inner-border: rgba(255, 255, 255, 0.4);
   --color-code-block: rgba(20, 4, 4, 1);
+
+  /* The faulty terminal's glyphs. A hex value: the shader parses it, and
+     lightMode turns it into ink on the light theme. */
+  --color-terminal-tint: #642931;
 }
 
 .dark {
