@@ -9,5 +9,5 @@
   <div class="mx-auto max-w-4xl pt-4 text-center text-sm opacity-70">
     © {CURRENT_YEAR} Ivan, All rights reserved.
   </div>
-  <SocialLinks class="mx-auto pt-2 opacity-70" />
+  <SocialLinks class="mx-auto pt-2" />
 </footer>
