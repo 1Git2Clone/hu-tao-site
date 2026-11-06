@@ -5,16 +5,12 @@
   import Header from "$lib/components/layout/Header.svelte";
   import Footer from "$lib/components/layout/Footer.svelte";
 
-  import { SITE_TITLE } from "$lib/utils/consts";
-  import { onMount } from "svelte";
+  import Seo from "$lib/components/layout/Seo.svelte";
 
   let { children } = $props();
-
-  onMount(() => {
-    document.title = SITE_TITLE;
-  });
 </script>
 
+<Seo />
 <ModeWatcher />
 <Header />
 
