@@ -49,6 +49,12 @@ jobs:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/checks/shellcheck
 
+  glsl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/checks/glsl
+
   unit-tests:
     runs-on: ubuntu-latest
     steps:
@@ -59,7 +65,8 @@ jobs:
   # and only once every check and test is green. Each run shows up under the
   # repo's Deployments.
   deploy:
-    needs: [format, lint, typecheck, build, actionlint, shellcheck, unit-tests]
+    needs:
+      [format, lint, typecheck, build, actionlint, shellcheck, glsl, unit-tests]
     # Fork PRs get no secrets, so they get no preview either.
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest

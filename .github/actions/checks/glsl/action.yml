@@ -1,0 +1,10 @@
+name: GLSL
+description: Validates the shaders with glslangValidator.
+
+runs:
+  using: composite
+  steps:
+    - run: sudo apt-get update -qq && sudo apt-get install -y -qq glslang-tools
+      shell: bash
+    - run: scripts/check-glsl.sh
+      shell: bash

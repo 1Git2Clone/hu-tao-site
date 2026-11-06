@@ -201,6 +201,7 @@ nix develop -c pnpm run lint      # Oxfmt check + Oxlint (Vite+)
 nix develop -c pnpm run format    # Auto-format with Oxfmt
 nix develop -c actionlint         # Lint the GitHub workflows
 nix develop -c shellcheck scripts/*.sh install_required_font_symbols.sh
+nix develop -c scripts/check-glsl.sh  # Validate the GLSL shaders
 bash install_required_font_symbols.sh  # Re-subset font after adding new characters
 ```
 
@@ -225,7 +226,7 @@ If `vp` is not found, `node_modules` is stale. Run the install command.
 - `.github/workflows/ci.yml` runs on each push to `main` and on each PR. It
   has one job for each stage. Each job calls one composite action:
   - `.github/actions/checks/`: `format`, `lint`, `typecheck`, `build`,
-    `actionlint`, `shellcheck`, `netlify-token`.
+    `actionlint`, `shellcheck`, `glsl`, `netlify-token`.
   - `.github/actions/tests/`: `unit` (runs `pnpm test`).
   - `.github/actions/deploy/`: `netlify`. The `deploy` job runs only when all
     checks and tests pass. On `main`, it deploys to production. On a PR from
