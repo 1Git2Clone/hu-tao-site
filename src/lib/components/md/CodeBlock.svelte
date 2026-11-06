@@ -1,29 +1,34 @@
 <script lang="ts">
-	let { children, lang } = $props();
+  let { children, lang } = $props();
 
-	let copied = $state(false);
-	let codeElement: HTMLElement | undefined = $state();
+  let copied = $state(false);
+  let codeElement: HTMLElement | undefined = $state();
 
-	let detectedLang = $derived(lang || 'javascript');
+  let detectedLang = $derived(lang || "javascript");
 
-	function copy() {
-		const text = codeElement?.textContent || '';
-		navigator.clipboard.writeText(text);
-		copied = true;
-		setTimeout(() => (copied = false), 1250);
-	}
+  function copy() {
+    const text = codeElement?.textContent || "";
+    navigator.clipboard.writeText(text);
+    copied = true;
+    setTimeout(() => (copied = false), 1250);
+  }
 </script>
 
 <div
-	class="group border-border relative my-6 w-full min-w-0 overflow-hidden rounded-lg border bg-black/50 text-sm"
+  class="group border-border relative my-6 w-full min-w-0 overflow-hidden rounded-lg border bg-black/50 text-sm"
 >
-	<div class="border-border flex items-center justify-between border-b bg-muted/50 px-4 py-2">
-		<span class="font-mono font-bold text-textcol">{detectedLang}</span>
-		<button onclick={copy} class="size-8 text-xs transition-colors hover:text-accent">
-			<span class="translate-x[-50%] absolute translate-y-[-50%]">
-				{copied ? ' ' : ' '}
-			</span>
-		</button>
-	</div>
-	<div class="not-prose">{@render children?.()}</div>
+  <div
+    class="border-border flex items-center justify-between border-b bg-muted/50 px-4 py-2"
+  >
+    <span class="font-mono font-bold text-textcol">{detectedLang}</span>
+    <button
+      onclick={copy}
+      class="size-8 text-xs transition-colors hover:text-accent"
+    >
+      <span class="translate-x[-50%] absolute translate-y-[-50%]">
+        {copied ? " " : " "}
+      </span>
+    </button>
+  </div>
+  <div class="not-prose">{@render children?.()}</div>
 </div>

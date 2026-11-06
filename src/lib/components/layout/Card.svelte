@@ -1,7 +1,7 @@
 <script lang="ts">
-	let { children } = $props<{ children: import('svelte').Snippet }>();
+  let { children } = $props<{ children: import("svelte").Snippet }>();
 </script>
 
 <div class="border-border card size-full rounded-lg border p-6">
-	{@render children()}
+  {@render children()}
 </div>

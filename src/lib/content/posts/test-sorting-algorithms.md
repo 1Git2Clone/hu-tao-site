@@ -1,9 +1,9 @@
 ---
 id: 019d088a-b000-7bfa-8277-974ae917cc0b
-title: 'Test: Sorting Algorithms'
+title: "Test: Sorting Algorithms"
 summary: Development fixture for the related-posts UI.
 date: March 20 2026
-tags: ['dsa', 'cs']
+tags: ["dsa", "cs"]
 ---
 
 > **Note:** dev-only fixture. Tags: `dsa, cs`, date: March 20 2026.

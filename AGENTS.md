@@ -102,7 +102,10 @@ This project uses **Svelte 5 runes only**. Legacy Svelte 4 syntax is a logic err
 
 ```svelte
 <script lang="ts">
-	let { value = $bindable(0), label = 'Default' }: { value: number; label?: string } = $props();
+  let {
+    value = $bindable(0),
+    label = "Default",
+  }: { value: number; label?: string } = $props();
 </script>
 ```
 
