@@ -15,10 +15,10 @@
 </script>
 
 <div
-  class="group border-border relative my-6 w-full min-w-0 overflow-hidden rounded-lg border bg-black/50 text-sm"
+  class="group border-border relative my-6 w-full min-w-0 overflow-hidden border border-frame bg-black/50 text-sm"
 >
   <div
-    class="border-border flex items-center justify-between border-b bg-muted/50 px-4 py-2"
+    class="flex items-center justify-between border-b border-frame bg-muted/50 px-4 py-2"
   >
     <span class="font-mono font-bold text-textcol">{detectedLang}</span>
     <button

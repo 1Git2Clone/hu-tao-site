@@ -67,14 +67,6 @@
 
 <nav class="w-full text-left contrast-70">
   <div>
-    {#if !isMobile}
-      <b
-        class="mb-4 block text-center text-sm font-bold tracking-widest text-textcol uppercase"
-      >
-        On This Page
-      </b>
-    {/if}
-
     <ul class="space-y-3 {isMobile ? '' : 'border-l border-transparent'}">
       {#each staticHeadings as { id, html, level }, i (id + i)}
         <li>
