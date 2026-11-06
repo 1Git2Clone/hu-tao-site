@@ -61,7 +61,7 @@
   <svelte:element
     this={label ? `h${level}` : "div"}
     {id}
-    class="-mx-px -mt-3 flex border-inherit text-start text-base leading-6 font-normal whitespace-nowrap"
+    class="-mx-px -mt-3 flex border-inherit text-base leading-6 font-normal whitespace-nowrap"
   >
     <span class="h-3 w-3 shrink-0 border-b border-inherit"></span>
     <!-- One line: a long path (a blog slug on a phone) is cut short, never
