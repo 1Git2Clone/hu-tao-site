@@ -67,6 +67,7 @@ are all part of the site's identity.
   - [Styling](#styling)
   - [Deployment](#deployment)
   - [Maintenance Notes](#maintenance-notes)
+  - [License](#license)
 
 ## Getting Started
 
@@ -231,3 +232,10 @@ build
 - Run `install_required_font_symbols.sh` after adding glyphs that must be
   included in the optimized font subset.
 - Do not commit secrets, `.env` files, tokens, or private credentials.
+
+## License
+
+[MIT](LICENSE), except for third-party files, which keep their own licenses:
+
+- `static/fonts/`: JetBrains Mono Nerd Font and the KaTeX fonts.
+- `static/images/`: the art belongs to its artists.
