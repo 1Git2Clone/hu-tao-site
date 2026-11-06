@@ -1,0 +1,9 @@
+name: Format
+description: Fails when any file differs from what Oxfmt writes.
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/setup
+    - run: pnpm exec vp fmt --check
+      shell: bash

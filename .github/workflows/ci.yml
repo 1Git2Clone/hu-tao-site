@@ -1,5 +1,7 @@
 name: CI
 
+# One job per stage, so each passes or fails on its own. The steps live in
+# composite actions under .github/actions/{checks,tests,deploy}/.
 on:
   push:
     branches: [main]
@@ -11,35 +13,53 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  ci:
+  format:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      # Version comes from `packageManager` in package.json.
-      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
-      - uses: actions/setup-node@v7
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      # `lint` is `vp fmt --check && vp lint`, so unformatted code fails here.
-      - run: pnpm run lint
-      - run: pnpm run check
-      - run: pnpm run build
+      - uses: ./.github/actions/checks/format
 
-  # Workflows and shell scripts. actionlint shellchecks every `run:` block too.
-  lint-ci:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - run: docker run --rm -v "$PWD:/repo" -w /repo rhysd/actionlint:1.7.12 -color
-      # shellcheck ships on the runner image.
-      - run: shellcheck scripts/*.sh install_required_font_symbols.sh
+      - uses: ./.github/actions/checks/lint
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/checks/typecheck
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/checks/build
+
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/checks/actionlint
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/checks/shellcheck
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/tests/unit
 
   # Netlify's own Git builds are stopped; this is the only way the site deploys,
-  # and only once CI is green. Each run shows up under the repo's Deployments.
+  # and only once every check and test is green. Each run shows up under the
+  # repo's Deployments.
   deploy:
-    needs: [ci, lint-ci]
+    needs: [format, lint, typecheck, build, actionlint, shellcheck, unit-tests]
     # Fork PRs get no secrets, so they get no preview either.
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
@@ -48,16 +68,8 @@ jobs:
       url: ${{ steps.deploy.outputs.url }}
     steps:
       - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
-      - uses: actions/setup-node@v7
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
       - id: deploy
-        # The token is scoped to this step, out of reach of install scripts.
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: 4b1d57b6-8406-4e40-8a61-0ee9995cbc15
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: scripts/deploy.sh "$PR_NUMBER"
+        uses: ./.github/actions/deploy/netlify
+        with:
+          token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          pr: ${{ github.event.pull_request.number }}
