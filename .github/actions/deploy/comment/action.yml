@@ -1,0 +1,30 @@
+name: Preview comment
+description: Puts the preview URL on the PR, in one comment that later pushes edit.
+
+inputs:
+  token:
+    description: A GitHub token that can write PR comments.
+    required: true
+  pr:
+    description: The PR number.
+    required: true
+  url:
+    description: The preview URL.
+    required: true
+  sha:
+    description: The PR head commit that the preview was built from.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - run: >-
+        gh pr comment "$PR" --repo "$GITHUB_REPOSITORY"
+        --edit-last --create-if-none
+        --body "Preview of ${SHA::7}: $URL"
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+        PR: ${{ inputs.pr }}
+        URL: ${{ inputs.url }}
+        SHA: ${{ inputs.sha }}

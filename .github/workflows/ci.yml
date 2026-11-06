@@ -80,3 +80,10 @@ jobs:
         with:
           token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           pr: ${{ github.event.pull_request.number }}
+      - if: github.event_name == 'pull_request'
+        uses: ./.github/actions/deploy/comment
+        with:
+          token: ${{ github.token }}
+          pr: ${{ github.event.pull_request.number }}
+          url: ${{ steps.deploy.outputs.url }}
+          sha: ${{ github.event.pull_request.head.sha }}
