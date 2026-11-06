@@ -2,6 +2,8 @@
   import { flushSync } from "svelte";
   import { toggleMode, mode } from "mode-watcher";
 
+  let ripple: ViewTransition | undefined;
+
   // The new theme grows out of the button as a circle. The old page is a still
   // snapshot, but the new one is live, so the terminal keeps moving inside it.
   function toggle(event: MouseEvent) {
@@ -33,11 +35,16 @@
     // must be on <html> by then. ModeWatcher's synchronousModeChanges does that.
     // .theme-ripple keeps the page in the root snapshot, so it ripples too, and
     // keeps the page change animation in layout.css out of this transition.
+    // A second click skips this transition, so only the newest one removes it.
     const html = document.documentElement;
     html.classList.add("theme-ripple");
-    document
-      .startViewTransition(() => flushSync(toggleMode))
-      .finished.finally(() => html.classList.remove("theme-ripple"));
+    const transition = document.startViewTransition(() =>
+      flushSync(toggleMode),
+    );
+    ripple = transition;
+    transition.finished.finally(() => {
+      if (ripple === transition) html.classList.remove("theme-ripple");
+    });
   }
 </script>
 
