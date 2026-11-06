@@ -1,11 +1,13 @@
 # 1Git2Clone Portfolio
 
-[![Website Icon]][Website]&emsp;[![Netlify Icon]][Netlify Deploy]&emsp;[![SvelteKit Icon]][SvelteKit]
+[![Website Icon]][Website]&emsp;[![CI Icon]][CI]&emsp;[![Netlify Icon]][Netlify Deploy]&emsp;[![SvelteKit Icon]][SvelteKit]
 
 [Website Icon]: https://img.shields.io/badge/site-hu--tao.org-red
 [Website]: https://hu-tao.dev
-[Netlify Icon]: https://img.shields.io/badge/deploy-Netlify-00c7b7
-[Netlify Deploy]: https://app.netlify.com/projects/hu-tao/deploys
+[CI Icon]: https://github.com/1Git2Clone/hu-tao-site/actions/workflows/ci.yml/badge.svg?branch=main
+[CI]: https://github.com/1Git2Clone/hu-tao-site/actions/workflows/ci.yml?query=branch%3Amain
+[Netlify Icon]: https://api.netlify.com/api/v1/badges/4b1d57b6-8406-4e40-8a61-0ee9995cbc15/deploy-status
+[Netlify Deploy]: https://app.netlify.com/projects/1g2c/deploys
 [SvelteKit Icon]: https://img.shields.io/badge/SvelteKit-2-ff3e00
 [SvelteKit]: https://svelte.dev/docs/kit/introduction
 
