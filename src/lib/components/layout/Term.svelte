@@ -65,8 +65,11 @@
   >
     <span class="h-3 w-3 shrink-0 border-b border-inherit"></span>
     <!-- One line: a long path (a blog slug on a phone) is cut short, never
-         the command. -->
-    <span class="flex min-w-0 items-center gap-[1ch] px-2">
+         the command. The prompt has its own bordered tag, with the box's fill.
+         -my-px keeps the tag centred on the border line. -->
+    <span
+      class="-my-px flex min-w-0 items-center gap-[1ch] border border-inherit bg-white/65 px-2 dark:bg-black/75"
+    >
       {#if label}<span class="sr-only">{label}</span>{/if}
       <span
         aria-hidden={label ? true : undefined}
@@ -85,7 +88,7 @@
       {#if label && id}
         <button
           type="button"
-          class="opacity-50 transition-opacity hover:opacity-100 focus-visible:opacity-100"
+          class="mr-1 opacity-50 transition-opacity hover:opacity-100 focus-visible:opacity-100"
           aria-label="Copy a link to {label}"
           onclick={copy}
         >
