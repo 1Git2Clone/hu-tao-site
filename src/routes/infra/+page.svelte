@@ -38,7 +38,7 @@
   </Term>
 
   <Term label="Stack" id="stack" path="~/infra" cmd="ls stack/">
-    <ul class="flex flex-wrap justify-center gap-2">
+    <ul class="flex flex-wrap gap-2">
       {#each INFRA_STACK as tech (tech.name)}
         <li class="card inline-block px-2 py-1 text-sm">
           <a
