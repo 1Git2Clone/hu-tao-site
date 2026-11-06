@@ -130,7 +130,7 @@ This project uses **Svelte 5 runes only**. Legacy Svelte 4 syntax is a logic err
 
 ### Rendering
 
-**Render in Svelte, not in strings.** Do not use `{@html}` with string-concatenated HTML to render lists, links, or repeated elements. Use real Svelte constructs (`{#each}`, `{#snippet}` + `{@render}`) so the output is SSR'd, Lighthouse-optimal, and free of XSRF surface for that path. The only exception is `{@html marked(project.description)}` where the content is authored markdown and the library is unavoidable — everything else should be native elements.
+**Render in Svelte, not in strings.** Do not use `{@html}` with string-concatenated HTML to render lists, links, or repeated elements. Use real Svelte constructs (`{#each}`, `{#snippet}` + `{@render}`) so the output is SSR'd, Lighthouse-optimal, and free of XSRF surface for that path. The only exceptions are `{@html marked(project.description)}` where the content is authored markdown and the library is unavoidable, and `{@html jsonLdTag(...)}` in `Seo.svelte`, because Svelte can't render a JSON-LD script element — everything else should be native elements.
 
 ### Quick Reference
 
@@ -156,6 +156,21 @@ This project uses **Svelte 5 runes only**. Legacy Svelte 4 syntax is a logic err
 - Use `+page.server.ts` for server-side data loading
 - Use `+page.svelte` for page components
 - Blog posts are `.md` files processed by mdsvex with the `MarkdownLayout.svelte` layout
+
+### Page meta (title, OpenGraph, schema.org)
+
+- `src/lib/data/seo.ts` holds the meta for each page route in `ROUTES`. The
+  key type comes from SvelteKit's `RouteId`. A page route with no entry, or
+  an entry for a route that does not exist, fails `svelte-check`.
+- `src/lib/components/layout/Seo.svelte` renders all head tags from the
+  layout. Do not add `<svelte:head>` meta to a page. `+error.svelte` keeps
+  its own `<title>`.
+- When you add a page route, add its entry to `ROUTES`. When you add an
+  endpoint (`+server.ts`), add its id to `PageRouteId`'s `Exclude` list.
+- Canonical URLs use the `Pathname` type, not `resolve()`. `resolve()` gives
+  relative paths when it prerenders.
+- Post dates in frontmatter are strings. Convert them with `publishedDate()`,
+  not `toISOString()`, so that the day does not change with the timezone.
 
 ---
 
