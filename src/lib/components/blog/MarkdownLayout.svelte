@@ -92,7 +92,6 @@
       cmd="cat README.md"
       cursor
       hero
-      class="text-justify"
       bodyClass="px-4 pt-4 pb-8 sm:px-8"
     >
       <HeadingCopy

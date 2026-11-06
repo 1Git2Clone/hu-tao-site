@@ -37,7 +37,7 @@
 
 <main
   id="main-content"
-  class="background relative mx-auto w-full overflow-x-hidden p-(--main-padding) text-justify"
+  class="background relative mx-auto w-full overflow-x-hidden p-(--main-padding)"
   style="min-height: calc(100dvh - var(--header-height) - var(--footer-height));"
 >
   <Background />
