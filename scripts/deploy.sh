@@ -8,14 +8,15 @@ set -euo pipefail
 pr=${1:-}
 netlify=(npx --yes netlify-cli@27.15.0)
 
-# Built separately so its logs stay out of the deploy's JSON on stdout.
+# Built separately so its logs stay out of the deploy's JSON on stdout,
+# and `--no-build` so `deploy` uploads that build instead of building again.
 if [ -z "$pr" ]; then
   "${netlify[@]}" build --context production
-  "${netlify[@]}" deploy --prod --json >/dev/null
+  "${netlify[@]}" deploy --no-build --prod --json >/dev/null
   url=https://hu-tao.dev
 else
   "${netlify[@]}" build --context deploy-preview
-  url=$("${netlify[@]}" deploy --alias="pr-$pr" --json | jq -r .deploy_url)
+  url=$("${netlify[@]}" deploy --no-build --alias="pr-$pr" --json | jq -r .deploy_url)
 fi
 
 echo "$url"
