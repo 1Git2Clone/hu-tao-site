@@ -1,0 +1,19 @@
+name: Netlify token
+description: Fails when the Netlify token expires within a week, or no longer works.
+
+inputs:
+  token:
+    description: NETLIFY_AUTH_TOKEN. Empty on fork PRs, so only the date is checked.
+    required: false
+  expires:
+    description: The NETLIFY_TOKEN_EXPIRES repo variable, YYYY-MM-DD.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - run: scripts/check-netlify-token.sh
+      shell: bash
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ inputs.token }}
+        NETLIFY_TOKEN_EXPIRES: ${{ inputs.expires }}

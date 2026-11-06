@@ -32,19 +32,19 @@
 Add after the existing `BLOG_ITEMS_EXTENSION` line:
 
 ```ts
-export const EMAIL = 'ivan@hu-tao.dev';
+export const EMAIL = "ivan@hu-tao.dev";
 ```
 
 The full file should look like:
 
 ```ts
-export const GITHUB_PROFILE_NAME = '1Git2Clone';
-export const TWITTER_PROFILE_HANDLE = '@1kill2steal';
-export const SITE_TITLE_SHORT = '1G2C';
-export const SITE_TITLE = '1Git2Clone';
+export const GITHUB_PROFILE_NAME = "1Git2Clone";
+export const TWITTER_PROFILE_HANDLE = "@1kill2steal";
+export const SITE_TITLE_SHORT = "1G2C";
+export const SITE_TITLE = "1Git2Clone";
 export const CURRENT_YEAR = new Date().getFullYear();
-export const BLOG_ITEMS_EXTENSION: 'md' | 'mdx' | 'svx' = 'md';
-export const EMAIL = 'ivan@hu-tao.dev';
+export const BLOG_ITEMS_EXTENSION: "md" | "mdx" | "svx" = "md";
+export const EMAIL = "ivan@hu-tao.dev";
 ```
 
 - [ ] **Step 2: Verify with `bun run check`**
@@ -66,38 +66,44 @@ Replace the entire file content with:
 
 ```svelte
 <script lang="ts">
-	import { SITE_TITLE, GITHUB_PROFILE_NAME } from '$lib/utils/consts';
-	import { resolve } from '$app/paths';
-	import GitHub from '$lib/components/icons/GitHub.svelte';
+  import { SITE_TITLE, GITHUB_PROFILE_NAME } from "$lib/utils/consts";
+  import { resolve } from "$app/paths";
+  import GitHub from "$lib/components/icons/GitHub.svelte";
 </script>
 
 <div class="prose w-full max-w-none space-y-8 dark:prose-invert">
-	<section class="border-border rounded-lg border bg-muted/40 p-8">
-		<h1 id="title" class="text-4xl font-bold tracking-tight">Welcome to {SITE_TITLE}!</h1>
-		<p class="text-lg text-subtextcol">Backend Engineer | Go & Rust</p>
+  <section class="border-border rounded-lg border bg-muted/40 p-8">
+    <h1 id="title" class="text-4xl font-bold tracking-tight">
+      Welcome to {SITE_TITLE}!
+    </h1>
+    <p class="text-lg text-subtextcol">Backend Engineer | Go & Rust</p>
 
-		<p>
-			I build backend systems, fintech infrastructure, and developer tooling. Take a look at my
-			<a href={resolve('/about-me')}>projects</a> or find me on
-			<a href={`https://github.com/${GITHUB_PROFILE_NAME}`}>GitHub</a>.
-		</p>
+    <p>
+      I build backend systems, fintech infrastructure, and developer tooling.
+      Take a look at my
+      <a href={resolve("/about-me")}>projects</a> or find me on
+      <a href={`https://github.com/${GITHUB_PROFILE_NAME}`}>GitHub</a>.
+    </p>
 
-		<div class="mt-6 flex gap-6 text-sm">
-			<a href={resolve('/about-me')} class="inline-flex items-center gap-1">
-				About Me <span aria-hidden="true">→</span>
-			</a>
-			<a href={`https://github.com/${GITHUB_PROFILE_NAME}`} class="inline-flex items-center gap-1">
-				<GitHub width={18} height={18} />
-				GitHub
-			</a>
-		</div>
+    <div class="mt-6 flex gap-6 text-sm">
+      <a href={resolve("/about-me")} class="inline-flex items-center gap-1">
+        About Me <span aria-hidden="true">→</span>
+      </a>
+      <a
+        href={`https://github.com/${GITHUB_PROFILE_NAME}`}
+        class="inline-flex items-center gap-1"
+      >
+        <GitHub width={18} height={18} />
+        GitHub
+      </a>
+    </div>
 
-		<div class="mt-8 text-sm text-tertiary">
-			<a href={resolve('/journey')} class="inline-flex items-center gap-1">
-				See my Linux journey <span aria-hidden="true">→</span>
-			</a>
-		</div>
-	</section>
+    <div class="mt-8 text-sm text-tertiary">
+      <a href={resolve("/journey")} class="inline-flex items-center gap-1">
+        See my Linux journey <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
 </div>
 ```
 
@@ -118,18 +124,23 @@ Expected: No errors.
 
 ```svelte
 <script lang="ts">
-	import HistoryTree from '$lib/components/root/HistoryTree.svelte';
-	import { LINUX_AND_DOTFILES_HISTORY_TREE } from '$lib/content/root/linux-and-dotfiles-history-tree';
+  import HistoryTree from "$lib/components/root/HistoryTree.svelte";
+  import { LINUX_AND_DOTFILES_HISTORY_TREE } from "$lib/content/root/linux-and-dotfiles-history-tree";
 </script>
 
 <div class="prose w-full max-w-none space-y-8 dark:prose-invert">
-	<section class="border-border rounded-lg border bg-muted/40 p-8">
-		<h1 id="title" class="text-4xl font-bold tracking-tight">Linux Journey</h1>
+  <section class="border-border rounded-lg border bg-muted/40 p-8">
+    <h1 id="title" class="text-4xl font-bold tracking-tight">Linux Journey</h1>
 
-		<p>My journey into the Linux world — from first install to current setup.</p>
+    <p>
+      My journey into the Linux world — from first install to current setup.
+    </p>
 
-		<HistoryTree history={LINUX_AND_DOTFILES_HISTORY_TREE} baseHeadingLevel={2} />
-	</section>
+    <HistoryTree
+      history={LINUX_AND_DOTFILES_HISTORY_TREE}
+      baseHeadingLevel={2}
+    />
+  </section>
 </div>
 ```
 
@@ -167,8 +178,8 @@ In the `<script>` block (lines 1-16), replace the entire script with:
 
 ```svelte
 <script lang="ts">
-	// Reason: Content is written by me.
-	/* eslint-disable svelte/no-at-html-tags */
+  // Reason: Content is written by me.
+  /* eslint-disable svelte/no-at-html-tags */
 </script>
 ```
 
@@ -177,40 +188,47 @@ In the `<script>` block (lines 1-16), replace the entire script with:
 Replace the old bio `<section>` (currently lines 18-31) with:
 
 ```svelte
-<section class="border-border prose min-w-full rounded-lg border bg-muted/40 p-8 dark:prose-invert">
-	<h1 id="title" class="mb-2 text-center">1Git2Clone</h1>
-	<p class="text-center text-sm text-subtextcol">
-		Backend Engineer | Go & Rust | Fintech & Developer Tooling
-	</p>
+<section
+  class="border-border prose min-w-full rounded-lg border bg-muted/40 p-8 dark:prose-invert"
+>
+  <h1 id="title" class="mb-2 text-center">1Git2Clone</h1>
+  <p class="text-center text-sm text-subtextcol">
+    Backend Engineer | Go & Rust | Fintech & Developer Tooling
+  </p>
 
-	<p>
-		Go and Rust backend engineer with production experience in fintech infrastructure —
-		microservices, REST APIs, PostgreSQL, WebSockets, JWT authentication, and Docker. I've deployed
-		PCI-adjacent financial services on AWS and built AI/MCP infrastructure for enterprise codebases.
-	</p>
+  <p>
+    Go and Rust backend engineer with production experience in fintech
+    infrastructure — microservices, REST APIs, PostgreSQL, WebSockets, JWT
+    authentication, and Docker. I've deployed PCI-adjacent financial services on
+    AWS and built AI/MCP infrastructure for enterprise codebases.
+  </p>
 
-	<p>
-		I deliver working, correct code — not just generated output. I've caught and replaced fake
-		parser implementations with proper AST-based solutions, redesigned broken data pipelines, and
-		made architectural decisions that held up in production. I take ownership of problems beyond the
-		immediate ticket.
-	</p>
+  <p>
+    I deliver working, correct code — not just generated output. I've caught and
+    replaced fake parser implementations with proper AST-based solutions,
+    redesigned broken data pipelines, and made architectural decisions that held
+    up in production. I take ownership of problems beyond the immediate ticket.
+  </p>
 
-	<p>
-		Outside of client work, I build open-source developer tooling used by thousands of developers
-		worldwide, which keeps me sharp on the latest ecosystem patterns and best practices.
-	</p>
+  <p>
+    Outside of client work, I build open-source developer tooling used by
+    thousands of developers worldwide, which keeps me sharp on the latest
+    ecosystem patterns and best practices.
+  </p>
 
-	<p>
-		Available remotely for backend systems, fintech APIs, developer tooling, and cloud
-		infrastructure. Fast communicator, honest about scope.
-	</p>
+  <p>
+    Available remotely for backend systems, fintech APIs, developer tooling, and
+    cloud infrastructure. Fast communicator, honest about scope.
+  </p>
 
-	<p class="mt-6">
-		<a href="mailto:ivan@hu-tao.dev" class="inline-flex items-center gap-1">
-			ivan@hu-tao.dev
-		</a>
-	</p>
+  <p class="mt-6">
+    <a
+      href="mailto:ivan@hu-tao.dev"
+      class="inline-flex items-center gap-1"
+    >
+      ivan@hu-tao.dev
+    </a>
+  </p>
 </section>
 ```
 
@@ -357,16 +375,18 @@ Insert this after the closing `</section>` of the portfolio projects section (th
 
 ```svelte
 <section
-	class="border-border prose min-w-full rounded-lg border bg-muted/40 p-8 text-center dark:prose-invert"
+  class="border-border prose min-w-full rounded-lg border bg-muted/40 p-8 text-center dark:prose-invert"
 >
-	<h2 id="hire">Want to work together?</h2>
-	<p class="text-tertiary">
-		Available remotely for backend systems, fintech APIs, developer tooling, and cloud
-		infrastructure.
-	</p>
-	<p class="mt-4">
-		<a href="mailto:ivan@hu-tao.dev" class="text-lg"> ivan@hu-tao.dev </a>
-	</p>
+  <h2 id="hire">Want to work together?</h2>
+  <p class="text-tertiary">
+    Available remotely for backend systems, fintech APIs, developer tooling, and
+    cloud infrastructure.
+  </p>
+  <p class="mt-4">
+    <a href="mailto:ivan@hu-tao.dev" class="text-lg">
+      ivan@hu-tao.dev
+    </a>
+  </p>
 </section>
 ```
 

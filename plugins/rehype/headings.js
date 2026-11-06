@@ -1,10 +1,10 @@
-import { visit } from 'unist-util-visit';
-import katex from 'katex';
+import { visit } from "unist-util-visit";
+import katex from "katex";
 
 // The site's URL contract, and deliberately the same module the table of
 // contents and the post title call at render time. See its own comment: two
 // copies of a slug function have to agree forever, and they do not.
-import { slugify } from '../../src/lib/utils/slugify.ts';
+import { slugify } from "../../src/lib/utils/slugify.ts";
 
 /** Every heading element, by tag name. */
 const HEADINGS = { h1: 1, h2: 2, h3: 3, h4: 4, h5: 5, h6: 6 };
@@ -15,7 +15,11 @@ const HEADINGS = { h1: 1, h2: 2, h3: 3, h4: 4, h5: 5, h6: 6 };
  *
  * @type {import('katex').KatexOptions}
  */
-const KATEX_OPTIONS = { output: 'htmlAndMathml', strict: false, throwOnError: false };
+const KATEX_OPTIONS = {
+  output: "htmlAndMathml",
+  strict: false,
+  throwOnError: false,
+};
 
 /**
  * Concatenate the text of a node's descendants.
@@ -28,9 +32,9 @@ const KATEX_OPTIONS = { output: 'htmlAndMathml', strict: false, throwOnError: fa
  * @returns {string} Its text, with maths as its LaTeX source.
  */
 function textOf(node) {
-	if (node.type === 'text') return node.value;
-	if (!('children' in node)) return '';
-	return node.children.map(textOf).join('');
+  if (node.type === "text") return node.value;
+  if (!("children" in node)) return "";
+  return node.children.map(textOf).join("");
 }
 
 /**
@@ -40,9 +44,9 @@ function textOf(node) {
  * @returns {boolean} True for the `<code class="math-inline">` remark-math emits.
  */
 function isInlineMath(node) {
-	if (node.type !== 'element') return false;
-	const className = node.properties.className;
-	return Array.isArray(className) && className.includes('math-inline');
+  if (node.type !== "element") return false;
+  const className = node.properties.className;
+  return Array.isArray(className) && className.includes("math-inline");
 }
 
 /**
@@ -52,10 +56,11 @@ function isInlineMath(node) {
  * @returns {string} Display markup, maths already rendered.
  */
 function htmlOf(node) {
-	if (node.type === 'text') return node.value;
-	if (isInlineMath(node)) return katex.renderToString(textOf(node), KATEX_OPTIONS);
-	if (!('children' in node)) return '';
-	return node.children.map(htmlOf).join('');
+  if (node.type === "text") return node.value;
+  if (isInlineMath(node))
+    return katex.renderToString(textOf(node), KATEX_OPTIONS);
+  if (!("children" in node)) return "";
+  return node.children.map(htmlOf).join("");
 }
 
 /**
@@ -81,43 +86,46 @@ function htmlOf(node) {
  *   unified transformer that assigns ids and collects the entries onto `data.fm`.
  */
 export function rehypeHeadings(options = {}) {
-	const levels = options.levels ?? [2, 3];
+  const levels = options.levels ?? [2, 3];
 
-	return (tree, file) => {
-		/** @type {{id: string, level: number, html: string}[]} */
-		const headings = [];
+  return (tree, file) => {
+    /** @type {{id: string, level: number, html: string}[]} */
+    const headings = [];
 
-		// Every id already on the tree is reserved before one is generated, so a
-		// generated id never lands on an id somebody wrote by hand.
-		/** @type {Set<string>} */
-		const taken = new Set();
-		visit(tree, 'element', (node) => {
-			const written = String(node.properties.id ?? '');
-			if (written) taken.add(written);
-		});
+    // Every id already on the tree is reserved before one is generated, so a
+    // generated id never lands on an id somebody wrote by hand.
+    /** @type {Set<string>} */
+    const taken = new Set();
+    visit(tree, "element", (node) => {
+      const written = String(node.properties.id ?? "");
+      if (written) taken.add(written);
+    });
 
-		visit(tree, 'element', (node) => {
-			const level = HEADINGS[/** @type {keyof typeof HEADINGS} */ (node.tagName)];
-			if (level === undefined || !levels.includes(level)) return;
+    visit(tree, "element", (node) => {
+      const level =
+        HEADINGS[/** @type {keyof typeof HEADINGS} */ (node.tagName)];
+      if (level === undefined || !levels.includes(level)) return;
 
-			const written = String(node.properties.id ?? '');
-			let id = written;
+      const written = String(node.properties.id ?? "");
+      let id = written;
 
-			if (!id) {
-				// A post that repeats a heading would otherwise emit the same id
-				// twice, which is invalid and sends every link to the second one to
-				// the first.
-				const base = slugify(textOf(node)) || 'heading';
-				id = base;
-				for (let n = 1; taken.has(id); n++) id = `${base}-${n}`;
-			}
+      if (!id) {
+        // A post that repeats a heading would otherwise emit the same id
+        // twice, which is invalid and sends every link to the second one to
+        // the first.
+        const base = slugify(textOf(node)) || "heading";
+        id = base;
+        for (let n = 1; taken.has(id); n++) id = `${base}-${n}`;
+      }
 
-			taken.add(id);
-			node.properties.id = id;
-			headings.push({ id, level, html: htmlOf(node) });
-		});
+      taken.add(id);
+      node.properties.id = id;
+      headings.push({ id, level, html: htmlOf(node) });
+    });
 
-		const existing = /** @type {Record<string, unknown>} */ (file.data.fm ?? {});
-		file.data.fm = { ...existing, headings };
-	};
+    const existing = /** @type {Record<string, unknown>} */ (
+      file.data.fm ?? {}
+    );
+    file.data.fm = { ...existing, headings };
+  };
 }

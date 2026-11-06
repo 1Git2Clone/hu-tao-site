@@ -1,9 +1,9 @@
 ---
 id: 019d74b0-3c00-70df-beda-917de515b8c3
-title: 'Test: CPU Caches'
+title: "Test: CPU Caches"
 summary: Development fixture for the related-posts UI.
 date: April 10 2026
-tags: ['cs']
+tags: ["cs"]
 ---
 
 > **Note:** dev-only fixture. Tags: `cs`, date: April 10 2026.
