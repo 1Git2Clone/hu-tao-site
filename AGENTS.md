@@ -228,9 +228,10 @@ If `vp` is not found, `node_modules` is stale. Run the install command.
   - `.github/actions/checks/`: `format`, `lint`, `typecheck`, `build`,
     `actionlint`, `shellcheck`, `glsl`, `netlify-token`.
   - `.github/actions/tests/`: `unit` (runs `pnpm test`).
-  - `.github/actions/deploy/`: `netlify`. The `deploy` job runs only when all
-    checks and tests pass. On `main`, it deploys to production. On a PR from
-    this repo, it deploys a `pr-<n>` preview.
+  - `.github/actions/deploy/`: `netlify`, `comment`. The `deploy` job runs
+    only when all checks and tests pass. On `main`, it deploys to production.
+    On a PR from this repo, it deploys a `pr-<n>` preview, and `comment` puts
+    its URL on the PR. Later pushes edit that comment.
   - `.github/actions/setup/`: pnpm, Node and install. The other actions use it.
 - GitHub reads workflows only from `.github/workflows/`, not from
   subdirectories. Put stage logic in composite actions, not in new workflows.
