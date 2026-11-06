@@ -68,7 +68,7 @@
          the command. The prompt has its own bordered tag, with the box's fill.
          -my-px keeps the tag centred on the border line. -->
     <span
-      class="-my-px flex min-w-0 items-center gap-[1ch] border border-inherit bg-white/65 px-2 dark:bg-black/75"
+      class="-my-px flex min-w-0 items-center gap-[1ch] border border-inherit bg-white/90 px-2 dark:bg-black/85"
     >
       {#if label}<span class="sr-only">{label}</span>{/if}
       <span
