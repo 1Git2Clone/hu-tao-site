@@ -8,7 +8,7 @@
   let { data } = $props();
 </script>
 
-<div class="space-y-8">
+<div class="mx-auto w-full max-w-4xl space-y-8">
   <Term
     label="Infrastructure"
     level={1}

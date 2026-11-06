@@ -9,7 +9,7 @@
   const GITHUB_URL = `https://github.com/${GITHUB_PROFILE_NAME}`;
 </script>
 
-<div class="space-y-8">
+<div class="mx-auto w-full max-w-4xl space-y-8">
   <Term
     label="1Git2Clone"
     level={1}

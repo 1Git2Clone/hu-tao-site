@@ -12,6 +12,7 @@
   cmd="history"
   cursor
   hero
+  class="mx-auto w-full max-w-4xl"
   bodyClass="prose min-w-full px-4 pt-4 pb-6 sm:px-8 dark:prose-invert"
 >
   <p class="mt-0">
