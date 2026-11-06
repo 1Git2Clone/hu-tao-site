@@ -11,12 +11,12 @@ export type OverviewNode = GraphNode & {
   description: string;
 };
 
-export type GraphLink = {
-  source: string;
-  target: string;
+export type GraphLink<Id extends string = string> = {
+  source: Id;
+  target: Id;
 };
 
 export type Graph<N extends GraphNode = GraphNode> = {
   nodes: N[];
-  links: GraphLink[];
+  links: GraphLink<N["id"]>[];
 };
