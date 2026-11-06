@@ -19,7 +19,9 @@ Font, and mdsvex-powered blog with KaTeX, YouTube embeds, and reading time.
 - **Math**: KaTeX via `rehype-katex` + `remark-math`
 - **Theme**: `mode-watcher` for dark/light switching
 - **Search**: `fuse.js`
-- **Package manager**: `bun`
+- **Package manager**: `pnpm`, version pinned by `packageManager` in `package.json`
+- **Toolchain**: Nix flake dev shell (Node, pnpm, actionlint, shellcheck)
+- **CI and deploys**: GitHub Actions; Netlify gets deploys from Actions only
 
 ---
 
@@ -171,15 +173,100 @@ This project uses **Svelte 5 runes only**. Legacy Svelte 4 syntax is a logic err
 
 ## Commands
 
+Run all commands in the dev shell. `bun` and a global `pnpm` are not on the
+path.
+
 ```bash
-bun run dev          # Start dev server
-bun run build        # Production build
-bun run preview      # Preview production build
-bun run check        # Type-check with svelte-check
-bun run lint         # Oxfmt + Oxlint check (Vite+)
-bun run format       # Auto-format with Oxfmt
+nix develop -c pnpm install --frozen-lockfile  # Install or refresh node_modules
+nix develop -c pnpm run dev       # Start dev server
+nix develop -c pnpm run build     # Production build
+nix develop -c pnpm run preview   # Preview production build
+nix develop -c pnpm run check     # Type-check with svelte-check
+nix develop -c pnpm run lint      # Oxfmt check + Oxlint (Vite+)
+nix develop -c pnpm run format    # Auto-format with Oxfmt
+nix develop -c actionlint         # Lint the GitHub workflows
+nix develop -c shellcheck scripts/*.sh install_required_font_symbols.sh
 bash install_required_font_symbols.sh  # Re-subset font after adding new characters
 ```
+
+If `vp` is not found, `node_modules` is stale. Run the install command.
+
+---
+
+## Formatting
+
+- Oxfmt uses Prettier's defaults: 2 spaces, double quotes, trailing commas.
+  `printWidth` is 80. The config is the `fmt` block in `vite.config.ts`.
+- These are the same defaults that editors use. Do not change them to tabs or
+  single quotes.
+- Do not format code by hand. Run `pnpm run format`.
+- An editor save that changes only formatting is not a content change. Do not
+  revert it.
+
+---
+
+## CI and Deploys
+
+- `.github/workflows/ci.yml` runs on each push to `main` and on each PR. It
+  has one job for each stage. Each job calls one composite action:
+  - `.github/actions/checks/`: `format`, `lint`, `typecheck`, `build`,
+    `actionlint`, `shellcheck`, `netlify-token`.
+  - `.github/actions/tests/`: `unit` (runs `pnpm test`).
+  - `.github/actions/deploy/`: `netlify`. The `deploy` job runs only when all
+    checks and tests pass. On `main`, it deploys to production. On a PR from
+    this repo, it deploys a `pr-<n>` preview.
+  - `.github/actions/setup/`: pnpm, Node and install. The other actions use it.
+- GitHub reads workflows only from `.github/workflows/`, not from
+  subdirectories. Put stage logic in composite actions, not in new workflows.
+- To add a stage, add `.github/actions/<group>/<stage>/action.yml` and one job
+  in `ci.yml`. Add the job to the `needs` list of `deploy`.
+- A `run:` step in a composite action must have `shell: bash`.
+- `pnpm test` runs the assert-based tests in `scripts/check-*.ts`. Add a new
+  test file to the `test` script in `package.json`.
+- Each deploy is a GitHub deployment. Read its status in GitHub, not in the
+  Netlify UI.
+- Netlify's own Git builds are stopped. Do not turn them on again.
+- Put shell logic in `scripts/*.sh`. A `run:` step calls one script or one
+  command.
+- Give a secret only to the step that uses it. Do not put it in job `env`.
+- Pin third-party actions to a full commit SHA, with the version in a
+  comment. GitHub's `actions/*` can use a major tag.
+- Each new check must fail in CI. Break it on purpose one time and see it
+  fail before you commit it.
+
+### Netlify token
+
+- `NETLIFY_AUTH_TOKEN` is a repo secret. It expires after 90 days.
+- Netlify's API does not give the expiry date. The repo variable
+  `NETLIFY_TOKEN_EXPIRES` (`YYYY-MM-DD`) holds it.
+- `.github/workflows/netlify-token.yml` runs each day. It fails when fewer
+  than 7 days are left, or when Netlify rejects the token.
+- To rotate the token, make a new token in Netlify, then run:
+
+  ```bash
+  gh secret set NETLIFY_AUTH_TOKEN
+  gh variable set NETLIFY_TOKEN_EXPIRES --body YYYY-MM-DD
+  ```
+
+---
+
+## Type Safety
+
+- Do not use plain `string` for a reference to a known set of values. Use a
+  literal union from the data, for example `as const` ids or SvelteKit's
+  `RouteId`.
+- A typo or a deleted target must fail `svelte-check`. Example: `link()` in
+  `src/lib/content/infra/topology.ts` accepts only real node ids.
+
+---
+
+## Infra Content
+
+- `/infra` must show the real infrastructure. When a service moves (for
+  example, from public to tailnet only), update both files:
+  - `src/lib/content/infra/services.ts`: the public or private table.
+  - `src/lib/content/infra/topology.ts`: the node `kind`, its links, and the
+    descriptions that name it.
 
 ---
 
@@ -203,9 +290,29 @@ Types: `feat`, `fix`, `chore`, `docs`, `style`, `refactor`, `test`
 - **Do not work on `main` without explicit confirmation**
 - Never amend a pushed commit without confirmation
 
+### Branch or `main`
+
+- A small, one-off fix can go on `main` when the user allows it.
+- A large change goes on a `<type>/<task>` branch with a PR. CI then runs
+  before the change reaches `main`.
+- Put a reformat in its own commit. Do not mix it with logic changes.
+- Read each review comment on the PR. Check the claim before you fix it.
+
 ---
 
 ## Agent Workflow
+
+### Output style
+
+- Write all replies in ASD-STE100 Simplified Technical English, at about 80%
+  strictness.
+- Use short sentences: 20 words or fewer for an instruction, 25 or fewer for a
+  description.
+- Use the active voice. Give one instruction in each sentence.
+- Use simple, common words. Do not use idioms.
+- Give more explanation only when the user asks for it.
+- This rule is for chat output. Code, commits and site copy keep their own
+  style.
 
 ### Before starting work
 
