@@ -152,6 +152,14 @@ html {
   filter: none;
 }
 
+/* With WebGL 2 the faulty terminal draws over a plain page, and the art above is
+   the fallback. app.html sets .webgl; Background.svelte takes it away again if
+   the terminal cannot start. */
+.webgl #main-content::before {
+  background: var(--color-primary);
+  filter: none;
+}
+
 .background-mobile-nav {
   background:
     repeating-linear-gradient(
