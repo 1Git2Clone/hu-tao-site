@@ -522,7 +522,7 @@ footer.background {
   mix-blend-mode: normal;
 }
 
-::view-transition-new(root) {
+:root.theme-ripple::view-transition-new(root) {
   animation: theme-ripple 500ms ease-in-out;
 }
 
@@ -532,5 +532,49 @@ footer.background {
   }
   to {
     clip-path: circle(var(--ripple-radius) at var(--ripple-x) var(--ripple-y));
+  }
+}
+
+/* Page changes, from onNavigate in +layout.svelte. The old page is a still
+   that fades out, and the new page rises in after it. The header has its own
+   name so that it stays above both pages, and the terminal stays in the root,
+   which does not animate. */
+:root:not(.theme-ripple) .page {
+  view-transition-name: page;
+}
+
+:root:not(.theme-ripple) header:has(~ #main-content) {
+  view-transition-name: header;
+}
+
+::view-transition-group(header) {
+  z-index: 1;
+}
+
+/* The group takes the new page's box at once. Clip it, so that a longer old
+   page does not run over the footer. */
+::view-transition-group(page) {
+  animation: none;
+  overflow: clip;
+}
+
+::view-transition-old(page) {
+  animation: page-out 150ms ease-in both;
+}
+
+::view-transition-new(page) {
+  animation: page-in 200ms ease-out 100ms both;
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
 }

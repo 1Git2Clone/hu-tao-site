@@ -7,8 +7,28 @@
   import Background from "$lib/components/layout/Background.svelte";
 
   import Seo from "$lib/components/layout/Seo.svelte";
+  import { onNavigate } from "$app/navigation";
 
   let { children } = $props();
+
+  // The browser takes a still of the old page and drops its DOM at once, so a
+  // fast click never leaves a page behind. layout.css animates the two pages.
+  onNavigate((navigation) => {
+    if (
+      !document.startViewTransition ||
+      matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      navigation.from?.url.pathname === navigation.to?.url.pathname
+    ) {
+      return;
+    }
+
+    return new Promise((resolve) => {
+      document.startViewTransition(async () => {
+        resolve();
+        await navigation.complete;
+      });
+    });
+  });
 </script>
 
 <Seo />
@@ -21,7 +41,7 @@
   style="min-height: calc(100dvh - var(--header-height) - var(--footer-height));"
 >
   <Background />
-  <div class="grid-stack">
+  <div class="page">
     {@render children()}
   </div>
 </main>
@@ -29,16 +49,10 @@
 <Footer />
 
 <style>
-  .grid-stack {
+  .page {
     min-height: calc(100dvh - var(--layout-chrome));
     display: grid;
-    grid-template-areas: "stack";
     align-items: start;
-  }
-
-  .grid-stack > :global(*) {
-    grid-area: stack;
-    backface-visibility: hidden;
   }
 
   :global(html) {
