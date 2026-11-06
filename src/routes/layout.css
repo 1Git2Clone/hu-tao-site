@@ -513,10 +513,24 @@ footer.background {
   border-bottom-color: transparent;
 }
 
-/* ThemeToggle.svelte clips the new snapshot to a growing circle. Drop the
-   default cross-fade, so the old theme stays solid outside the circle. */
+/* ThemeToggle.svelte sets the circle's center and radius. The new snapshot
+   grows inside it, and the old theme stays solid outside it, without the
+   default cross-fade. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  animation: theme-ripple 500ms ease-in-out;
+}
+
+@keyframes theme-ripple {
+  from {
+    clip-path: circle(0 at var(--ripple-x) var(--ripple-y));
+  }
+  to {
+    clip-path: circle(var(--ripple-radius) at var(--ripple-x) var(--ripple-y));
+  }
 }
