@@ -22,26 +22,16 @@
       Math.max(y, innerHeight - y),
     );
 
+    // The circle is a CSS animation in layout.css, which reads these. Firefox
+    // starts an animate() call one frame late and shows the whole new theme.
+    const root = document.documentElement.style;
+    root.setProperty("--ripple-x", `${x}px`);
+    root.setProperty("--ripple-y", `${y}px`);
+    root.setProperty("--ripple-radius", `${radius}px`);
+
     // The new snapshot is taken when the callback returns, so the theme class
     // must be on <html> by then. ModeWatcher's synchronousModeChanges does that.
-    const transition = document.startViewTransition(() =>
-      flushSync(toggleMode),
-    );
-    transition.ready.then(() => {
-      document.documentElement.animate(
-        {
-          clipPath: [
-            `circle(0px at ${x}px ${y}px)`,
-            `circle(${radius}px at ${x}px ${y}px)`,
-          ],
-        },
-        {
-          duration: 500,
-          easing: "ease-in-out",
-          pseudoElement: "::view-transition-new(root)",
-        },
-      );
-    });
+    document.startViewTransition(() => flushSync(toggleMode));
   }
 </script>
 
