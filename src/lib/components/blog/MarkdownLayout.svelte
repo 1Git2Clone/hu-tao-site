@@ -92,6 +92,7 @@
       cmd="cat README.md"
       cursor
       hero
+      class="mx-auto w-full max-w-4xl"
       bodyClass="px-4 pt-4 pb-8 sm:px-8"
     >
       <HeadingCopy
@@ -131,7 +132,10 @@
       </HeadingCopy>
     </Term>
 
-    <Term cmd="./related" class="related-posts mt-11 xl:hidden">
+    <Term
+      cmd="./related"
+      class="related-posts mx-auto mt-11 w-full max-w-4xl xl:hidden"
+    >
       <Carousel label="Related posts" buttons="md-up">
         {@render relatedCards()}
       </Carousel>

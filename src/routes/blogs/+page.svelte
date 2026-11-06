@@ -76,7 +76,7 @@
 <svelte:window onkeydown={handleKeydown} />
 
 <div
-  class="grid h-full grid-cols-1 gap-2 space-y-8"
+  class="mx-auto grid h-full w-full max-w-4xl grid-cols-1 gap-2 space-y-8"
   style="grid-template-rows: auto auto 1fr auto;"
 >
   <Term
