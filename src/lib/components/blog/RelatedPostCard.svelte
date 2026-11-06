@@ -8,7 +8,7 @@
 
 {#if post}
   <!-- The box lives on the wrapper: `#main-content a` outranks any border class on an <a>. -->
-  <div class="border-border card rounded-lg border text-left">
+  <div class="border-border card border text-left">
     <a
       href={resolve(`/blogs/${post.slug}`)}
       class="block p-4"
@@ -22,7 +22,7 @@
   </div>
 {:else}
   <div
-    class="border-border card rounded-lg border p-4 text-left text-sm text-subtextcol italic"
+    class="border-border card border p-4 text-left text-sm text-subtextcol italic"
   >
     Ain't Nobody Here but Us Chickens
   </div>

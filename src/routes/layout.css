@@ -24,6 +24,17 @@
   /* The faulty terminal's glyphs. A hex value: the shader parses it, and
      lightMode turns it into ink on the light theme. */
   --color-terminal-tint: #642931;
+
+  /* Box borders. The prompt boxes in Term.svelte look like terminal panes. */
+  --color-frame: color-mix(in oklab, var(--color-accent) 45%, transparent);
+
+  --animate-blink: blink 1s step-end infinite;
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
 }
 
 .dark {
@@ -340,18 +351,18 @@ h6 {
 
 .box-gradient {
   background: rgba(255, 255, 255, 0.65);
-  border: 1px solid var(--color-tertiary);
+  border-color: var(--color-frame);
   backdrop-filter: blur(2px);
 }
 
 .dark .box-gradient {
   background: rgba(0, 0, 0, 0.75);
-  border: 1px solid var(--color-tertiary);
-  backdrop-filter: blur(2px);
 }
 
+/* Colour only: the border widths come from utilities, so a Term box can leave
+   out its top border. */
 .box-gradient.hero {
-  border: 1px solid var(--color-accent);
+  border-color: var(--color-accent);
   box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
 }
 
@@ -367,13 +378,12 @@ h6 {
 }
 
 .dark .box-gradient.hero {
-  border: 1px solid var(--color-accent);
   box-shadow: 0 0 20px rgba(248, 113, 113, 0.15);
 }
 
 .card {
   background: rgba(255, 255, 255, 0.65);
-  border: 1px solid var(--color-tertiary);
+  border: 1px solid var(--color-frame);
   backdrop-filter: blur(2px);
   transition:
     background 0.2s ease,
@@ -389,8 +399,6 @@ h6 {
 
 .dark .card {
   background: rgba(0, 0, 0, 0.75);
-  border: 1px solid var(--color-tertiary);
-  backdrop-filter: blur(2px);
 }
 
 .dark .card:hover {
