@@ -63,7 +63,8 @@ export const OVERVIEW: Graph<OverviewNode> = {
 			id: 'tailscale',
 			label: 'Tailscale',
 			kind: 'private',
-			description: 'The private network. Dashboards, logs and sync answer only to my own machines.'
+			description:
+				'The private network. Dashboards, logs, sync and webmail answer only to my own machines.'
 		},
 		{
 			id: 'discord',
@@ -94,7 +95,7 @@ export const OVERVIEW: Graph<OverviewNode> = {
 		{
 			id: 'roundcube',
 			label: 'Roundcube',
-			kind: 'public',
+			kind: 'private',
 			description: 'Webmail for the mailserver.'
 		},
 		{
@@ -174,7 +175,6 @@ export const OVERVIEW: Graph<OverviewNode> = {
 		link('caddy', 'forgejo'),
 		link('caddy', 'pages'),
 		link('caddy', 'uptime-kuma'),
-		link('caddy', 'roundcube'),
 		link('caddy', 'navidrome'),
 		link('caddy', 'searxng'),
 		link('forgejo', 'pages'),
@@ -186,6 +186,7 @@ export const OVERVIEW: Graph<OverviewNode> = {
 		link('tailscale', 'grafana'),
 		link('tailscale', 'dozzle'),
 		link('tailscale', 'syncthing'),
+		link('tailscale', 'roundcube'),
 		link('postgres', 'restic'),
 		link('forgejo', 'restic')
 	]
