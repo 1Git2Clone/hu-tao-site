@@ -3,9 +3,9 @@
   import { page } from "$app/state";
 
   const LINKS = [
-    { href: resolve("/"), label: "Home", exact: true },
-    { href: resolve("/blogs"), label: "Blogs", exact: false },
-    { href: resolve("/infra"), label: "Infra", exact: true },
+    { href: resolve("/"), label: "/home", exact: true },
+    { href: resolve("/blogs"), label: "/blogs", exact: false },
+    { href: resolve("/infra"), label: "/infra", exact: true },
   ];
 
   let isOpen = $state(false);
