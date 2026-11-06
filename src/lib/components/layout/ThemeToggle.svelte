@@ -31,7 +31,13 @@
 
     // The new snapshot is taken when the callback returns, so the theme class
     // must be on <html> by then. ModeWatcher's synchronousModeChanges does that.
-    document.startViewTransition(() => flushSync(toggleMode));
+    // .theme-ripple keeps the page in the root snapshot, so it ripples too, and
+    // keeps the page change animation in layout.css out of this transition.
+    const html = document.documentElement;
+    html.classList.add("theme-ripple");
+    document
+      .startViewTransition(() => flushSync(toggleMode))
+      .finished.finally(() => html.classList.remove("theme-ripple"));
   }
 </script>
 
