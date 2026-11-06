@@ -1,5 +1,5 @@
-import adapter from '@sveltejs/adapter-netlify';
-import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import adapter from "@sveltejs/adapter-netlify";
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 
 /**
  * Markdown posts are compiled by skavex, which is a Vite plugin and therefore
@@ -13,10 +13,10 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
  * @type {import('@sveltejs/kit').Config}
  */
 export default {
-	extensions: ['.svelte', '.md'],
-	preprocess: [vitePreprocess()],
-	kit: {
-		inlineStyleThreshold: Infinity,
-		adapter: adapter()
-	}
+  extensions: [".svelte", ".md"],
+  preprocess: [vitePreprocess()],
+  kit: {
+    inlineStyleThreshold: Infinity,
+    adapter: adapter(),
+  },
 };

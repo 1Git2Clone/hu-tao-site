@@ -24,14 +24,14 @@ export const PRIVATE_SERVICES = `
 `;
 
 export const INFRA_STACK = [
-	{ name: 'NixOS', url: 'https://nixos.org/' },
-	{ name: 'OpenTofu', url: 'https://opentofu.org/' },
-	{ name: 'Hetzner', url: 'https://www.hetzner.com/cloud/' },
-	{ name: 'Cloudflare', url: 'https://www.cloudflare.com/' },
-	{ name: 'Caddy', url: 'https://caddyserver.com/' },
-	{ name: 'nftables', url: 'https://netfilter.org/projects/nftables/' },
-	{ name: 'sops-nix', url: 'https://github.com/Mic92/sops-nix' },
-	{ name: 'restic', url: 'https://restic.net/' },
-	{ name: 'Tailscale', url: 'https://tailscale.com/' },
-	{ name: 'Docker', url: 'https://www.docker.com/' }
+  { name: "NixOS", url: "https://nixos.org/" },
+  { name: "OpenTofu", url: "https://opentofu.org/" },
+  { name: "Hetzner", url: "https://www.hetzner.com/cloud/" },
+  { name: "Cloudflare", url: "https://www.cloudflare.com/" },
+  { name: "Caddy", url: "https://caddyserver.com/" },
+  { name: "nftables", url: "https://netfilter.org/projects/nftables/" },
+  { name: "sops-nix", url: "https://github.com/Mic92/sops-nix" },
+  { name: "restic", url: "https://restic.net/" },
+  { name: "Tailscale", url: "https://tailscale.com/" },
+  { name: "Docker", url: "https://www.docker.com/" },
 ];

@@ -1,9 +1,9 @@
 ---
 id: 019d088a-b000-75db-9765-7a3f3fdaa3ec
-title: 'Test: Hash Maps'
+title: "Test: Hash Maps"
 summary: Development fixture for the related-posts UI.
 date: March 20 2026
-tags: ['dsa', 'cs']
+tags: ["dsa", "cs"]
 ---
 
 > **Note:** dev-only fixture. Tags: `dsa, cs`, date: March 20 2026.

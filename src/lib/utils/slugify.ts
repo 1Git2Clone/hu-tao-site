@@ -28,13 +28,13 @@
  * @returns A lowercase, hyphenated fragment with no unsafe characters.
  */
 export function slugify(text: string): string {
-	return String(text)
-		.replace(/<[^>]*\/>/g, '')
-		.replace(/\{[^}]*\}/g, '')
-		.toLowerCase()
-		.trim()
-		.replace(/\s+/g, '-')
-		.replace(/[^\w-]+/g, '')
-		.replace(/--+/g, '-')
-		.replace(/^-+|-+$/g, '');
+  return String(text)
+    .replace(/<[^>]*\/>/g, "")
+    .replace(/\{[^}]*\}/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "")
+    .replace(/--+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }

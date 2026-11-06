@@ -1,9 +1,9 @@
 ---
 id: 019d12d7-6800-7031-b286-6bcee4e13383
-title: 'Test: Graph Traversal'
+title: "Test: Graph Traversal"
 summary: Development fixture for the related-posts UI.
 date: March 22 2026
-tags: ['dsa']
+tags: ["dsa"]
 ---
 
 > **Note:** dev-only fixture. Tags: `dsa`, date: March 22 2026.

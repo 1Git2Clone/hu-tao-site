@@ -1,5 +1,5 @@
-import readingTime from 'reading-time';
-import { toString } from 'mdast-util-to-string';
+import readingTime from "reading-time";
+import { toString } from "mdast-util-to-string";
 
 /**
  * Remark plugin that puts an estimated reading time on `data.fm`.
@@ -11,10 +11,12 @@ import { toString } from 'mdast-util-to-string';
  * @returns {(tree: import('mdast').Root, file: import('vfile').VFile) => void}
  */
 export function remarkReadingTime() {
-	return (tree, file) => {
-		const stats = readingTime(toString(tree));
+  return (tree, file) => {
+    const stats = readingTime(toString(tree));
 
-		const existing = /** @type {Record<string, unknown>} */ (file.data.fm ?? {});
-		file.data.fm = { ...existing, readingTime: stats.text };
-	};
+    const existing = /** @type {Record<string, unknown>} */ (
+      file.data.fm ?? {}
+    );
+    file.data.fm = { ...existing, readingTime: stats.text };
+  };
 }

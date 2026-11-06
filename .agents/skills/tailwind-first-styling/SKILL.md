@@ -30,24 +30,24 @@ Default to Tailwind utility classes for all styling. Raw CSS in `<style>` blocks
 <span class="badge">New</span>
 
 <style>
-	.badge {
-		position: absolute;
-		top: 8px;
-		right: 8px;
-		padding: 2px 10px;
-		font-size: 0.7rem;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		color: var(--color-primary);
-		background: var(--color-accent);
-		border-radius: 4px;
-		transform: skewX(-8deg);
-		transition: transform 0.2s ease;
-	}
-	.parent:hover .badge {
-		transform: skewX(-8deg) scale(1.05);
-	}
+  .badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 2px 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+    background: var(--color-accent);
+    border-radius: 4px;
+    transform: skewX(-8deg);
+    transition: transform 0.2s ease;
+  }
+  .parent:hover .badge {
+    transform: skewX(-8deg) scale(1.05);
+  }
 </style>
 ```
 
@@ -55,9 +55,9 @@ Default to Tailwind utility classes for all styling. Raw CSS in `<style>` blocks
 
 ```svelte
 <span
-	class="absolute top-2 right-2 skew-x-[-8deg] rounded bg-accent px-2.5 py-0.5 text-xs font-bold tracking-wider text-primary uppercase transition-transform duration-200 group-hover:scale-105"
+  class="absolute top-2 right-2 skew-x-[-8deg] rounded bg-accent px-2.5 py-0.5 text-xs font-bold tracking-wider text-primary uppercase transition-transform duration-200 group-hover:scale-105"
 >
-	New
+  New
 </span>
 ```
 
@@ -67,18 +67,18 @@ Default to Tailwind utility classes for all styling. Raw CSS in `<style>` blocks
 <h3 class="gradient-underline text-lg font-bold">Title</h3>
 
 <style>
-	.gradient-underline::after {
-		content: '';
-		position: absolute;
-		inset: auto 0 0 0;
-		height: 3px;
-		background: linear-gradient(
-			90deg,
-			var(--color-accent),
-			color-mix(in oklab, var(--color-accent) 40%, transparent)
-		);
-		border-radius: 2px;
-	}
+  .gradient-underline::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--color-accent),
+      color-mix(in oklab, var(--color-accent) 40%, transparent)
+    );
+    border-radius: 2px;
+  }
 </style>
 ```
 
