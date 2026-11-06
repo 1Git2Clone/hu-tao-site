@@ -12,7 +12,7 @@
 </script>
 
 <Seo />
-<ModeWatcher />
+<ModeWatcher synchronousModeChanges />
 <Header />
 
 <main

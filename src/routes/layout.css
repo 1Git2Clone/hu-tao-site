@@ -512,3 +512,11 @@ footer.background {
 #main-content nav a:hover {
   border-bottom-color: transparent;
 }
+
+/* ThemeToggle.svelte clips the new snapshot to a growing circle. Drop the
+   default cross-fade, so the old theme stays solid outside the circle. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
