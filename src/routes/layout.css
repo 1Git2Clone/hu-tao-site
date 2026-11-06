@@ -350,13 +350,13 @@ h6 {
 }
 
 .box-gradient {
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.9);
   border-color: var(--color-frame);
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(6px);
 }
 
 .dark .box-gradient {
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.85);
 }
 
 /* Colour only: the border widths come from utilities, so a Term box can leave
@@ -374,7 +374,7 @@ h6 {
   aside .box-gradient,
   .box-gradient.related-posts
 ) {
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(10px);
 }
 
 .dark .box-gradient.hero {
@@ -382,9 +382,9 @@ h6 {
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid var(--color-frame);
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(6px);
   transition:
     background 0.2s ease,
     border-color 0.2s ease,
@@ -392,17 +392,17 @@ h6 {
 }
 
 .card:hover {
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.95);
   border-color: var(--color-accent);
   box-shadow: 0 0 12px rgba(220, 38, 38, 0.15);
 }
 
 .dark .card {
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.85);
 }
 
 .dark .card:hover {
-  background: rgba(0, 0, 0, 0.82);
+  background: rgba(0, 0, 0, 0.9);
   border-color: var(--color-accent);
   box-shadow: 0 0 12px rgba(248, 113, 113, 0.15);
 }
@@ -410,13 +410,13 @@ h6 {
 /* The header and footer have the fill of the boxes. */
 header.background,
 footer.background {
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(2px);
 }
 
 .dark header.background,
 .dark footer.background {
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.85);
 }
 
 #main-content a {
