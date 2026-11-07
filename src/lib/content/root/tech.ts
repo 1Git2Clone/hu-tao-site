@@ -1,7 +1,9 @@
-type TechRef = { url: string; ariaLabel?: string };
+import type { NerdIconName } from "$lib/components/icons/nerd-icons";
+
+type TechRef = { url: string; ariaLabel?: string; icon?: NerdIconName };
 
 export const COMPUTE_SERVICES: Record<string, TechRef> = {
-  "AWS Lambda": { url: "https://aws.amazon.com/lambda/" },
+  "AWS Lambda": { url: "https://aws.amazon.com/lambda/", icon: "md-lambda" },
   "AWS EC2": { url: "https://aws.amazon.com/ec2/" },
   "AWS ECS": { url: "https://aws.amazon.com/ecs/" },
   "Hetzner Cloud": { url: "https://www.hetzner.com/cloud/" },
@@ -17,26 +19,29 @@ export const STORAGE_SERVICES: Record<string, TechRef> = {
 export type StorageService = keyof typeof STORAGE_SERVICES;
 
 export const DEVOPS_TOOLS: Record<string, TechRef> = {
-  Docker: { url: "https://www.docker.com/" },
+  Docker: { url: "https://www.docker.com/", icon: "dev-docker" },
   Kubernetes: { url: "https://kubernetes.io/" },
   "GitHub Actions": { url: "https://github.com/features/actions" },
-  Nix: { url: "https://nixos.org/" },
+  Nix: { url: "https://nixos.org/", icon: "linux-nixos" },
   OpenTofu: { url: "https://opentofu.org/" },
   Caddy: { url: "https://caddyserver.com/" },
 } as const;
 export type DevOps = keyof typeof DEVOPS_TOOLS;
 
 export const OBSERVABILITY_TOOLS: Record<string, TechRef> = {
-  Prometheus: { url: "https://prometheus.io/" },
-  Grafana: { url: "https://grafana.com/" },
-  OpenTelemetry: { url: "https://opentelemetry.io/" },
+  Prometheus: { url: "https://prometheus.io/", icon: "dev-prometheus" },
+  Grafana: { url: "https://grafana.com/", icon: "dev-grafana" },
+  OpenTelemetry: {
+    url: "https://opentelemetry.io/",
+    icon: "dev-opentelemetry",
+  },
 } as const;
 export type ObservabilityTool = keyof typeof OBSERVABILITY_TOOLS;
 
 export const FRONTEND_LIBRARIES: Record<string, TechRef> = {
-  React: { url: "https://react.dev/" },
-  Svelte: { url: "https://svelte.dev/" },
-  TailwindCSS: { url: "https://tailwindcss.com/" },
+  React: { url: "https://react.dev/", icon: "dev-react" },
+  Svelte: { url: "https://svelte.dev/", icon: "dev-svelte" },
+  TailwindCSS: { url: "https://tailwindcss.com/", icon: "dev-tailwindcss" },
 } as const;
 export type FrontendLibrary = keyof typeof FRONTEND_LIBRARIES;
 
@@ -50,9 +55,9 @@ export const BACKEND_LIBRARIES: Record<string, TechRef> = {
 export type BackendLibrary = keyof typeof BACKEND_LIBRARIES;
 
 export const DATABASES: Record<string, TechRef> = {
-  PostgreSQL: { url: "https://www.postgresql.org/" },
+  PostgreSQL: { url: "https://www.postgresql.org/", icon: "dev-postgresql" },
   MySQL: { url: "https://www.mysql.com/" },
-  SQLite3: { url: "https://www.sqlite.org/" },
+  SQLite3: { url: "https://www.sqlite.org/", icon: "dev-sqlite" },
 } as const;
 export type Database = keyof typeof DATABASES;
 
@@ -69,11 +74,18 @@ export const AI_INTEGRATIONS: Record<string, TechRef> = {
 export type AiIntegration = keyof typeof AI_INTEGRATIONS;
 
 export const LANGUAGES: Record<string, TechRef> = {
-  TypeScript: { url: "https://www.typescriptlang.org/" },
-  Python: { url: "https://www.python.org/" },
-  Rust: { url: "https://www.rust-lang.org/" },
-  Go: { url: "https://go.dev/", ariaLabel: "Go programming language" },
-  "C++": { url: "https://isocpp.org/" },
+  TypeScript: {
+    url: "https://www.typescriptlang.org/",
+    icon: "dev-typescript",
+  },
+  Python: { url: "https://www.python.org/", icon: "dev-python" },
+  Rust: { url: "https://www.rust-lang.org/", icon: "dev-rust" },
+  Go: {
+    url: "https://go.dev/",
+    icon: "md-language_go",
+    ariaLabel: "Go programming language",
+  },
+  "C++": { url: "https://isocpp.org/", icon: "dev-cplusplus" },
   C: { url: "https://www.open-std.org/jtc1/sc22/wg14/" },
   "C#": { url: "https://dotnet.microsoft.com/languages/csharp" },
   PHP: { url: "https://www.php.net/" },
@@ -81,7 +93,7 @@ export const LANGUAGES: Record<string, TechRef> = {
   Java: { url: "https://www.java.com/" },
   Kotlin: { url: "https://kotlinlang.org/" },
   Lua: { url: "https://www.lua.org/" },
-  Shell: { url: "https://www.gnu.org/software/bash/" },
+  Shell: { url: "https://www.gnu.org/software/bash/", icon: "dev-bash" },
 } as const;
 export type Languages = keyof typeof LANGUAGES;
 
