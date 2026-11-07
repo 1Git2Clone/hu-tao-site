@@ -28,11 +28,11 @@
     "mobile / script bytes": 96372,
     "mobile / total bytes": 338149,
     "mobile / requests": 22,
-    "mobile /blogs script bytes": 99039,
-    "mobile /blogs total bytes": 318530,
+    "mobile /blogs script bytes": 99093,
+    "mobile /blogs total bytes": 318695,
     "mobile /blogs requests": 22,
     "mobile /blogs/intro-to-big-o-notation script bytes": 98381,
-    "mobile /blogs/intro-to-big-o-notation total bytes": 478866,
+    "mobile /blogs/intro-to-big-o-notation total bytes": 478949,
     "mobile /blogs/intro-to-big-o-notation requests": 27,
     "desktop / script bytes": 96372,
     "desktop / total bytes": 338149,
@@ -41,5 +41,9 @@
   "evidence": [
     "results/2026-11-07-aa-workloads.json",
     "results/2026-11-07-aa-lighthouse.json"
+  ],
+  "budgetEvidence": [
+    "results/2026-11-07-ci-lighthouse.json",
+    "results/2026-11-07-byte-budget-review.json"
   ]
 }

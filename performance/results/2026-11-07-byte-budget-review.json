@@ -1,0 +1,30 @@
+{
+  "run": "https://github.com/1Git2Clone/hu-tao-site/actions/runs/42394011783",
+  "artifact": 13583281676,
+  "reason": "The unchanged baseline build also exceeded the local byte budgets under the locked CI browser. Account for observed CI transfer sizes and the largest measured paired-build difference, without changing timing floors or request budgets.",
+  "productionSourceComparison": "git diff --exit-code a85553847adf1252966c97031e94ac24c5e6523e..1c45f944fce2d1c3927c439373039a3dab62c799 -- src static plugins vite.config.ts svelte.config.js pnpm-lock.yaml",
+  "productionSourceComparisonExit": 0,
+  "packageJsonDifference": "Only the test script changed; build scripts and dependencies are unchanged.",
+  "localBrowser": "Google Chrome 156",
+  "ciBrowser": "Google Chrome for Testing 158.0.8127.18",
+  "changes": {
+    "mobile /blogs script bytes": {
+      "old": 99039,
+      "measuredMaximum": 99083,
+      "allowance": 10,
+      "new": 99093
+    },
+    "mobile /blogs total bytes": {
+      "old": 318530,
+      "measuredMaximum": 318685,
+      "allowance": 10,
+      "new": 318695
+    },
+    "mobile /blogs/intro-to-big-o-notation total bytes": {
+      "old": 478866,
+      "measuredMaximum": 478939,
+      "allowance": 10,
+      "new": 478949
+    }
+  }
+}
