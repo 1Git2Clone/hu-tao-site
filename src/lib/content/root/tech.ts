@@ -1,8 +1,13 @@
 import type { LinkIcon } from "$lib/components/LinkCard.svelte";
+import Actix from "$lib/components/icons/Actix.svelte";
+import Caddy from "$lib/components/icons/Caddy.svelte";
 import Claude from "$lib/components/icons/Claude.svelte";
 import Gemini from "$lib/components/icons/Gemini.svelte";
+import Hetzner from "$lib/components/icons/Hetzner.svelte";
 import OpenAI from "$lib/components/icons/OpenAI.svelte";
 import OpenTofu from "$lib/components/icons/OpenTofu.svelte";
+import Scaleway from "$lib/components/icons/Scaleway.svelte";
+import Tokio from "$lib/components/icons/Tokio.svelte";
 
 type TechRef = { url: string; ariaLabel?: string; icon?: LinkIcon };
 
@@ -10,13 +15,13 @@ export const COMPUTE_SERVICES: Record<string, TechRef> = {
   "AWS Lambda": { url: "https://aws.amazon.com/lambda/", icon: "md-lambda" },
   "AWS EC2": { url: "https://aws.amazon.com/ec2/" },
   "AWS ECS": { url: "https://aws.amazon.com/ecs/" },
-  "Hetzner Cloud": { url: "https://www.hetzner.com/cloud/" },
-  Scaleway: { url: "https://www.scaleway.com/" },
+  "Hetzner Cloud": { url: "https://www.hetzner.com/cloud/", icon: Hetzner },
+  Scaleway: { url: "https://www.scaleway.com/", icon: Scaleway },
 } as const;
 export type ComputeService = keyof typeof COMPUTE_SERVICES;
 
 export const STORAGE_SERVICES: Record<string, TechRef> = {
-  "Amazon S3": { url: "https://aws.amazon.com/s3/" },
+  "Amazon S3": { url: "https://aws.amazon.com/s3/", icon: "md-aws" },
   "Amazon EBS": { url: "https://aws.amazon.com/ebs/" },
   "Amazon EFS": { url: "https://aws.amazon.com/efs/" },
 } as const;
@@ -28,7 +33,7 @@ export const DEVOPS_TOOLS: Record<string, TechRef> = {
   "GitHub Actions": { url: "https://github.com/features/actions" },
   Nix: { url: "https://nixos.org/", icon: "linux-nixos" },
   OpenTofu: { url: "https://opentofu.org/", icon: OpenTofu },
-  Caddy: { url: "https://caddyserver.com/" },
+  Caddy: { url: "https://caddyserver.com/", icon: Caddy },
 } as const;
 export type DevOps = keyof typeof DEVOPS_TOOLS;
 
@@ -51,8 +56,8 @@ export type FrontendLibrary = keyof typeof FRONTEND_LIBRARIES;
 
 export const BACKEND_LIBRARIES: Record<string, TechRef> = {
   Axum: { url: "https://github.com/tokio-rs/axum" },
-  Actix: { url: "https://actix.rs/" },
-  Tokio: { url: "https://tokio.rs/" },
+  Actix: { url: "https://actix.rs/", icon: Actix },
+  Tokio: { url: "https://tokio.rs/", icon: Tokio },
   Serenity: { url: "https://github.com/serenity-rs/serenity" },
   Poise: { url: "https://github.com/serenity-rs/poise" },
 } as const;
