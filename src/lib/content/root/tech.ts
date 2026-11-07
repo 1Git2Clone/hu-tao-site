@@ -1,6 +1,7 @@
-import type { NerdIconName } from "$lib/components/icons/nerd-icons";
+import type { LinkIcon } from "$lib/components/LinkCard.svelte";
+import OpenTofu from "$lib/components/icons/OpenTofu.svelte";
 
-type TechRef = { url: string; ariaLabel?: string; icon?: NerdIconName };
+type TechRef = { url: string; ariaLabel?: string; icon?: LinkIcon };
 
 export const COMPUTE_SERVICES: Record<string, TechRef> = {
   "AWS Lambda": { url: "https://aws.amazon.com/lambda/", icon: "md-lambda" },
@@ -23,7 +24,7 @@ export const DEVOPS_TOOLS: Record<string, TechRef> = {
   Kubernetes: { url: "https://kubernetes.io/" },
   "GitHub Actions": { url: "https://github.com/features/actions" },
   Nix: { url: "https://nixos.org/", icon: "linux-nixos" },
-  OpenTofu: { url: "https://opentofu.org/" },
+  OpenTofu: { url: "https://opentofu.org/", icon: OpenTofu },
   Caddy: { url: "https://caddyserver.com/" },
 } as const;
 export type DevOps = keyof typeof DEVOPS_TOOLS;
