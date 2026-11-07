@@ -1,5 +1,10 @@
 name: Lighthouse
-description: Lighthouse on this build against the baseline commit's build, on one runner, plus a report of the live WebGL background.
+description: Fast PR reports and byte budgets, or a full baseline comparison with a live WebGL report.
+
+inputs:
+  mode:
+    description: Use smoke for one head-only audit per profile; otherwise run the full comparison.
+    default: full
 
 runs:
   using: composite
@@ -10,13 +15,18 @@ runs:
       shell: bash
     - run: pnpm run build
       shell: bash
-    - run: scripts/ci/performance-baseline.sh "$RUNNER_TEMP/baseline" build
+    - if: inputs.mode != 'smoke'
+      run: scripts/ci/performance-baseline.sh "$RUNNER_TEMP/baseline" build
       shell: bash
-    - run: node scripts/checks/performance-bench.ts lighthouse "$RUNNER_TEMP/baseline" . --out "$RUNNER_TEMP/performance/lighthouse.json"
+    - if: inputs.mode != 'smoke'
+      run: node scripts/checks/performance-bench.ts lighthouse "$RUNNER_TEMP/baseline" . --out "$RUNNER_TEMP/performance/lighthouse.json"
+      shell: bash
+    - if: inputs.mode == 'smoke'
+      run: node scripts/checks/performance-bench.ts lighthouse-smoke . --out "$RUNNER_TEMP/performance/lighthouse.json"
       shell: bash
     # Report only: hosted runners have no GPU, so these are software WebGL
     # numbers. No threshold, and a failure to collect them does not fail the job.
-    - if: always()
+    - if: always() && inputs.mode != 'smoke'
       continue-on-error: true
       run: node scripts/checks/performance-bench.ts renderer . --out "$RUNNER_TEMP/performance/renderer.json"
       shell: bash

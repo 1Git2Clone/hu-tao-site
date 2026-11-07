@@ -2,6 +2,7 @@
 //
 //   node scripts/checks/performance-bench.ts workloads <base> <head> [--runs N] [--out FILE]
 //   node scripts/checks/performance-bench.ts lighthouse <base> <head> [--runs N] [--out FILE]
+//   node scripts/checks/performance-bench.ts lighthouse-smoke <head> [--out FILE]
 //   node scripts/checks/performance-bench.ts renderer <root> [--out FILE]
 //   node scripts/checks/performance-bench.ts record <workloads.json> <lighthouse.json>
 //
@@ -32,6 +33,7 @@ const { positionals, values } = parseArgs({
   options: { runs: { type: "string" }, out: { type: "string" } },
 });
 const [kind, ...roots] = positionals;
+const smoke = kind === "lighthouse-smoke";
 const BASELINE = path.join(
   import.meta.dirname,
   "../../performance/baseline.json",
@@ -238,10 +240,13 @@ if (kind === "record") {
 }
 
 const usage =
-  "usage: performance-bench.ts workloads|lighthouse <base> <head> [--runs N] [--out FILE], or renderer <root>";
-if (!["workloads", "lighthouse", "renderer"].includes(kind)) fail(usage);
-if (roots.length !== (kind === "renderer" ? 1 : 2)) fail(usage);
-const [base, head] = roots.map((root) => path.resolve(root));
+  "usage: performance-bench.ts workloads|lighthouse <base> <head> [--runs N] [--out FILE], or lighthouse-smoke|renderer <root> [--out FILE]";
+if (!["workloads", "lighthouse", "lighthouse-smoke", "renderer"].includes(kind))
+  fail(usage);
+if (roots.length !== (kind === "renderer" || smoke ? 1 : 2)) fail(usage);
+if (smoke && values.runs !== undefined)
+  fail("lighthouse-smoke always runs once per profile; omit --runs");
+const [base, head = base] = roots.map((root) => path.resolve(root));
 
 const git = (root: string, ...args: string[]) =>
   execFileSync("git", ["-C", root, ...args], { encoding: "utf8" }).trim();
@@ -435,11 +440,11 @@ if (recorded) {
 }
 if (recorded && baseline.alpha !== ALPHA)
   fail(`baseline.json was recorded at alpha ${baseline.alpha}, not ${ALPHA}`);
-const runs = Number(values.runs ?? baseline.runs[kind]);
-if (!Number.isInteger(runs) || runs < 2 || runs > MAX_RUNS)
+const runs = smoke ? 1 : Number(values.runs ?? baseline.runs[kind]);
+if (!smoke && (!Number.isInteger(runs) || runs < 2 || runs > MAX_RUNS))
   fail(`--runs must be a whole number from 2 to ${MAX_RUNS}`);
 // The floors hold only for the run count they were recorded with.
-if (recorded && runs !== baseline.runs[kind])
+if (!smoke && recorded && runs !== baseline.runs[kind])
   fail(
     `${runs} runs per side; baseline.json was recorded with ${baseline.runs[kind]}`,
   );
@@ -457,7 +462,8 @@ const add = (
     throw new Error(`${name}: ${side} measured ${value}`);
   (into[name] ??= { base: [], head: [] })[side].push(value);
 };
-const order = abba(runs);
+// A single PR sample is a report, never a statistical timing verdict.
+const order: ("base" | "head")[] = smoke ? ["head"] : abba(runs);
 
 if (kind === "workloads") {
   assertPower(runs, 1);
@@ -474,8 +480,11 @@ if (kind === "workloads") {
     process.stderr.write(`${side} ${ms.toFixed(1)} ms\n`);
   }
 } else {
-  assertPower(runs, PROFILES.length * Object.keys(AUDITS).length);
-  const urls = { base: await serve(base, 4181), head: await serve(head, 4182) };
+  if (!smoke) assertPower(runs, PROFILES.length * Object.keys(AUDITS).length);
+  const urls = {
+    ...(smoke ? {} : { base: await serve(base, 4181) }),
+    head: await serve(head, 4182),
+  };
   // A missing route would still give Lighthouse a 404 page to measure.
   for (const url of Object.values(urls))
     for (const { route } of PROFILES) {
@@ -594,8 +603,9 @@ const result = {
   kind,
   environment: { ...environment, loadAfter: os.loadavg() },
   baselineCommit: baseline.commit,
-  base: describe(base),
+  base: smoke ? undefined : describe(base),
   head: describe(head),
+  timingReportOnly: smoke,
   runs,
   order,
   samples,
@@ -605,10 +615,10 @@ write(result);
 
 // A metric with no recorded floor or budget fails: a new metric needs a
 // reviewed baseline before it can pass.
-const want = expected(kind as "workloads" | "lighthouse");
+const want = expected(kind === "workloads" ? "workloads" : "lighthouse");
 const missing = [
   ...want.samples.filter(
-    (name) => !(name in samples && name in baseline.floors),
+    (name) => !(name in samples && (smoke || name in baseline.floors)),
   ),
   ...want.bytes.filter((name) => !(name in bytes && name in baseline.budgets)),
 ];
@@ -620,8 +630,11 @@ const cells: Cell[] = Object.entries(samples).map(([name, s]) => ({
   ...s,
   floor: baseline.floors[name],
 }));
-const verdicts = judge(cells);
-console.log(table(verdicts));
+const verdicts = smoke ? [] : judge(cells);
+if (smoke) {
+  for (const [name, s] of Object.entries(samples))
+    console.log(`report-only ${name}: ${s.head[0]}`);
+} else console.log(table(verdicts));
 const over = Object.entries(bytes).map(([name, s]) => ({
   name,
   value: Math.max(...s.head),

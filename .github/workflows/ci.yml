@@ -84,6 +84,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/checks/lighthouse
+        with:
+          # PRs report timings and gate bytes in four audits. Main keeps all
+          # 56 baseline/head audits and the separate renderer report.
+          mode: ${{ github.event_name == 'pull_request' && 'smoke' || 'full' }}
 
   # Netlify's own Git builds are stopped; this is the only way the site deploys,
   # and only once every check and test is green. Each run shows up under the
