@@ -7,20 +7,39 @@
   import Term from "$lib/components/layout/Term.svelte";
   import Pagination from "$lib/components/Pagination.svelte";
   import { SvelteURLSearchParams } from "svelte/reactivity";
-  import { goto } from "$app/navigation";
+  import { beforeNavigate, goto } from "$app/navigation";
   import { page } from "$app/state";
   import { flip } from "svelte/animate";
   import { prefersReducedMotion } from "svelte/motion";
   import { scale } from "svelte/transition";
+  import { onDestroy } from "svelte";
 
   let { data } = $props();
   let searchQuery = $state(page.url.searchParams.get("q") || "");
   let searchInput: HTMLInputElement | undefined = $state();
+  let searchTimer: ReturnType<typeof setTimeout> | undefined;
+  let writtenQuery: string | undefined;
+
+  beforeNavigate(({ to }) => {
+    // Leaving can delay destruction beyond the debounce interval.
+    if (to?.url.pathname !== page.url.pathname) {
+      clearTimeout(searchTimer);
+      writtenQuery = undefined;
+    }
+  });
 
   const itemsPerPage = 10;
-  const currentPage = $derived.by(() =>
-    Math.max(1, parseInt(page.url.searchParams.get("page") || "1")),
-  );
+  const currentPage = $derived.by(() => {
+    const value =
+      searchQuery === (page.url.searchParams.get("q") || "")
+        ? page.url.searchParams.get("page") || "1"
+        : "1";
+    const requested = /^\d+$/.test(value) ? Number(value) : 1;
+    const lastPage = Math.max(1, Math.ceil(allResults.length / itemsPerPage));
+    return Number.isSafeInteger(requested)
+      ? Math.max(1, Math.min(requested, lastPage))
+      : 1;
+  });
 
   const fuse = $derived(
     new Fuse(data.posts, {
@@ -64,20 +83,45 @@
   }
 
   $effect(() => {
-    const timer = setTimeout(() => {
-      const params = new SvelteURLSearchParams();
-      if (searchQuery) {
-        params.set("q", searchQuery);
+    // URL changes include pagination and browser history. Only input events
+    // write a query, so mounting or returning never rewrites a valid URL.
+    const query = page.url.searchParams.get("q") || "";
+    if (query === writtenQuery) {
+      // This write can land after another keypress. Keep the newer draft
+      // and its pending timer; consume ownership before a later history move.
+      writtenQuery = undefined;
+      return;
+    }
+    writtenQuery = undefined;
+    searchQuery = query;
+    clearTimeout(searchTimer);
+  });
+
+  function search(event: Event & { currentTarget: HTMLInputElement }) {
+    searchQuery = event.currentTarget.value;
+    clearTimeout(searchTimer);
+    const query = searchQuery;
+    searchTimer = setTimeout(() => {
+      const params = new SvelteURLSearchParams(page.url.searchParams);
+      if (query) {
+        params.set("q", query);
+      } else {
+        params.delete("q");
       }
       params.set("page", "1");
-      goto(resolve(`/blogs?${params.toString()}`), {
+      writtenQuery = query;
+      const finished = () => {
+        if (writtenQuery === query) writtenQuery = undefined;
+      };
+      void goto(resolve(`/blogs?${params.toString()}`), {
         replaceState: true,
         noScroll: true,
-      });
+        keepFocus: true,
+      }).then(finished, finished);
     }, 300);
+  }
 
-    return () => clearTimeout(timer);
-  });
+  onDestroy(() => clearTimeout(searchTimer));
 </script>
 
 <svelte:window onkeydown={handleKeydown} />
@@ -109,7 +153,8 @@
       <input
         bind:this={searchInput}
         type="text"
-        bind:value={searchQuery}
+        value={searchQuery}
+        oninput={search}
         placeholder="Search posts..."
         class="placeholder:text-muted-foreground w-full border-0 bg-transparent ring-0 outline-none focus:border-0 focus:ring-0 focus:outline-none"
       />
