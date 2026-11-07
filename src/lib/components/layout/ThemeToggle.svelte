@@ -1,21 +1,27 @@
 <script lang="ts">
-  import { flushSync } from "svelte";
+  import { flushSync, onDestroy } from "svelte";
   import { toggleMode } from "mode-watcher";
   import { TILE } from "./SocialLinks.svelte";
   import NerdIcon from "$lib/components/icons/NerdIcon.svelte";
 
   let ripple: ViewTransition | undefined;
+  let fades: Animation[] = [];
+  let disposed = false;
   const icons: HTMLElement[] = [];
 
   // The sun and moon cross-fade. ModeWatcher turns off CSS transitions while
   // the theme changes, but not animate(), so the fade runs here once the dark
   // class has flipped. The class alone sets which icon shows.
   function fadeIcons() {
+    for (const fade of fades) fade.cancel();
+    fades = [];
     for (const icon of icons) {
       const shown = getComputedStyle(icon).opacity !== "0";
-      icon.animate(
-        { opacity: shown ? [0, 1] : [1, 0] },
-        { duration: 200, easing: "ease" },
+      fades.push(
+        icon.animate(
+          { opacity: shown ? [0, 1] : [1, 0] },
+          { duration: 200, easing: "ease" },
+        ),
       );
     }
   }
@@ -54,14 +60,29 @@
     const html = document.documentElement;
     html.classList.add("theme-ripple");
     const transition = document.startViewTransition(() => {
+      if (disposed) return;
       flushSync(toggleMode);
       fadeIcons();
     });
     ripple = transition;
-    transition.finished.finally(() => {
-      if (ripple === transition) html.classList.remove("theme-ripple");
-    });
+    // Rapid input skips older snapshots. Their ready promises reject even
+    // though the update callback still runs and finished still settles.
+    void transition.ready.catch(() => {});
+    const finish = () => {
+      if (ripple !== transition) return;
+      ripple = undefined;
+      html.classList.remove("theme-ripple");
+    };
+    void transition.finished.then(finish, finish);
   }
+
+  onDestroy(() => {
+    disposed = true;
+    ripple?.skipTransition();
+    if (ripple) document.documentElement.classList.remove("theme-ripple");
+    ripple = undefined;
+    for (const fade of fades) fade.cancel();
+  });
 </script>
 
 <button onclick={toggle} class="group" aria-label="Toggle theme">
