@@ -33,6 +33,8 @@ NAMES = [
     "linux-nixos",
     "md-email",
     "md-language_go",
+    "oct-moon",
+    "oct-sun",
     "md-lambda",
 ]
 

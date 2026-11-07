@@ -2,6 +2,7 @@
   import { flushSync } from "svelte";
   import { toggleMode, mode } from "mode-watcher";
   import { TILE } from "./SocialLinks.svelte";
+  import NerdIcon from "$lib/components/icons/NerdIcon.svelte";
 
   let ripple: ViewTransition | undefined;
 
@@ -51,17 +52,11 @@
 
 <button onclick={toggle} class="group" aria-label="Toggle theme">
   <span class={TILE}>
-    <span
-      class="flex items-center justify-center text-2xl leading-none"
-      style={mode.current === "dark" /* align font in the center */
-        ? `transform: translateX(-2.65px);`
-        : `transform: translateX(-3.9px);`}
-    >
-      {#if mode.current === "dark"}
-        
-      {:else}
-        
-      {/if}
-    </span>
+    <!-- SVG, not the font glyph: an SVG box centres the icon in the tile. -->
+    <NerdIcon
+      name={mode.current === "dark" ? "oct-moon" : "oct-sun"}
+      width={24}
+      height={24}
+    />
   </span>
 </button>
