@@ -63,7 +63,6 @@
 }
 
 :root.dark {
-  /* Sampled from the background art (えしねこ, pixiv 99130119). */
   --color-primary: #1c1a1e;
   --color-textcol: #e6dcd7;
   --color-subtextcol: #f4e7e0;

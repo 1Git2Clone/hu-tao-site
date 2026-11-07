@@ -128,9 +128,8 @@ and white backgrounds which means designing in regards to extensibility."
   its own tint and a decision about light/dark mode for the shader.
 - **`OpenTofu.svelte`** builds its faces with `color-mix(in oklab, …)` from
   `currentColor`. It follows any accent already.
-- **The token table in `AGENTS.md` is stale.** The dark values are now
-  sampled from the background art (`#1c1a1e`, `#e6dcd7`, `#e0766c`, …). Update
-  it as part of this work.
+- **The token table in `AGENTS.md` is stale.** The dark palette uses
+  `#1c1a1e`, `#e6dcd7`, and `#e0766c`. Update it as part of this work.
 - **Rules that apply:** never `!important` or Tailwind's `!` modifier;
   Tailwind utilities first, `<style>` only for what utilities cannot do; no
   blue accents, no sans-serif fonts. The red, monospace look is intentional.
