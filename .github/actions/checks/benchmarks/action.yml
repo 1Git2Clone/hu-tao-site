@@ -9,6 +9,9 @@ runs:
       shell: bash
     - run: node scripts/checks/performance-bench.ts workloads "$RUNNER_TEMP/baseline" . --out "$RUNNER_TEMP/performance/workloads.json"
       shell: bash
+    - if: always()
+      run: node scripts/ci/performance-report.ts "$RUNNER_TEMP/performance" "$RUNNER_TEMP/performance/report"
+      shell: bash
     # The raw samples, so a failure can be read and a baseline reviewed.
     - if: always()
       uses: actions/upload-artifact@v7

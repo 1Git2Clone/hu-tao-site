@@ -31,6 +31,9 @@ runs:
       run: node scripts/checks/performance-bench.ts renderer . --out "$RUNNER_TEMP/performance/renderer.json"
       shell: bash
     - if: always()
+      run: node scripts/ci/performance-report.ts "$RUNNER_TEMP/performance" "$RUNNER_TEMP/performance/report"
+      shell: bash
+    - if: always()
       uses: actions/upload-artifact@v7
       with:
         name: lighthouse
