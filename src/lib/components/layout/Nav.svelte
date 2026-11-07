@@ -1,6 +1,7 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
   import { page } from "$app/state";
+  import { TILE } from "./SocialLinks.svelte";
 
   const LINKS = [
     { href: resolve("/"), label: "/home", exact: true },
@@ -36,14 +37,21 @@
 <svelte:window onkeydown={(e) => e.key === "Escape" && close()} />
 
 <div class="md:hidden">
+  <!-- Two lines, like "=", that turn into an X while the menu is open. -->
   <button
     type="button"
-    class="cursor-pointer text-2xl text-accent hover:accent-accent-bg"
+    class="group cursor-pointer"
     aria-label="Menu"
     aria-expanded={isOpen}
     onclick={() => (isOpen = !isOpen)}
   >
-    ☰
+    <span class={TILE}>
+      {#each ["-translate-y-1 group-aria-expanded:rotate-45", "translate-y-1 group-aria-expanded:-rotate-45"] as line (line)}
+        <span
+          class="col-start-1 row-start-1 h-0.5 w-4 bg-current transition-transform duration-200 group-aria-expanded:translate-y-0 {line}"
+        ></span>
+      {/each}
+    </span>
   </button>
 
   <div

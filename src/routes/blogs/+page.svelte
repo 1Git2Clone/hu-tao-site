@@ -9,6 +9,9 @@
   import { SvelteURLSearchParams } from "svelte/reactivity";
   import { goto } from "$app/navigation";
   import { page } from "$app/state";
+  import { flip } from "svelte/animate";
+  import { prefersReducedMotion } from "svelte/motion";
+  import { scale } from "svelte/transition";
 
   let { data } = $props();
   let searchQuery = $state(page.url.searchParams.get("q") || "");
@@ -36,6 +39,10 @@
     searchQuery.trim().length > 0
       ? fuse.search(searchQuery.trim())
       : data.posts.map((p) => ({ item: p, matches: [] })),
+  );
+
+  let showCount = $derived(
+    searchQuery.trim().length > 0 && allResults.length > 0,
   );
 
   let searchDisplay = $derived(
@@ -112,59 +119,77 @@
         <span class=""> ⌘ </span> K
       </kbd>
     </div>
-    <p id="search-results" class="mt-4">
-      {#if searchQuery.trim() && allResults.length > 0}
-        {@const n = allResults.length}
-        {@const N = data.posts.length}
-
-        {n}/{N} results for search: "<b>{searchQuery.trim()}</b>".
-      {/if}
-    </p>
+    <!-- The count's row grows from 0fr while a search has results, so the
+         box opens smoothly. The gap is padding on the inner <p>: on the
+         clipped element, padding or margin would keep the closed row 1rem
+         tall. -->
+    <div
+      class={[
+        "grid transition-[grid-template-rows] duration-300 ease-[ease] motion-reduce:transition-none",
+        showCount ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+      ]}
+    >
+      <div class="min-h-0 overflow-hidden">
+        <p id="search-results" class="pt-4">
+          {#if showCount}
+            {allResults.length}/{data.posts.length} results for search: "<b
+              >{searchQuery.trim()}</b
+            >".
+          {/if}
+        </p>
+      </div>
+    </div>
   </Term>
 
   <section class="row-start-2 grid gap-6 md:grid-cols-2">
     {#each searchDisplay as result (result.item.slug)}
       {@const post = result.item}
-      <Card>
-        <h2 class="text-xl font-semibold">
-          <a
-            class="text-xl underline hover:text-textcol"
-            href={resolve(`/blogs/${post.slug}`)}
-          >
+      {@const duration = prefersReducedMotion.current ? 0 : 150}
+      <!-- A card that a search drops fades out where it was: with animate:,
+           Svelte takes it out of the flow during the outro, so the others
+           slide into place at the same time. -->
+      <div animate:flip={{ duration }} out:scale={{ duration, start: 0.95 }}>
+        <Card>
+          <h2 class="text-xl font-semibold">
+            <a
+              class="text-xl underline hover:text-textcol"
+              href={resolve(`/blogs/${post.slug}`)}
+            >
+              <Highlight
+                text={post.metadata.title}
+                matches={result.matches}
+                path={postKey("metadata.title")}
+              />
+            </a>
+          </h2>
+          <div class="flex flex-wrap gap-4 text-sm text-subtextcol">
+            {#if post.metadata.date}
+              <span>{post.metadata.date}</span>
+            {/if}
+            {#if post.metadata.readingTime}
+              <span>{post.metadata.readingTime}</span>
+            {/if}
+          </div>
+          <p class="text-muted-foreground mt-2">
             <Highlight
-              text={post.metadata.title}
+              text={post.metadata.summary}
               matches={result.matches}
-              path={postKey("metadata.title")}
+              path={postKey("metadata.summary")}
             />
-          </a>
-        </h2>
-        <div class="flex flex-wrap gap-4 text-sm text-subtextcol">
-          {#if post.metadata.date}
-            <span>{post.metadata.date}</span>
-          {/if}
-          {#if post.metadata.readingTime}
-            <span>{post.metadata.readingTime}</span>
-          {/if}
-        </div>
-        <p class="text-muted-foreground mt-2">
-          <Highlight
-            text={post.metadata.summary}
-            matches={result.matches}
-            path={postKey("metadata.summary")}
-          />
-        </p>
-        {#if post.metadata.tags}
-          <span class="text-sm text-subtextcol">
-            <b>Tags</b>:
+          </p>
+          {#if post.metadata.tags}
+            <span class="text-sm text-subtextcol">
+              <b>Tags</b>:
 
-            <Highlight
-              text={post.metadata.tags.join(", ")}
-              matches={result.matches}
-              path={postKey("metadata.tags")}
-            />
-          </span>
-        {/if}
-      </Card>
+              <Highlight
+                text={post.metadata.tags.join(", ")}
+                matches={result.matches}
+                path={postKey("metadata.tags")}
+              />
+            </span>
+          {/if}
+        </Card>
+      </div>
     {:else}
       <div class="text-muted-foreground col-span-full py-10 text-center">
         No posts found matching "{searchQuery}"
@@ -183,11 +208,3 @@
     />
   </div>
 </div>
-
-<style>
-  /* Ensure no weird layout shift when searching. */
-  #search-results::after {
-    content: "\200b";
-    visibility: hidden;
-  }
-</style>

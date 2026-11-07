@@ -1,6 +1,6 @@
 /**
  * Related posts. Pure functions only, with no runtime imports, so
- * `scripts/check-related.ts` can run them under plain Node.
+ * `scripts/checks/related.ts` can run them under plain Node.
  */
 import type { Post, PostMetadata } from "./posts";
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import LinkCard from "$lib/components/LinkCard.svelte";
   import Term from "$lib/components/layout/Term.svelte";
   import ForceOverview from "$lib/components/infra/ForceOverview.svelte";
   import { INFRA_STACK } from "$lib/content/infra/services";
@@ -40,21 +41,14 @@
   <Term label="Stack" id="stack" path="~/infra" cmd="ls stack/">
     <ul class="flex flex-wrap gap-2">
       {#each INFRA_STACK as tech (tech.name)}
-        <li class="card inline-block px-2 py-1 text-sm">
-          <a
-            href={tech.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            style="border: 0;"
-          >
-            {tech.name}
-          </a>
+        <li>
+          <LinkCard href={tech.url} icon={tech.icon}>{tech.name}</LinkCard>
         </li>
       {/each}
     </ul>
   </Term>
 
-  <Term label="Overview" id="overview" path="~/infra" cmd="tree">
+  <Term label="Overview" id="overview" path="~/infra" cmd="graph">
     <p class="mt-0 mb-6">
       Tap or click a box for what it does. With a mouse, drag them around.
     </p>

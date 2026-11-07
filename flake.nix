@@ -29,6 +29,13 @@
             pkgs.shellcheck
             # What the `glsl` job runs.
             pkgs.glslang
+            # Git hooks from .pre-commit-config.yaml.
+            pkgs.pre-commit
+            # The font subset and the Nerd Font icon paths in scripts/development.
+            (pkgs.python3.withPackages (p: [
+              p.fonttools
+              p.brotli
+            ]))
           ];
         };
       });

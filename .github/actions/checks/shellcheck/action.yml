@@ -4,5 +4,5 @@ description: Lints the repo's shell scripts. shellcheck ships on the runner imag
 runs:
   using: composite
   steps:
-    - run: shellcheck scripts/*.sh install_required_font_symbols.sh
+    - run: shellcheck scripts/*/*.sh
       shell: bash

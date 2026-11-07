@@ -1,10 +1,10 @@
-// Run: node scripts/check-faulty-terminal.ts
+// Run: node scripts/checks/faulty-terminal.ts
 // The shaders and the TypeScript that drives them share constants and uniform
 // names. glslangValidator checks each shader alone; this checks that both sides
 // agree.
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { FONT_BITS } from "../src/lib/vendor/faulty-terminal/font.ts";
+import { FONT_BITS } from "../../src/lib/vendor/faulty-terminal/font.ts";
 import {
   CELLS_PER_GRID_UNIT,
   CLICK_EFFECT_CODES,
@@ -12,16 +12,16 @@ import {
   MAX_CLICKS,
   hexToRgb,
   toSettings,
-} from "../src/lib/vendor/faulty-terminal/settings.ts";
+} from "../../src/lib/vendor/faulty-terminal/settings.ts";
 import {
   CELL_UNIFORMS,
   SCREEN_UNIFORMS,
-} from "../src/lib/vendor/faulty-terminal/uniforms.ts";
+} from "../../src/lib/vendor/faulty-terminal/uniforms.ts";
 
 const shader = (name: string) =>
   readFileSync(
     new URL(
-      `../src/lib/vendor/faulty-terminal/shaders/${name}`,
+      `../../src/lib/vendor/faulty-terminal/shaders/${name}`,
       import.meta.url,
     ),
     "utf8",

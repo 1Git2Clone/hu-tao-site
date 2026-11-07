@@ -344,10 +344,13 @@ h6 {
   box-shadow: 0 0 12px rgba(248, 113, 113, 0.15);
 }
 
-/* The header and footer have the fill of the boxes. */
+/* The header and footer have the fill of the boxes. The header has no blur. */
 header.background,
 footer.background {
   background: rgba(255, 255, 255, 0.9);
+}
+
+footer.background {
   backdrop-filter: blur(2px);
 }
 
@@ -356,13 +359,17 @@ footer.background {
   background: rgba(0, 0, 0, 0.85);
 }
 
-/* The mobile menu covers the page text, so it lets less through. */
-.background-mobile-nav {
+/* The mobile menu covers the page text, so it lets less through. While it is
+   open, the header has the same fill, so the two read as one panel. */
+.background-mobile-nav,
+header.background:has([aria-expanded="true"]) {
   background: rgba(255, 255, 255, 0.97);
-  backdrop-filter: blur(10px);
 }
 
-.dark .background-mobile-nav {
+:is(
+  .dark .background-mobile-nav,
+  .dark header.background:has([aria-expanded="true"])
+) {
   background: rgba(0, 0, 0, 0.95);
 }
 
