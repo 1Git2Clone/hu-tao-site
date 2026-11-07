@@ -201,6 +201,7 @@ nix develop -c pnpm run lint      # Oxfmt check + Oxlint (Vite+)
 nix develop -c pnpm run format    # Auto-format with Oxfmt
 nix develop -c actionlint         # Lint the GitHub workflows
 nix develop -c shellcheck scripts/*/*.sh
+nix develop -c pre-commit install  # Once per clone: the pre-push hook
 nix develop -c scripts/checks/glsl.sh  # Validate the GLSL shaders
 nix develop -c scripts/development/install-required-font-symbols.sh  # Re-subset font after adding new characters
 ```
@@ -249,6 +250,9 @@ If `vp` is not found, `node_modules` is stale. Run the install command.
 - Give a secret only to the step that uses it. Do not put it in job `env`.
 - Pin third-party actions to a full commit SHA, with the version in a
   comment. GitHub's `actions/*` can use a major tag.
+- The pre-push hook (`.pre-commit-config.yaml`) runs `scripts/checks/commits.sh`:
+  `svelte-check` and `pnpm test` on each pushed commit, not only the tip.
+  Split a change into commits with the generated files that each one needs.
 - Each new check must fail in CI. Break it on purpose one time and see it
   fail before you commit it.
 

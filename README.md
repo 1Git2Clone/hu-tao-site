@@ -228,6 +228,8 @@ build
 
 ## Maintenance Notes
 
+- Run `nix develop -c pre-commit install` once. The pre-push hook runs
+  `svelte-check` and the tests on each pushed commit.
 - Run `pnpm run check` before committing Svelte or TypeScript changes.
 - Run `pnpm run lint` when working on formatting or lint cleanup. There may be
   existing repo-wide formatting noise, so inspect the current diff before broad
