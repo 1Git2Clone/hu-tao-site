@@ -1,0 +1,14 @@
+# Install once per clone: nix develop -c pre-commit install
+default_install_hook_types: [pre-push]
+
+repos:
+  - repo: local
+    hooks:
+      # CI checks only the branch tip. This checks each pushed commit.
+      - id: commits
+        name: svelte-check and tests on each pushed commit
+        entry: scripts/checks/commits.sh
+        language: system
+        stages: [pre-push]
+        pass_filenames: false
+        always_run: true
