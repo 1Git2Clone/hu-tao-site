@@ -1,3 +1,9 @@
+import type { LinkIcon } from "$lib/components/LinkCard.svelte";
+import Caddy from "$lib/components/icons/Caddy.svelte";
+import Hetzner from "$lib/components/icons/Hetzner.svelte";
+import OpenTofu from "$lib/components/icons/OpenTofu.svelte";
+import Tailscale from "$lib/components/icons/Tailscale.svelte";
+
 // Markdown, rendered by `marked` on the server. A table cell holds one line of
 // inline markdown: `<br>` breaks it, and a quote is italics rather than `>`.
 
@@ -23,15 +29,19 @@ export const PRIVATE_SERVICES = `
 | **PostgreSQL + pgbouncer**                                                             | Shared database and connection pooler.                             |
 `;
 
-export const INFRA_STACK = [
-  { name: "NixOS", url: "https://nixos.org/" },
-  { name: "OpenTofu", url: "https://opentofu.org/" },
-  { name: "Hetzner", url: "https://www.hetzner.com/cloud/" },
-  { name: "Cloudflare", url: "https://www.cloudflare.com/" },
-  { name: "Caddy", url: "https://caddyserver.com/" },
+export const INFRA_STACK: { name: string; url: string; icon?: LinkIcon }[] = [
+  { name: "NixOS", url: "https://nixos.org/", icon: "linux-nixos" },
+  { name: "OpenTofu", url: "https://opentofu.org/", icon: OpenTofu },
+  { name: "Hetzner", url: "https://www.hetzner.com/cloud/", icon: Hetzner },
+  {
+    name: "Cloudflare",
+    url: "https://www.cloudflare.com/",
+    icon: "dev-cloudflare",
+  },
+  { name: "Caddy", url: "https://caddyserver.com/", icon: Caddy },
   { name: "nftables", url: "https://netfilter.org/projects/nftables/" },
   { name: "sops-nix", url: "https://github.com/Mic92/sops-nix" },
   { name: "restic", url: "https://restic.net/" },
-  { name: "Tailscale", url: "https://tailscale.com/" },
-  { name: "Docker", url: "https://www.docker.com/" },
+  { name: "Tailscale", url: "https://tailscale.com/", icon: Tailscale },
+  { name: "Docker", url: "https://www.docker.com/", icon: "dev-docker" },
 ];

@@ -29,5 +29,5 @@ export const SKILLS: SkillGroup[] = [
     ],
   },
   { group: "Observability", items: ["Grafana", "OpenTelemetry", "Prometheus"] },
-  { group: "AI", items: ["OpenAI", "Gemini", "Claude"] },
+  { group: "AI", items: ["Claude", "OpenAI", "Gemini"] },
 ];

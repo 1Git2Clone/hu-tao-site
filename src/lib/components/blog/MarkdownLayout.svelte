@@ -21,7 +21,8 @@
 
   // The TOC fills the viewport (same margin top and bottom), and gives back
   // exactly as much height as the footer has scrolled into view, so its
-  // bottom never crosses the footer.
+  // bottom never crosses the footer. The 0.75rem is the pt-3 on the page
+  // wrapper in +layout.svelte: without it the sidebars end below the article.
   let footerOverlap = $state(0);
 
   $effect(() => {
@@ -79,7 +80,7 @@
       <Term
         tag="div"
         cmd="./related"
-        class="fixed h-[calc(100dvh-var(--header-height)-var(--main-padding)*2-var(--footer-overlap))] w-64"
+        class="fixed h-[calc(100dvh-var(--header-height)-var(--main-padding)*2-0.75rem-var(--footer-overlap))] w-64"
         bodyClass="scrollbar-hide min-h-0 flex-1 space-y-3 overflow-y-auto px-4 pt-4 pb-6"
       >
         {@render relatedCards()}
@@ -145,7 +146,7 @@
       <Term
         tag="div"
         cmd="cat SUMMARY.md"
-        class="fixed h-[calc(100dvh-var(--header-height)-var(--main-padding)*2-var(--footer-overlap))] w-64"
+        class="fixed h-[calc(100dvh-var(--header-height)-var(--main-padding)*2-0.75rem-var(--footer-overlap))] w-64"
         bodyClass="scrollbar-hide min-h-0 flex-1 overflow-y-auto px-4 pt-4 pb-6"
       >
         <TableOfContents staticHeadings={headings} />

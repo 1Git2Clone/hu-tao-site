@@ -13,7 +13,7 @@ from = "/about-me"
 to = "/"
 status = 301
 
-# Fonts keep their name when install_required_font_symbols.sh re-subsets them,
+# Fonts keep their name when scripts/development/install-required-font-symbols.sh re-subsets them,
 # so a week rather than immutable: repeat visits skip the revalidation round
 # trip, and a new subset still reaches everyone within days.
 [[headers]]

@@ -14,17 +14,20 @@
   }
 </script>
 
+<!-- Below md: theme button on the left, title in the middle, menu on the
+     right. From md: title on the left, links in the middle, socials and the
+     theme button on the right. All items sit on row 1 of one grid. -->
 <header
   class="background sticky top-0 z-1 grid h-(--header-height) grid-cols-[1fr_auto_1fr] items-center border-b border-accent px-8"
 >
   <a
     href="#main-content"
-    class="group relative w-fit text-lg font-bold whitespace-nowrap"
+    class="group relative col-start-2 row-start-1 w-fit justify-self-center text-lg font-bold whitespace-nowrap md:col-start-1 md:justify-self-start"
     aria-label="Skip to main content"
     onclick={handleLogoClick}
   >
     <span
-      class="hidden transition-opacity duration-150 ease-in-out group-focus-visible:opacity-0 sm:inline"
+      class="transition-opacity duration-150 ease-in-out group-focus-visible:opacity-0"
       >{SITE_TITLE}</span
     >
     <span
@@ -33,15 +36,18 @@
     >
   </a>
 
-  <nav class="flex justify-center">
+  <nav
+    class="col-start-3 row-start-1 flex justify-self-end md:col-start-2 md:justify-self-center"
+  >
     <Nav />
   </nav>
 
-  <div class="flex items-center justify-end gap-4">
-    <SocialLinks class="hidden sm:flex" />
+  <div
+    class="col-start-1 row-start-1 flex items-center gap-4 justify-self-start md:col-start-3 md:justify-self-end"
+  >
+    <SocialLinks class="hidden md:flex" />
 
-    <div class="hidden sm:inline-flex" aria-hidden={true}></div>
-
+    <div class="hidden md:inline-flex" aria-hidden={true}></div>
     <ThemeToggle />
   </div>
 </header>

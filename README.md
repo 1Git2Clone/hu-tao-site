@@ -151,7 +151,10 @@ pnpm run preview
 │       └── layout.css                # Tailwind v4 theme and global styles
 ├── static
 │   └── fonts                         # Optimized JetBrains Mono / KaTeX fonts
-└── install_required_font_symbols.sh  # Font subset helper
+└── scripts
+    ├── checks                        # Checks that CI and `pnpm test` run
+    ├── ci                            # Deploy and CI-only helpers
+    └── development                   # Font subset and other dev tools
 ```
 
 ## Content
@@ -225,11 +228,13 @@ build
 
 ## Maintenance Notes
 
+- Run `nix develop -c pre-commit install` once. The pre-push hook runs
+  `svelte-check` and the tests on each pushed commit.
 - Run `pnpm run check` before committing Svelte or TypeScript changes.
 - Run `pnpm run lint` when working on formatting or lint cleanup. There may be
   existing repo-wide formatting noise, so inspect the current diff before broad
   formatting changes.
-- Run `install_required_font_symbols.sh` after adding glyphs that must be
+- Run `scripts/development/install-required-font-symbols.sh` after adding glyphs that must be
   included in the optimized font subset.
 - Do not commit secrets, `.env` files, tokens, or private credentials.
 

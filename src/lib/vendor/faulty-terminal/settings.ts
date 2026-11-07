@@ -86,7 +86,7 @@ export const DEFAULT_OPTIONS: TerminalOptions = {
   dpr: undefined,
 };
 
-// The shader side of these lives in screen.frag. scripts/check-faulty-terminal.ts
+// The shader side of these lives in screen.frag. scripts/checks/faulty-terminal.ts
 // checks that both sides agree.
 export const MAX_CLICKS = 4;
 export const GLYPH_STYLE_CODES: Record<GlyphStyle, number> = {

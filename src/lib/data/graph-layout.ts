@@ -1,6 +1,6 @@
 /**
  * Graph layouts. Pure, so the server places every node before any JS runs and
- * `scripts/check-infra-graph.ts` can run them under plain Node.
+ * `scripts/checks/infra-graph.ts` can run them under plain Node.
  */
 import {
   forceLink,
