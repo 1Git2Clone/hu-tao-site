@@ -96,10 +96,7 @@
       class="mx-auto w-full max-w-4xl"
       bodyClass="px-4 pt-4 pb-8 sm:px-8"
     >
-      <HeadingCopy
-        tag="div"
-        class="prose max-w-none min-w-0 wrap-break-word dark:prose-invert"
-      >
+      <HeadingCopy tag="div" class="prose max-w-none min-w-0 wrap-break-word">
         {#if title}
           <h1 id={slugify(title)}>{title}</h1>
         {/if}

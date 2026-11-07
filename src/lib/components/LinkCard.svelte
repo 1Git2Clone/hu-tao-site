@@ -42,7 +42,7 @@
   rel={external ? "noopener noreferrer" : undefined}
 >
   <span
-    class="flex items-stretch border border-frame bg-white/90 text-sm text-accent transition-colors duration-200 group-hover:border-accent group-hover:text-accent-hover dark:bg-black/85"
+    class="flex items-stretch border border-frame bg-surface text-sm text-accent transition-colors duration-200 group-hover:border-accent group-hover:text-accent-hover"
   >
     <span
       class="grid aspect-square place-items-center border-r border-inherit p-1.5 transition-colors duration-200"

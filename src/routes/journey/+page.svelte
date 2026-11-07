@@ -13,7 +13,7 @@
   cursor
   hero
   class="mx-auto w-full max-w-4xl"
-  bodyClass="prose min-w-full px-4 pt-4 pb-6 sm:px-8 dark:prose-invert"
+  bodyClass="prose min-w-full px-4 pt-4 pb-6 sm:px-8"
 >
   <p class="mt-0">
     My journey into the Linux world — from first install to current setup.

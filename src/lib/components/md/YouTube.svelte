@@ -51,7 +51,7 @@
     width: 100%;
     aspect-ratio: 16 / 9;
     margin: 2rem 0;
-    background: #000;
+    background: var(--color-video-canvas);
     border-radius: 0.75rem;
     overflow: hidden;
   }
@@ -72,7 +72,7 @@
   .play-button {
     width: calc(16rem / 2);
     height: calc(9rem / 2);
-    background-color: rgba(33, 33, 33, 0.8);
+    background-color: var(--color-video-button);
     border-radius: 12%;
     position: relative;
     transition: background-color 0.2s;
@@ -90,7 +90,7 @@
   }
 
   .placeholder:hover .play-button {
-    background-color: #ff0000;
+    background-color: var(--color-video-button-hover);
   }
 
   /* The triangle */
@@ -98,7 +98,7 @@
     content: "";
     border-style: solid;
     border-width: 12px 0 12px 20px;
-    border-color: transparent transparent transparent #fff;
+    border-color: transparent transparent transparent var(--color-video-symbol);
     position: absolute;
     top: 50%;
     left: 51%;

@@ -18,7 +18,7 @@
     cmd="cat README.md"
     cursor
     hero
-    bodyClass="prose min-w-full px-4 pt-4 pb-6 sm:px-8 dark:prose-invert"
+    bodyClass="prose min-w-full px-4 pt-4 pb-6 sm:px-8"
   >
     <p class="mt-0 text-lg text-subtextcol">
       One VPS, described end to end in a single NixOS flake — disks, firewall,
@@ -61,7 +61,7 @@
     id="public"
     path="~/infra"
     cmd="ls public/"
-    bodyClass="prose min-w-full px-4 pt-4 pb-6 sm:px-8 dark:prose-invert"
+    bodyClass="prose min-w-full px-4 pt-4 pb-6 sm:px-8"
   >
     <p class="mt-0">
       Reachable from anywhere, behind one reverse proxy and one certificate.
@@ -74,7 +74,7 @@
     id="private"
     path="~/infra"
     cmd="ls private/"
-    bodyClass="prose min-w-full px-4 pt-4 pb-6 sm:px-8 dark:prose-invert"
+    bodyClass="prose min-w-full px-4 pt-4 pb-6 sm:px-8"
   >
     <p class="mt-0">
       Private, or mine rather than yours. Listed because they are part of the

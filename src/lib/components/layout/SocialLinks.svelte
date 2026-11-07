@@ -8,7 +8,7 @@
   // unlayered, so it would override transition-all and the corners would snap.
   // ThemeToggle.svelte uses the same tile.
   export const TILE = [
-    "grid size-9 place-items-center rounded-[28%] border-2 border-current bg-white/40 backdrop-blur-[2px] transition-all duration-200 dark:bg-black/50",
+    "grid size-9 place-items-center rounded-[28%] border-2 border-current bg-surface-tile backdrop-blur-[2px] transition-all duration-200",
     "group-hover:rounded-[40%]",
     "supports-[corner-shape:squircle]:rounded-[50%] supports-[corner-shape:squircle]:[corner-shape:squircle]",
     "supports-[corner-shape:squircle]:group-hover:[corner-shape:superellipse(1.3)]",

@@ -34,7 +34,7 @@
       </svg>
     </button>
   </div>
-  <div class="prose prose-sm mt-2 text-left dark:prose-invert [&_p]:my-0">
+  <div class="prose prose-sm mt-2 text-left [&_p]:my-0">
     {@html node.description}
   </div>
 </div>
