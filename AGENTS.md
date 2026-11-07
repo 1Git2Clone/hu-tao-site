@@ -15,7 +15,7 @@ Font, and mdsvex-powered blog with KaTeX, YouTube embeds, and reading time.
 - **Styling**: Tailwind CSS v4 (CSS-first config via `layout.css` `@theme`)
 - **Markdown**: mdsvex with custom remark/rehype plugins
 - **Adapter**: `@sveltejs/adapter-netlify`
-- **Font**: JetBrains Mono Nerd Font (subset-optimized via `install_required_font_symbols.sh`)
+- **Font**: JetBrains Mono Nerd Font (subset-optimized via `scripts/development/install-required-font-symbols.sh`)
 - **Math**: KaTeX via `rehype-katex` + `remark-math`
 - **Theme**: `mode-watcher` for dark/light switching
 - **Search**: `fuse.js`
@@ -200,9 +200,9 @@ nix develop -c pnpm run check     # Type-check with svelte-check
 nix develop -c pnpm run lint      # Oxfmt check + Oxlint (Vite+)
 nix develop -c pnpm run format    # Auto-format with Oxfmt
 nix develop -c actionlint         # Lint the GitHub workflows
-nix develop -c shellcheck scripts/*.sh install_required_font_symbols.sh
-nix develop -c scripts/check-glsl.sh  # Validate the GLSL shaders
-bash install_required_font_symbols.sh  # Re-subset font after adding new characters
+nix develop -c shellcheck scripts/*/*.sh
+nix develop -c scripts/checks/glsl.sh  # Validate the GLSL shaders
+nix develop -c scripts/development/install-required-font-symbols.sh  # Re-subset font after adding new characters
 ```
 
 If `vp` is not found, `node_modules` is stale. Run the install command.
@@ -238,13 +238,14 @@ If `vp` is not found, `node_modules` is stale. Run the install command.
 - To add a stage, add `.github/actions/<group>/<stage>/action.yml` and one job
   in `ci.yml`. Add the job to the `needs` list of `deploy`.
 - A `run:` step in a composite action must have `shell: bash`.
-- `pnpm test` runs the assert-based tests in `scripts/check-*.ts`. Add a new
+- `pnpm test` runs the assert-based tests in `scripts/checks/*.ts`. Add a new
   test file to the `test` script in `package.json`.
 - Each deploy is a GitHub deployment. Read its status in GitHub, not in the
   Netlify UI.
 - Netlify's own Git builds are stopped. Do not turn them on again.
-- Put shell logic in `scripts/*.sh`. A `run:` step calls one script or one
-  command.
+- Put shell logic in `scripts/<group>/*.sh`. A `run:` step calls one script or
+  one command. The groups are `ci/` (only CI runs it), `checks/` (CI and
+  local checks) and `development/` (local tools, such as the font subset).
 - Give a secret only to the step that uses it. Do not put it in job `env`.
 - Pin third-party actions to a full commit SHA, with the version in a
   comment. GitHub's `actions/*` can use a major tag.

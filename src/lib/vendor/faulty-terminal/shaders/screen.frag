@@ -7,7 +7,7 @@
 precision highp float;
 precision highp int;
 
-// These must match settings.ts. scripts/check-faulty-terminal.ts checks them.
+// These must match settings.ts. scripts/checks/faulty-terminal.ts checks them.
 const int GLYPH_COUNT = 23;
 const int MAX_CLICKS = 4;
 const int GLYPHS_BLOCKS = 0;

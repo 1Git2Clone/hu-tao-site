@@ -21,7 +21,7 @@ runs:
     - uses: ./.github/actions/setup
     - id: deploy
       # The token is scoped to this step, out of reach of install scripts.
-      run: scripts/deploy.sh "$PR_NUMBER"
+      run: scripts/ci/deploy.sh "$PR_NUMBER"
       shell: bash
       env:
         NETLIFY_AUTH_TOKEN: ${{ inputs.token }}

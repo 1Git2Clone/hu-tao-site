@@ -1,8 +1,11 @@
-// Run: node scripts/check-infra-graph.ts
+// Run: node scripts/checks/infra-graph.ts
 import assert from "node:assert/strict";
-import { OVERVIEW, OVERVIEW_SIZES } from "../src/lib/content/infra/topology.ts";
-import { NODE_HEIGHT, boxWidth } from "../src/lib/data/graph-geometry.ts";
-import { tangle, wideAndTall } from "../src/lib/data/graph-layout.ts";
+import {
+  OVERVIEW,
+  OVERVIEW_SIZES,
+} from "../../src/lib/content/infra/topology.ts";
+import { NODE_HEIGHT, boxWidth } from "../../src/lib/data/graph-geometry.ts";
+import { tangle, wideAndTall } from "../../src/lib/data/graph-layout.ts";
 
 // Ids are unique and every link names two of them.
 const ids = new Set(OVERVIEW.nodes.map((node) => node.id));

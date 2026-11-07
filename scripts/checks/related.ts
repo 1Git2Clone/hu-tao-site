@@ -1,12 +1,12 @@
-// Run: node scripts/check-related.ts
+// Run: node scripts/checks/related.ts
 import assert from "node:assert/strict";
-import type { Post } from "../src/lib/data/posts.ts";
+import type { Post } from "../../src/lib/data/posts.ts";
 import {
   dateScore,
   relatedPosts,
   tagScore,
   validatePostIds,
-} from "../src/lib/data/related.ts";
+} from "../../src/lib/data/related.ts";
 
 // Valid UUIDv7s whose last digits are the number, so assertions stay readable.
 const uid = (n: number) =>
