@@ -34,12 +34,10 @@
         flows. Everything below is what happens when nobody's paying me to.
       </p>
       <div class="not-prose mt-6 flex flex-wrap gap-3">
-        <LinkCard href={FORGEJO_URL}>
-          {#snippet icon()}<Forgejo width={20} height={20} />{/snippet}
+        <LinkCard href={FORGEJO_URL} icon={Forgejo}>
           git.hu-tao.dev/hutao
         </LinkCard>
-        <LinkCard href={GITHUB_URL}>
-          {#snippet icon()}<GitHub width={20} height={20} />{/snippet}
+        <LinkCard href={GITHUB_URL} icon={GitHub}>
           github.com/{GITHUB_PROFILE_NAME}
         </LinkCard>
         <LinkCard href={resolve("/blogs")}>/blogs</LinkCard>
