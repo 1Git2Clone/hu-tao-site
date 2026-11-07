@@ -20,7 +20,10 @@
     hero
   >
     <div class="prose min-w-full dark:prose-invert">
-      <p class="mt-0 text-sm text-subtextcol italic">
+      <p class="mt-0 font-bold text-subtextcol">
+        1Git2Clone aka 1Kill2Steal aka Ivan.
+      </p>
+      <p class="text-sm text-subtextcol italic">
         A dev with the horrible habit of “doing it myself”.
       </p>
       <p>
