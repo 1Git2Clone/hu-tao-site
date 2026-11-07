@@ -23,8 +23,9 @@ Part B remains for the next task, after the theme PR merges.
   installed `tailwindcss/theme.css`, so `mauve`, `mist`, `olive` and `taupe`
   fail too. It also rejects `.dark` selectors (`[.dark_&]`, `:global(.dark)`),
   `prose-invert` and prose colour modifiers, named colours in `color-mix()`,
-  and `_black`-style arbitrary values. A known limit remains:
-  `style:color={"red"}` passes.
+  `_black`-style arbitrary values, and named colours in Svelte style
+  directives, such as `style:color={"red"}` or `style:border={'1px solid white'}`.
+  Directives with tokens, `currentColor`, `transparent` or a variable pass.
 - Eight before/after captures cover home and a real blog article, at 1280px
   and 390px, light and dark. Element geometry, text colours, borders, shadows
   and filters match. Screenshot differences are at most two RGB channel steps

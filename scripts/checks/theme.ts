@@ -142,6 +142,11 @@ const forbidden = [
     `\\b${colourProperty}\\s*[:=]\\s*["']?[^;"'{}\\n]*\\b${namedColour}\\b`,
     "gi",
   ),
+  // A Svelte style directive can quote its value inside braces: style:color={"red"}.
+  new RegExp(
+    `\\bstyle:${colourProperty}(?:\\|important)?\\s*=\\s*(?:\\{[^}\\n]*|"[^"\\n]*|'[^'\\n]*)\\b${namedColour}\\b`,
+    "gi",
+  ),
   // Arbitrary values use _ for spaces, and \b does not split _black.
   new RegExp(
     `\\b${colourUtility}-\\[[^\\]]*(?<![a-z-])${namedColour}(?![a-z])`,
