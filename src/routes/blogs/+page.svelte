@@ -38,6 +38,10 @@
       : data.posts.map((p) => ({ item: p, matches: [] })),
   );
 
+  let showCount = $derived(
+    searchQuery.trim().length > 0 && allResults.length > 0,
+  );
+
   let searchDisplay = $derived(
     allResults.slice(
       (currentPage - 1) * itemsPerPage,
@@ -112,14 +116,26 @@
         <span class=""> ⌘ </span> K
       </kbd>
     </div>
-    <p id="search-results" class="mt-4">
-      {#if searchQuery.trim() && allResults.length > 0}
-        {@const n = allResults.length}
-        {@const N = data.posts.length}
-
-        {n}/{N} results for search: "<b>{searchQuery.trim()}</b>".
-      {/if}
-    </p>
+    <!-- The count's row grows from 0fr while a search has results, so the
+         box opens smoothly. The gap is padding on the inner <p>: on the
+         clipped element, padding or margin would keep the closed row 1rem
+         tall. -->
+    <div
+      class={[
+        "grid transition-[grid-template-rows] duration-300 ease-[ease] motion-reduce:transition-none",
+        showCount ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+      ]}
+    >
+      <div class="min-h-0 overflow-hidden">
+        <p id="search-results" class="pt-4">
+          {#if showCount}
+            {allResults.length}/{data.posts.length} results for search: "<b
+              >{searchQuery.trim()}</b
+            >".
+          {/if}
+        </p>
+      </div>
+    </div>
   </Term>
 
   <section class="row-start-2 grid gap-6 md:grid-cols-2">
@@ -183,11 +199,3 @@
     />
   </div>
 </div>
-
-<style>
-  /* Ensure no weird layout shift when searching. */
-  #search-results::after {
-    content: "\200b";
-    visibility: hidden;
-  }
-</style>
