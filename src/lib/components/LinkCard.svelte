@@ -11,16 +11,17 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import type { HTMLAnchorAttributes } from "svelte/elements";
+  import Dot from "$lib/components/icons/Dot.svelte";
   import NerdIcon from "$lib/components/icons/NerdIcon.svelte";
 
   // A link drawn as a box: | icon | label |. A link with no icon of its own
-  // gets a star, so every box in a row has the same shape.
+  // gets a dot, so every box in a row has the same shape.
   // The box is a span, not the <a>: the unlayered `#main-content a` rules in
   // layout.css would override its border and transition. The inline style
   // turns off their hover underline, as on the skill chips.
   let {
     href,
-    icon = "oct-star",
+    icon = Dot,
     children,
     ...rest
   }: HTMLAnchorAttributes & {
