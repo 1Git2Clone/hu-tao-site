@@ -142,7 +142,13 @@ const forbidden = [
     `\\b${colourProperty}\\s*[:=]\\s*["']?[^;"'{}\\n]*\\b${namedColour}\\b`,
     "gi",
   ),
-  new RegExp(`\\b${colourUtility}-\\[[^\\]]*\\b${namedColour}\\b`, "gi"),
+  // Arbitrary values use _ for spaces, and \b does not split _black.
+  new RegExp(
+    `\\b${colourUtility}-\\[[^\\]]*(?<![a-z-])${namedColour}(?![a-z])`,
+    "gi",
+  ),
+  // A mix can sit in a script string or a custom property, with no property name.
+  new RegExp(`\\bcolor-mix\\([^;\\n]*\\b${namedColour}\\b`, "gi"),
   /\bvar\(\s*--color-(?:white|black|[a-z]+-\d+)\b/g,
 ];
 
