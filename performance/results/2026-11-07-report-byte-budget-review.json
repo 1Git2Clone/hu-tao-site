@@ -1,0 +1,21 @@
+{
+  "run": "https://github.com/1Git2Clone/hu-tao-site/actions/runs/42410624300",
+  "artifact": 13589197645,
+  "rawResult": "2026-11-07-report-ci-lighthouse.json",
+  "reason": "The visualization changes only CI/report tooling. The source-equivalent production build exceeds the existing post transfer budget by five bytes. Keep the previous measured 10-byte build allowance above the newly observed maximum. No timing floors or request budgets change.",
+  "productionSourceComparison": "git diff --exit-code 81984b7ea801522f649c1ca6467b3a78111ce019..94448992a83c4042d4ab2f85b83adebe8d1966e8 -- src static plugins pnpm-lock.yaml vite.config.ts svelte.config.js",
+  "productionSourceComparisonExit": 0,
+  "packageJsonDifference": "Only the test script changed; dependencies and build scripts are unchanged.",
+  "mainCommit": "0f26201b77f356662e85e1ca0cb8cad92aeab8ab",
+  "ciBrowser": "Google Chrome for Testing 158.0.8127.18",
+  "previousRun": "https://github.com/1Git2Clone/hu-tao-site/actions/runs/42405803162",
+  "changes": {
+    "mobile /blogs/intro-to-big-o-notation total bytes": {
+      "old": 478949,
+      "previousRunValue": 478948,
+      "measuredMaximum": 478954,
+      "existingBuildAllowance": 10,
+      "new": 478964
+    }
+  }
+}

@@ -32,7 +32,7 @@
     "mobile /blogs total bytes": 318695,
     "mobile /blogs requests": 22,
     "mobile /blogs/intro-to-big-o-notation script bytes": 98381,
-    "mobile /blogs/intro-to-big-o-notation total bytes": 478949,
+    "mobile /blogs/intro-to-big-o-notation total bytes": 478964,
     "mobile /blogs/intro-to-big-o-notation requests": 27,
     "desktop / script bytes": 96372,
     "desktop / total bytes": 338149,
@@ -44,6 +44,7 @@
   ],
   "budgetEvidence": [
     "results/2026-11-07-ci-lighthouse.json",
-    "results/2026-11-07-byte-budget-review.json"
+    "results/2026-11-07-byte-budget-review.json",
+    "results/2026-11-07-report-byte-budget-review.json"
   ]
 }
