@@ -31,6 +31,7 @@ NAMES = [
     "dev-tailwindcss",
     "dev-typescript",
     "linux-nixos",
+    "md-aws",
     "md-email",
     "md-language_go",
     "oct-moon",
