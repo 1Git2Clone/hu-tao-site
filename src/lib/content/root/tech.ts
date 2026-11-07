@@ -102,7 +102,7 @@ export const LANGUAGES: Record<string, TechRef> = {
   Java: { url: "https://www.java.com/" },
   Kotlin: { url: "https://kotlinlang.org/" },
   Lua: { url: "https://www.lua.org/" },
-  Shell: { url: "https://www.gnu.org/software/bash/", icon: "dev-bash" },
+  Shell: { url: "https://www.gnu.org/software/bash/", icon: "md-console_line" },
 } as const;
 export type Languages = keyof typeof LANGUAGES;
 

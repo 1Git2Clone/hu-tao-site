@@ -15,7 +15,6 @@ FONT = "static/fonts/JetBrainsMonoNerdFont-Regular.woff2"
 OUT = "src/lib/components/icons/nerd-icons.ts"
 
 NAMES = [
-    "dev-bash",
     "dev-cloudflare",
     "dev-cplusplus",
     "dev-docker",
@@ -32,6 +31,7 @@ NAMES = [
     "dev-typescript",
     "linux-nixos",
     "md-aws",
+    "md-console_line",
     "md-email",
     "md-language_go",
     "oct-moon",
