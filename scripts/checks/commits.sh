@@ -32,7 +32,7 @@ fi
 root="$(git rev-parse --show-toplevel)"
 tree="$(mktemp -d)"
 trap 'git worktree remove --force "$tree" >/dev/null 2>&1 || rm -rf "$tree"' EXIT
-git worktree add --quiet --detach "$tree" "${commits[0]}"
+git -C "$root" worktree add --quiet --detach "$tree" "${commits[0]}"
 
 failed=0
 for commit in "${commits[@]}"; do
