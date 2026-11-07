@@ -1,5 +1,18 @@
 import { expect, test } from "@playwright/test";
 
+// Hosted runners have no GPU. Use the same explicit software backend as the
+// renderer report, rather than Chromium's platform-dependent GPU fallback.
+test.use({
+  launchOptions: {
+    executablePath: process.env.CHROME_PATH || undefined,
+    args: [
+      "--use-angle=swiftshader",
+      "--enable-unsafe-swiftshader",
+      "--ignore-gpu-blocklist",
+    ],
+  },
+});
+
 test("live WebGL starts and remains usable after a theme change", async ({
   page,
 }) => {
