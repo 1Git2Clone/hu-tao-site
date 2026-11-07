@@ -13,13 +13,14 @@
   import type { HTMLAnchorAttributes } from "svelte/elements";
   import NerdIcon from "$lib/components/icons/NerdIcon.svelte";
 
-  // A link drawn as a box: | icon | label |, or | label | without an icon.
+  // A link drawn as a box: | icon | label |. A link with no icon of its own
+  // gets a star, so every box in a row has the same shape.
   // The box is a span, not the <a>: the unlayered `#main-content a` rules in
   // layout.css would override its border and transition. The inline style
   // turns off their hover underline, as on the skill chips.
   let {
     href,
-    icon,
+    icon = "oct-star",
     children,
     ...rest
   }: HTMLAnchorAttributes & {
@@ -42,19 +43,17 @@
   <span
     class="flex items-stretch border border-frame bg-white/90 text-sm text-accent transition-colors duration-200 group-hover:border-accent group-hover:text-accent-hover dark:bg-black/85"
   >
-    {#if icon}
-      <span
-        class="grid aspect-square place-items-center border-r border-inherit p-1.5 transition-colors duration-200"
-        aria-hidden="true"
-      >
-        {#if typeof icon === "string"}
-          <NerdIcon name={icon} width={20} height={20} />
-        {:else}
-          {@const Icon = icon}
-          <Icon width={20} height={20} />
-        {/if}
-      </span>
-    {/if}
+    <span
+      class="grid aspect-square place-items-center border-r border-inherit p-1.5 transition-colors duration-200"
+      aria-hidden="true"
+    >
+      {#if typeof icon === "string"}
+        <NerdIcon name={icon} width={20} height={20} />
+      {:else}
+        {@const Icon = icon}
+        <Icon width={20} height={20} />
+      {/if}
+    </span>
     <span class="px-3 py-1.5">{@render children()}</span>
   </span>
 </a>

@@ -34,6 +34,7 @@ NAMES = [
     "md-email",
     "md-language_go",
     "oct-moon",
+    "oct-star",
     "oct-sun",
     "md-lambda",
 ]
