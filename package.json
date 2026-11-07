@@ -11,7 +11,7 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "vp fmt --check && vp lint",
-    "test": "node scripts/checks/infra-graph.ts && node scripts/checks/related.ts && node scripts/checks/seo.ts && node scripts/checks/faulty-terminal.ts",
+    "test": "node scripts/checks/infra-graph.ts && node scripts/checks/related.ts && node scripts/checks/seo.ts && node scripts/checks/faulty-terminal.ts && node scripts/checks/theme.ts",
     "format": "vp fmt",
     "compute-blog-id": "node scripts/development/compute-blog-id.ts"
   },
