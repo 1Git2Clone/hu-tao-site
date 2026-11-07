@@ -1,0 +1,19 @@
+name: Benchmarks
+description: The site's own CPU workloads, this checkout against the baseline commit, on one runner.
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/setup
+    - run: scripts/ci/performance-baseline.sh "$RUNNER_TEMP/baseline"
+      shell: bash
+    - run: node scripts/checks/performance-bench.ts workloads "$RUNNER_TEMP/baseline" . --out "$RUNNER_TEMP/performance/workloads.json"
+      shell: bash
+    # The raw samples, so a failure can be read and a baseline reviewed.
+    - if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: benchmarks
+        path: ${{ runner.temp }}/performance/
+        if-no-files-found: ignore
+        retention-days: 14

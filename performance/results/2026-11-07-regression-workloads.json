@@ -1,0 +1,77 @@
+{
+  "kind": "workloads",
+  "environment": {
+    "date": "2026-11-07T15:58:51.478Z",
+    "os": "Linux 7.3.0 x64",
+    "cpu": "AMD Ryzen 5 3600X 6-Core Processor",
+    "cores": 12,
+    "memoryGiB": 15.5,
+    "node": "v26.12.1",
+    "ci": false,
+    "runner": null,
+    "image": null,
+    "run": null,
+    "loadBefore": [4.74, 4.41, 4.94],
+    "loadAfter": [4.25, 4.33, 4.88]
+  },
+  "baselineCommit": "a85553847adf1252966c97031e94ac24c5e6523e",
+  "base": {
+    "root": "/tmp/claude-1000/perf/f1",
+    "commit": "a85553847adf1252966c97031e94ac24c5e6523e",
+    "dirty": false
+  },
+  "head": {
+    "root": "/tmp/claude-1000/perf/fr",
+    "commit": "a85553847adf1252966c97031e94ac24c5e6523e",
+    "dirty": true
+  },
+  "runs": 10,
+  "order": [
+    "base",
+    "head",
+    "head",
+    "base",
+    "base",
+    "head",
+    "head",
+    "base",
+    "base",
+    "head",
+    "head",
+    "base",
+    "base",
+    "head",
+    "head",
+    "base",
+    "base",
+    "head",
+    "head",
+    "base"
+  ],
+  "samples": {
+    "infra-layout ms": {
+      "base": [
+        2209.913371, 2186.354894, 2091.212107, 2165.695903, 2157.848142,
+        2280.21558, 2230.135393, 2280.885767, 2128.408822, 2200.4474250000003
+      ],
+      "head": [
+        3237.924849, 3232.240997, 3335.988361, 3177.854012, 3131.411749,
+        3275.473481, 3187.513527, 3611.3579720000002, 3257.237619, 3065.2126
+      ]
+    }
+  },
+  "bytes": {},
+  "verdicts": [
+    {
+      "name": "infra-layout ms",
+      "base": 2193.4011595,
+      "head": 3235.082923,
+      "delta": 1041.6817634999998,
+      "floor": 104.56484200000023,
+      "p": 0.000005412544112234515,
+      "level": 0.01,
+      "regressed": true
+    }
+  ],
+  "budgets": []
+}
