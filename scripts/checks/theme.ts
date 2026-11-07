@@ -73,8 +73,18 @@ const themes = blocks.map((block) => {
   return { selector, values };
 });
 const contract = [...themes[0].values.keys()].sort();
-const palette =
-  "(?:white|black|(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|[1-9]00|950))";
+// Read the palette from the installed Tailwind, so a new palette is caught too.
+const tailwindColours = [
+  ...readFileSync(
+    join(root, "node_modules/tailwindcss/theme.css"),
+    "utf8",
+  ).matchAll(/--color-([a-z]+(?:-\d+)?)\s*:/g),
+].map((match) => match[1]);
+assert.ok(
+  tailwindColours.includes("red-700"),
+  "theme: Tailwind palette not found",
+);
+const palette = `(?:${tailwindColours.join("|")})`;
 for (const { selector, values } of themes.slice(1)) {
   const missing = contract.filter((name) => !values.has(name));
   const extra = [...values.keys()].filter(
@@ -121,7 +131,13 @@ const forbidden = [
     `\\bdark:(?:[\\w-]+:)*${colourUtility}-(?:${roleNames}|current|inherit|transparent|\\[|\\()`,
     "g",
   ),
-  /\bdark:prose-invert\b/g,
+  // A .dark selector does the same; the custom-variant line defines dark: itself.
+  /^(?!@custom-variant dark ).*?(?<![\w-])\.dark(?![a-z\d-])/gim,
+  // Prose colour modifiers replace the palette's prose roles.
+  new RegExp(
+    `\\bprose-(?:invert|${[...new Set(tailwindColours.map((c) => c.split("-")[0]))].join("|")})\\b`,
+    "g",
+  ),
   new RegExp(
     `\\b${colourProperty}\\s*[:=]\\s*["']?[^;"'{}\\n]*\\b${namedColour}\\b`,
     "gi",
