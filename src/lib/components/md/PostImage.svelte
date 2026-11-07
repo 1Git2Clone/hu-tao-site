@@ -1,5 +1,5 @@
 <script lang="ts">
-  let { src, alt = "" } = $props<{ src: string; alt?: string }>();
+  let { src, alt = "" }: { src: string; alt?: string } = $props();
 
   // Vite only hashes and rewrites an asset it can see referenced at build time,
   // and a `src` attribute filled in at runtime is invisible to it. Globbing the

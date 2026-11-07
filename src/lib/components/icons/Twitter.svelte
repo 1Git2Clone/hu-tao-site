@@ -1,6 +1,8 @@
 <script lang="ts">
-  export let width: number | string = 28;
-  export let height: number | string = 28;
+  let {
+    width = 28,
+    height = 28,
+  }: { width?: number | string; height?: number | string } = $props();
 </script>
 
 <svg

@@ -4,10 +4,13 @@
 
   type Heading = { id: string; html: string; level: number };
 
-  let { staticHeadings = [], isMobile = false } = $props<{
+  let {
+    staticHeadings = [],
+    isMobile = false,
+  }: {
     staticHeadings: Heading[];
     isMobile?: boolean;
-  }>();
+  } = $props();
 
   let activeId = $state("");
 

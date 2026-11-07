@@ -1,11 +1,15 @@
 <script lang="ts">
   import type { FuseResultMatch } from "fuse.js";
 
-  let { text, matches, path } = $props<{
+  let {
+    text,
+    matches,
+    path,
+  }: {
     text: string;
     matches: readonly FuseResultMatch[] | undefined;
     path: string;
-  }>();
+  } = $props();
 
   const match = $derived(matches?.find((m: FuseResultMatch) => m.key === path));
 
