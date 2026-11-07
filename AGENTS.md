@@ -27,34 +27,54 @@ Font, and mdsvex-powered blog with KaTeX, YouTube embeds, and reading time.
 
 ## Design System
 
-### Color Tokens (defined in `src/layout.css`)
+### Color Tokens (defined in `src/lib/styles/themes.css`)
 
 Always use CSS variables or Tailwind token names — never hardcode hex values.
 
-| Token                  | Light            | Dark                    | Usage                     |
-| ---------------------- | ---------------- | ----------------------- | ------------------------- |
-| `--color-primary`      | `#bbbbbb`        | `#181818`               | Page background           |
-| `--color-textcol`      | `#333333`        | `#dddddd`               | Body text                 |
-| `--color-subtextcol`   | `#111111`        | `#eeeeee`               | Headings, emphasis        |
-| `--color-muted`        | `#eaeaea`        | `#242424`               | Card/section backgrounds  |
-| `--color-tertiary`     | `#9e9e9e`        | `#6a6a6a`               | Captions, metadata        |
-| `--color-accent`       | `red-700`        | `red-400`               | Links, highlights, icons  |
-| `--color-accent-hover` | `red-800+black`  | `red-200`               | Hover states              |
-| `--color-accent-bg`    | `red-900`        | `red-900`               | Subtle accent backgrounds |
-| `--color-highlight`    | `red-700+black`  | `rose-200`              | KaTeX, inline emphasis    |
-| `--color-code-block`   | `rgba(20,4,4,1)` | `rgba(200,100,100,0.1)` | Code block backgrounds    |
+| Token                     | Light                 | Dark                    | Usage                              |
+| ------------------------- | --------------------- | ----------------------- | ---------------------------------- |
+| `--color-primary`         | `#bbbbbb`             | `#1c1a1e`               | Page background                    |
+| `--color-textcol`         | `#333333`             | `#e6dcd7`               | Body text                          |
+| `--color-subtextcol`      | `#111111`             | `#f4e7e0`               | Emphasis                           |
+| `--color-muted`           | `#eaeaea`             | `#2a262b`               | Muted backgrounds                  |
+| `--color-tertiary`        | `#9e9e9e`             | `#6e6264`               | Metadata                           |
+| `--color-accent`          | `red-700`             | `#e0766c`               | Links and icons                    |
+| `--color-accent-hover`    | `red-800` 60% + black | `#f4c7bd`               | Hover                              |
+| `--color-accent-bg`       | `red-900`             | `#7a4a47`               | Accent backgrounds                 |
+| `--color-highlight`       | `red-700` 60% + black | `#d5ada0`               | Math                               |
+| `--color-code-block`      | `rgba(20,4,4,1)`      | `rgba(200,100,100,0.1)` | Highlighted code                   |
+| `--color-surface`         | white 90%             | black 85%               | Boxes, prompt tags, header, footer |
+| `--color-surface-hover`   | white 95%             | black 90%               | Hovered cards                      |
+| `--color-surface-overlay` | white 97%             | black 95%               | Open mobile menu                   |
+| `--color-surface-tile`    | white 40%             | black 50%               | Social and theme tiles             |
+| `--color-surface-code`    | black 50%             | black 50%               | Code wrapper (preserved)           |
+| `--color-glow`            | red-600 15%           | red-400 15%             | Hero and card shadows              |
+
+- Components use roles such as `bg-surface`, never `bg-white/90 dark:bg-black/85`.
+- `themes.css` is the only UI palette. Every block defines the same complete
+  set of roles, including prose, background art, article patterns and media.
+- `pnpm test` runs `scripts/checks/theme.ts`. It rejects raw UI colours,
+  palette utilities, dark colour overrides, unknown variables and incomplete themes.
+- `@theme static` keeps tokens used only by JavaScript in the generated CSS.
+- Future custom palettes can use a `:root[data-theme="name"]` block after dark.
+  ModeWatcher's `setTheme(name)` sets that attribute; `setMode("light" | "dark")`
+  selects the shader and browser colour scheme. No custom palette ships yet.
+- Keep `--color-terminal-tint` as six-digit hex for the shader. Background.svelte
+  reads it again when the mode or custom palette changes.
+- Media brand colours and cube shading remain fixed through explicit theme roles.
+  Licensed renderer code and static artwork retain their own colour contracts.
 
 ### Typography
 
 - Font: JetBrains Mono Nerd Font (monospace everywhere — this is intentional)
-- Use `prose` + `dark:prose-invert` for markdown/blog content
+- Use `prose` for markdown/blog content; its theme roles switch automatically
 - Prose link color overridden to `--color-accent` via `@layer utilities`
 - Headings use `scroll-mt-22` for anchor offset
 
 ### Component Conventions
 
 - Sections use: `border-border rounded-lg border bg-muted/40 p-8`
-- Page wrappers use: `prose w-full max-w-none space-y-8 dark:prose-invert`
+- Page wrappers use: `prose w-full max-w-none space-y-8`
 - Transitions: page-level uses `fly` in (y: 12, 200ms, delay 200ms) + `fade` out via `grid-stack`
 - Icons: SVG with `fill: currentColor` — color transitions via `a svg { transition: fill 0.2s ease }`
 - Buttons/links: `color: var(--color-accent)` with `0.2s ease` transitions
@@ -176,7 +196,7 @@ This project uses **Svelte 5 runes only**. Legacy Svelte 4 syntax is a logic err
 
 ## Styling Rules
 
-1. **Tailwind v4** — config is CSS-first via `@theme` in `layout.css`, not `tailwind.config.ts` (the `.ts` file is legacy/partially used)
+1. **Tailwind v4** — config is CSS-first via `@theme` in `themes.css` and `layout.css`, not `tailwind.config.ts` (the `.ts` file is legacy/partially used)
 2. Use `@plugin` directives for forms/typography with `strategy: "class"`
 3. Dark mode via `[class~="dark"]` selector — toggled by `mode-watcher`
 4. Never use arbitrary hex values inline — always reference a token

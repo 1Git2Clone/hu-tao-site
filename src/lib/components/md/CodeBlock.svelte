@@ -15,7 +15,7 @@
 </script>
 
 <div
-  class="group border-border relative my-6 w-full min-w-0 overflow-hidden border border-frame bg-black/50 text-sm"
+  class="group border-border relative my-6 w-full min-w-0 overflow-hidden border border-frame bg-surface-code text-sm"
 >
   <div
     class="flex items-center justify-between border-b border-frame bg-muted/50 px-4 py-2"

@@ -13,8 +13,12 @@
     color?: string;
   } = $props();
 
-  const top = $derived(`color-mix(in oklab, ${color} 92%, black)`);
-  const side = $derived(`color-mix(in oklab, ${color} 60%, white)`);
+  const top = $derived(
+    `color-mix(in oklab, ${color} 92%, var(--color-cube-shade))`,
+  );
+  const side = $derived(
+    `color-mix(in oklab, ${color} 60%, var(--color-cube-tint))`,
+  );
 </script>
 
 <svg viewBox="4 3 40 41" {width} {height} aria-label="OpenTofu">
