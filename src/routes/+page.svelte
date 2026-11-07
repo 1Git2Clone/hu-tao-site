@@ -40,8 +40,6 @@
         <LinkCard href={GITHUB_URL} icon={GitHub}>
           github.com/{GITHUB_PROFILE_NAME}
         </LinkCard>
-        <LinkCard href={resolve("/blogs")}>/blogs</LinkCard>
-        <LinkCard href={resolve("/infra")}>/infra</LinkCard>
       </div>
     </div>
   </Term>
