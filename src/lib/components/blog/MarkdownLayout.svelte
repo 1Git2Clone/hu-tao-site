@@ -10,12 +10,17 @@
   import Term from "$lib/components/layout/Term.svelte";
   import type { RelatedPost } from "$lib/data/related";
 
-  let { title, date, readingTime, children } = $props<{
+  let {
+    title,
+    date,
+    readingTime,
+    children,
+  }: {
     title: string;
     date: string;
     readingTime: string;
     children: import("svelte").Snippet;
-  }>();
+  } = $props();
 
   const headings = $derived(page.data.headings || []);
   const related = $derived((page.data.related ?? []) as RelatedPost[]);
@@ -24,6 +29,8 @@
   // exactly as much height as the footer has scrolled into view, so its
   // bottom never crosses the footer. The 0.75rem is the pt-3 on the page
   // wrapper in +layout.svelte: without it the sidebars end below the article.
+  const sidebarClass =
+    "fixed h-[calc(100dvh-var(--header-height)-var(--main-padding)*2-0.75rem-var(--footer-overlap))] w-64";
   let footerOverlap = $state(0);
 
   $effect(() => {
@@ -41,10 +48,13 @@
     const schedule = () => (frame ||= requestAnimationFrame(measure));
 
     measure();
+    const observer = new ResizeObserver(schedule);
+    observer.observe(document.body);
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
     return () => {
       cancelAnimationFrame(frame);
+      observer.disconnect();
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
     };
@@ -71,17 +81,14 @@
 	-->
   <div
     class="grid grid-cols-1 xl:grid-cols-[16rem_minmax(0,52rem)_16rem] xl:justify-center xl:gap-8"
+    style:--footer-overlap="{footerOverlap}px"
   >
     <!-- The legend pokes above the box, so the body scrolls, not the box. -->
-    <aside
-      class="hidden xl:block"
-      aria-label="Related posts"
-      style:--footer-overlap="{footerOverlap}px"
-    >
+    <aside class="hidden xl:block" aria-label="Related posts">
       <Term
         tag="div"
         cmd="./related"
-        class="fixed h-[calc(100dvh-var(--header-height)-var(--main-padding)*2-0.75rem-var(--footer-overlap))] w-64"
+        class={sidebarClass}
         bodyClass="scrollbar-hide min-h-0 flex-1 space-y-3 overflow-y-auto px-4 pt-4 pb-6"
       >
         {@render relatedCards()}
@@ -142,11 +149,11 @@
       </Carousel>
     </Term>
 
-    <aside class="hidden xl:block" style:--footer-overlap="{footerOverlap}px">
+    <aside class="hidden xl:block">
       <Term
         tag="div"
         cmd="cat SUMMARY.md"
-        class="fixed h-[calc(100dvh-var(--header-height)-var(--main-padding)*2-0.75rem-var(--footer-overlap))] w-64"
+        class={sidebarClass}
         bodyClass="scrollbar-hide min-h-0 flex-1 overflow-y-auto px-4 pt-4 pb-6"
       >
         <TableOfContents staticHeadings={headings} />
