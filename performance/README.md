@@ -74,8 +74,10 @@ from one machine.
 
 A real byte increase, such as a new post on `/blogs`, can raise only the
 affected `budgets` entry by hand in a reviewed commit that says why. The
-timings and floors stay as recorded. Byte counts do not depend on the
-machine, so this needs no new A/A run.
+timings and floors stay as recorded. Browser versions and build environments
+can also change transfer counts. Such an update needs evidence from both
+builds, a production-source comparison, and an explicit allowance derived
+from measured build differences. It does not require new timing floors.
 
 ## Fixed conditions
 
@@ -159,6 +161,16 @@ Request counts stay within budget. None of those injected changes ship.
 
 The A/A samples calibrate the limits. A second independent local Lighthouse
 A/A gate run was not collected; the PR's CI run supplies a separate comparison.
+
+The first complete hosted comparison passes all 16 timings. Three local byte
+budgets were too small even for the baseline build under CI's locked Chrome
+158 (the local NixOS override was Chrome 156). The two CI builds differ by at
+most 10 bytes per metric. The reviewed byte-only update uses the larger
+observed transfer count plus those 10 bytes, and changes only three budgets.
+`byte-budget-review.json` records the exact limits, browser versions and the
+unchanged production-source/dependency comparison. Timing floors, sample
+counts and request budgets remain unchanged. The original CI failure is
+preserved in `ci-lighthouse.json`.
 
 The statistics tests were also run against five deliberately broken versions:
 no effect floor, no Holm correction, no finite-value check, no power check,
