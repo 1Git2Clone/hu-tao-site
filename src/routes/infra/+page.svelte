@@ -48,7 +48,7 @@
     </ul>
   </Term>
 
-  <Term label="Overview" id="overview" path="~/infra" cmd="tree">
+  <Term label="Overview" id="overview" path="~/infra" cmd="graph">
     <p class="mt-0 mb-6">
       Tap or click a box for what it does. With a mouse, drag them around.
     </p>
