@@ -162,16 +162,14 @@
             <ul class="flex flex-wrap gap-2">
               {#each items as item (item)}
                 {@const tech = TECH_URLS[item]}
-                <li class="card inline-block px-2 py-1 text-sm">
-                  <a
+                <li>
+                  <LinkCard
                     href={tech.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={tech.ariaLabel || String(item)}
-                    style="border: 0;"
+                    icon={tech.icon}
+                    aria-label={tech.ariaLabel}
                   >
                     {item}
-                  </a>
+                  </LinkCard>
                 </li>
               {/each}
             </ul>

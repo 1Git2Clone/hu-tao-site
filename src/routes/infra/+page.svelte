@@ -1,4 +1,5 @@
 <script lang="ts">
+  import LinkCard from "$lib/components/LinkCard.svelte";
   import Term from "$lib/components/layout/Term.svelte";
   import ForceOverview from "$lib/components/infra/ForceOverview.svelte";
   import { INFRA_STACK } from "$lib/content/infra/services";
@@ -40,15 +41,8 @@
   <Term label="Stack" id="stack" path="~/infra" cmd="ls stack/">
     <ul class="flex flex-wrap gap-2">
       {#each INFRA_STACK as tech (tech.name)}
-        <li class="card inline-block px-2 py-1 text-sm">
-          <a
-            href={tech.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            style="border: 0;"
-          >
-            {tech.name}
-          </a>
+        <li>
+          <LinkCard href={tech.url} icon={tech.icon}>{tech.name}</LinkCard>
         </li>
       {/each}
     </ul>
