@@ -26,6 +26,13 @@ The CI `browser-tests` job runs the component suite and the production page
 suite. It uploads traces and failure screenshots when a test fails. Tests have
 no retries. Performance checks run in separate jobs.
 
+PR deployments include the authored `test-*` blog posts, as local development
+does. Netlify's deploy-preview context sets `VITE_INCLUDE_TEST_POSTS=true`
+at build time. Main deployments and the CI performance/browser checks use
+production content and exclude those posts. To inspect the preview content
+locally, run `VITE_INCLUDE_TEST_POSTS=true nix develop -c pnpm run build`,
+then start the preview server.
+
 ## State and ownership
 
 | Component            | States and events                                                               | Ownership rule                                                                                                                                                                   |

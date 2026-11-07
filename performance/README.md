@@ -1,22 +1,29 @@
 # Performance gates
 
-Two CI jobs compare the pushed code with one baseline commit, on the same
-runner, taking turns:
+PRs use a fast Lighthouse check; pushes to `main` use the full comparison.
+The PR Lighthouse job targets under two minutes, including setup and build.
 
-| Job          | Measures                                                        | Script                            |
-| ------------ | --------------------------------------------------------------- | --------------------------------- |
-| `benchmarks` | The `/infra` layout (`wideAndTall`), cold, one process per run  | `performance-bench.ts workloads`  |
-| `lighthouse` | FCP, LCP, TBT and CLS; script bytes, total bytes, request count | `performance-bench.ts lighthouse` |
-| `lighthouse` | The live WebGL background, report only                          | `performance-bench.ts renderer`   |
+| Job          | When        | Behaviour                                                                                                                            |
+| ------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `benchmarks` | PR and main | Compare the cold `/infra` layout against the baseline.                                                                               |
+| `lighthouse` | PR          | One head-only audit per profile: four audits total. Report timings; fail on byte/request budgets or broken measurements.             |
+| `lighthouse` | Main        | Seven baseline and seven head audits per profile: 56 total. Gate timings and bytes, then collect the report-only WebGL measurements. |
 
-`scripts/ci/performance-baseline.sh` checks out the commit in `baseline.json`
+The fast path skips the baseline checkout, install and build, and the separate
+renderer report. It still checks all four profiles. A single timing sample
+cannot establish a consistent regression, so it never produces a statistical
+timing verdict. Main retains the measured noise floors and full statistical
+test before production deployment. The browser suite checks WebGL health on
+both PRs and main.
+
+For comparisons, `scripts/ci/performance-baseline.sh` checks out the commit in `baseline.json`
 next to the pushed code, with its own install and build. The base and head runs
 alternate B H H B, so a runner that slows down slows both sides alike. Hosted
 runners change CPU from run to run; comparing on one runner removes that.
 
 ## When a timing fails
 
-Both must hold:
+In full Lighthouse comparisons and the graph benchmark, both must hold:
 
 1. **It is consistent.** An exact one-sided permutation test (Mann–Whitney)
    compares the base and head runs. All timings in one job share a 1 %
@@ -126,6 +133,14 @@ larger, the permutation test, not the floor, keeps CI from failing on it.
 
 Run inside `nix develop`. On NixOS, set `CHROME_PATH` to a system Chrome.
 Each Lighthouse run takes one Chrome; keep other heavy work off the machine.
+
+To reproduce the fast PR path against one production build:
+
+```sh
+node scripts/checks/performance-bench.ts lighthouse-smoke <head> --out /tmp/lighthouse-smoke.json
+```
+
+The existing `lighthouse <base> <head>` command retains the full comparison.
 
 ## Initial evidence
 
