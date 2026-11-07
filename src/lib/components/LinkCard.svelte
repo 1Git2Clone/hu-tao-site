@@ -1,11 +1,19 @@
+<script lang="ts" module>
+  import type { Component } from "svelte";
+  import type { NerdIconName } from "$lib/components/icons/nerd-icons";
+
+  // A Nerd Font icon name, or an icon component such as GitHub.svelte.
+  export type LinkIcon =
+    | NerdIconName
+    | Component<{ width?: number | string; height?: number | string }>;
+</script>
+
 <script lang="ts">
   import type { Snippet } from "svelte";
   import type { HTMLAnchorAttributes } from "svelte/elements";
   import NerdIcon from "$lib/components/icons/NerdIcon.svelte";
-  import type { NerdIconName } from "$lib/components/icons/nerd-icons";
 
   // A link drawn as a box: | icon | label |, or | label | without an icon.
-  // The icon is a Nerd Font icon name, or a snippet for any other icon.
   // The box is a span, not the <a>: the unlayered `#main-content a` rules in
   // layout.css would override its border and transition. The inline style
   // turns off their hover underline, as on the skill chips.
@@ -16,7 +24,7 @@
     ...rest
   }: HTMLAnchorAttributes & {
     href: string;
-    icon?: NerdIconName | Snippet;
+    icon?: LinkIcon;
     children: Snippet;
   } = $props();
 
@@ -42,7 +50,8 @@
         {#if typeof icon === "string"}
           <NerdIcon name={icon} width={20} height={20} />
         {:else}
-          {@render icon()}
+          {@const Icon = icon}
+          <Icon width={20} height={20} />
         {/if}
       </span>
     {/if}
