@@ -1,5 +1,31 @@
 # Performance gates
 
+## Visual reports
+
+Open `/benchmarks/` on a PR preview or the production site. Each deployment
+publishes its own CI measurements: timing cards, all-sample charts, median
+changes, gate details and byte/request budget bars. The preview comment links
+directly to the report. PR timing cards say **Report only**; main uses the full
+statistical verdicts. An incomplete run never appears as a successful timing.
+
+Each page profile links to Lighthouse's native HTML report. For full runs,
+this is the actual head sample nearest median LCP, not an averaged audit.
+Only the selected audits run, so the dashboard does not invent an overall
+PageSpeed score. The renderer measurement remains in the raw artifact.
+
+The `benchmarks` and `lighthouse` workflow artifacts also contain a standalone
+`report/index.html` and native Lighthouse HTML reports. They remain available
+for 14 days, including when a gate fails. Open the HTML after extracting the
+artifact. The published site updates only after every gate passes.
+
+`scripts/ci/performance-report.ts <artifact-directory> <output-directory>`
+renders the existing JSON files without collecting new samples. Deployment
+downloads both artifacts from the current workflow and generates the combined
+report in `build/benchmarks` after the Netlify build. Report assets therefore
+do not change the measured application bundles or transfer budgets.
+
+## Checks
+
 PRs use a fast Lighthouse check; pushes to `main` use the full comparison.
 The PR Lighthouse job targets under two minutes, including setup and build.
 
