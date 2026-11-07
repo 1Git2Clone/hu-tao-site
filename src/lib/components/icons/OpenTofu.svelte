@@ -1,6 +1,8 @@
 <script lang="ts">
   // OpenTofu's cube. The logo is #FFDA18 with a #E7C200 top: 8% black mixed
   // in OKLab gives that top from any colour, so the cube can take the accent.
+  // The logo's third face is white, which disappears on a light box, so here
+  // it is the colour lightened in OKLab instead.
   let {
     width = 28,
     height = 28,
@@ -12,6 +14,7 @@
   } = $props();
 
   const top = $derived(`color-mix(in oklab, ${color} 92%, black)`);
+  const side = $derived(`color-mix(in oklab, ${color} 60%, white)`);
 </script>
 
 <svg viewBox="4 3 40 41" {width} {height} aria-label="OpenTofu">
@@ -25,6 +28,6 @@
   />
   <path
     d="M40.6406 16.1842C41.1071 15.9279 41.6776 16.2653 41.6776 16.7975V33.2536C41.6776 33.5089 41.5386 33.7439 41.3148 33.8669L26.203 42.173C25.7365 42.4294 25.166 42.0919 25.166 41.5597V25.1036C25.166 24.8483 25.305 24.6133 25.5288 24.4903L40.6406 16.1842Z"
-    fill="white"
+    style:fill={side}
   />
 </svg>
