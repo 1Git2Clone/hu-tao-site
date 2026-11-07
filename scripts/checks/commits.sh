@@ -33,12 +33,13 @@ root="$(git rev-parse --show-toplevel)"
 tree="$(mktemp -d)"
 trap 'git worktree remove --force "$tree" >/dev/null 2>&1 || rm -rf "$tree"' EXIT
 git worktree add --quiet --detach "$tree" "${commits[0]}"
-ln -s "$root/node_modules" "$tree/node_modules"
 
 failed=0
 for commit in "${commits[@]}"; do
   git -C "$tree" checkout --quiet "$commit"
-  if (cd "$tree" && pnpm run --silent check && pnpm run --silent test) >/dev/null 2>&1; then
+  # Each commit can have a different lockfile. A shared node_modules symlink
+  # also gives browser matcher augmentations the wrong TypeScript identity.
+  if (cd "$tree" && pnpm install --frozen-lockfile && pnpm run --silent check && pnpm run --silent test) >/dev/null 2>&1; then
     echo "ok    $(git log --oneline -1 "$commit")"
   else
     echo "FAIL  $(git log --oneline -1 "$commit")" >&2
