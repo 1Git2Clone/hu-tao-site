@@ -1,6 +1,9 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
+  import LinkCard from "$lib/components/LinkCard.svelte";
   import Term from "$lib/components/layout/Term.svelte";
+  import Forgejo from "$lib/components/icons/Forgejo.svelte";
+  import GitHub from "$lib/components/icons/GitHub.svelte";
   import { SKILLS } from "$lib/content/root/skills";
   import { TECH_URLS } from "$lib/content/root/tech";
   import { EMAIL, GITHUB_PROFILE_NAME } from "$lib/utils/consts";
@@ -30,15 +33,17 @@
         By day, Junior AI Dev at a fintech: LLM integrations and Go/AWS data
         flows. Everything below is what happens when nobody's paying me to.
       </p>
-      <div class="not-prose mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-        <a href={FORGEJO_URL} target="_blank" rel="noopener noreferrer">
-           git.hu-tao.dev</a
-        >
-        <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
-           github.com/{GITHUB_PROFILE_NAME}</a
-        >
-        <a href={resolve("/infra")}>Infra <span aria-hidden="true">→</span></a>
-        <a href={resolve("/blogs")}>Blogs <span aria-hidden="true">→</span></a>
+      <div class="not-prose mt-6 flex flex-wrap gap-3">
+        <LinkCard href={FORGEJO_URL}>
+          {#snippet icon()}<Forgejo width={20} height={20} />{/snippet}
+          git.hu-tao.dev/hutao
+        </LinkCard>
+        <LinkCard href={GITHUB_URL}>
+          {#snippet icon()}<GitHub width={20} height={20} />{/snippet}
+          github.com/{GITHUB_PROFILE_NAME}
+        </LinkCard>
+        <LinkCard href={resolve("/blogs")}>/blogs</LinkCard>
+        <LinkCard href={resolve("/infra")}>/infra</LinkCard>
       </div>
     </div>
   </Term>
@@ -182,14 +187,16 @@
         Algorithms, Linux, tooling, and the parts of software that become
         clearer when you explain them.
       </p>
-      <ul class="mb-0">
-        <li><a href={resolve("/blogs")}>Blogs</a></li>
-        <li><a href={resolve("/journey")}>Linux journey</a></li>
-      </ul>
+      <div class="not-prose flex flex-wrap gap-3">
+        <LinkCard href={resolve("/blogs")}>/blogs</LinkCard>
+        <LinkCard href={resolve("/journey")}>/journey</LinkCard>
+      </div>
     </div>
   </Term>
 
   <Term label="Contact" id="contact" path="~" cmd="echo $EMAIL">
-    <a href="mailto:{EMAIL}">{EMAIL}</a>
+    <LinkCard href="mailto:{EMAIL}" icon="md-email">
+      {EMAIL}
+    </LinkCard>
   </Term>
 </div>
