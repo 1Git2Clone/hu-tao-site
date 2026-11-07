@@ -1,19 +1,32 @@
 <script lang="ts">
   import { flushSync } from "svelte";
-  import { toggleMode, mode } from "mode-watcher";
+  import { toggleMode } from "mode-watcher";
   import { TILE } from "./SocialLinks.svelte";
   import NerdIcon from "$lib/components/icons/NerdIcon.svelte";
 
   let ripple: ViewTransition | undefined;
+  const icons: HTMLElement[] = [];
+
+  // The sun and moon cross-fade. ModeWatcher turns off CSS transitions while
+  // the theme changes, but not animate(), so the fade runs here once the dark
+  // class has flipped. The class alone sets which icon shows.
+  function fadeIcons() {
+    for (const icon of icons) {
+      const shown = getComputedStyle(icon).opacity !== "0";
+      icon.animate(
+        { opacity: shown ? [0, 1] : [1, 0] },
+        { duration: 200, easing: "ease" },
+      );
+    }
+  }
 
   // The new theme grows out of the button as a circle. The old page is a still
   // snapshot, but the new one is live, so the terminal keeps moving inside it.
   function toggle(event: MouseEvent) {
-    if (
-      !document.startViewTransition ||
-      matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!document.startViewTransition || reduced) {
       toggleMode();
+      if (!reduced) fadeIcons();
       return;
     }
 
@@ -40,9 +53,10 @@
     // A second click skips this transition, so only the newest one removes it.
     const html = document.documentElement;
     html.classList.add("theme-ripple");
-    const transition = document.startViewTransition(() =>
-      flushSync(toggleMode),
-    );
+    const transition = document.startViewTransition(() => {
+      flushSync(toggleMode);
+      fadeIcons();
+    });
     ripple = transition;
     transition.finished.finally(() => {
       if (ripple === transition) html.classList.remove("theme-ripple");
@@ -52,11 +66,19 @@
 
 <button onclick={toggle} class="group" aria-label="Toggle theme">
   <span class={TILE}>
-    <!-- SVG, not the font glyph: an SVG box centres the icon in the tile. -->
-    <NerdIcon
-      name={mode.current === "dark" ? "oct-moon" : "oct-sun"}
-      width={24}
-      height={24}
-    />
+    <!-- SVGs, not font glyphs: an SVG box centres the icon in the tile. Both
+         share one grid cell and the dark class picks one, so the server
+         already renders the right one. -->
+    {#each ["oct-sun", "oct-moon"] as const as name, i (name)}
+      <span
+        bind:this={icons[i]}
+        class={[
+          "col-start-1 row-start-1 flex",
+          name === "oct-sun" ? "dark:opacity-0" : "opacity-0 dark:opacity-100",
+        ]}
+      >
+        <NerdIcon {name} width={24} height={24} />
+      </span>
+    {/each}
   </span>
 </button>
