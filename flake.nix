@@ -29,6 +29,11 @@
             pkgs.shellcheck
             # What the `glsl` job runs.
             pkgs.glslang
+            # The font subset and the Nerd Font icon paths in scripts/development.
+            (pkgs.python3.withPackages (p: [
+              p.fonttools
+              p.brotli
+            ]))
           ];
         };
       });
