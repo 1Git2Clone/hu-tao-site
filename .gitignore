@@ -25,3 +25,8 @@ vite.config.ts.timestamp-*
 
 # Worktrees
 .worktrees
+
+# Browser test reports
+/.vitest
+/test-results
+/playwright-report
