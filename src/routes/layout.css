@@ -344,10 +344,13 @@ h6 {
   box-shadow: 0 0 12px rgba(248, 113, 113, 0.15);
 }
 
-/* The header and footer have the fill of the boxes. */
+/* The header and footer have the fill of the boxes. The header has no blur. */
 header.background,
 footer.background {
   background: rgba(255, 255, 255, 0.9);
+}
+
+footer.background {
   backdrop-filter: blur(2px);
 }
 
