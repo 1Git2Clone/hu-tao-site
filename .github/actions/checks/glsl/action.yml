@@ -4,7 +4,7 @@ description: Validates the shaders with glslangValidator.
 runs:
   using: composite
   steps:
-    - run: scripts/install-glslang.sh
+    - run: scripts/ci/install-glslang.sh
       shell: bash
-    - run: scripts/check-glsl.sh
+    - run: scripts/checks/glsl.sh
       shell: bash

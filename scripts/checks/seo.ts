@@ -1,6 +1,6 @@
-// Run: node scripts/check-seo.ts
+// Run: node scripts/checks/seo.ts
 import assert from "node:assert/strict";
-import { ROUTES, jsonLdTag } from "../src/lib/data/seo.ts";
+import { ROUTES, jsonLdTag } from "../../src/lib/data/seo.ts";
 
 // A title can't close the JSON-LD script tag early, and the JSON still parses.
 const hostile = { ...ROUTES["/infra"], title: "</script><script>alert(1)" };

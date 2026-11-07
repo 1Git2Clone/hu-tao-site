@@ -1,5 +1,5 @@
 // Every uniform each program sets. The renderer only gets locations for these
-// names, and scripts/check-faulty-terminal.ts checks them against the shaders.
+// names, and scripts/checks/faulty-terminal.ts checks them against the shaders.
 export const CELL_UNIFORMS = [
   "uTime",
   "uGridMul",

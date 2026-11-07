@@ -12,7 +12,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - run: scripts/check-netlify-token.sh
+    - run: scripts/ci/check-netlify-token.sh
       shell: bash
       env:
         NETLIFY_AUTH_TOKEN: ${{ inputs.token }}
