@@ -1,4 +1,7 @@
 import type { LinkIcon } from "$lib/components/LinkCard.svelte";
+import Claude from "$lib/components/icons/Claude.svelte";
+import Gemini from "$lib/components/icons/Gemini.svelte";
+import OpenAI from "$lib/components/icons/OpenAI.svelte";
 import OpenTofu from "$lib/components/icons/OpenTofu.svelte";
 
 type TechRef = { url: string; ariaLabel?: string; icon?: LinkIcon };
@@ -63,9 +66,9 @@ export const DATABASES: Record<string, TechRef> = {
 export type Database = keyof typeof DATABASES;
 
 export const AI_INTEGRATIONS: Record<string, TechRef> = {
-  OpenAI: { url: "https://openai.com/" },
-  Gemini: { url: "https://gemini.google.com/" },
-  Claude: { url: "https://anthropic.com/" },
+  OpenAI: { url: "https://openai.com/", icon: OpenAI },
+  Gemini: { url: "https://gemini.google.com/", icon: Gemini },
+  Claude: { url: "https://anthropic.com/", icon: Claude },
   DeepSeek: { url: "https://www.deepseek.com/" },
   Mistral: { url: "https://mistral.ai/" },
   Ollama: { url: "https://ollama.com/" },
