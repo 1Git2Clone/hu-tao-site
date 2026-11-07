@@ -19,6 +19,12 @@ Part B remains for the next task, after the theme PR merges.
   KaTeX font warnings. The CI test command was deliberately failed with a
   temporary `bg-white/90` component, then passed after its removal. Fourteen
   invalid policy cases were rejected in isolated fixtures.
+- A two-pass review hardened `theme.ts`. It reads the palette names from the
+  installed `tailwindcss/theme.css`, so `mauve`, `mist`, `olive` and `taupe`
+  fail too. It also rejects `.dark` selectors (`[.dark_&]`, `:global(.dark)`),
+  `prose-invert` and prose colour modifiers, named colours in `color-mix()`,
+  and `_black`-style arbitrary values. A known limit remains:
+  `style:color={"red"}` passes.
 - Eight before/after captures cover home and a real blog article, at 1280px
   and 390px, light and dark. Element geometry, text colours, borders, shadows
   and filters match. Screenshot differences are at most two RGB channel steps
