@@ -68,7 +68,7 @@
             </button>
 
             <div
-              class="prose mt-2 max-w-none space-y-4 border-l border-accent/60 pl-4 dark:prose-invert [&_blockquote]:mt-0 [&_li]:mt-0 [&_ol]:mt-0 [&_p]:mt-0 [&_ul]:mt-0"
+              class="prose mt-2 max-w-none space-y-4 border-l border-accent/60 pl-4 [&_blockquote]:mt-0 [&_li]:mt-0 [&_ol]:mt-0 [&_p]:mt-0 [&_ul]:mt-0"
             >
               {#each month.tasks as task, i (task + i)}
                 {@html snarkdown(task)}

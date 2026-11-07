@@ -1,0 +1,115 @@
+/* The theme contract. Keep literal colours here; components use role tokens.
+   @theme static also emits tokens read only by JavaScript (terminal-tint).
+   ModeWatcher switches :root.dark synchronously for the theme ripple.
+   A custom palette can follow these blocks as :root[data-theme="name"].
+   Define the same roles and select its light/dark rendering with setMode(). */
+@theme static {
+  --color-primary: #bbbbbb;
+  --color-textcol: #333333;
+  --color-subtextcol: #111111;
+  --color-muted: #eaeaea;
+  --color-tertiary: #9e9e9e;
+
+  --color-accent: var(--color-red-700);
+  --color-accent-hover: color-mix(in oklab, var(--color-red-800) 60%, black);
+  --color-accent-bg: var(--color-red-900);
+  --color-highlight: color-mix(in oklab, var(--color-red-700) 60%, black);
+
+  --color-img-inner-border: rgba(255, 255, 255, 0.4);
+  --color-code-block: rgba(20, 4, 4, 1);
+
+  /* The faulty terminal's glyphs. A hex value: the shader parses it, and
+     lightMode turns it into ink on the light theme. */
+  --color-terminal-tint: #642931;
+
+  /* Box borders. The prompt boxes in Term.svelte look like terminal panes. */
+  --color-frame: color-mix(in oklab, var(--color-accent) 45%, transparent);
+
+  /* Surface roles, independent of component structure. */
+  --color-surface: rgba(255, 255, 255, 0.9);
+  --color-surface-hover: rgba(255, 255, 255, 0.95);
+  --color-surface-overlay: rgba(255, 255, 255, 0.97);
+  --color-surface-tile: rgba(255, 255, 255, 0.4);
+  --color-surface-code: rgba(0, 0, 0, 0.5);
+  --color-glow: rgba(220, 38, 38, 0.15);
+  --color-art-start: rgba(187, 187, 187, 0.45);
+  --color-art-end: rgba(187, 187, 187, 0.52);
+  --color-article-pattern: rgba(0, 0, 0, 0.06);
+  --color-article-edge: rgba(255, 255, 255, 0.7);
+  --color-article-center: rgba(195, 195, 195, 0.95);
+  --color-scrollbar: #e2e8f0;
+  --color-quote-shade: rgba(0, 0, 0, 0.5);
+  --color-video-canvas: #000;
+  --color-video-button: rgba(33, 33, 33, 0.8);
+  --color-video-button-hover: #ff0000;
+  --color-video-symbol: #fff;
+  --color-cube-shade: black;
+  --color-cube-tint: white;
+  --color-prose-body: var(--color-gray-700);
+  --color-prose-heading: var(--color-gray-900);
+  --color-prose-lead: var(--color-gray-600);
+  --color-prose-caption: var(--color-gray-500);
+  --color-prose-rule: var(--color-gray-200);
+  --color-prose-quote: var(--color-gray-900);
+  --color-prose-kbd-shadow: color-mix(
+    in oklab,
+    var(--color-gray-900) 10%,
+    transparent
+  );
+  --color-prose-pre-code: var(--color-gray-200);
+  --color-prose-pre-bg: var(--color-gray-800);
+  --color-prose-table-heading: var(--color-gray-300);
+  --page-art-filter: invert(1) hue-rotate(180deg) saturate(0.7);
+}
+
+:root.dark {
+  /* Sampled from the background art (えしねこ, pixiv 99130119). */
+  --color-primary: #1c1a1e;
+  --color-textcol: #e6dcd7;
+  --color-subtextcol: #f4e7e0;
+  --color-muted: #2a262b;
+  --color-tertiary: #6e6264;
+
+  --color-accent: #e0766c;
+  --color-accent-hover: #f4c7bd;
+  --color-accent-bg: #7a4a47;
+  --color-highlight: #d5ada0;
+
+  --color-img-inner-border: rgba(0, 0, 0, 0.4);
+  --color-code-block: rgba(200, 100, 100, 0.1);
+
+  --color-terminal-tint: #642931;
+  --color-frame: color-mix(in oklab, var(--color-accent) 45%, transparent);
+
+  /* Surface roles, independent of component structure. */
+  --color-surface: rgba(0, 0, 0, 0.85);
+  --color-surface-hover: rgba(0, 0, 0, 0.9);
+  --color-surface-overlay: rgba(0, 0, 0, 0.95);
+  --color-surface-tile: rgba(0, 0, 0, 0.5);
+  --color-surface-code: rgba(0, 0, 0, 0.5);
+  --color-glow: rgba(248, 113, 113, 0.15);
+  --color-art-start: rgba(28, 26, 30, 0.35);
+  --color-art-end: rgba(28, 26, 30, 0.45);
+  --color-article-pattern: rgba(255, 255, 255, 0.04);
+  --color-article-edge: rgba(30, 30, 30, 0.5);
+  --color-article-center: rgba(10, 10, 10, 0.85);
+  --color-scrollbar: #e2e8f0;
+  --color-quote-shade: rgba(0, 0, 0, 0.5);
+  --color-video-canvas: #000;
+  --color-video-button: rgba(33, 33, 33, 0.8);
+  --color-video-button-hover: #ff0000;
+  --color-video-symbol: #fff;
+  --color-cube-shade: black;
+  --color-cube-tint: white;
+  --color-prose-body: var(--color-gray-300);
+  --color-prose-heading: white;
+  --color-prose-lead: var(--color-gray-400);
+  --color-prose-caption: var(--color-gray-400);
+  --color-prose-rule: var(--color-gray-700);
+  --color-prose-quote: var(--color-gray-100);
+  --color-prose-kbd-shadow: color-mix(in oklab, white 10%, transparent);
+  --color-prose-pre-code: var(--color-gray-300);
+  --color-prose-pre-bg: rgb(0 0 0 / 50%);
+  --color-prose-table-heading: var(--color-gray-600);
+  --page-art-filter: none;
+}

@@ -22,7 +22,7 @@
     cursor
     hero
   >
-    <div class="prose min-w-full dark:prose-invert">
+    <div class="prose min-w-full">
       <p class="mt-0 font-bold text-subtextcol">
         1Git2Clone aka 1Kill2Steal aka Ivan.
       </p>
@@ -116,7 +116,7 @@
     path="~/infra"
     cmd="cat README.md"
   >
-    <div class="prose min-w-full dark:prose-invert">
+    <div class="prose min-w-full">
       <p class="mt-0">
         One VPS, described end to end in a single NixOS flake — disks, firewall,
         secrets, and every container service. Git hosting, music, search, a
@@ -176,7 +176,7 @@
   </Term>
 
   <Term label="Writing" id="writing" path="~" cmd="ls writing/">
-    <div class="prose min-w-full dark:prose-invert">
+    <div class="prose min-w-full">
       <p class="mt-0">
         Algorithms, Linux, tooling, and the parts of software that become
         clearer when you explain them.
