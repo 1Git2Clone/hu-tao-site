@@ -63,3 +63,37 @@ test("desktop header shows navigation beside the title", async ({ page }) => {
   expect(title!.x + title!.width).toBeLessThan(blogs!.x);
   expect(blogs!.x + blogs!.width).toBeLessThan(theme!.x);
 });
+
+test("a mobile link closes a reopened menu while another navigation is loading", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/blogs");
+  const pending = Promise.withResolvers<void>();
+  const requested = Promise.withResolvers<void>();
+  await page.route("**/infra/__data.json*", async (route) => {
+    requested.resolve();
+    await pending.promise;
+    await route.continue();
+  });
+  const menu = page.getByRole("button", { name: "Menu", exact: true });
+  try {
+    await menu.click();
+    await page
+      .locator("header")
+      .getByRole("link", { name: "/infra", exact: true })
+      .filter({ visible: true })
+      .evaluate((node: HTMLAnchorElement) => node.click());
+    await requested.promise;
+    await expect(menu).toHaveAttribute("aria-expanded", "false");
+    await menu.click();
+    await page
+      .locator("header")
+      .getByRole("link", { name: "/blogs", exact: true })
+      .filter({ visible: true })
+      .click();
+    await expect(menu).toHaveAttribute("aria-expanded", "false");
+  } finally {
+    pending.resolve();
+  }
+});

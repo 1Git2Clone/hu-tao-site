@@ -80,6 +80,7 @@
             href={link.href}
             aria-current={currentOf(link)}
             class="block py-3 text-center"
+            onclick={() => (isOpen = false)}
           >
             {link.label}
           </a>
