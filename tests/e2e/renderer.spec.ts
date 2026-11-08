@@ -19,6 +19,34 @@ test("live WebGL starts and remains usable after a theme change", async ({
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.addInitScript(() => {
+    // oxlint-disable-next-line typescript/unbound-method -- Forwarded with the original context below.
+    const draw = WebGL2RenderingContext.prototype.drawArrays;
+    WebGL2RenderingContext.prototype.drawArrays = function (...args) {
+      draw.apply(this, args);
+      if (this.getParameter(this.FRAMEBUFFER_BINDING) !== null) return;
+      const pixels = new Uint8Array(32 * 32 * 4);
+      this.readPixels(
+        Math.floor(this.drawingBufferWidth / 2),
+        Math.floor(this.drawingBufferHeight / 2),
+        32,
+        32,
+        this.RGBA,
+        this.UNSIGNED_BYTE,
+        pixels,
+      );
+      let alpha = 0;
+      let absorbed = 0;
+      for (let i = 0; i < pixels.length; i += 4) {
+        alpha += pixels[i + 3];
+        absorbed +=
+          pixels[i + 3] - Math.max(pixels[i], pixels[i + 1], pixels[i + 2]);
+      }
+      // Light-mode ink absorbs light; dark-mode glow has max(R,G,B) == alpha.
+      if (this.canvas instanceof HTMLCanvasElement && alpha > 0)
+        this.canvas.dataset.inkShare = String(absorbed / alpha);
+    };
+  });
   await page.goto("/", { waitUntil: "domcontentloaded" });
   const canvas = page.locator("#main-content canvas");
   await expect(page.locator("html")).toHaveClass(/webgl/);
@@ -34,7 +62,15 @@ test("live WebGL starts and remains usable after a theme change", async ({
       );
     });
   await expect.poll(healthy).toBe(true);
+  const dark = await page
+    .locator("html")
+    .evaluate((node) => node.classList.contains("dark"));
+  const ink = async () => Number(await canvas.getAttribute("data-ink-share"));
+  if (dark) await expect.poll(ink).toBeLessThan(0.01);
+  else await expect.poll(ink).toBeGreaterThan(0.1);
   await page.getByRole("button", { name: "Toggle theme" }).click();
+  if (dark) await expect.poll(ink).toBeGreaterThan(0.1);
+  else await expect.poll(ink).toBeLessThan(0.01);
   await expect.poll(healthy).toBe(true);
   expect(errors).toEqual([]);
 });
