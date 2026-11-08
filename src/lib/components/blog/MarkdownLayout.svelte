@@ -1,6 +1,7 @@
 <script lang="ts">
   import "$lib/styles/katex.css";
   import { page } from "$app/state";
+  import { resolve } from "$app/paths";
   import { slugify } from "$lib/utils/slugify";
   import HeadingCopy from "$lib/components/HeadingCopy.svelte";
   import TableOfContents from "./TableOfContents.svelte";
@@ -102,6 +103,8 @@
         {/if}
 
         <div class="meta mb-4 text-sm text-subtextcol">
+          <a href={resolve("/")} rel="author">Ivan (1Git2Clone)</a>
+          <span aria-hidden="true">•</span>
           <span>{date}</span>
           <span aria-hidden="true">•</span>
           <span>{readingTime}</span>
