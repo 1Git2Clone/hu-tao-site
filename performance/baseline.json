@@ -15,7 +15,7 @@
     "mobile /blogs lcp": 4.416600000000017,
     "mobile /blogs tbt": 0,
     "mobile /blogs cls": 0,
-    "mobile /blogs/intro-to-big-o-notation fcp": 168.2514500000001,
+    "mobile /blogs/intro-to-big-o-notation fcp": 8.559399999999982,
     "mobile /blogs/intro-to-big-o-notation lcp": 73.45069999999942,
     "mobile /blogs/intro-to-big-o-notation tbt": 125.99999999999955,
     "mobile /blogs/intro-to-big-o-notation cls": 0,
@@ -46,5 +46,8 @@
     "results/2026-11-07-ci-lighthouse.json",
     "results/2026-11-07-byte-budget-review.json",
     "results/2026-11-07-report-byte-budget-review.json"
-  ]
+  ],
+  "floorEvidence": {
+    "mobile /blogs/intro-to-big-o-notation fcp": "results/2026-11-08-ci-fcp-floor-review.json"
+  }
 }
