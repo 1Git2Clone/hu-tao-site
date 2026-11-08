@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
+  import { onDestroy, type Snippet } from "svelte";
   import { SvelteURL } from "svelte/reactivity";
 
   // A box drawn like a terminal pane: the prompt sits on the top border, which
@@ -36,15 +36,29 @@
   const CHECK_ICON = "\uf42e"; // nf-oct-check
 
   let copied = $state(false);
+  let feedbackTimer: ReturnType<typeof setTimeout> | undefined;
+  let copyRequest = 0;
+  let disposed = false;
 
-  function copy() {
+  async function copy() {
+    const request = ++copyRequest;
     const url = new SvelteURL(window.location.href);
     url.hash = id ?? "";
-    navigator.clipboard.writeText(url.toString()).then(() => {
+    try {
+      await navigator.clipboard.writeText(url.toString());
+      if (disposed || request !== copyRequest) return;
+      clearTimeout(feedbackTimer);
       copied = true;
-      setTimeout(() => (copied = false), 1250);
-    });
+      feedbackTimer = setTimeout(() => (copied = false), 1250);
+    } catch {
+      // A denied clipboard request leaves the control ready to try again.
+    }
   }
+
+  onDestroy(() => {
+    disposed = true;
+    clearTimeout(feedbackTimer);
+  });
 </script>
 
 <svelte:element

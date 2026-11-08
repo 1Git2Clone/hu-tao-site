@@ -1,0 +1,40 @@
+name: Lighthouse
+description: Fast PR reports and byte budgets, or a full baseline comparison with a live WebGL report.
+
+inputs:
+  mode:
+    description: Use smoke for one head-only audit per profile; otherwise run the full comparison.
+    default: full
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/setup
+    # The lockfile pins this Chromium, so the browser changes only with it.
+    - run: pnpm exec playwright install --with-deps chromium
+      shell: bash
+    - if: inputs.mode != 'smoke'
+      run: scripts/ci/performance-baseline.sh "$RUNNER_TEMP/baseline" build
+      shell: bash
+    - if: inputs.mode != 'smoke'
+      run: node scripts/checks/performance-bench.ts lighthouse "$RUNNER_TEMP/baseline" . --out "$RUNNER_TEMP/performance/lighthouse.json"
+      shell: bash
+    - if: inputs.mode == 'smoke'
+      run: node scripts/checks/performance-bench.ts lighthouse-smoke . --out "$RUNNER_TEMP/performance/lighthouse.json"
+      shell: bash
+    # Report only: hosted runners have no GPU, so these are software WebGL
+    # numbers. No threshold, and a failure to collect them does not fail the job.
+    - if: always() && inputs.mode != 'smoke'
+      continue-on-error: true
+      run: node scripts/checks/performance-bench.ts renderer . --out "$RUNNER_TEMP/performance/renderer.json"
+      shell: bash
+    - if: always()
+      run: node scripts/ci/performance-report.ts "$RUNNER_TEMP/performance" "$RUNNER_TEMP/performance/report"
+      shell: bash
+    - if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: lighthouse
+        path: ${{ runner.temp }}/performance/
+        if-no-files-found: ignore
+        retention-days: 14

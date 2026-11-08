@@ -61,12 +61,52 @@ jobs:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/tests/unit
 
+  browser-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/tests/browser
+
+  # Both compare this checkout with the commit in performance/baseline.json,
+  # taking turns on one runner. performance/README.md explains when they fail.
+  benchmarks:
+    runs-on: ubuntu-latest
+    # A hung run fails at its own timeout; this bounds the whole job.
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/checks/benchmarks
+
+  lighthouse:
+    runs-on: ubuntu-latest
+    # A hung run fails at its own timeout; this bounds the whole job.
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/checks/lighthouse
+        with:
+          # PRs report timings and gate bytes in four audits. Main keeps all
+          # 56 baseline/head audits and the separate renderer report.
+          mode: ${{ github.event_name == 'pull_request' && 'smoke' || 'full' }}
+
   # Netlify's own Git builds are stopped; this is the only way the site deploys,
   # and only once every check and test is green. Each run shows up under the
   # repo's Deployments.
   deploy:
     needs:
-      [format, lint, typecheck, build, actionlint, shellcheck, glsl, unit-tests]
+      [
+        format,
+        lint,
+        typecheck,
+        build,
+        actionlint,
+        shellcheck,
+        glsl,
+        unit-tests,
+        browser-tests,
+        benchmarks,
+        lighthouse,
+      ]
     # Fork PRs get no secrets, so they get no preview either.
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest

@@ -1,6 +1,8 @@
 <script lang="ts">
-  export let width: number | string = 28;
-  export let height: number | string = 28;
+  let {
+    width = 28,
+    height = 28,
+  }: { width?: number | string; height?: number | string } = $props();
 </script>
 
 <svg
@@ -8,7 +10,7 @@
   {width}
   {height}
   fill="currentColor"
-  aria-label="GitHub"
+  aria-label="Twitter"
 >
   <path
     d="M22.46 6c-.77.35-1.6.58-2.46.69a4.3 4.3 0 001.88-2.37 8.59 8.59 0 01-2.72 1.04 4.28 4.28 0 00-7.3 3.9 A12.15 12.15 0 013 4.89 a4.28 4.28 0 001.32 5.71 4.24 4.24 0 01-1.94-.54v.05 a4.28 4.28 0 003.43 4.2 4.29 4.29 0 01-1.93.07 4.29 4.29 0 004 2.97 A8.6 8.6 0 012 19.54 a12.14 12.14 0 006.56 1.92 c7.88 0 12.2-6.53 12.2-12.2 0-.19 0-.39-.01-.58A8.7 8.7 0 0022.46 6z"

@@ -1,0 +1,60 @@
+{
+  "reason": "Advance the comparison reference to the rebased equivalent of the original behaviour fixes, including the SEO and public article images already accepted in main. Compare review fixes against that reference. Keep all calibrated timing floors, alpha, and sample counts. The restored article images account for three additional requests. The navigation/search fixes add 24/128 script bytes in this paired build.",
+  "previousReference": "a85553847adf1252966c97031e94ac24c5e6523e",
+  "reference": "c2a687677cd05c0e7e72426ddf53ecb9f6a9af06",
+  "head": "4439ed4469bb2d58e54796f5805e541b7b047593",
+  "sourceComparison": "git diff a85553847adf1252966c97031e94ac24c5e6523e..c2a687677cd05c0e7e72426ddf53ecb9f6a9af06 -- src static plugins matches accepted main SEO/image changes; c2a6876..head changes only Nav.svelte and blogs/+page.svelte.",
+  "lighthouse": "2026-11-08-new-base-lighthouse.json",
+  "workloads": "2026-11-08-new-base-workloads.json",
+  "timingFailures": 0,
+  "changes": {
+    "mobile / script bytes": {
+      "old": 96372,
+      "measuredMaximum": 96610,
+      "existingBuildAllowance": 10,
+      "new": 96620
+    },
+    "mobile / total bytes": {
+      "old": 338149,
+      "measuredMaximum": 338531,
+      "existingBuildAllowance": 10,
+      "new": 338541
+    },
+    "mobile /blogs script bytes": {
+      "old": 99093,
+      "measuredMaximum": 99381,
+      "existingBuildAllowance": 10,
+      "new": 99391
+    },
+    "mobile /blogs total bytes": {
+      "old": 318695,
+      "measuredMaximum": 319156,
+      "existingBuildAllowance": 10,
+      "new": 319166
+    },
+    "mobile /blogs/intro-to-big-o-notation total bytes": {
+      "old": 478964,
+      "measuredMaximum": 530869,
+      "existingBuildAllowance": 10,
+      "new": 530879
+    },
+    "mobile /blogs/intro-to-big-o-notation requests": {
+      "old": 27,
+      "measuredMaximum": 30,
+      "existingBuildAllowance": 0,
+      "new": 30
+    },
+    "desktop / script bytes": {
+      "old": 96372,
+      "measuredMaximum": 96610,
+      "existingBuildAllowance": 10,
+      "new": 96620
+    },
+    "desktop / total bytes": {
+      "old": 338149,
+      "measuredMaximum": 338531,
+      "existingBuildAllowance": 10,
+      "new": 338541
+    }
+  }
+}

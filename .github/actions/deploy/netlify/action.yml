@@ -19,6 +19,14 @@ runs:
   using: composite
   steps:
     - uses: ./.github/actions/setup
+    - uses: actions/download-artifact@v8
+      with:
+        name: benchmarks
+        path: ${{ runner.temp }}/performance-reports/benchmarks
+    - uses: actions/download-artifact@v8
+      with:
+        name: lighthouse
+        path: ${{ runner.temp }}/performance-reports/lighthouse
     - id: deploy
       # The token is scoped to this step, out of reach of install scripts.
       run: scripts/ci/deploy.sh "$PR_NUMBER"
@@ -27,3 +35,4 @@ runs:
         NETLIFY_AUTH_TOKEN: ${{ inputs.token }}
         NETLIFY_SITE_ID: 4b1d57b6-8406-4e40-8a61-0ee9995cbc15
         PR_NUMBER: ${{ inputs.pr }}
+        PERFORMANCE_REPORTS: ${{ runner.temp }}/performance-reports

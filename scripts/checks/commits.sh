@@ -30,18 +30,25 @@ if ((${#commits[@]} == 0)); then
 fi
 
 root="$(git rev-parse --show-toplevel)"
+# A push hook inherits Git's repository variables. Clear them before using
+# -C with another worktree, or checkout can use the pushing worktree's index.
+mapfile -t git_env < <(git rev-parse --local-env-vars)
+unset "${git_env[@]}"
 tree="$(mktemp -d)"
-trap 'git worktree remove --force "$tree" >/dev/null 2>&1 || rm -rf "$tree"' EXIT
-git worktree add --quiet --detach "$tree" "${commits[0]}"
-ln -s "$root/node_modules" "$tree/node_modules"
+log="$(mktemp)"
+trap 'git worktree remove --force "$tree" >/dev/null 2>&1 || rm -rf "$tree"; rm -f "$log"' EXIT
+git -C "$root" worktree add --quiet --detach "$tree" "${commits[0]}"
 
 failed=0
 for commit in "${commits[@]}"; do
   git -C "$tree" checkout --quiet "$commit"
-  if (cd "$tree" && pnpm run --silent check && pnpm run --silent test) >/dev/null 2>&1; then
+  # Each commit can have a different lockfile. A shared node_modules symlink
+  # also gives browser matcher augmentations the wrong TypeScript identity.
+  if (cd "$tree" && pnpm install --frozen-lockfile && pnpm run --silent check && pnpm run --silent test) >"$log" 2>&1; then
     echo "ok    $(git log --oneline -1 "$commit")"
   else
     echo "FAIL  $(git log --oneline -1 "$commit")" >&2
+    cat "$log" >&2
     failed=1
   fi
 done

@@ -1,0 +1,293 @@
+{
+  "kind": "lighthouse-smoke",
+  "environment": {
+    "date": "2026-11-08T12:41:43.852Z",
+    "os": "Linux 7.0.0-1019-azure x64",
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cores": 4,
+    "memoryGiB": 15.6,
+    "node": "v26.13.0",
+    "ci": true,
+    "runner": "GitHub Actions 1000004771",
+    "image": "ubuntu26 20261101.186.1",
+    "run": "42481398096/1 at 387b8f692b8e3849c41a3eed26f65264de812b8e",
+    "loadBefore": [0.64, 0.22, 0.08],
+    "chrome": {
+      "path": "/home/runner/.cache/ms-playwright/chromium-1254/chrome-linux64/chrome",
+      "version": "Google Chrome for Testing 158.0.8127.18"
+    },
+    "lighthouse": {
+      "version": "13.6.0",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36",
+      "chromeFlags": "--headless=new --no-sandbox --disable-gpu --disable-3d-apis",
+      "benchmarkIndex": [3622, 3587, 3460.5, 3668.5],
+      "settings": {
+        "mobile /": {
+          "formFactor": "mobile",
+          "throttlingMethod": "simulate",
+          "throttling": {
+            "rttMs": 150,
+            "throughputKbps": 1638.4,
+            "requestLatencyMs": 562.5,
+            "downloadThroughputKbps": 1474.5600000000002,
+            "uploadThroughputKbps": 675,
+            "cpuSlowdownMultiplier": 4
+          },
+          "screenEmulation": {
+            "mobile": true,
+            "width": 412,
+            "height": 823,
+            "deviceScaleFactor": 1.75,
+            "disabled": false
+          }
+        },
+        "mobile /blogs": {
+          "formFactor": "mobile",
+          "throttlingMethod": "simulate",
+          "throttling": {
+            "rttMs": 150,
+            "throughputKbps": 1638.4,
+            "requestLatencyMs": 562.5,
+            "downloadThroughputKbps": 1474.5600000000002,
+            "uploadThroughputKbps": 675,
+            "cpuSlowdownMultiplier": 4
+          },
+          "screenEmulation": {
+            "mobile": true,
+            "width": 412,
+            "height": 823,
+            "deviceScaleFactor": 1.75,
+            "disabled": false
+          }
+        },
+        "mobile /blogs/intro-to-big-o-notation": {
+          "formFactor": "mobile",
+          "throttlingMethod": "simulate",
+          "throttling": {
+            "rttMs": 150,
+            "throughputKbps": 1638.4,
+            "requestLatencyMs": 562.5,
+            "downloadThroughputKbps": 1474.5600000000002,
+            "uploadThroughputKbps": 675,
+            "cpuSlowdownMultiplier": 4
+          },
+          "screenEmulation": {
+            "mobile": true,
+            "width": 412,
+            "height": 823,
+            "deviceScaleFactor": 1.75,
+            "disabled": false
+          }
+        },
+        "desktop /": {
+          "formFactor": "desktop",
+          "throttlingMethod": "simulate",
+          "throttling": {
+            "rttMs": 40,
+            "throughputKbps": 10240,
+            "requestLatencyMs": 0,
+            "downloadThroughputKbps": 0,
+            "uploadThroughputKbps": 0,
+            "cpuSlowdownMultiplier": 1
+          },
+          "screenEmulation": {
+            "mobile": false,
+            "width": 1350,
+            "height": 940,
+            "deviceScaleFactor": 1,
+            "disabled": false
+          }
+        }
+      }
+    },
+    "loadAfter": [2.16, 0.73, 0.26]
+  },
+  "baselineCommit": "c2a687677cd05c0e7e72426ddf53ecb9f6a9af06",
+  "head": {
+    "root": "/home/runner/work/hu-tao-site/hu-tao-site",
+    "commit": "387b8f692b8e3849c41a3eed26f65264de812b8e",
+    "dirty": false
+  },
+  "timingReportOnly": true,
+  "runs": 1,
+  "order": ["head"],
+  "samples": {
+    "mobile / fcp": {
+      "base": [],
+      "head": [824.33675]
+    },
+    "mobile / lcp": {
+      "base": [],
+      "head": [3163.3469999999998]
+    },
+    "mobile / tbt": {
+      "base": [],
+      "head": [0]
+    },
+    "mobile / cls": {
+      "base": [],
+      "head": [0]
+    },
+    "mobile /blogs fcp": {
+      "base": [],
+      "head": [799.17715]
+    },
+    "mobile /blogs lcp": {
+      "base": [],
+      "head": [3170.88575]
+    },
+    "mobile /blogs tbt": {
+      "base": [],
+      "head": [0]
+    },
+    "mobile /blogs cls": {
+      "base": [],
+      "head": [0]
+    },
+    "mobile /blogs/intro-to-big-o-notation fcp": {
+      "base": [],
+      "head": [870.882]
+    },
+    "mobile /blogs/intro-to-big-o-notation lcp": {
+      "base": [],
+      "head": [4211.2919999999995]
+    },
+    "mobile /blogs/intro-to-big-o-notation tbt": {
+      "base": [],
+      "head": [371.9999999999999]
+    },
+    "mobile /blogs/intro-to-big-o-notation cls": {
+      "base": [],
+      "head": [0.0003233503409817033]
+    },
+    "desktop / fcp": {
+      "base": [],
+      "head": [217.68515]
+    },
+    "desktop / lcp": {
+      "base": [],
+      "head": [688.4257500000002]
+    },
+    "desktop / tbt": {
+      "base": [],
+      "head": [0]
+    },
+    "desktop / cls": {
+      "base": [],
+      "head": [0]
+    }
+  },
+  "bytes": {
+    "mobile / script bytes": {
+      "base": [],
+      "head": [96598]
+    },
+    "mobile / total bytes": {
+      "base": [],
+      "head": [338418]
+    },
+    "mobile / requests": {
+      "base": [],
+      "head": [22]
+    },
+    "mobile /blogs script bytes": {
+      "base": [],
+      "head": [99448]
+    },
+    "mobile /blogs total bytes": {
+      "base": [],
+      "head": [319336]
+    },
+    "mobile /blogs requests": {
+      "base": [],
+      "head": [22]
+    },
+    "mobile /blogs/intro-to-big-o-notation script bytes": {
+      "base": [],
+      "head": [98335]
+    },
+    "mobile /blogs/intro-to-big-o-notation total bytes": {
+      "base": [],
+      "head": [530949]
+    },
+    "mobile /blogs/intro-to-big-o-notation requests": {
+      "base": [],
+      "head": [30]
+    },
+    "desktop / script bytes": {
+      "base": [],
+      "head": [96598]
+    },
+    "desktop / total bytes": {
+      "base": [],
+      "head": [338418]
+    },
+    "desktop / requests": {
+      "base": [],
+      "head": [22]
+    }
+  },
+  "verdicts": [],
+  "budgets": [
+    {
+      "name": "mobile / script bytes",
+      "value": 96598,
+      "budget": 96620
+    },
+    {
+      "name": "mobile / total bytes",
+      "value": 338418,
+      "budget": 338541
+    },
+    {
+      "name": "mobile / requests",
+      "value": 22,
+      "budget": 22
+    },
+    {
+      "name": "mobile /blogs script bytes",
+      "value": 99448,
+      "budget": 99391
+    },
+    {
+      "name": "mobile /blogs total bytes",
+      "value": 319336,
+      "budget": 319166
+    },
+    {
+      "name": "mobile /blogs requests",
+      "value": 22,
+      "budget": 22
+    },
+    {
+      "name": "mobile /blogs/intro-to-big-o-notation script bytes",
+      "value": 98335,
+      "budget": 98381
+    },
+    {
+      "name": "mobile /blogs/intro-to-big-o-notation total bytes",
+      "value": 530949,
+      "budget": 530879
+    },
+    {
+      "name": "mobile /blogs/intro-to-big-o-notation requests",
+      "value": 30,
+      "budget": 30
+    },
+    {
+      "name": "desktop / script bytes",
+      "value": 96598,
+      "budget": 96620
+    },
+    {
+      "name": "desktop / total bytes",
+      "value": 338418,
+      "budget": 338541
+    },
+    {
+      "name": "desktop / requests",
+      "value": 22,
+      "budget": 22
+    }
+  ]
+}

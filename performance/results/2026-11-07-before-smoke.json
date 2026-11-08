@@ -1,0 +1,518 @@
+{
+  "commit": "0f26201b77f356662e85e1ca0cb8cad92aeab8ab",
+  "runsPerProfile": 1,
+  "conditions": "Smoke only; no timing distribution. Same host as the A/A study, with desktop applications active.",
+  "node": "v26.12.1",
+  "cpu": "AMD Ryzen 5 3600X 6-Core Processor",
+  "load": ["7.05 7.42 9.52 21/2494 717582", "6.31 7.19 9.34 9/2619 721076"],
+  "profiles": [
+    {
+      "route": "http://localhost:4181/",
+      "finalUrl": "http://localhost:4181/",
+      "date": "2026-11-07T15:24:14.937Z",
+      "lighthouse": "13.6.0",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "benchmarkIndex": 2029.5,
+      "settings": {
+        "output": ["json"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 30000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": [
+          "first-contentful-paint",
+          "largest-contentful-paint",
+          "total-blocking-time",
+          "cumulative-layout-shift",
+          "resource-summary"
+        ],
+        "onlyCategories": null,
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 848.38025,
+        "largest-contentful-paint": 3154.7605000000003,
+        "total-blocking-time": 27,
+        "cumulative-layout-shift": 0
+      },
+      "resources": [
+        {
+          "resourceType": "total",
+          "label": "Total",
+          "requestCount": 22,
+          "transferSize": 338355
+        },
+        {
+          "resourceType": "image",
+          "label": "Image",
+          "requestCount": 1,
+          "transferSize": 164163
+        },
+        {
+          "resourceType": "script",
+          "label": "Script",
+          "requestCount": 19,
+          "transferSize": 96587
+        },
+        {
+          "resourceType": "document",
+          "label": "Document",
+          "requestCount": 1,
+          "transferSize": 42283
+        },
+        {
+          "resourceType": "font",
+          "label": "Font",
+          "requestCount": 1,
+          "transferSize": 35322
+        },
+        {
+          "resourceType": "stylesheet",
+          "label": "Stylesheet",
+          "requestCount": 0,
+          "transferSize": 0
+        },
+        {
+          "resourceType": "media",
+          "label": "Media",
+          "requestCount": 0,
+          "transferSize": 0
+        },
+        {
+          "resourceType": "other",
+          "label": "Other",
+          "requestCount": 0,
+          "transferSize": 0
+        },
+        {
+          "resourceType": "third-party",
+          "label": "Third-party",
+          "requestCount": 0,
+          "transferSize": 0
+        }
+      ]
+    },
+    {
+      "route": "http://localhost:4181/blogs",
+      "finalUrl": "http://localhost:4181/blogs?page=1",
+      "date": "2026-11-07T15:24:25.415Z",
+      "lighthouse": "13.6.0",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "benchmarkIndex": 1903,
+      "settings": {
+        "output": ["json"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 30000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": [
+          "first-contentful-paint",
+          "largest-contentful-paint",
+          "total-blocking-time",
+          "cumulative-layout-shift",
+          "resource-summary"
+        ],
+        "onlyCategories": null,
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 810.28515,
+        "largest-contentful-paint": 3161.4257500000003,
+        "total-blocking-time": 10,
+        "cumulative-layout-shift": 0
+      },
+      "resources": [
+        {
+          "resourceType": "total",
+          "label": "Total",
+          "requestCount": 22,
+          "transferSize": 318349
+        },
+        {
+          "resourceType": "image",
+          "label": "Image",
+          "requestCount": 1,
+          "transferSize": 164163
+        },
+        {
+          "resourceType": "script",
+          "label": "Script",
+          "requestCount": 19,
+          "transferSize": 98860
+        },
+        {
+          "resourceType": "font",
+          "label": "Font",
+          "requestCount": 1,
+          "transferSize": 35322
+        },
+        {
+          "resourceType": "document",
+          "label": "Document",
+          "requestCount": 1,
+          "transferSize": 20004
+        },
+        {
+          "resourceType": "stylesheet",
+          "label": "Stylesheet",
+          "requestCount": 0,
+          "transferSize": 0
+        },
+        {
+          "resourceType": "media",
+          "label": "Media",
+          "requestCount": 0,
+          "transferSize": 0
+        },
+        {
+          "resourceType": "other",
+          "label": "Other",
+          "requestCount": 0,
+          "transferSize": 0
+        },
+        {
+          "resourceType": "third-party",
+          "label": "Third-party",
+          "requestCount": 0,
+          "transferSize": 0
+        }
+      ]
+    },
+    {
+      "route": "http://localhost:4181/blogs/intro-to-big-o-notation",
+      "finalUrl": "http://localhost:4181/blogs/intro-to-big-o-notation",
+      "date": "2026-11-07T15:24:35.955Z",
+      "lighthouse": "13.6.0",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "benchmarkIndex": 1978.5,
+      "settings": {
+        "output": ["json"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 30000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": [
+          "first-contentful-paint",
+          "largest-contentful-paint",
+          "total-blocking-time",
+          "cumulative-layout-shift",
+          "resource-summary"
+        ],
+        "onlyCategories": null,
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 796.60585,
+        "largest-contentful-paint": 3605.2117,
+        "total-blocking-time": 351.9999999999999,
+        "cumulative-layout-shift": 0
+      },
+      "resources": [
+        {
+          "resourceType": "total",
+          "label": "Total",
+          "requestCount": 27,
+          "transferSize": 478828
+        },
+        {
+          "resourceType": "image",
+          "label": "Image",
+          "requestCount": 3,
+          "transferSize": 269925
+        },
+        {
+          "resourceType": "script",
+          "label": "Script",
+          "requestCount": 20,
+          "transferSize": 98343
+        },
+        {
+          "resourceType": "font",
+          "label": "Font",
+          "requestCount": 3,
+          "transferSize": 78494
+        },
+        {
+          "resourceType": "document",
+          "label": "Document",
+          "requestCount": 1,
+          "transferSize": 32066
+        },
+        {
+          "resourceType": "stylesheet",
+          "label": "Stylesheet",
+          "requestCount": 0,
+          "transferSize": 0
+        },
+        {
+          "resourceType": "media",
+          "label": "Media",
+          "requestCount": 0,
+          "transferSize": 0
+        },
+        {
+          "resourceType": "other",
+          "label": "Other",
+          "requestCount": 0,
+          "transferSize": 0
+        },
+        {
+          "resourceType": "third-party",
+          "label": "Third-party",
+          "requestCount": 1,
+          "transferSize": 25736
+        }
+      ]
+    },
+    {
+      "route": "http://localhost:4181/",
+      "finalUrl": "http://localhost:4181/",
+      "date": "2026-11-07T15:24:46.821Z",
+      "lighthouse": "13.6.0",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "benchmarkIndex": 2620.5,
+      "settings": {
+        "output": ["json"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 30000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "desktop",
+        "throttling": {
+          "rttMs": 40,
+          "throughputKbps": 10240,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 0,
+          "uploadThroughputKbps": 0,
+          "cpuSlowdownMultiplier": 1
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": false,
+          "width": 1350,
+          "height": 940,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": [
+          "first-contentful-paint",
+          "largest-contentful-paint",
+          "total-blocking-time",
+          "cumulative-layout-shift",
+          "resource-summary"
+        ],
+        "onlyCategories": null,
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 226.6397,
+        "largest-contentful-paint": 683.2794000000001,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 0
+      },
+      "resources": [
+        {
+          "resourceType": "total",
+          "label": "Total",
+          "requestCount": 22,
+          "transferSize": 338355
+        },
+        {
+          "resourceType": "image",
+          "label": "Image",
+          "requestCount": 1,
+          "transferSize": 164163
+        },
+        {
+          "resourceType": "script",
+          "label": "Script",
+          "requestCount": 19,
+          "transferSize": 96587
+        },
+        {
+          "resourceType": "document",
+          "label": "Document",
+          "requestCount": 1,
+          "transferSize": 42283
+        },
+        {
+          "resourceType": "font",
+          "label": "Font",
+          "requestCount": 1,
+          "transferSize": 35322
+        },
+        {
+          "resourceType": "stylesheet",
+          "label": "Stylesheet",
+          "requestCount": 0,
+          "transferSize": 0
+        },
+        {
+          "resourceType": "media",
+          "label": "Media",
+          "requestCount": 0,
+          "transferSize": 0
+        },
+        {
+          "resourceType": "other",
+          "label": "Other",
+          "requestCount": 0,
+          "transferSize": 0
+        },
+        {
+          "resourceType": "third-party",
+          "label": "Third-party",
+          "requestCount": 0,
+          "transferSize": 0
+        }
+      ]
+    }
+  ]
+}

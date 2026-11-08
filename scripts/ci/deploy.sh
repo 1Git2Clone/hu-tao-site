@@ -12,10 +12,20 @@ netlify=(npx --yes netlify-cli@27.15.0)
 # and `--no-build` so `deploy` uploads that build instead of building again.
 if [ -z "$pr" ]; then
   "${netlify[@]}" build --context production
+else
+  "${netlify[@]}" build --context deploy-preview
+fi
+
+# Reports come from this workflow's measured production builds. Generate them
+# after the site build, so report files never change the measured bundles.
+if [ -n "${PERFORMANCE_REPORTS:-}" ]; then
+  node scripts/ci/performance-report.ts "$PERFORMANCE_REPORTS" build/benchmarks
+fi
+
+if [ -z "$pr" ]; then
   "${netlify[@]}" deploy --no-build --prod --json >/dev/null
   url=https://hu-tao.dev
 else
-  "${netlify[@]}" build --context deploy-preview
   url=$("${netlify[@]}" deploy --no-build --alias="pr-$pr" --json | jq -r .deploy_url)
 fi
 

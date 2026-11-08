@@ -11,66 +11,66 @@ import Tokio from "$lib/components/icons/Tokio.svelte";
 
 type TechRef = { url: string; ariaLabel?: string; icon?: LinkIcon };
 
-export const COMPUTE_SERVICES: Record<string, TechRef> = {
+export const COMPUTE_SERVICES = {
   "AWS Lambda": { url: "https://aws.amazon.com/lambda/", icon: "md-lambda" },
   "AWS EC2": { url: "https://aws.amazon.com/ec2/" },
   "AWS ECS": { url: "https://aws.amazon.com/ecs/" },
   "Hetzner Cloud": { url: "https://www.hetzner.com/cloud/", icon: Hetzner },
   Scaleway: { url: "https://www.scaleway.com/", icon: Scaleway },
-} as const;
+} as const satisfies Record<string, TechRef>;
 export type ComputeService = keyof typeof COMPUTE_SERVICES;
 
-export const STORAGE_SERVICES: Record<string, TechRef> = {
+export const STORAGE_SERVICES = {
   "Amazon S3": { url: "https://aws.amazon.com/s3/", icon: "md-aws" },
   "Amazon EBS": { url: "https://aws.amazon.com/ebs/" },
   "Amazon EFS": { url: "https://aws.amazon.com/efs/" },
-} as const;
+} as const satisfies Record<string, TechRef>;
 export type StorageService = keyof typeof STORAGE_SERVICES;
 
-export const DEVOPS_TOOLS: Record<string, TechRef> = {
+export const DEVOPS_TOOLS = {
   Docker: { url: "https://www.docker.com/", icon: "dev-docker" },
   Kubernetes: { url: "https://kubernetes.io/" },
   "GitHub Actions": { url: "https://github.com/features/actions" },
   Nix: { url: "https://nixos.org/", icon: "linux-nixos" },
   OpenTofu: { url: "https://opentofu.org/", icon: OpenTofu },
   Caddy: { url: "https://caddyserver.com/", icon: Caddy },
-} as const;
+} as const satisfies Record<string, TechRef>;
 export type DevOps = keyof typeof DEVOPS_TOOLS;
 
-export const OBSERVABILITY_TOOLS: Record<string, TechRef> = {
+export const OBSERVABILITY_TOOLS = {
   Prometheus: { url: "https://prometheus.io/", icon: "dev-prometheus" },
   Grafana: { url: "https://grafana.com/", icon: "dev-grafana" },
   OpenTelemetry: {
     url: "https://opentelemetry.io/",
     icon: "dev-opentelemetry",
   },
-} as const;
+} as const satisfies Record<string, TechRef>;
 export type ObservabilityTool = keyof typeof OBSERVABILITY_TOOLS;
 
-export const FRONTEND_LIBRARIES: Record<string, TechRef> = {
+export const FRONTEND_LIBRARIES = {
   React: { url: "https://react.dev/", icon: "dev-react" },
   Svelte: { url: "https://svelte.dev/", icon: "dev-svelte" },
   TailwindCSS: { url: "https://tailwindcss.com/", icon: "dev-tailwindcss" },
-} as const;
+} as const satisfies Record<string, TechRef>;
 export type FrontendLibrary = keyof typeof FRONTEND_LIBRARIES;
 
-export const BACKEND_LIBRARIES: Record<string, TechRef> = {
+export const BACKEND_LIBRARIES = {
   Axum: { url: "https://github.com/tokio-rs/axum" },
   Actix: { url: "https://actix.rs/", icon: Actix },
   Tokio: { url: "https://tokio.rs/", icon: Tokio },
   Serenity: { url: "https://github.com/serenity-rs/serenity" },
   Poise: { url: "https://github.com/serenity-rs/poise" },
-} as const;
+} as const satisfies Record<string, TechRef>;
 export type BackendLibrary = keyof typeof BACKEND_LIBRARIES;
 
-export const DATABASES: Record<string, TechRef> = {
+export const DATABASES = {
   PostgreSQL: { url: "https://www.postgresql.org/", icon: "dev-postgresql" },
   MySQL: { url: "https://www.mysql.com/" },
   SQLite3: { url: "https://www.sqlite.org/", icon: "dev-sqlite" },
-} as const;
+} as const satisfies Record<string, TechRef>;
 export type Database = keyof typeof DATABASES;
 
-export const AI_INTEGRATIONS: Record<string, TechRef> = {
+export const AI_INTEGRATIONS = {
   OpenAI: { url: "https://openai.com/", icon: OpenAI },
   Gemini: { url: "https://gemini.google.com/", icon: Gemini },
   Claude: { url: "https://anthropic.com/", icon: Claude },
@@ -79,10 +79,10 @@ export const AI_INTEGRATIONS: Record<string, TechRef> = {
   Ollama: { url: "https://ollama.com/" },
   "Hugging Face": { url: "https://huggingface.co/" },
   Replicate: { url: "https://replicate.com/" },
-} as const;
+} as const satisfies Record<string, TechRef>;
 export type AiIntegration = keyof typeof AI_INTEGRATIONS;
 
-export const LANGUAGES: Record<string, TechRef> = {
+export const LANGUAGES = {
   TypeScript: {
     url: "https://www.typescriptlang.org/",
     icon: "dev-typescript",
@@ -103,10 +103,10 @@ export const LANGUAGES: Record<string, TechRef> = {
   Kotlin: { url: "https://kotlinlang.org/" },
   Lua: { url: "https://www.lua.org/" },
   Shell: { url: "https://www.gnu.org/software/bash/", icon: "md-console_line" },
-} as const;
+} as const satisfies Record<string, TechRef>;
 export type Languages = keyof typeof LANGUAGES;
 
-export const LICENSES: Record<string, TechRef> = {
+export const LICENSES = {
   Unlicense: { url: "https://unlicense.org/" },
   MIT: { url: "https://opensource.org/licenses/MIT" },
   "Apache 2.0": { url: "https://www.apache.org/licenses/LICENSE-2.0" },
@@ -116,10 +116,10 @@ export const LICENSES: Record<string, TechRef> = {
   GPLv3: { url: "https://www.gnu.org/licenses/gpl-3.0.html" },
   LGPL: { url: "https://www.gnu.org/licenses/lgpl-3.0.html" },
   MPL: { url: "https://www.mozilla.org/en-US/MPL/2.0/" },
-} as const;
+} as const satisfies Record<string, TechRef>;
 export type License = keyof typeof LICENSES;
 
-export const TECH_URLS = {
+const techUrls = {
   ...COMPUTE_SERVICES,
   ...STORAGE_SERVICES,
   ...DEVOPS_TOOLS,
@@ -130,4 +130,7 @@ export const TECH_URLS = {
   ...AI_INTEGRATIONS,
   ...LANGUAGES,
   ...LICENSES,
-} as const;
+} as const satisfies Record<string, TechRef>;
+
+// Keep optional fields available to renderers while preserving every real key.
+export const TECH_URLS: Record<keyof typeof techUrls, TechRef> = techUrls;

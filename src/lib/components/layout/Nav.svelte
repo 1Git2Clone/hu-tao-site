@@ -1,5 +1,6 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
+  import { beforeNavigate } from "$app/navigation";
   import { page } from "$app/state";
   import { TILE } from "./SocialLinks.svelte";
 
@@ -10,6 +11,7 @@
   ];
 
   let isOpen = $state(false);
+  let button: HTMLButtonElement;
 
   function currentOf(link: (typeof LINKS)[number]) {
     const active = link.exact
@@ -19,8 +21,18 @@
     return active ? ("page" as const) : undefined;
   }
 
-  function close() {
+  // The header outlives the page, so every navigation closes the menu: its
+  // links, the title, and back or forward.
+  beforeNavigate(() => {
     isOpen = false;
+  });
+
+  // Closing makes the menu inert, which would drop focus from a link inside
+  // it to the page, so focus goes back to the button.
+  function onkeydown(event: KeyboardEvent) {
+    if (event.key !== "Escape" || !isOpen) return;
+    isOpen = false;
+    button.focus();
   }
 </script>
 
@@ -34,11 +46,12 @@
   {/each}
 </ul>
 
-<svelte:window onkeydown={(e) => e.key === "Escape" && close()} />
+<svelte:window {onkeydown} />
 
 <div class="md:hidden">
   <!-- Two lines, like "=", that turn into an X while the menu is open. -->
   <button
+    bind:this={button}
     type="button"
     class="group cursor-pointer"
     aria-label="Menu"
@@ -67,7 +80,7 @@
             href={link.href}
             aria-current={currentOf(link)}
             class="block py-3 text-center"
-            onclick={close}
+            onclick={() => (isOpen = false)}
           >
             {link.label}
           </a>

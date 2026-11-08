@@ -1,0 +1,29 @@
+{
+  "metric": "mobile /blogs/intro-to-big-o-notation fcp",
+  "evidence": "2026-11-07-ci-lighthouse.json",
+  "base": "a85553847adf1252966c97031e94ac24c5e6523e",
+  "head": "b8e69dca753bb34311a7c553a84ff2f841b15f61",
+  "reason": "The recorded CI builds have identical production source and dependencies. Their pooled seven-per-side hosted measurements replace the local-host FCP noise floor for this metric only.",
+  "previousFloor": 168.2514500000001,
+  "floor": 8.559399999999982,
+  "samples": {
+    "base": [
+      891.78865, 798.82225, 893.7536, 884.8746, 898.5654, 892.4462999999998,
+      890.4
+    ],
+    "head": [
+      894.64235, 888.7164, 891.7089999999998, 799.1575, 794.8137, 890.12885,
+      893.434
+    ]
+  },
+  "injected100msVerdict": {
+    "name": "mobile /blogs/intro-to-big-o-notation fcp",
+    "base": 891.78865,
+    "head": 991.78865,
+    "delta": 100,
+    "floor": 8.559399999999982,
+    "p": 0.0002913752913752914,
+    "level": 0.000625,
+    "regressed": true
+  }
+}

@@ -36,6 +36,9 @@
               p.fonttools
               p.brotli
             ]))
+          ] ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+            # Marker-based cleanup in the performance runner and its tests.
+            pkgs.procps
           ];
         };
       });

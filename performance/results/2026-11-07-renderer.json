@@ -1,0 +1,56 @@
+{
+  "kind": "renderer",
+  "environment": {
+    "date": "2026-11-07T15:55:13.060Z",
+    "os": "Linux 7.3.0 x64",
+    "cpu": "AMD Ryzen 5 3600X 6-Core Processor",
+    "cores": 12,
+    "memoryGiB": 15.5,
+    "node": "v26.12.1",
+    "ci": false,
+    "runner": null,
+    "image": null,
+    "run": null,
+    "loadBefore": [3.26, 3.14, 4.75],
+    "browser": "156.0.8078.47",
+    "browserArgs": [
+      "--use-angle=swiftshader",
+      "--enable-unsafe-swiftshader",
+      "--ignore-gpu-blocklist"
+    ]
+  },
+  "root": {
+    "root": "/tmp/claude-1000/perf/f1",
+    "commit": "a85553847adf1252966c97031e94ac24c5e6523e",
+    "dirty": false
+  },
+  "report": {
+    "mobile": {
+      "viewport": {
+        "width": 412,
+        "height": 823,
+        "deviceScaleFactor": 1.75
+      },
+      "webgl": true,
+      "frames": 17,
+      "fps": 3.4,
+      "frameMedianMs": 266.7,
+      "frameP95Ms": 516.6,
+      "mainThreadBusyShare": 0.003
+    },
+    "desktop": {
+      "viewport": {
+        "width": 1350,
+        "height": 940,
+        "deviceScaleFactor": 1
+      },
+      "webgl": true,
+      "frames": 13,
+      "fps": 2.6,
+      "frameMedianMs": 349.9,
+      "frameP95Ms": 616.6,
+      "mainThreadBusyShare": 0.002
+    }
+  },
+  "conditions": "SwiftShader report only. Desktop applications and a concurrent root production build were active; physical GPU performance was not measured."
+}

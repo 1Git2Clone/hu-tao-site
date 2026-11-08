@@ -1,5 +1,5 @@
 <script lang="ts">
-  let { children } = $props<{ children: import("svelte").Snippet }>();
+  let { children }: { children: import("svelte").Snippet } = $props();
 </script>
 
 <div class="border-border card size-full border p-6">

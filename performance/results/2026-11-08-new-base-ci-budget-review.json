@@ -1,0 +1,27 @@
+{
+  "run": "https://github.com/1Git2Clone/hu-tao-site/actions/runs/42481398096",
+  "rawResult": "2026-11-08-new-base-ci-lighthouse.json",
+  "reason": "The hosted pinned Chrome 158 reports three transfer counts above the paired local Chrome 156 measurements for the same production source. Set only those budgets to the hosted value plus the existing measured 10-byte build allowance. All timing thresholds and request counts remain unchanged.",
+  "productionSourceComparison": "git diff --exit-code refs/pull/22/merge e93b8531f38f04c3da1ecafd360985044f0cf255 -- src static plugins pnpm-lock.yaml vite.config.ts svelte.config.js",
+  "productionSourceComparisonExit": 0,
+  "changes": {
+    "mobile /blogs script bytes": {
+      "old": 99391,
+      "hostedMeasurement": 99448,
+      "existingBuildAllowance": 10,
+      "new": 99458
+    },
+    "mobile /blogs total bytes": {
+      "old": 319166,
+      "hostedMeasurement": 319336,
+      "existingBuildAllowance": 10,
+      "new": 319346
+    },
+    "mobile /blogs/intro-to-big-o-notation total bytes": {
+      "old": 530879,
+      "hostedMeasurement": 530949,
+      "existingBuildAllowance": 10,
+      "new": 530959
+    }
+  }
+}
