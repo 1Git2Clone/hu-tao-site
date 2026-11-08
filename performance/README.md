@@ -260,3 +260,10 @@ transfer-budget corrections over local Chrome 156. Each uses the observed
 hosted value plus the existing 10-byte build allowance. Request counts and
 timing limits stay unchanged. `2026-11-08-new-base-ci-budget-review.json` links
 the workflow, preserved raw samples and exact budget changes.
+
+The first full main comparison passes all timing checks but finds a 13-byte
+transfer spread between source-equivalent hosted PR and main builds. The older
+10-byte allowance was too narrow. The budgets now use the measured maximum
+plus that 13-byte spread where existing headroom is smaller.
+`2026-11-08-hosted-build-variance-review.json` records the three corrected
+budgets, the source comparison and the full main results.
