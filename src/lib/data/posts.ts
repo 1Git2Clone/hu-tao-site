@@ -1,6 +1,7 @@
 import type { Component } from "svelte";
 import type { Snippet } from "$lib/types/snippets";
 import type { Paths } from "$lib/utils/type-helpers";
+import type { OgImage } from "./seo";
 
 export type PostTags = "dsa" | "cs";
 
@@ -17,6 +18,8 @@ export interface PostMetadata {
   related?: string[];
   title: string;
   summary: string;
+  /** Article-specific preview; relative URLs resolve against the site origin. */
+  image?: OgImage;
   date: Date;
   tags: Array<PostTags>;
   snippets: Snippet[];

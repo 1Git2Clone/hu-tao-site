@@ -4,6 +4,12 @@ title: Intro to Big O Notation
 summary: An overview of Time and Space complexity, common algorithms, and the nuances of mathematical notations in programming.
 date: March 17 2026
 tags: ["dsa", "cs"]
+image:
+  url: /images/blogs/big-o-complexities-chart.png
+  type: image/png
+  width: 1278
+  height: 800
+  alt: Chart comparing constant, logarithmic, linear, linearithmic, quadratic, exponential, and factorial growth.
 ---
 
 > **Note:** A more detailed dive on the topic can be found in my old
@@ -38,7 +44,7 @@ important to know that when assessing an algorithm's complexity, we omit
 **all** constants and instead focus on how the algorithm works as the input
 increases in size.
 
-![Big O Complexities Chart](./big-o/big-o-complexities-chart.png)
+![Big O Complexities Chart](/images/blogs/big-o-complexities-chart.png)
 
 ### $O(1)$ - Constant Complexity
 

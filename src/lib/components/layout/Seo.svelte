@@ -8,7 +8,11 @@
     type PageMeta,
     type PageRouteId,
   } from "$lib/data/seo";
-  import { SITE_TITLE, SITE_URL } from "$lib/utils/consts";
+  import {
+    SITE_TITLE,
+    SITE_URL,
+    TWITTER_PROFILE_HANDLE,
+  } from "$lib/utils/consts";
 
   // Only page routes reach the layout; endpoints never render it.
   const route = $derived(page.error ? null : (page.route.id as PageRouteId));
@@ -45,6 +49,12 @@
     <meta property="og:image:width" content={String(image.width)} />
     <meta property="og:image:height" content={String(image.height)} />
     <meta property="og:image:alt" content={image.alt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content={TWITTER_PROFILE_HANDLE} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={image.url} />
+    <meta name="twitter:image:alt" content={image.alt} />
     {#if meta.post}
       <meta property="article:published_time" content={meta.post.published} />
       {#each meta.post.tags as tag (tag)}
