@@ -34,7 +34,7 @@ assert.deepEqual(article.author, { "@id": person["@id"] });
 assert.ok(!("image" in article));
 
 const image = {
-  url: "/images/blogs/chart.png",
+  url: "/blogs/illustrated/images/chart.png",
   type: "image/png" as const,
   width: 1200,
   height: 800,
@@ -49,7 +49,7 @@ const illustratedPost = ROUTES["/blogs/[slug]"]({
 } as Parameters<(typeof ROUTES)["/blogs/[slug]"]>[0]);
 assert.deepEqual(illustratedPost.image, {
   ...image,
-  url: "https://hu-tao.dev/images/blogs/chart.png",
+  url: "https://hu-tao.dev/blogs/illustrated/images/chart.png",
 });
 assert.equal(
   jsonLd(illustratedPost, "https://hu-tao.dev/blogs/illustrated")["@graph"].at(
