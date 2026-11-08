@@ -50,9 +50,9 @@ export const DEFAULT_IMAGE: OgImage = {
 // route that no longer exists, fails `svelte-check`.
 export const ROUTES: { [R in PageRouteId]: RouteMeta<R> } = {
   "/": {
-    title: SITE_TITLE,
+    title: `Ivan (1Kill2Steal/${GITHUB_PROFILE_NAME})`,
     description:
-      'A dev with the horrible habit of "doing it myself". A NixOS-described VPS, Rust side projects, and AI integration by day.',
+      "Ivan, also known as 1Kill2Steal and 1Git2Clone. Junior AI Developer in fintech, with Rust side projects, NixOS infrastructure, and a software blog.",
     schema: "ProfilePage",
   },
   "/blogs": {
@@ -64,6 +64,10 @@ export const ROUTES: { [R in PageRouteId]: RouteMeta<R> } = {
     title: post.title,
     description: post.summary,
     schema: "BlogPosting",
+    image: post.image && {
+      ...post.image,
+      url: new URL(post.image.url, SITE_URL).href,
+    },
     post: { published: publishedDate(post.date), tags: post.tags },
   }),
   "/infra": {
@@ -83,7 +87,7 @@ export const ROUTES: { [R in PageRouteId]: RouteMeta<R> } = {
 // Frontmatter dates arrive as strings ("March 17 2026"), whatever the type says.
 // Parsed and formatted both in local time, so the day never shifts with the
 // build machine's timezone the way `toISOString()` would shift it.
-function publishedDate(date: PostMetadata["date"]): string {
+export function publishedDate(date: PostMetadata["date"]): string {
   return new Date(date).toLocaleDateString("sv-SE");
 }
 
@@ -93,13 +97,13 @@ const SOURCE_ID = `${SITE_URL}/#source`;
 
 /** The schema.org graph for one page: who, which site, its source, the page. */
 export function jsonLd(meta: PageMeta, url: string) {
-  const image = meta.image ?? DEFAULT_IMAGE;
   const page = {
     "@type": meta.schema,
     "@id": url,
     url,
     name: meta.title,
     description: meta.description,
+    inLanguage: "en",
     isPartOf: { "@id": WEBSITE_ID },
     ...(meta.schema === "ProfilePage" && { mainEntity: { "@id": PERSON_ID } }),
     ...(meta.post && {
@@ -107,7 +111,7 @@ export function jsonLd(meta: PageMeta, url: string) {
       datePublished: meta.post.published,
       keywords: meta.post.tags,
       author: { "@id": PERSON_ID },
-      image: image.url,
+      ...(meta.image && { image: meta.image.url }),
     }),
   };
 
@@ -118,7 +122,10 @@ export function jsonLd(meta: PageMeta, url: string) {
         "@type": "Person",
         "@id": PERSON_ID,
         name: "Ivan",
-        alternateName: GITHUB_PROFILE_NAME,
+        alternateName: ["1Kill2Steal", GITHUB_PROFILE_NAME],
+        jobTitle: "Junior AI Developer",
+        description:
+          "Junior AI Developer in fintech. Builds AI integrations and Go/AWS data flows at work, with Rust side projects and self-hosted NixOS infrastructure.",
         url: `${SITE_URL}/`,
         email: `mailto:${EMAIL}`,
         sameAs: [
@@ -132,6 +139,7 @@ export function jsonLd(meta: PageMeta, url: string) {
         "@id": WEBSITE_ID,
         url: `${SITE_URL}/`,
         name: SITE_TITLE,
+        alternateName: ["1Kill2Steal", "hu-tao.dev"],
         inLanguage: "en",
         author: { "@id": PERSON_ID },
         isBasedOn: { "@id": SOURCE_ID },

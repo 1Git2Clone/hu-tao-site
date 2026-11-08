@@ -7,6 +7,10 @@ NODE_VERSION = "26.10.0"
 # NOTE: Make sure to update this every time you do `nix flake update`.
 PNPM_PIN = "12.3.4"
 
+# PR deployments include test data. Production leaves this disabled.
+[context.deploy-preview.environment]
+VITE_INCLUDE_TEST_DATA = "true"
+
 # About Me was merged into the homepage.
 [[redirects]]
 from = "/about-me"

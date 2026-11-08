@@ -4,6 +4,12 @@ title: Intro to Big O Notation
 summary: An overview of Time and Space complexity, common algorithms, and the nuances of mathematical notations in programming.
 date: March 17 2026
 tags: ["dsa", "cs"]
+image:
+  url: /blogs/intro-to-big-o-notation/images/big-o-complexities-chart.png
+  type: image/png
+  width: 1278
+  height: 800
+  alt: Chart comparing constant, logarithmic, linear, linearithmic, quadratic, exponential, and factorial growth.
 ---
 
 > **Note:** A more detailed dive on the topic can be found in my old
@@ -38,7 +44,7 @@ important to know that when assessing an algorithm's complexity, we omit
 **all** constants and instead focus on how the algorithm works as the input
 increases in size.
 
-![Big O Complexities Chart](./big-o/big-o-complexities-chart.png)
+![Big O Complexities Chart](/blogs/intro-to-big-o-notation/images/big-o-complexities-chart.png)
 
 ### $O(1)$ - Constant Complexity
 
@@ -196,7 +202,7 @@ massive memory hit of the Sieve while staying faster than Trial Division.
 
 Big $O$ describes the **worst-case scenario**. Mathematically:
 
-![Big O Chart](./big-o/big-o-example.png)
+![Big O Chart](/blogs/intro-to-big-o-notation/images/big-o-example.png)
 
 $$
 0 \le f(n) \le C g(n) \text{ for all } n \ge n_0
@@ -206,7 +212,7 @@ $$
 
 Describes the **best-case scenario** (lower bound):
 
-![Big Omega Chart](./big-o/big-omega-example.png)
+![Big Omega Chart](/blogs/intro-to-big-o-notation/images/big-omega-example.png)
 
 $$
 0 \le C g(n) \le f(n) \text{ for all } n \ge n_0
@@ -216,7 +222,7 @@ $$
 
 Describes the **tightest bound** (average case):
 
-![Big Theta Chart](./big-o/big-theta-example.png)
+![Big Theta Chart](/blogs/intro-to-big-o-notation/images/big-theta-example.png)
 
 $$
 0 \le C_2 g(n) \le f(n) \le C_1 g(n) \text{ for all } n \ge n_0

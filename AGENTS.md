@@ -264,6 +264,9 @@ If `vp` is not found, `node_modules` is stale. Run the install command.
 - Each deploy is a GitHub deployment. Read its status in GitHub, not in the
   Netlify UI.
 - Netlify's own Git builds are stopped. Do not turn them on again.
+- PR deployments include test data in general. Production excludes fixtures.
+  Enable `VITE_INCLUDE_TEST_DATA=true` in the Netlify deploy-preview context.
+  Verify fixture visibility in a built preview, not only in local development.
 - Put shell logic in `scripts/<group>/*.sh`. A `run:` step calls one script or
   one command. The groups are `ci/` (only CI runs it), `checks/` (CI and
   local checks) and `development/` (local tools, such as the font subset).
@@ -420,3 +423,5 @@ Project-specific skills live in `.agents/skills/` and are loaded via the `skill`
 - `one-off-main-commits` — Small one-off fixes may be committed directly to `main` when explicitly allowed; still stage narrowly and include trailers
 - `no-delayed-hash-scroll-fixes` — Do not fix hash-link offsets with delayed JS re-scrolls; fix anchor targets, `scroll-mt-*`, or smooth-scroll/transition conflicts
 - `plural-collection-routes` — Collection pages use plural routes and labels, e.g. `/blogs` and `Blogs`
+- `blog-assets-by-slug` — Group public blog assets by slug, then type: `static/blogs/<slug>/images/<image>`
+- `preview-test-data` — PR deployments include test data; production excludes fixtures

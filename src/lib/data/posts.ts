@@ -1,6 +1,7 @@
 import type { Component } from "svelte";
 import type { Snippet } from "$lib/types/snippets";
 import type { Paths } from "$lib/utils/type-helpers";
+import type { OgImage } from "./seo";
 
 export type PostTags = "dsa" | "cs";
 
@@ -17,6 +18,8 @@ export interface PostMetadata {
   related?: string[];
   title: string;
   summary: string;
+  /** Article-specific preview; relative URLs resolve against the site origin. */
+  image?: OgImage;
   date: Date;
   tags: Array<PostTags>;
   snippets: Snippet[];
@@ -35,9 +38,11 @@ export interface PostModule {
   metadata: PostMetadata;
 }
 
-/** `test-*` posts are fixtures: listed and routable in dev only. */
+/** Test fixtures are listed and routable in dev and PR deployments. */
 export const isPublished = (slug: string): boolean =>
-  import.meta.env.DEV || !slug.startsWith("test-");
+  import.meta.env.DEV ||
+  import.meta.env.VITE_INCLUDE_TEST_DATA === "true" ||
+  !slug.startsWith("test-");
 
 export const postKey = (path: Paths<Post>): string => path;
 

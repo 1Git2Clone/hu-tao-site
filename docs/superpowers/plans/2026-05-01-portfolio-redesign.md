@@ -222,10 +222,7 @@ Replace the old bio `<section>` (currently lines 18-31) with:
   </p>
 
   <p class="mt-6">
-    <a
-      href="mailto:ivan@hu-tao.dev"
-      class="inline-flex items-center gap-1"
-    >
+    <a href="mailto:ivan@hu-tao.dev" class="inline-flex items-center gap-1">
       ivan@hu-tao.dev
     </a>
   </p>
@@ -383,9 +380,7 @@ Insert this after the closing `</section>` of the portfolio projects section (th
     cloud infrastructure.
   </p>
   <p class="mt-4">
-    <a href="mailto:ivan@hu-tao.dev" class="text-lg">
-      ivan@hu-tao.dev
-    </a>
+    <a href="mailto:ivan@hu-tao.dev" class="text-lg"> ivan@hu-tao.dev </a>
   </p>
 </section>
 ```
