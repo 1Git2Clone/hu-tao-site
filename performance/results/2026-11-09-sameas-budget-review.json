@@ -1,0 +1,15 @@
+{
+  "reason": "The metadata-only sameAs update passes all 16 timings but exceeds total-transfer budgets by 6 and 3 bytes. Repeated byte-by-byte recalibration is too brittle for metadata and build compression changes. Keep all existing budgets, and explicitly allow up to 1024 additional transferred bytes per profile for both script and total transfer. This is a materiality policy, not a measured timing or build-noise floor. Request limits remain exact. A 20 KB payload increase still fails.",
+  "run": "https://github.com/1Git2Clone/hu-tao-site/actions/runs/42532659892",
+  "evidence": "2026-11-09-sameas-ci-lighthouse.json",
+  "productionSourceComparison": "git diff 78065f6052de466e8ebabeb7d02183cb5d20ed26 66e9542cae49158707499c7431181319092fcc95 -- src static plugins package.json pnpm-lock.yaml vite.config.ts svelte.config.js",
+  "timingFailures": 0,
+  "policy": {
+    "transferAllowanceBytes": 1024,
+    "previousTransferAllowanceBytes": 0,
+    "requestAllowance": 0,
+    "budgetsUnchanged": true,
+    "floorsUnchanged": true,
+    "sampleCountsUnchanged": true
+  }
+}

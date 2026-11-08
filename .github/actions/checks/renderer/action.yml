@@ -1,0 +1,18 @@
+name: Renderer report
+description: Collects report-only software WebGL samples independently of Lighthouse.
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/setup
+    - run: pnpm exec playwright install --with-deps chromium
+      shell: bash
+    - run: node scripts/checks/performance-bench.ts renderer . --out "$RUNNER_TEMP/performance/renderer.json"
+      shell: bash
+    - if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: renderer
+        path: ${{ runner.temp }}/performance/
+        if-no-files-found: ignore
+        retention-days: 14

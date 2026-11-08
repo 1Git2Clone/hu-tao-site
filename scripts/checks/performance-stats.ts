@@ -22,6 +22,13 @@ export const ALPHA = 0.01;
 /** C(2n, n) relabellings are tried; 10 runs per side is 184 756 of them. */
 export const MAX_RUNS = 10;
 
+/** An explicit transfer allowance, separate from timing noise and requests. */
+export function transferLimit(budget: number, allowance: number): number {
+  if ([budget, allowance].some((value) => !Number.isFinite(value) || value < 0))
+    throw new Error("transfer limits require finite nonnegative bytes");
+  return budget + allowance;
+}
+
 export const median = (values: readonly number[]): number => {
   const sorted = values.toSorted((a, b) => a - b);
   const middle = sorted.length >> 1;

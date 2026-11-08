@@ -48,10 +48,12 @@
     "results/2026-11-07-report-byte-budget-review.json",
     "results/2026-11-08-new-base-review.json",
     "results/2026-11-08-new-base-ci-budget-review.json",
-    "results/2026-11-08-hosted-build-variance-review.json"
+    "results/2026-11-08-hosted-build-variance-review.json",
+    "results/2026-11-09-sameas-budget-review.json"
   ],
   "floorEvidence": {
     "mobile /blogs/intro-to-big-o-notation fcp": "results/2026-11-08-ci-fcp-floor-review.json"
   },
-  "referenceEvidence": "results/2026-11-08-new-base-review.json"
+  "referenceEvidence": "results/2026-11-08-new-base-review.json",
+  "transferAllowanceBytes": 1024
 }

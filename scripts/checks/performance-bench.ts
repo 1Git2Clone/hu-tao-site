@@ -26,12 +26,17 @@ import {
   floor,
   judge,
   table,
+  transferLimit,
   type Cell,
 } from "./performance-stats.ts";
 
 const { positionals, values } = parseArgs({
   allowPositionals: true,
-  options: { runs: { type: "string" }, out: { type: "string" } },
+  options: {
+    runs: { type: "string" },
+    out: { type: "string" },
+    profile: { type: "string" },
+  },
 });
 const [kind, ...roots] = positionals;
 const smoke = kind === "lighthouse-smoke";
@@ -88,6 +93,22 @@ const fail = (message: string): never => {
   process.exit(2);
 };
 
+if (
+  values.profile !== undefined &&
+  !["lighthouse", "lighthouse-smoke"].includes(kind)
+)
+  fail("--profile is only valid for Lighthouse");
+const profiles =
+  values.profile === undefined
+    ? PROFILES
+    : PROFILES.filter((profile) => profile.name === values.profile);
+if (!profiles.length) fail(`unknown Lighthouse profile: ${values.profile}`);
+// Each of four independent jobs gets a quarter of the error budget. Holm
+// still corrects the four timings within each profile. Their combined false
+// failure rate stays at most ALPHA; splitting must not multiply it by four.
+const timingAlpha =
+  values.profile === undefined ? ALPHA : ALPHA / PROFILES.length;
+
 const write = (result: object) => {
   if (!values.out) return;
   mkdirSync(path.dirname(path.resolve(values.out)), { recursive: true });
@@ -104,14 +125,17 @@ process.on("uncaughtException", (error) => {
 });
 
 /** Every metric a complete run of `kind` measures, by name. */
-const expected = (kind: "workloads" | "lighthouse") =>
+const expected = (
+  kind: "workloads" | "lighthouse",
+  selected = PROFILES as readonly (typeof PROFILES)[number][],
+) =>
   kind === "workloads"
     ? { samples: ["infra-layout ms"], bytes: [] }
     : {
-        samples: PROFILES.flatMap((p) =>
+        samples: selected.flatMap((p) =>
           Object.keys(AUDITS).map((metric) => `${p.name} ${metric}`),
         ),
-        bytes: PROFILES.flatMap((p) =>
+        bytes: selected.flatMap((p) =>
           ["script bytes", "total bytes", "requests"].map(
             (m) => `${p.name} ${m}`,
           ),
@@ -228,6 +252,10 @@ if (kind === "record") {
   const baseline = {
     commit: [...commits][0],
     alpha: ALPHA,
+    // Recording measurements must not silently reset the reviewed policy.
+    transferAllowanceBytes: existsSync(BASELINE)
+      ? (JSON.parse(readFileSync(BASELINE, "utf8")).transferAllowanceBytes ?? 0)
+      : 0,
     runs: Object.fromEntries(results.map((r) => [r.kind, r.runs])),
     floors,
     budgets,
@@ -235,6 +263,7 @@ if (kind === "record") {
       path.relative(path.dirname(BASELINE), path.resolve(file)),
     ),
   };
+  transferLimit(0, baseline.transferAllowanceBytes);
   writeFileSync(BASELINE, `${JSON.stringify(baseline, null, 2)}\n`);
   console.log(`wrote ${BASELINE}`);
   process.exit(0);
@@ -451,6 +480,10 @@ const baseline = existsSync(BASELINE)
   ? JSON.parse(readFileSync(BASELINE, "utf8"))
   : { runs: {}, floors: {}, budgets: {} };
 const recorded = existsSync(BASELINE);
+// This is an explicit policy allowance for small transfer changes, not a
+// timing noise estimate. Older baselines without it keep their exact budgets.
+const transferAllowance = baseline.transferAllowanceBytes ?? 0;
+transferLimit(0, transferAllowance);
 if (recorded) {
   for (const [name, value] of Object.entries({
     ...baseline.floors,
@@ -502,7 +535,12 @@ if (kind === "workloads") {
     process.stderr.write(`${side} ${ms.toFixed(1)} ms\n`);
   }
 } else {
-  if (!smoke) assertPower(runs, PROFILES.length * Object.keys(AUDITS).length);
+  if (!smoke)
+    assertPower(
+      runs,
+      profiles.length * Object.keys(AUDITS).length,
+      timingAlpha,
+    );
   await build(head);
   const urls = {
     ...(smoke ? {} : { base: await serve(base, 4181) }),
@@ -510,7 +548,7 @@ if (kind === "workloads") {
   };
   // A missing route would still give Lighthouse a 404 page to measure.
   for (const url of Object.values(urls))
-    for (const { route } of PROFILES) {
+    for (const { route } of profiles) {
       const response = await fetch(`${url}${route}`, {
         redirect: "manual",
         signal: AbortSignal.timeout(10000),
@@ -537,7 +575,7 @@ if (kind === "workloads") {
     settings: {} as Record<string, unknown>,
   };
   // ponytail: one Chrome per run, as Lighthouse recommends; a shared browser would be faster and leak state between runs.
-  for (const profile of PROFILES) {
+  for (const profile of profiles) {
     for (const [i, side] of order.entries()) {
       const json = await run(
         lighthouse,
@@ -629,6 +667,7 @@ const result = {
   base: smoke ? undefined : describe(base),
   head: describe(head),
   timingReportOnly: smoke,
+  timingAlpha,
   runs,
   order,
   samples,
@@ -638,7 +677,10 @@ write(result);
 
 // A metric with no recorded floor or budget fails: a new metric needs a
 // reviewed baseline before it can pass.
-const want = expected(kind === "workloads" ? "workloads" : "lighthouse");
+const want = expected(
+  kind === "workloads" ? "workloads" : "lighthouse",
+  profiles,
+);
 const missing = [
   ...want.samples.filter(
     (name) => !(name in samples && (smoke || name in baseline.floors)),
@@ -653,7 +695,7 @@ const cells: Cell[] = Object.entries(samples).map(([name, s]) => ({
   ...s,
   floor: baseline.floors[name],
 }));
-const verdicts = smoke ? [] : judge(cells);
+const verdicts = smoke ? [] : judge(cells, timingAlpha);
 if (smoke) {
   for (const [name, s] of Object.entries(samples))
     console.log(`report-only ${name}: ${s.head[0]}`);
@@ -661,7 +703,9 @@ if (smoke) {
 const over = Object.entries(bytes).map(([name, s]) => ({
   name,
   value: Math.max(...s.head),
-  budget: baseline.budgets[name] as number,
+  budget: name.endsWith(" requests")
+    ? (baseline.budgets[name] as number)
+    : transferLimit(baseline.budgets[name], transferAllowance),
 }));
 for (const { name, value, budget } of over)
   console.log(

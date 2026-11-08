@@ -25,7 +25,7 @@ runs:
         path: ${{ runner.temp }}/performance-reports/benchmarks
     - uses: actions/download-artifact@v8
       with:
-        name: lighthouse
+        pattern: lighthouse-*
         path: ${{ runner.temp }}/performance-reports/lighthouse
     - id: deploy
       # The token is scoped to this step, out of reach of install scripts.

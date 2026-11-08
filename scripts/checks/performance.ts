@@ -21,6 +21,7 @@ import {
   median,
   permutationP,
   smallestP,
+  transferLimit,
 } from "./performance-stats.ts";
 
 assert.equal(median([3, 1, 2]), 2);
@@ -122,6 +123,94 @@ assert.deepEqual(
 assert.throws(() => assertPower(5, 3), /cannot fail/);
 assert.doesNotThrow(() => assertPower(7, 16));
 assert.throws(() => assertPower(6, 16), /cannot fail/);
+
+// Four parallel profiles share one family error budget. A shard must not
+// spend the full ALPHA and multiply the chance of a false timing failure.
+assert.doesNotThrow(() => assertPower(7, 4, ALPHA / 4));
+assert.throws(() => assertPower(6, 4, ALPHA / 4), /cannot fail/);
+assert.ok(
+  !judge([cell(20), cell(0), cell(0), cell(0)], ALPHA / 4)[0].regressed,
+);
+assert.ok(
+  judge([{ ...zeroTimings[0], head: Array<number>(7).fill(40) }], ALPHA / 4)[0]
+    .regressed,
+);
+
+// An invalid profile fails before builds, servers or Chrome start.
+for (const args of [
+  ["lighthouse-smoke", ".", "--profile", "typo"],
+  ["workloads", ".", ".", "--profile", "mobile /"],
+]) {
+  assert.throws(
+    () =>
+      execFileSync(
+        process.execPath,
+        ["scripts/checks/performance-bench.ts", ...args],
+        { stdio: "pipe" },
+      ),
+    /unknown Lighthouse profile|--profile is only valid/,
+  );
+}
+
+// Byte limits tolerate small metadata/compression changes, but never apply
+// the allowance to requests. Invalid policy values cannot disable the gate.
+assert.equal(transferLimit(100_000, 1024), 101_024);
+assert.equal(transferLimit(100_000, 0), 100_000);
+for (const invalid of [-1, NaN, Infinity]) {
+  assert.throws(() => transferLimit(100_000, invalid));
+  assert.throws(() => transferLimit(invalid, 1024));
+}
+
+// The actual failed hosted run passes the declared transfer policy. A real
+// payload or request increase still fails, without changing timing floors.
+const hosted = JSON.parse(
+  readFileSync(
+    "performance/results/2026-11-09-sameas-ci-lighthouse.json",
+    "utf8",
+  ),
+);
+const baseline = JSON.parse(readFileSync("performance/baseline.json", "utf8"));
+const budgets = baseline.budgets;
+const profiles = new Set(
+  Object.keys(hosted.samples).map((name) =>
+    name.slice(0, name.lastIndexOf(" ")),
+  ),
+);
+assert.equal(profiles.size, 4);
+for (const profile of profiles) {
+  const cells = Object.entries(hosted.samples)
+    .filter(([name]) => name.startsWith(`${profile} `))
+    .map(([name, samples]) => ({
+      name,
+      ...(samples as { base: number[]; head: number[] }),
+      floor: baseline.floors[name],
+    }));
+  assert.equal(cells.length, 4);
+  assert.ok(judge(cells, ALPHA / profiles.size).every((v) => !v.regressed));
+}
+assert.equal(
+  hosted.budgets.filter(
+    (b: { value: number; budget: number }) => b.value > b.budget,
+  ).length,
+  2,
+);
+for (const [name, samples] of Object.entries(hosted.bytes) as [
+  string,
+  { head: number[] },
+][]) {
+  const largest = Math.max(...samples.head);
+  const limit = name.endsWith("requests")
+    ? budgets[name]
+    : transferLimit(budgets[name], baseline.transferAllowanceBytes);
+  assert.ok(
+    largest <= limit,
+    `${name}: metadata exceeds its transfer allowance`,
+  );
+  assert.ok(
+    largest + (name.endsWith("requests") ? 1 : 20_000) > limit,
+    `${name}: injected regression passed`,
+  );
+}
 
 // A timed-out run leaves nothing behind, even a process in another group
 // (as chrome-launcher starts Chrome), when that process carries the marker.

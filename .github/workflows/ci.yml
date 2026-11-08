@@ -79,15 +79,37 @@ jobs:
 
   lighthouse:
     runs-on: ubuntu-latest
-    # A hung run fails at its own timeout; this bounds the whole job.
-    timeout-minutes: 60
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - id: home-mobile
+            profile: mobile /
+          - id: blogs-mobile
+            profile: mobile /blogs
+          - id: article-mobile
+            profile: mobile /blogs/intro-to-big-o-notation
+          - id: home-desktop
+            profile: desktop /
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/checks/lighthouse
         with:
-          # PRs report timings and gate bytes in four audits. Main keeps all
-          # 56 baseline/head audits and the separate renderer report.
           mode: ${{ github.event_name == 'pull_request' && 'smoke' || 'full' }}
+          profile: ${{ matrix.profile }}
+          artifact: lighthouse-${{ matrix.id }}
+
+  # Software WebGL is a report only. It runs independently of page audits
+  # and does not hold up deployment.
+  renderer:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/checks/renderer
 
   # Netlify's own Git builds are stopped; this is the only way the site deploys,
   # and only once every check and test is green. Each run shows up under the
