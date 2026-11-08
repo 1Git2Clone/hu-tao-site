@@ -1,7 +1,13 @@
 // Run: node scripts/checks/performance.ts
 import assert from "node:assert/strict";
 import { execFileSync, spawn } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import {
+  existsSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
@@ -97,6 +103,20 @@ assert.ok(!isNoMatch({ status: 1, stderr: "permission denied" }));
 const many = Array.from({ length: 20 }, (_, i) => cell(i === 0 ? 20 : 0));
 assert.ok(!judge(many)[0].regressed, "Holm did not correct for 20 cells");
 assert.ok(judge(many.slice(0, 1))[0].regressed);
+const stepDown = judge([
+  cell(20, 0),
+  {
+    name: "second",
+    base: [0, 1, 2, 3, 4, 8],
+    head: [5, 6, 7, 9, 10, 11],
+    floor: 0,
+  },
+]);
+assert.ok(stepDown[1].p > ALPHA / 2 && stepDown[1].p <= ALPHA);
+assert.deepEqual(
+  stepDown.map((verdict) => verdict.regressed),
+  [true, true],
+);
 
 // Too few runs for the number of timings is refused, not run powerless.
 assert.throws(() => assertPower(5, 3), /cannot fail/);
@@ -119,7 +139,7 @@ const directory = mkdtempSync(path.join(tmpdir(), "performance-cleanup-"));
 const ready = path.join(directory, "ready");
 // The grandchild records its PID before hanging. A slow startup cannot make
 // the test pass without ever creating the process it promises to clean up.
-const grandchild = `require("node:fs").writeFileSync(process.argv[1], String(process.pid)); setTimeout(() => {}, 300000);`;
+const grandchild = `process.on("SIGTERM", () => {}); require("node:fs").writeFileSync(process.argv[1], String(process.pid)); setTimeout(() => {}, 300000);`;
 const hang = `require("node:child_process").spawn(process.execPath, ["-e", ${JSON.stringify(grandchild)}, "--", process.argv[2], process.argv[1]], { detached: true, stdio: "ignore" }).unref(); setInterval(() => {}, 1000);`;
 const sibling = spawn(
   process.execPath,
@@ -148,4 +168,82 @@ try {
     } catch {}
   }
   rmSync(directory, { recursive: true });
+}
+
+// Neither stream can bypass the shared byte limit with a successful exit.
+for (const streams of [["stderr"], ["stdout", "stderr"]]) {
+  await assert.rejects(
+    run(
+      process.execPath,
+      [
+        "-e",
+        `const chunk = Buffer.alloc(1024 * 1024); for (let i = 0; i < ${streams.length === 1 ? 65 : 33}; i++) for (const stream of ${JSON.stringify(streams)}) process[stream].write(chunk);`,
+      ],
+      { cwd: ".", timeout: 10_000, grace: 10 },
+    ),
+    /output over/,
+  );
+}
+
+// Interrupting a coordinator kills all active detached samples, even when
+// they block the event loop in CPU work instead of answering TERM.
+const interrupted = mkdtempSync(path.join(tmpdir(), "performance-interrupt-"));
+const fixture = path.join(interrupted, "runner.mjs");
+const runnerUrl = new URL("./performance-run.ts", import.meta.url).href;
+writeFileSync(
+  fixture,
+  `import { run } from ${JSON.stringify(runnerUrl)};
+await Promise.all(process.argv.slice(2).map(file => run(process.execPath, ["-e", 'require("node:fs").writeFileSync(process.argv[1], String(process.pid)); while (true) {}', file], { cwd: ".", timeout: 300000 })));`,
+);
+const readyFiles = ["first", "second"].map((name) =>
+  path.join(interrupted, name),
+);
+const coordinator = spawn(process.execPath, [fixture, ...readyFiles], {
+  stdio: "ignore",
+});
+try {
+  const deadline = Date.now() + 5000;
+  while (!readyFiles.every((file) => existsSync(file)) && Date.now() < deadline)
+    await new Promise((resolve) => setTimeout(resolve, 10));
+  assert.ok(
+    readyFiles.every((file) => existsSync(file)),
+    "both samples must start",
+  );
+  const exited = new Promise((resolve) => coordinator.once("close", resolve));
+  coordinator.kill("SIGTERM");
+  await exited;
+  for (const file of readyFiles) {
+    const pid = Number(readFileSync(file, "utf8"));
+    const running = () => {
+      try {
+        // SIGKILL and process reaping run asynchronously in the kernel.
+        if (process.platform === "linux")
+          return !/\) Z /.test(readFileSync(`/proc/${pid}/stat`, "utf8"));
+        process.kill(pid, 0);
+        return true;
+      } catch (error) {
+        if (
+          ["ENOENT", "ESRCH"].includes(
+            (error as NodeJS.ErrnoException).code ?? "",
+          )
+        )
+          return false;
+        throw error;
+      }
+    };
+    const deadline = Date.now() + 2000;
+    while (running() && Date.now() < deadline)
+      await new Promise((resolve) => setTimeout(resolve, 10));
+    assert.ok(!running(), `sample ${pid} survived coordinator interruption`);
+  }
+} finally {
+  coordinator.kill("SIGKILL");
+  for (const file of readyFiles) {
+    if (existsSync(file)) {
+      try {
+        process.kill(-Number(readFileSync(file, "utf8")), "SIGKILL");
+      } catch {}
+    }
+  }
+  rmSync(interrupted, { recursive: true });
 }

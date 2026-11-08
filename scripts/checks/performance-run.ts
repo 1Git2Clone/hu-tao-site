@@ -8,6 +8,13 @@ import { execFileSync, spawn } from "node:child_process";
 /** A Lighthouse report is a few MB; more than this is a broken run. */
 export const MAX_OUTPUT = 64 * 2 ** 20;
 
+const active = new Set<() => void>();
+process.on("exit", () => {
+  for (const stop of active) stop();
+});
+for (const signal of ["SIGINT", "SIGTERM"] as const)
+  process.on(signal, () => process.exit(130));
+
 export interface Limits {
   cwd: string;
   timeout: number;
@@ -59,6 +66,8 @@ export const run = (
       } catch {}
       if (marker) killMarked(marker, name);
     };
+    const cleanup = () => signal("KILL");
+    active.add(cleanup);
     let settled = false;
     const stop = (error: Error) => {
       if (settled) return;
@@ -76,6 +85,7 @@ export const run = (
         } catch (failure) {
           cleanupError = failure;
         }
+        active.delete(cleanup);
         reject(cleanupError ?? error);
       }, grace);
     };
@@ -90,7 +100,11 @@ export const run = (
       else stdout += chunk;
     });
     child.stderr.on("data", (chunk: Buffer) => {
+      if (settled) return;
       stderr = (stderr + chunk).slice(-4000);
+      outputBytes += chunk.length;
+      if (outputBytes > MAX_OUTPUT)
+        stop(new Error(`${cmd}: output over ${MAX_OUTPUT} bytes`));
     });
     child.on("error", stop);
     const timer = setTimeout(
@@ -101,6 +115,7 @@ export const run = (
       if (settled) return;
       settled = true;
       clearTimeout(timer);
+      active.delete(cleanup);
       try {
         if (marker) killMarked(marker);
       } catch (error) {
