@@ -28,11 +28,11 @@
     "mobile / script bytes": 96620,
     "mobile / total bytes": 338541,
     "mobile / requests": 22,
-    "mobile /blogs script bytes": 99391,
-    "mobile /blogs total bytes": 319166,
+    "mobile /blogs script bytes": 99458,
+    "mobile /blogs total bytes": 319346,
     "mobile /blogs requests": 22,
     "mobile /blogs/intro-to-big-o-notation script bytes": 98381,
-    "mobile /blogs/intro-to-big-o-notation total bytes": 530879,
+    "mobile /blogs/intro-to-big-o-notation total bytes": 530959,
     "mobile /blogs/intro-to-big-o-notation requests": 30,
     "desktop / script bytes": 96620,
     "desktop / total bytes": 338541,
@@ -46,7 +46,8 @@
     "results/2026-11-07-ci-lighthouse.json",
     "results/2026-11-07-byte-budget-review.json",
     "results/2026-11-07-report-byte-budget-review.json",
-    "results/2026-11-08-new-base-review.json"
+    "results/2026-11-08-new-base-review.json",
+    "results/2026-11-08-new-base-ci-budget-review.json"
   ],
   "floorEvidence": {
     "mobile /blogs/intro-to-big-o-notation fcp": "results/2026-11-08-ci-fcp-floor-review.json"
