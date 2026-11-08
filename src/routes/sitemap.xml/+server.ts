@@ -1,5 +1,6 @@
 import type { RequestHandler } from "@sveltejs/kit";
 import { POSTS } from "$lib/server/posts";
+import { publishedDate } from "$lib/data/seo";
 
 export const prerender = true;
 
@@ -37,9 +38,7 @@ export const GET: RequestHandler = () => {
   );
 
   const postEntries = POSTS.map(({ slug, metadata }) => {
-    const lastmod = metadata.date
-      ? new Date(metadata.date).toISOString().split("T")[0]
-      : undefined;
+    const lastmod = metadata.date ? publishedDate(metadata.date) : undefined;
     return urlEntry(`${SITE_URL}/blogs/${slug}`, lastmod);
   });
 
