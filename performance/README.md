@@ -174,7 +174,7 @@ The existing `lighthouse <base> <head>` command retains the full comparison.
 
 ## Initial evidence
 
-The baseline commit is `a85553847adf1252966c97031e94ac24c5e6523e`.
+The initial baseline commit was `a85553847adf1252966c97031e94ac24c5e6523e`.
 The committed result files identify the browser, machine and run conditions.
 Other desktop applications were running on the recording host. These are
 paired local measurements, not measurements of a physical phone's GPU.
@@ -243,3 +243,14 @@ Local commands use `procps` from the Nix shell for exact marker matching.
 The runner counts stdout and stderr against one limit and kills every active
 sample group when interrupted. Dirty detection includes untracked inputs;
 untracked files in `performance/results` remain measurement artifacts.
+
+## Reference after the main rebase
+
+The reference is now `c2a687677cd05c0e7e72426ddf53ecb9f6a9af06`, the
+rebased equivalent of the behaviour fixes with the accepted main SEO and
+public-image changes. The paired comparison passes all 16 Lighthouse timings
+and the graph workload. Existing timing floors and sample counts remain.
+The article now loads three images that the previous reference did not request.
+Byte budgets use the larger measured reference/head transfer plus the existing
+10-byte build allowance; request counts have no allowance.
+`2026-11-08-new-base-review.json` records each changed limit and both full runs.
