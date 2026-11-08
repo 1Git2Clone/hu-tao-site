@@ -1,0 +1,43 @@
+{
+  "reason": "The first full main comparison passes all 16 timings but exceeds the article transfer budget by 3 bytes. Identical production sources built in the earlier PR run and this main run vary by up to 13 transferred bytes across metrics. Replace the older 10-byte allowance with this measured spread and update only budgets whose existing headroom is smaller.",
+  "run": "https://github.com/1Git2Clone/hu-tao-site/actions/runs/42482056253",
+  "evidence": [
+    "2026-11-08-new-base-ci-lighthouse.json",
+    "2026-11-08-main-lighthouse.json"
+  ],
+  "productionSourceComparison": "git diff --exit-code e93b8531f38f04c3da1ecafd360985044f0cf255 d56a5e97d3c329d3ab4dd5220fc9f68a411a073e -- src static plugins package.json pnpm-lock.yaml vite.config.ts svelte.config.js",
+  "productionSourceComparisonExit": 0,
+  "previousBuildAllowance": 10,
+  "measuredBuildAllowance": 13,
+  "measuredSpreads": {
+    "mobile / script bytes": 6,
+    "mobile / total bytes": 9,
+    "mobile /blogs script bytes": 8,
+    "mobile /blogs total bytes": 9,
+    "mobile /blogs/intro-to-big-o-notation script bytes": 7,
+    "mobile /blogs/intro-to-big-o-notation total bytes": 13,
+    "desktop / script bytes": 6,
+    "desktop / total bytes": 9
+  },
+  "changes": {
+    "mobile /blogs script bytes": {
+      "old": 99458,
+      "observedMaximum": 99456,
+      "measuredBuildAllowance": 13,
+      "new": 99469
+    },
+    "mobile /blogs total bytes": {
+      "old": 319346,
+      "observedMaximum": 319345,
+      "measuredBuildAllowance": 13,
+      "new": 319358
+    },
+    "mobile /blogs/intro-to-big-o-notation total bytes": {
+      "old": 530959,
+      "observedMaximum": 530962,
+      "measuredBuildAllowance": 13,
+      "new": 530975
+    }
+  },
+  "timingFailures": 0
+}
