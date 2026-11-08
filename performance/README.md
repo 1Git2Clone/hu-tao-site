@@ -71,8 +71,9 @@ with no floor or budget, a run count other than the recorded one, and a
 `baseline.json` recorded at another `ALPHA`.
 
 Each preview uses a separate port. The harness rejects occupied ports and
-servers that exit during startup. Before measuring, it compares the served
-homepage HTML with that checkout's `build/index.html`. A stale server cannot
+servers that exit during startup. The harness rebuilds the head from its current
+checkout before Lighthouse measurement. It then compares the served homepage
+HTML with that checkout's `build/index.html`. A stale server cannot
 supply samples for a different build. Timed-out Chrome processes are removed
 with an exact, per-run command-line marker, including detached children.
 
@@ -129,6 +130,9 @@ from measured build differences. It does not require new timing floors.
   little about a phone's GPU, so it has no threshold, and its step is
   `continue-on-error`: a failure to collect it shows in the log and the
   artifact, but does not fail the job.
+- Renderer collection has a 60-second watchdog across startup, CDP requests,
+  page evaluation, sampling and browser shutdown. A timeout kills its browser
+  and preview server. Missing WebGL marks the report incomplete.
 - Every result records the commits, dirty state, CPU, cores, memory, OS,
   Node, load averages, Lighthouse and Chrome versions, Lighthouse's
   `benchmarkIndex` for each run, and the raw samples.
@@ -227,3 +231,15 @@ other desktop applications were running; it is not a GPU performance budget.
 An earlier Lighthouse calibration was withdrawn after the occupied-port
 guard found a stale preview serving the previous commit. Its samples are not
 used for the baseline. The replacement verifies build HTML on both ports.
+
+The article mobile FCP floor uses the hosted samples in
+`2026-11-07-ci-lighthouse.json`. Those two commits have identical production
+source and dependencies. Pooling their seven samples per side gives an
+8.5594 ms floor, replacing the local 168.25145 ms floor for this metric only.
+`2026-11-08-ci-fcp-floor-review.json` records the calculation and a consistent
+100 ms injection that fails the 16-metric Holm gate. Other floors stay unchanged.
+
+Local commands use `procps` from the Nix shell for exact marker matching.
+The runner counts stdout and stderr against one limit and kills every active
+sample group when interrupted. Dirty detection includes untracked inputs;
+untracked files in `performance/results` remain measurement artifacts.
