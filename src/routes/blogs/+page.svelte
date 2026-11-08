@@ -7,7 +7,7 @@
   import Term from "$lib/components/layout/Term.svelte";
   import Pagination from "$lib/components/Pagination.svelte";
   import { SvelteURLSearchParams } from "svelte/reactivity";
-  import { beforeNavigate, goto } from "$app/navigation";
+  import { beforeNavigate, goto, replaceState } from "$app/navigation";
   import { page } from "$app/state";
   import { flip } from "svelte/animate";
   import { prefersReducedMotion } from "svelte/motion";
@@ -19,12 +19,34 @@
   let searchInput: HTMLInputElement | undefined = $state();
   let searchTimer: ReturnType<typeof setTimeout> | undefined;
   let writtenQuery: string | undefined;
+  let alive = true;
+  let departure: object | undefined;
 
-  beforeNavigate(({ to }) => {
+  beforeNavigate((navigation) => {
+    const { to, complete, willUnload } = navigation;
     // Leaving can delay destruction beyond the debounce interval.
     if (to?.url.pathname !== page.url.pathname) {
       clearTimeout(searchTimer);
       writtenQuery = undefined;
+      // A browser Stop leaves external navigation.complete pending forever.
+      // Save the draft without starting a navigation that could cancel it.
+      if (willUnload) {
+        if (searchQuery !== (page.url.searchParams.get("q") || ""))
+          replaceState(searchUrl(searchQuery), page.state);
+        return;
+      }
+      departure = navigation;
+      void complete.catch(() => {
+        if (
+          alive &&
+          departure === navigation &&
+          page.url.pathname === resolve("/blogs")
+        ) {
+          departure = undefined;
+          if (searchQuery !== (page.url.searchParams.get("q") || ""))
+            scheduleSearch();
+        }
+      });
     }
   });
 
@@ -99,21 +121,18 @@
 
   function search(event: Event & { currentTarget: HTMLInputElement }) {
     searchQuery = event.currentTarget.value;
+    scheduleSearch();
+  }
+
+  function scheduleSearch() {
     clearTimeout(searchTimer);
     const query = searchQuery;
     searchTimer = setTimeout(() => {
-      const params = new SvelteURLSearchParams(page.url.searchParams);
-      if (query) {
-        params.set("q", query);
-      } else {
-        params.delete("q");
-      }
-      params.set("page", "1");
       writtenQuery = query;
       const finished = () => {
         if (writtenQuery === query) writtenQuery = undefined;
       };
-      void goto(resolve(`/blogs?${params.toString()}`), {
+      void goto(searchUrl(query), {
         replaceState: true,
         noScroll: true,
         keepFocus: true,
@@ -121,7 +140,18 @@
     }, 300);
   }
 
-  onDestroy(() => clearTimeout(searchTimer));
+  function searchUrl(query: string) {
+    const params = new SvelteURLSearchParams(page.url.searchParams);
+    if (query) params.set("q", query);
+    else params.delete("q");
+    params.set("page", "1");
+    return resolve(`/blogs?${params.toString()}`);
+  }
+
+  onDestroy(() => {
+    alive = false;
+    clearTimeout(searchTimer);
+  });
 </script>
 
 <svelte:window onkeydown={handleKeydown} />

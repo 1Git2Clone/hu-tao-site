@@ -173,8 +173,65 @@ test("leaving the page cancels a draft before delayed component destruction", as
     input.dispatchEvent(new Event("input", { bubbles: true }));
     await tick();
     for (const callback of beforeNavigations)
-      callback({ to: { url: new URL("http://localhost/infra") } });
+      callback({
+        to: { url: new URL("http://localhost/infra") },
+        complete: new Promise(() => {}),
+      });
     await vi.advanceTimersByTimeAsync(300);
+    expect(navigations).toHaveLength(0);
+    await screen.unmount();
+  } finally {
+    vi.useRealTimers();
+  }
+});
+
+test("a cancelled departure restores the pending search URL write", async () => {
+  vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
+  try {
+    const screen = await render(Blogs, { data: { posts } });
+    const input = screen
+      .getByPlaceholder("Search posts...")
+      .element() as HTMLInputElement;
+    input.value = "omega";
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+    await tick();
+    const complete = Promise.withResolvers<void>();
+    for (const callback of beforeNavigations)
+      callback({
+        to: { url: new URL("http://localhost/infra") },
+        complete: complete.promise,
+      });
+    await vi.advanceTimersByTimeAsync(300);
+    expect(navigations).toHaveLength(0);
+    complete.reject(new Error("Navigation cancelled"));
+    await vi.advanceTimersByTimeAsync(300);
+    expect(page.url.searchParams.get("q")).toBe("omega");
+    expect(navigations).toHaveLength(1);
+    await screen.unmount();
+  } finally {
+    vi.useRealTimers();
+  }
+});
+
+test("an external departure preserves the draft even if the browser stops loading", async () => {
+  vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
+  try {
+    const screen = await render(Blogs, { data: { posts } });
+    const input = screen
+      .getByPlaceholder("Search posts...")
+      .element() as HTMLInputElement;
+    input.value = "omega";
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+    await tick();
+    for (const callback of beforeNavigations)
+      callback({
+        to: { url: new URL("https://example.com/") },
+        willUnload: true,
+        complete: new Promise(() => {}),
+      });
+    await vi.advanceTimersByTimeAsync(300);
+    expect(page.url.searchParams.get("q")).toBe("omega");
+    expect(input.value).toBe("omega");
     expect(navigations).toHaveLength(0);
     await screen.unmount();
   } finally {
