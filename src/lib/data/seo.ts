@@ -131,7 +131,8 @@ export function jsonLd(meta: PageMeta, url: string) {
         sameAs: [
           `https://github.com/${GITHUB_PROFILE_NAME}`,
           "https://git.hu-tao.dev/hutao",
-          `https://twitter.com/${TWITTER_PROFILE_HANDLE.replace("@", "")}`,
+          `https://x.com/${TWITTER_PROFILE_HANDLE.replace("@", "")}`,
+          "https://bsky.app/profile/hu-tao.dev",
         ],
       },
       {
