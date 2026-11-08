@@ -13,14 +13,14 @@ this is the actual head sample nearest median LCP, not an averaged audit.
 Only the selected audits run, so the dashboard does not invent an overall
 PageSpeed score. The renderer measurement remains in the raw artifact.
 
-The `benchmarks` and `lighthouse` workflow artifacts also contain a standalone
+The `benchmarks` and `lighthouse-*` workflow artifacts also contain a standalone
 `report/index.html` and native Lighthouse HTML reports. They remain available
 for 14 days, including when a gate fails. Open the HTML after extracting the
 artifact. The published site updates only after every gate passes.
 
 `scripts/ci/performance-report.ts <artifact-directory> <output-directory>`
 renders the existing JSON files without collecting new samples. Deployment
-downloads both artifacts from the current workflow and generates the combined
+downloads the benchmark and all four Lighthouse artifacts from the current workflow and generates the combined
 report in `build/benchmarks` after the Netlify build. Report assets therefore
 do not change the measured application bundles or transfer budgets.
 
@@ -29,11 +29,16 @@ do not change the measured application bundles or transfer budgets.
 PRs use a fast Lighthouse check; pushes to `main` use the full comparison.
 The PR Lighthouse job targets under two minutes, including setup and build.
 
-| Job          | When        | Behaviour                                                                                                                            |
-| ------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `benchmarks` | PR and main | Compare the cold `/infra` layout against the baseline.                                                                               |
-| `lighthouse` | PR          | One head-only audit per profile: four audits total. Report timings; fail on byte/request budgets or broken measurements.             |
-| `lighthouse` | Main        | Seven baseline and seven head audits per profile: 56 total. Gate timings and bytes, then collect the report-only WebGL measurements. |
+| Job                 | When        | Behaviour                                                                                                                   |
+| ------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `benchmarks`        | PR and main | Compare the cold `/infra` layout against the baseline.                                                                      |
+| `lighthouse` matrix | PR          | Four parallel jobs, one head-only audit each. Report timings; gate bytes, requests and broken measurements.                 |
+| `lighthouse` matrix | Main        | Four parallel jobs, 14 paired audits each. Every profile compares base and head on the same runner. Gate timings and bytes. |
+| `renderer`          | Main        | Independent report-only software WebGL job. It does not block deployment.                                                   |
+
+The four profile jobs run independently, with `fail-fast: false`. One failure
+does not cancel the other reports. Each has a distinct artifact, retained even
+when its gate fails. Deployment waits for all four page gates.
 
 The fast path skips the baseline checkout, install and build, and the separate
 renderer report. It still checks all four profiles. A single timing sample
@@ -52,8 +57,11 @@ runners change CPU from run to run; comparing on one runner removes that.
 In full Lighthouse comparisons and the graph benchmark, both must hold:
 
 1. **It is consistent.** An exact one-sided permutation test (Mann–Whitney)
-   compares the base and head runs. All timings in one job share a 1 %
-   chance of a false failure (`ALPHA`, Holm's method). The run count is
+   compares the base and head runs. The complete Lighthouse suite shares a
+   1 % false-failure bound (`ALPHA`). Each parallel profile gets `ALPHA / 4`,
+   with Holm's method across its four timings. The union bound keeps the
+   complete suite at or below 1 %. The unsplit local command keeps global Holm.
+   The run count is
    chosen so this can fail at all: the smallest p-value of _n_ runs per side
    is 1 / C(2n, n). Lighthouse gates 16 timings, so it needs 7 runs per side;
    the script refuses fewer.
@@ -98,15 +106,21 @@ with an exact, per-run command-line marker, including detached children.
 
 ## When bytes fail
 
-Byte and request counts do not vary between runs, so they are not timings.
+Byte and request counts use explicit budgets, not timing significance tests.
 `budgets` in `baseline.json` hold the baseline's value plus the largest
 difference seen between two clean builds of the same commit: SvelteKit's
 content hashes and its `__sveltekit_<id>` name change from build to build.
-Requests get their own allowance, from request counts only. Head fails when
-it goes over. `record` accepts only complete, clean A/A runs of one commit,
+`transferAllowanceBytes` adds an explicit 1 KiB materiality allowance to script
+and total transfer budgets. Small metadata edits and compression differences
+can change a few bytes without a meaningful performance change. This is a
+policy choice, not an empirically measured noise floor. It applies once per
+transfer metric, never to requests or timings. Request budgets remain exact.
+Head fails above the resulting limit. Reports show that effective limit.
+Older baselines without the field retain exact byte limits. `record` preserves
+the reviewed allowance and accepts only complete, clean A/A runs of one commit,
 from one machine.
 
-A real byte increase, such as a new post on `/blogs`, can raise only the
+A real byte increase above the allowance, such as a new post on `/blogs`, can raise only the
 affected `budgets` entry by hand in a reviewed commit that says why. The
 timings and floors stay as recorded. Browser versions and build environments
 can also change transfer counts. Such an update needs evidence from both
@@ -171,6 +185,8 @@ node scripts/checks/performance-bench.ts lighthouse-smoke <head> --out /tmp/ligh
 ```
 
 The existing `lighthouse <base> <head>` command retains the full comparison.
+Pass `--profile 'mobile /'` (or another exact profile name) to either Lighthouse
+command to run one shard. Unknown profiles and profiles on other commands fail.
 
 ## Initial evidence
 
@@ -267,3 +283,10 @@ transfer spread between source-equivalent hosted PR and main builds. The older
 plus that 13-byte spread where existing headroom is smaller.
 `2026-11-08-hosted-build-variance-review.json` records the three corrected
 budgets, the source comparison and the full main results.
+
+The `sameAs` metadata update passes all 16 timings. Its hosted run exceeds
+the `/blogs` total budget by 6 bytes and the article budget by 3 bytes.
+`2026-11-09-sameas-budget-review.json` records the explicit 1 KiB transfer
+policy. The baseline budgets, timing floors, sample counts and request limits
+stay unchanged. The raw failed run is preserved; tests replay its byte checks and confirm that
+an injected 20 KB payload or one added request still exceeds the limits.

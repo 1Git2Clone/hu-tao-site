@@ -425,3 +425,4 @@ Project-specific skills live in `.agents/skills/` and are loaded via the `skill`
 - `plural-collection-routes` — Collection pages use plural routes and labels, e.g. `/blogs` and `Blogs`
 - `blog-assets-by-slug` — Group public blog assets by slug, then type: `static/blogs/<slug>/images/<image>`
 - `preview-test-data` — PR deployments include test data; production excludes fixtures
+- `parallel-performance-ci` — Split independent Lighthouse profiles and renderer reports; diagnose failures from recorded measurements
