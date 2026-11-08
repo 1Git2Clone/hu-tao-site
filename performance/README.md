@@ -254,3 +254,9 @@ The article now loads three images that the previous reference did not request.
 Byte budgets use the larger measured reference/head transfer plus the existing
 10-byte build allowance; request counts have no allowance.
 `2026-11-08-new-base-review.json` records each changed limit and both full runs.
+
+The hosted Chrome 158 smoke run of the same production source adds three
+transfer-budget corrections over local Chrome 156. Each uses the observed
+hosted value plus the existing 10-byte build allowance. Request counts and
+timing limits stay unchanged. `2026-11-08-new-base-ci-budget-review.json` links
+the workflow, preserved raw samples and exact budget changes.
