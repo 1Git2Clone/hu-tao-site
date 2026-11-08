@@ -7,7 +7,7 @@
 //   node scripts/checks/performance-bench.ts record <workloads.json> <lighthouse.json>
 //
 // <base> and <head> are checkout roots with their own node_modules. For
-// `lighthouse` and `renderer`, each must also hold a production build.
+// `lighthouse`, the base must also hold a production build. The head is rebuilt.
 // `workloads` and `lighthouse` exit 1 when a metric regressed. `renderer` only
 // reports. `record` turns two A/A results into performance/baseline.json.
 // performance/README.md explains the method.
@@ -16,6 +16,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { parseArgs } from "node:util";
+import { fileURLToPath } from "node:url";
 import { killMarked, run } from "./performance-run.ts";
 import {
   ALPHA,
@@ -253,7 +254,17 @@ const git = (root: string, ...args: string[]) =>
 const describe = (root: string) => ({
   root,
   commit: git(root, "rev-parse", "HEAD"),
-  dirty: git(root, "status", "--porcelain", "--untracked-files=no") !== "",
+  dirty:
+    git(root, "status", "--porcelain", "--untracked-files=no") !== "" ||
+    git(
+      root,
+      "ls-files",
+      "--others",
+      "--exclude-standard",
+      "--",
+      ".",
+      ":(exclude)performance/results/**",
+    ) !== "",
 });
 const cpus = os.cpus();
 const environment: Record<string, unknown> = {
@@ -337,10 +348,27 @@ const serve = async (root: string, port: number) => {
   throw new Error(`no server on port ${port} for ${root}`);
 };
 
+const build = (root: string) =>
+  run("pnpm", ["run", "build"], { cwd: root, timeout: 120_000 });
+
 if (kind === "renderer") {
   // Report only: software WebGL timings say little about a phone's GPU, and
   // hosted runners have none. Fixed SwiftShader, so every host renders alike.
   const { chromium } = await import("@playwright/test");
+  await build(base);
+  // Covers startup, every CDP/evaluate call, sampling, and browser shutdown.
+  const watchdog = setTimeout(() => {
+    const error = "renderer: no completion in 60 s";
+    write({ ...partial, kind, environment, incomplete: true, error });
+    for (const server of servers) {
+      try {
+        process.kill(-server.pid!, "SIGKILL");
+      } catch {}
+    }
+    killMarked(MARKER);
+    console.error(error);
+    process.exit(2);
+  }, 60_000);
   const url = await serve(base, 4183);
   const args = [
     MARKER,
@@ -358,6 +386,7 @@ if (kind === "renderer") {
     desktop: { width: 1350, height: 940, deviceScaleFactor: 1 },
   };
   const report: Record<string, unknown> = {};
+  partial = { kind, environment, root: describe(base), report };
   for (const [name, { deviceScaleFactor, ...viewport }] of Object.entries(
     viewports,
   )) {
@@ -370,35 +399,27 @@ if (kind === "renderer") {
     const webgl = await page.evaluate(() =>
       document.documentElement.classList.contains("webgl"),
     );
+    if (!webgl) throw new Error(`${name}: WebGL unavailable`);
     const busy = async () =>
       (await cdp.send("Performance.getMetrics")).metrics.find(
         (m) => m.name === "TaskDuration",
       )!.value;
     const before = await busy();
-    // Five seconds of frames. A timer ends it even when frames stop coming,
-    // and the outer race ends it when the page stops answering at all.
-    const frames = await Promise.race([
-      page.evaluate(
-        () =>
-          new Promise<number[]>((resolve) => {
-            const times: number[] = [];
-            const done = () =>
-              resolve(times.slice(1).map((x, i) => x - times[i]));
-            setTimeout(done, 5000);
-            const tick = (t: number) => {
-              times.push(t);
-              requestAnimationFrame(tick);
-            };
+    // Five seconds of frames; the watchdog also covers an unresponsive page.
+    const frames = await page.evaluate(
+      () =>
+        new Promise<number[]>((resolve) => {
+          const times: number[] = [];
+          const done = () =>
+            resolve(times.slice(1).map((x, i) => x - times[i]));
+          setTimeout(done, 5000);
+          const tick = (t: number) => {
+            times.push(t);
             requestAnimationFrame(tick);
-          }),
-      ),
-      new Promise<never>((_, reject) =>
-        setTimeout(
-          () => reject(new Error(`${name}: no answer in 20 s`)),
-          20_000,
-        ),
-      ),
-    ]);
+          };
+          requestAnimationFrame(tick);
+        }),
+    );
     if (frames.length < 2)
       throw new Error(`${name}: ${frames.length} frames in 5 s`);
     const mainThread = (await busy()) - before;
@@ -417,6 +438,7 @@ if (kind === "renderer") {
   environment.browser = browser.version();
   environment.browserArgs = args;
   await browser.close();
+  clearTimeout(watchdog);
   stopServers();
   console.log(JSON.stringify(report, null, 2));
   write({ kind, environment, root: describe(base), report });
@@ -467,7 +489,7 @@ const order: ("base" | "head")[] = smoke ? ["head"] : abba(runs);
 
 if (kind === "workloads") {
   assertPower(runs, 1);
-  const script = new URL(import.meta.url).pathname;
+  const script = fileURLToPath(import.meta.url);
   for (const side of order) {
     const root = side === "base" ? base : head;
     const ms = Number(
@@ -481,6 +503,7 @@ if (kind === "workloads") {
   }
 } else {
   if (!smoke) assertPower(runs, PROFILES.length * Object.keys(AUDITS).length);
+  await build(head);
   const urls = {
     ...(smoke ? {} : { base: await serve(base, 4181) }),
     head: await serve(head, 4182),

@@ -13,8 +13,6 @@ runs:
     # The lockfile pins this Chromium, so the browser changes only with it.
     - run: pnpm exec playwright install --with-deps chromium
       shell: bash
-    - run: pnpm run build
-      shell: bash
     - if: inputs.mode != 'smoke'
       run: scripts/ci/performance-baseline.sh "$RUNNER_TEMP/baseline" build
       shell: bash
