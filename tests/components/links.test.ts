@@ -1,6 +1,14 @@
 import { expect, test } from "vitest";
 import { render } from "vitest-browser-svelte";
 import Links from "./Links.svelte";
+import Twitter from "$lib/components/icons/Twitter.svelte";
+
+test("the Twitter SVG has its own Twitter label", async () => {
+  const screen = await render(Twitter);
+  expect(
+    screen.container.querySelector("svg")?.getAttribute("aria-label"),
+  ).toBe("Twitter");
+});
 
 test("link cards render dot, component and Nerd icons with safe external links", async () => {
   const screen = await render(Links);
