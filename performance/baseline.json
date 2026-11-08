@@ -1,5 +1,5 @@
 {
-  "commit": "a85553847adf1252966c97031e94ac24c5e6523e",
+  "commit": "c2a687677cd05c0e7e72426ddf53ecb9f6a9af06",
   "alpha": 0.01,
   "runs": {
     "workloads": 10,
@@ -25,17 +25,17 @@
     "desktop / cls": 0
   },
   "budgets": {
-    "mobile / script bytes": 96372,
-    "mobile / total bytes": 338149,
+    "mobile / script bytes": 96620,
+    "mobile / total bytes": 338541,
     "mobile / requests": 22,
-    "mobile /blogs script bytes": 99093,
-    "mobile /blogs total bytes": 318695,
+    "mobile /blogs script bytes": 99391,
+    "mobile /blogs total bytes": 319166,
     "mobile /blogs requests": 22,
     "mobile /blogs/intro-to-big-o-notation script bytes": 98381,
-    "mobile /blogs/intro-to-big-o-notation total bytes": 478964,
-    "mobile /blogs/intro-to-big-o-notation requests": 27,
-    "desktop / script bytes": 96372,
-    "desktop / total bytes": 338149,
+    "mobile /blogs/intro-to-big-o-notation total bytes": 530879,
+    "mobile /blogs/intro-to-big-o-notation requests": 30,
+    "desktop / script bytes": 96620,
+    "desktop / total bytes": 338541,
     "desktop / requests": 22
   },
   "evidence": [
@@ -45,9 +45,11 @@
   "budgetEvidence": [
     "results/2026-11-07-ci-lighthouse.json",
     "results/2026-11-07-byte-budget-review.json",
-    "results/2026-11-07-report-byte-budget-review.json"
+    "results/2026-11-07-report-byte-budget-review.json",
+    "results/2026-11-08-new-base-review.json"
   ],
   "floorEvidence": {
     "mobile /blogs/intro-to-big-o-notation fcp": "results/2026-11-08-ci-fcp-floor-review.json"
-  }
+  },
+  "referenceEvidence": "results/2026-11-08-new-base-review.json"
 }

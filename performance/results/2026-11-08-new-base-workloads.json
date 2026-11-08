@@ -1,0 +1,78 @@
+{
+  "kind": "workloads",
+  "environment": {
+    "date": "2026-11-08T12:21:05.715Z",
+    "os": "Linux 7.3.0 x64",
+    "cpu": "AMD Ryzen 5 3600X 6-Core Processor",
+    "cores": 12,
+    "memoryGiB": 15.5,
+    "node": "v26.12.1",
+    "ci": false,
+    "runner": null,
+    "image": null,
+    "run": null,
+    "loadBefore": [5.93, 5.16, 4.52],
+    "loadAfter": [6.55, 5.43, 4.65]
+  },
+  "baselineCommit": "a85553847adf1252966c97031e94ac24c5e6523e",
+  "base": {
+    "root": "/tmp/pr22-new-main-baseline",
+    "commit": "c2a687677cd05c0e7e72426ddf53ecb9f6a9af06",
+    "dirty": false
+  },
+  "head": {
+    "root": "/home/hutao/.bb/plugins/environment-git-worktree/host-data/worktrees/thr_fkp4zmqc52-1/hu-tao-site",
+    "commit": "55f861acb4c41aa6a823b84635599be0161f40a6",
+    "dirty": false
+  },
+  "timingReportOnly": false,
+  "runs": 10,
+  "order": [
+    "base",
+    "head",
+    "head",
+    "base",
+    "base",
+    "head",
+    "head",
+    "base",
+    "base",
+    "head",
+    "head",
+    "base",
+    "base",
+    "head",
+    "head",
+    "base",
+    "base",
+    "head",
+    "head",
+    "base"
+  ],
+  "samples": {
+    "infra-layout ms": {
+      "base": [
+        2603.187401, 2251.739416, 2406.94507, 2351.4621429999997, 2240.518642,
+        2207.777153, 2233.661282, 2245.878932, 2350.028125, 2561.440387
+      ],
+      "head": [
+        2301.812846, 2335.872288, 2261.834299, 2406.6057809999998, 2184.65662,
+        2432.201688, 2077.433194, 2255.539406, 2545.301645, 2200.960865
+      ]
+    }
+  },
+  "bytes": {},
+  "verdicts": [
+    {
+      "name": "infra-layout ms",
+      "base": 2300.8837704999996,
+      "head": 2281.8235725,
+      "delta": -19.060197999999673,
+      "floor": 104.56484200000023,
+      "p": 0.7106291541276062,
+      "level": 0.01,
+      "regressed": false
+    }
+  ],
+  "budgets": []
+}
