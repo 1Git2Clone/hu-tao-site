@@ -39,3 +39,28 @@ test("clipboard rejection leaves the copy control ready for another attempt", as
   await Promise.resolve();
   expect(button.element().textContent?.trim()).toBe("\uf44c");
 });
+
+test("late clipboard completions cannot restart feedback or create timers after unmount", async () => {
+  vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
+  const writes: (() => void)[] = [];
+  vi.spyOn(navigator.clipboard, "writeText").mockImplementation(
+    () => new Promise<void>((resolve) => writes.push(resolve)),
+  );
+  const screen = await render(Terminal);
+  const button = screen
+    .getByRole("button", { name: "Copy a link to Example" })
+    .element() as HTMLButtonElement;
+  button.click();
+  button.click();
+  writes[1]();
+  await vi.advanceTimersByTimeAsync(1000);
+  expect(button.textContent?.trim()).toBe("\uf42e");
+  writes[0]();
+  await vi.advanceTimersByTimeAsync(250);
+  expect(button.textContent?.trim()).toBe("\uf44c");
+  button.click();
+  await screen.unmount();
+  writes[2]();
+  await vi.advanceTimersByTimeAsync(0);
+  expect(vi.getTimerCount()).toBe(0);
+});
